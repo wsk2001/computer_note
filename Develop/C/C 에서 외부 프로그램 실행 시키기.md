@@ -132,20 +132,15 @@ int main(int argc, char** argv)
 }
 ```
 
-
-
 * VeryLongExec.c 는 글을 적는 시점에 즉석에서 작성한 프로그램 이지만 정상 작동 할 것으로 보인다.
-
 
 
 프로그램의 동작은 "exec_main" 이 실행 되고 내부적으로 VeryLongExec 를 호출 하여 2개의 프로그램이 동시에 실행 되면서 '.' 과 '#' 가 번갈아 (실행에 따라 순차적이지 않을 수 있음)  출력 되다, exec_main 프로그램이 먼저 종료 되고  "VeryLongExec" 프로그램이 나머지 '#' 을 출력 하고 종료 된다.
 
 
-
 execLinuxProces() 함수는 char *argv[4]; 를 수정 하여 argment 의 개 수 를 조정 할 수 있다.
 
 하지만 마지막 인자는 반드시 NULL 로 대입 후 호출 하여야  한다.
-
 
 
 ##### - 끝 -
