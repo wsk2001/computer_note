@@ -33,7 +33,6 @@
 
  - RAC(Real Application Clusters) 환경에서 인스턴스간 Block Connection을 감소시킨다.
 
-![img](C:\WORKSPACE\wonsool\static\images\oracle\rac.png)
 
 **파티션 테이블 사용시 주의할 점**
 
