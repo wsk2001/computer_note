@@ -32,11 +32,11 @@ Linux man page 를 보면 "exec () 함수 군은 현재 프로세스 이미지�
 /**
  * 외부 프로그램을 실행 시킨다. 
  *
- * @param	program		[in]	program 명
- * @param	arg1		[in]	program 실행시 전달할  첫번째 parameter
- * @param	arg2		[in]	program 실행시 전달할  두번째 parameter 
- * @return	정상 실행시: 0, 오류 발생시 -1
- * @see		이 함수를 호출 하기전에 SIGCHLD 시그널을 무력화 시키지 않으면.
+ * @param   program     [in]    program 명
+ * @param   arg1        [in]    program 실행시 전달할  첫번째 parameter
+ * @param   arg2        [in]    program 실행시 전달할  두번째 parameter 
+ * @return  정상 실행시: 0, 오류 발생시 -1
+ * @see     이 함수를 호출 하기전에 SIGCHLD 시그널을 무력화 시키지 않으면.
  *          zombie 가 발생 한다.
  */
 int execLinuxProcess( char* program, char* arg1, char* arg2 )
@@ -65,10 +65,10 @@ int execLinuxProcess( char* program, char* arg1, char* arg2 )
 
 int main(int argc, char** argv)
 {
-	struct sigaction    act;
-	int					state = 0;
-	int					i     = 0;
-	
+    struct sigaction    act;
+    int                 state = 0;
+    int                 i     = 0;
+    
     act.sa_handler = SIG_IGN;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
@@ -76,22 +76,22 @@ int main(int argc, char** argv)
     // register signal handler
     state = sigaction(SIGCHLD, &act, 0);
 
-	if(state != 0){
-	    puts("sigaction() error");
-	    exit(1);
-	}
+    if(state != 0){
+        puts("sigaction() error");
+        exit(1);
+    }
 
-	// 이 아래 서 부터 외부 프로그램을 실행 시키면 된다.
-	execLinuxProcess("VeryLongExec","0", "100"  );
-	
-	for( i = 0; i < 50; i++ )
-	{
+    // 이 아래 서 부터 외부 프로그램을 실행 시키면 된다.
+    execLinuxProcess("VeryLongExec","0", "100"  );
+    
+    for( i = 0; i < 50; i++ )
+    {
         sleep( 1 );
         print(".");
         fflush( stdout );
-	}
-	
-	return 0;
+    }
+    
+    return 0;
 }
 ```
 
@@ -145,6 +145,3 @@ execLinuxProces() 함수는 char *argv[4]; 를 수정 하여 argment 의 개 수
 
 ##### - 끝 -
 
-
-
- 
