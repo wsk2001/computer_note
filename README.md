@@ -5,10 +5,13 @@
 
 사용 언어는 C/C++, Java, C#, Python, Go 등이 될것 이며, 프로젝트 진행중 사용했던 주요 기술을 적을 예정 입니다.   
 
-1986년 부터 지금까지 30면 넘게 개발을 하고 있습니다.  
+1986년 부터 지금까지 30년 넘게 개발을 하고 있습니다.  
 
 아래는 프로젝트 수행 이력 입니다. 리스트에 있는것 보다 더 많은 프로젝트를 수행 했는데 작은 규모의 프로젝트는 제외 하였습니다.
 프로젝트 수행 관련 조언 또는 도움이 필요하면 wsk2001@gmail.com 으로 연락 주시면 됩니다.
+<br/><br/>
+혹시 파우치 또는 에코백 필요 하신분은 https://smartstore.naver.com/geniedaall 방문 하세요
+<br/><br/>
 
 ##### 한컴시큐어 DB 암호화 솔루션 구축 및 개발 지원
 - Plugin 개발(Oracle, MS-SQL, MySQL, DB2, Cubrid, Tibero,PostgreSQL, Teradata, MariaDB
