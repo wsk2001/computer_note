@@ -30,12 +30,11 @@ int main(int argc, char **argv)
         exit( 0 );
     }
       
-	if( cmdparams.cmdOptionExists("-h")  || 
+    if( cmdparams.cmdOptionExists("-h")  || 
         cmdparams.cmdOptionExists("--h") || 
         cmdparams.cmdOptionExists("/h")  ||
-        cmdparams.cmdOptionExists("/?") 
-        )
-	{
+        cmdparams.cmdOptionExists("/?") )
+    {
         cmdparams.printOptions();
         exit( 0 );
     }
@@ -46,12 +45,12 @@ int main(int argc, char **argv)
         exit( 0 );
     }
 
-	const std::string &log_level = cmdparams.getCmdOption("-ll");
+    std::string log_level = cmdparams.getCmdOption("-ll");
     if (!log_level.empty()){
         printf( "log level = %s\n", log_level.c_str() );
     }
     
-	return 0;
+    return 0;
 }
 
 /*
