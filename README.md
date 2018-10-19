@@ -13,7 +13,7 @@
 혹시 파우치 또는 에코백 필요 하신분은 https://smartstore.naver.com/geniedaall 방문 하세요
 <br/><br/>
 
-##### 한컴시큐어 DB 암호화 솔루션 구축 및 개발 지원
+##### <span style="color:blue"> 한컴시큐어 DB 암호화 솔루션 구축 및 개발 지원</span>
 - Plugin 개발(Oracle, MS-SQL, MySQL, DB2, Cubrid, Tibero,PostgreSQL, Teradata, MariaDB
 - 각 개발언어 별 API Wrapper 개발 (C/C++,Pro*C, JAVA, VB,DELPHI, PowerBuilder, COBOL, Python, C#, Informatica)
 - BMT, PoC 수행
