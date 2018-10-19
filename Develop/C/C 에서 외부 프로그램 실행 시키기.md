@@ -56,7 +56,7 @@ int execLinuxProcess( char* program, char* arg1, char* arg2 )
     }
     else if ( pid < 0)
     {
-        printf("cannot fork for exec %s\n", argv[0]) ;
+        printf("cannot fork for execLinuxProcess %s\n", argv[0]) ;
         return -1 ;
     }
 
