@@ -33,7 +33,7 @@ class CmdLineParser
                 std::string key = argv[i];
 
                 if( key.at(0) == '-' || key.at(0) == '/')
-                    this->tokens.push_back( upperString(key) ); 
+                    this->tokens.push_back( key ); 
                 else
                     this->tokens.push_back(std::string(argv[i]));
             }
@@ -43,7 +43,7 @@ class CmdLineParser
         {
             std::vector<std::string>::const_iterator itr;
             
-            itr =  std::find(this->tokens.begin(), this->tokens.end(), upperString(option));
+            itr =  std::find(this->tokens.begin(), this->tokens.end(), option);
             
             // return to next paramater
             if (itr != this->tokens.end() && ++itr != this->tokens.end())
@@ -58,14 +58,14 @@ class CmdLineParser
         
         bool cmdOptionExists(const std::string &option) const
         {
-            return std::find(this->tokens.begin(), this->tokens.end(), upperString(option))
+            return std::find(this->tokens.begin(), this->tokens.end(), option)
                    != this->tokens.end();
         }
 
         void addOption( std::string key, std::string value )
         {
             map_options.insert(pair<string,string> (key,value));
-            this->options.push_back( upperString(key) ); 
+            this->options.push_back( ke) ); 
         }
         
         std::string getOption(std::string key)
@@ -129,5 +129,8 @@ class CmdLineParser
         std::string UsageMsg;
         std::vector <std::string> options;
 };
+
+// Key 값 을 Upper string 으로 만들었더니 Unix, Linux 에서 directory 명 등을 옵션 으로 처리 했을때 문제가 있어서.
+// Upper String 으로 처리 하는 부분은 제거함.
 
 
