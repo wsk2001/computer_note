@@ -19,7 +19,7 @@ Linux man page 를 보면 "exec () 함수 군은 현재 프로세스 이미지�
 
 * exec_main.c 
 
-```
+```C
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -101,7 +101,7 @@ int main(int argc, char** argv)
 
 * VeryLongExec.c
 
-```
+```C
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
