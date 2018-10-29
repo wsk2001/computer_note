@@ -10,7 +10,7 @@ Daemon 프로그램 이란?  Linux, Unix 에서 백그라운드로 실행 되는
 
 
 
-```
+```C
 #include <sys/type.h>
 #include <sys/stat.h>
 #include <fcntl.h>
