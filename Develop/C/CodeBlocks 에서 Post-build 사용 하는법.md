@@ -18,6 +18,21 @@ cmd /c copy "$(PROJECT_DIR)$(TARGET_OUTPUT_FILE)" "..\bin"
 
 - 컴파일된 결과 파일을 "..\bin" 경로로 복사 한다.
 
+- 참고로 Code::Blocks 의 project 파일을 이용하여 Makefile 을 만들어 주는 tool 이 있다. cbp2make
+- 파일은 https://sourceforge.net/projects/cbp2make/ 에서 내려 받아 사용 하면 된다.
+- 사용 방법은 https://sourceforge.net/p/cbp2make/wiki/Home/ 에 잘 나와 있다.
+
+사용 예
+```
+cbp2make -in my_project.cbp -windows
+
+cbp2make -in my_project.cbp -unix
+
+cbp2make -in my_project.cbp -unix -windows -mac
+
+cbp2make -in my_project.cbp --all-os
+```
+
 ### - 끝 -
 
 
