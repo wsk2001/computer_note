@@ -4,7 +4,7 @@
 
 #### 1. jsoncpp 설치
 
-###### 1.1 파일 받기 위치
+##### 1.1 파일 받기 위치
 
 <https://github.com/open-source-parsers/jsoncpp>
 
@@ -14,7 +14,7 @@ download 된 파일의 이름은 'jsoncpp-master.zip'  이다.
 
 
 
-###### 1.2 압축 해제 
+##### 1.2 압축 해제 
 
 압축을 해제 하면 '.\jsoncpp-master\jsoncpp-master' directory 가 생성 되고 그 아래 압축된 파일들이 위치 하게 된다.  그럼 
 
@@ -26,7 +26,7 @@ cd .\jsoncpp-master\jsoncpp-master
 
 
 
-###### 1.3 source 파일 및 header 파일 생성
+##### 1.3 source 파일 및 header 파일 생성
 
 작업 할 경로로 이동 했으면 다음 명령으로 jsoncpp 파일 을 생성 한다.
 
@@ -54,13 +54,13 @@ Source successfully amalgamated
 
 
 
-###### 1.4  jsoncpp 사용
+##### 1.4  jsoncpp 사용
 
 json 기능이 필요한 project 에 json.h, json.cpp 를 포함 시키고,  json.h 를 include 한 소스 파일에서 cppjson 에서 지원하는 함수를 사용 하면 된다.
 
 
 
-###### 1.5 테스트를 위한 공통 함수
+##### 1.5 테스트를 위한 공통 함수
 
 테스트를 위해서 json 을 파일에 쓰고, 읽는 테스트 함수들. 
 
@@ -113,7 +113,7 @@ bool ReadFromFile(const char* filename, char* buffer, int len)
 
 
 
-###### 1.6 json 파일 생성 예제.
+##### 1.6 json 파일 생성 예제.
 
 ```cpp
 // write_json.cpp
@@ -235,7 +235,7 @@ int main(int argc, char** argv)
 
 
 
-###### 1.7 json 파일 읽는 예제
+##### 1.7 json 파일 읽는 예제
 
 ```cpp
 #include <iostream>
@@ -301,7 +301,7 @@ int main(int argc, char** argv)
 
 
 
-###### 1.7 주의
+##### 1.8 참조 & 주의
 
 JsonCpp가 Windows에서 동적 라이브러리로 빌드 된 경우 프로젝트에서 매크로 JSON_DLL을 정의해야합니다.
 
