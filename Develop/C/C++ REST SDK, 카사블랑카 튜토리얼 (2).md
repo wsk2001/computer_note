@@ -1,4 +1,4 @@
-## C++ REST SDK, 카사블랑카 튜토리얼 (2)
+### C++ REST SDK, 카사블랑카 튜토리얼 (2)
 
 네이티브 개발자를 위한 클라우드 라이브러리
 
@@ -26,8 +26,8 @@ http_client는 서버와의 커넥션을 추상화한 객체로, http_client 클
 <리스트 1> 지정된 URI에 웹페이지 요청 및 출력
 
 ```cpp
-#include &lt;windows.h&gt;
-#include &lt;iostream&gt;
+#include <windows.h>
+#include <iostream>
 #include "http_client.h"
 using namespace web::http;
 using namespace web::http::client;
@@ -40,11 +40,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	builder.set_port(80);
 	uri u(builder.to_uri());
 	http_client client(u);
-	pplx::task&lt;http_response&gt; responseTask =
+	pplx::task<http_response> responseTask =
 		client.request(methods::GET, U("/index.html");
 	http_response response = responseTask.get();
 	utility::string_t str = response.extract_string().get();
-	std::wcout &lt;&lt; str.c_str() &lt;&lt; std::endl;
+	std::wcout << str.c_str() << std::endl;
 	return 0;
 }
 ```
@@ -80,7 +80,7 @@ http_client(const uri &base_uri, const http_client_config& client _config);
 
 이미 알고 있겠지만 C++에서 표준 출력 스트림을 이용하기 위해서는 cout을, 유니코드 환경일 경우 wcout을 사용한다. 윈도우의 표준 문자셋은 유니코드지만 개발자가 간단히 테스트할 경우 표준 출력 스트림으로 wcout보다 cout을 선호하는 경향이 많다. 이런 이유에서인지 유니코드 스트링을 표준 출력 스트림을 통해 출력할 경우 지역 설정에 따라 콘솔에서 한글이 보이지 않는 경우가 더러 있다. 간단한 영문과 한글 혼용 문자열을 표준 출력 스트림으로 출력하는 <리스트 3>이 그 대표적인 예다.
 
-&lt;&lt;리스트 3&gt; 영문과 한글이 혼용된 문자열 출력
+<<리스트 3> 영문과 한글이 혼용된 문자열 출력
 ```cpp
 #include <iostream>
 #include <conio.h>
@@ -95,7 +95,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 만약 영문과 한글이 혼용된 문자열인 ‘hello 월드’를 출력했는데 ‘hello’만 출력됐다면 지역 설정이 한글을 출력할 수 없기 때문이다. C++ 표준 라이브러리는 특정 언어의 구현, 날짜 및 시간 규약, 통화와 같은 지역에 특화된 정보를 지원하는 std::locale 클래스를 제공한다. std::locale 클래스 덕분에 지역이 달라도 C++ 표준 라이브러리의 컨테이너나 표준 출력 스트림이 정확한 정보를 유지할 수 있는 것이다. 따라서 wcout 인스턴스로 한글을 정상적으로 출력하기 위해서는 지역 설정을 변경해야 한다. 지역 설정 변경에는 함수를 이용한 방법, 글로벌하게 지역 설정을 변경하는 방법, wcout 객체의 지역 설정 값을 변경하는 방법 등이 있다.
 
-&lt;리스트 4&gt; 지역 설정 변경 방법
+<리스트 4> 지역 설정 변경 방법
 ```cpp
 setlocale(LC_ALL, "kor"); // 함수로 지역 설정 변경
 std::locale::global( std::locale("kor")); 
@@ -106,7 +106,7 @@ std::wcout.imbue(std::locale("kor"));
 
 먼저 locale 파일에서 제공하는 함수인 setlocale로 설정 카테고리와 지역 문자열 값을 인자로 받자. 카테고리를 LC_ALL로 설정하고 지역 문자열의 값을 ‘kor’로 설정했다면 C++ 표준 라이브러리의 지역 설정 값이 ‘KOREAN’으로 변경돼 표준 출력 스트림으로 한글 유니코드를 출력할 수 있게 된다.
 
-&lt;리스트 5&gt; 지역 설정과 관련된 함수
+<리스트 5> 지역 설정과 관련된 함수
 
 ```cpp
 int _configthreadlocale(int _Flag);
@@ -123,7 +123,7 @@ void _free_locale(_locale_t _Locale);
 
 std::locale::global은 C++ 형태로 전역적으로 지역 설정 값을 변경하며, 지역 설정 변경에는 std::wcout.imbue를 이용한다. 그러나 만약 지역 설정 값이 잘못돼 오류가 발생할 경우 인식할 수 없는 유니코드 값으로 인해 더 이상 문자열이 출력되지 않으니 주의하자(<리스트 6> 참조).
 
-&lt;리스트 6&gt; ‘Hello’ 다음의 문자열이 출력되지 않는 경우
+<리스트 6> ‘Hello’ 다음의 문자열이 출력되지 않는 경우
 
 ```cpp
 wchar_t const * str = L"Hello 월드";
@@ -136,7 +136,7 @@ std::wcout << str2 << std::endl;
 
 예컨대 <리스트 6>에서 ‘Hello 월드’란 문자열과 ‘(World)’란 문자열을 표준 출력 스트림을 버퍼로 순차 출력하는데, 지역 설정이 올바르지 않으면 콘솔에 ‘Hello’만 출력되고 ‘월드’나 ‘(World)’는 출력되지 않는 것이다. 이 경우 wcout::fail 함수로 상태 값을 얻어와 wcout::clear 함수로 버퍼를 비울 수 있다.
 
-&lt;리스트 7&gt; ‘Hello (World)’ 출력 유도
+<리스트 7> ‘Hello (World)’ 출력 유도
 
 ```cpp
 wchar_t const * str = L"Hello 월드";
@@ -164,7 +164,7 @@ request 메소드는 task
 
 task 클래스의 get 메소드는 비동기로 동작하는 task 인스턴스 작업이 완료되면 task의 템플릿 인자로 넘긴 타입의 결과값을 반환해 메인 스레드의 작업을 동기화시킨다. 이 부분도 비동기로 처리하고 싶다면 <리스트 8>처럼 task의 then 메소드로 메인 스레드와 비동기적인 작업으로 분리할 수 있다.
 
-&lt;리스트 8&gt; task의 then 메소드를 이용한 비동기 작업
+<리스트 8> task의 then 메소드를 이용한 비동기 작업
 ```cpp
 client.request(methods::GET).then([=](pplx::task<http_response> task) {
 	// ...
@@ -175,7 +175,7 @@ client.request(methods::GET).then([=](pplx::task<http_response> task) {
 
 서버와 클라이언트 간의 통신을 살펴보기 위해 이전 시간에 소개한 서버 예제를 수정한 <리스트 9>를 참고하자. 이 코드는 키보드 입력이 있기 전까지 클라이언트는 HTTP GET 요청 내용을 콘솔 화면에 덤프하고, 응답코드로 ‘OK’와 함께 ‘OK!’란 문자열을 반환한다. 관리자 권한 실행이 불편하다면 uri의 주소를 ‘http://localhost:9991/test’로 변경하면 되는데, localhost로 서버 측의 주소를 변경한 경우 클라이언트의 호출 URI도 localhost에 맞춰야 함을 잊지 말자.
 
-&lt;리스트 9&gt; HTTP GET 요청에 응답하는 서버의 코드
+<리스트 9> HTTP GET 요청에 응답하는 서버의 코드
 ```cpp
 #include <windows.h>
 #include <iostream>
@@ -212,7 +212,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 <리스트 9>가 정상적으로 실행됐다면 이제 <리스트 10>을 실행해 <리스트 9>의 결과값인 ‘OK!’가 정상적으로 출력되는지 확인하자.
 
-&lt;리스트 10&gt; 서버에 HTTP GET을 요청한 후 결과 출력
+<리스트 10> 서버에 HTTP GET을 요청한 후 결과 출력
 ```cpp
 uri u(U("http://localhost:9991/test"));
 http_client client(u);
@@ -230,7 +230,7 @@ http_client의 request 메소드는 서버와의 통신이 성공하든 실패�
 
 서버로부터 온 HTTP 정보는 HTTP 헤더에 기술돼 있다. 헤더 정보는 http_response 클래스의 headers 메소드를 이용해 접근할 수 있는데, <리스트 11>은 헤더 정보 중 본문 길이와 본문의 타입을 반환한다. 여기서 body_len은 3, content_type은 서버로부터 받은 ‘text/plain; charset=utf-8’이 대입된다.
 
-&lt;리스트 11&gt; content_length와 content_type 메소드의 사용
+<리스트 11> content_length와 content_type 메소드의 사용
 ```cpp
 size_t body_len = response.headers().content_length();
 utility::string_t content_type = response.headers().content_type();
@@ -240,7 +240,7 @@ http_headers가 제공하는 특정 헤더의 값을 얻을 때에는 http_heade
 
 
 
-&lt;리스트 12&gt; match를 사용한 헤더 정보 조회
+<리스트 12> match를 사용한 헤더 정보 조회
 ```cpp
 bool check = false;
 size_t body_len2 = 0;
@@ -253,7 +253,7 @@ match 메소드는 헤더 요소와 함께 템플릿 특수화로 size_t 타입�
 
 자주 사용하는 방식은 아니지만 match를 이용하면 필더링하기 위한 헤더 값이나 사용자 정의 헤더 요소들의 값도 얻을 수 있다. <리스트 13>은 헤더 요소 중 Server와 Data 항목을 가져오는데, 헤더 요소 중 Server에는 MS의 HTTP API를 사용했음을 의미하는 ‘Microsoft-HTTPAIP/2.0’ 값이 전송되며, <리스트 9>의 사용자 정의 헤더 요소에 입력된 casablanca의 값이 ‘Microsoft C++ REST SDK’인지 확인한다.
 
-&lt;리스트 13&gt; 사용자 정의 헤더 요소 조회
+<리스트 13> 사용자 정의 헤더 요소 조회
 ```cpp
 utility::string_t serverType;
 utility::string_t dateTime;
@@ -270,7 +270,7 @@ Content-Type 요소가 ‘application/json’인 경우 JSON (JavaScript Object 
 JSON 타입의 값 교환
 데이터를 송수신할 때 자료를 표현하는 방법 중 하나인 JSON은 자바스크립트의 구문 형식을 따르지만 타 언어나 플랫폼에 적합하도록 표현할 수도 있다.
 
-&lt;리스트 14&gt; JSON으로 표현한 정보의 예
+<리스트 14> JSON으로 표현한 정보의 예
 ```json
 {
 	"이름": "테스트",
@@ -298,27 +298,27 @@ web::json::value v6 = web::json::value::array();
 
 JSON으로 값을 표현하는 방법 중 컨테이너에 포함된 값을 JSON으로 직렬화하는 가장 일반적인 방법은 web::json::value ::field_map을 사용하는 것이다. field_map은 std::pair로 묶인 std::vector라고 생각하면 이해하기 쉽다. field_map을 통해 컨테이너에 JSON의 각 필드값을 채우고 web::json::value ::object로 변환한 후 to_string을 통해 JSON 문자열로 변환한다. field_map을 이용해 JSON 타입으로 포맷팅하는 코드는 <리스트 16>이다.
 
-&lt;리스트 16&gt; field_map을 이용한 JSON 포맷팅
+<리스트 16> field_map을 이용한 JSON 포맷팅
 ```cpp
 web::json::value::field_map f;
 f.push_back(
-	std::pair&lt;web::json::value, web::json::value&gt;
+	std::pair<web::json::value, web::json::value>
 	(web::json::value::string(U("name1")), web::json::value::number(1))
 	);
 f.push_back(
-	std::pair&lt;web::json::value, web::json::value&gt;
+	std::pair<web::json::value, web::json::value>
 	(web::json::value::string(U("name2")), web::json::value::string(U("hello")))
 	);
 f.push_back(
-	std::pair&lt;web::json::value, web::json::value&gt;
+	std::pair<web::json::value, web::json::value>
 	(web::json::value::string(U("name3")), web::json::value::boolean(U("true")))
 	);
 f.push_back(
-	std::pair&lt;web::json::value, web::json::value&gt;
+	std::pair<web::json::value, web::json::value>
 	(web::json::value::string(U("name4")), web::json::value::null())
 	);
 web::json::value obj = web::json::value::object(f);
-std::wcout &lt;&lt; obj.to_string() &lt;&lt; std::endl;
+std::wcout << obj.to_string() << std::endl;
 ```
 출력값 :
 { "name1" : 1, "name2" : "hello", "name3" : true, "name4" : null }
@@ -326,12 +326,12 @@ std::wcout &lt;&lt; obj.to_string() &lt;&lt; std::endl;
 
 object를 이용해 JSON을 즉시 생성하는 것도 가능하다. <리스트 17>은 표준 템플릿 라이브러리를 사용하는 것과 유사하게 JSON으로 포맷팅한다.
 
-&lt;리스트 17&gt; object를 이용해 JSON으로 포맷팅
+<리스트 17> object를 이용해 JSON으로 포맷팅
 ```cpp
 web::json::value obj = web::json::value::object();
 obj[U("name1")] = web::json::value::string(U("hi there"));
 obj[U("name2")] = web::json::value::number(77);
-std::wcout &lt;&lt; obj.to_string() &lt;&lt; std::endl;
+std::wcout << obj.to_string() << std::endl;
 ```
 출력값 :
 { "name1" : "hi there", "name2" : 77 }
@@ -339,7 +339,7 @@ std::wcout &lt;&lt; obj.to_string() &lt;&lt; std::endl;
 
 web::json::value 값을 다시 자료형으로 변환하려면 어떻게 해야 할까? 그 답은 web::json::value의 ‘as_*’ 계열 메소드다. <리스트 18>은 web::json::value 타입으로 변환한 값을 다시 원래 자료형의 변수로 변환한다.
 
-&lt;리스트 18&gt; as_* 계열 메소드를 이용해 원래의 타입으로 변환
+<리스트 18> as_* 계열 메소드를 이용해 원래의 타입으로 변환
 ```cpp
 web::json::value v1 = web::json::value::number(17);
 web::json::value v2 = web::json::value::number(3.1415);
@@ -356,7 +356,7 @@ web::json::value 인스턴스의 원래 타입은 json::value:: value_type을 �
 
 JSON 문자열을 다시 원래 타입으로 변경하는 가장 편리한 방법은 재정의된 대괄호 연산자를 통해 특정 항목 값의 web:: json::value::object를 얻은 후 as_* 계열 함수를 이용해 원래 타입 값으로 변환하는 것이다. web::json::value는 이터레이터를 제공하는데, <리스트 19>는 JSON 타입의 문자열로 변환한 후 다시 원래 값을 얻는다. 
 
-&lt;리스트 19&gt; JSON 문자열을 파싱하는 코드의 예
+<리스트 19> JSON 문자열을 파싱하는 코드의 예
 ```cpp
 web::json::value obj = web::json::value::object();
 obj[U("name1")] = web::json::value::string(U("hi there"));
