@@ -95,7 +95,7 @@ infer 의 version 이 말해 주듯이 완벽한 정적 분석은 하지 못한�
 2. JNI 관련 소스 는 제대로 Check 하지 못한다.
    이 문제는 JNI header 파일이 좀 특이하게 되어 있어서 제대로 분석이 되지 않는 것으로 보인다.
 ```
-   XdbJni.c:14:32: error: member reference type 'JNIEnv' (aka 'JNIEnv_') is not a pointer; did you mean to use '.'?
+XdbJni.c:14:32: error: member reference type 'JNIEnv' (aka 'JNIEnv_') is not a pointer; did you mean to use '.'?
         const  char *pIniFile = (*env)->GetStringUTFChars(env,inifile, NULL);
                                 ~~~~~~^~
                                       .
