@@ -14,7 +14,7 @@ C++ REST SDK, 카사블랑카 튜토리얼 (2)
 
 지난 연재를 시작한 와중에 카사블랑카의 1.0이 공식 발표됐지만, 지난 글과 마찬가지로 이 글에서도 카사블랑카 0.6 베타가 사용됐음을 밝혀둔다.
 
-![img](../../Images/Casablanca/tech_img525.jpg)
+![img](/../Images/Casablanca/tech_img525.jpg)
 
 <그림 1> 카사블랑카의 구조
 
