@@ -6,7 +6,7 @@ REST API 를 지원하는 암호화 Server 및 해당 서비스를 호출 하는
 
 본 문서에서는 각 언어의 컴파일을 위한 컴파일러 설치는 설명 하지 않는다, 이미 개발 환경이 구축 되어 있는 상태 에서 REST API 를 사용하는 방법만 간단히 설명 한다.
 
-
+<br/>
 
 #### REST Server 개발
 
@@ -41,7 +41,7 @@ go get github.com/ant0ine/go-json-rest/rest
 }
 ```
 
-
+<br/>
 
 `decrypt` Interface 규격
 
@@ -58,7 +58,7 @@ go get github.com/ant0ine/go-json-rest/rest
 }
 ```
 
-
+<br/>
 
  `hash` Interface 규격
 
@@ -85,13 +85,13 @@ Server 의 source 는   `GoRestServer.go` 로 구현 되어 있다.
 
 암호화 lib 는 C/C++ 로 개발되어 Go 에서 호출 및 link 하여 사용 한다.
 
-
+<br/>
 
 #### RESR Client 개발
 
-RESR Client 는 각 언어별로 개발이 되어 있는데 C/C++, C#,  Java, Python, Go 용 Client 를 작성 하였다.
+RESR Client 는 각 언어별로 개발이 되어 있는데 `C/C++`, `C#`,  `Java`, `Python`, `Go`, `Node.js` 용 Client 를 작성 하였다.
 
-
+<br/>
 
 #### C/C++ 용 REST Client
 
@@ -150,9 +150,7 @@ bool http_post(char * url, const char * jsonData, string & str)
 }
 ```
 
-
-
-
+<br/>
 
 ### C# 용 REST Client
 
@@ -181,7 +179,7 @@ st = response.GetResponseStream ();
 
 ```
 
-
+<br/>
 
 ### Java 용 REST Client
 
@@ -237,7 +235,7 @@ try {
 con.setDoInput(true);
 con.setDoOutput(true); 을 설정 하지 않으면 Permission 오류가 발생 하니 주의 할 것.
 
- 
+ <br/>
 
 ### Python 용 REST Client
 
@@ -280,7 +278,7 @@ if __name__ == "__main__":
     main()
 ```
 
-
+<br/>
 
 ### Go 용 REST Client
 
@@ -292,7 +290,77 @@ go 언어 용 REST Client 를 개발 하기 위해서는 별도의 package 를 �
 
 소스 코드는 `GoRestPost.go` 에 구현 되어 있다.
 
+<br/>
 
+### node.js 용 REST Client
+
+node.js 에서 REST Client 를 개발 하기 위해서 WebFramework 인 `request` 를 추가로 설치 하였다.
+
+`설치 방법`
+
+```
+npm install --save request
+```
+
+주의 사항은 node.js 는 SIngle Thred, CallBack 방식을 사용 하기 때문에 코드가 순차적으로 실행 되지 않는다는 점을 주의 하여야 한다.
+
+즉 첫번째 `request` 요청(암호화)에 의한 response 를 받고 그결과를 이용하여 두번째 요청(복호화)을 할 경우 순차적으로 코드를 작성 하면 원하는 결과를 얻을 수 없다. 첫번째 결과를 받기 전에 두번째 요청이 실행 되기 때문이다. 이 문제를 피하기 위해서는 첫번째 요청의 결과를 받는 callback 함수 내부에 두번째 요청을 수행 하는 코드를 집어 넣으면 된다.
+
+아래는 node.js 에서 rest api 를 사용하는 예제 이다.
+
+```javascript
+var request = require('request');
+
+var srcData = '1234567890123';
+var encData = '';
+var decData = '';
+
+var reqEncData = {
+    'Alias' : 'normal',
+    'Plain' : srcData
+} 
+
+request({
+            method: 'POST',
+            url: "http://127.0.0.1:8080/encrypt",
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: reqEncData
+        }, function(error, response, body) {
+            encData = response.body.Cipher;
+
+            var reqDecData = {
+                'Alias' : 'normal',
+                'Cipher' : encData   
+            }
+                       
+            request({
+                method: 'POST',
+                url: "http://127.0.0.1:8080/decrypt",
+                json: true,
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: reqDecData
+            }, function(error, response, body) {
+                decData = response.body.Plain;
+
+                console.log( 'src : ' + srcData);
+                console.log( 'enc : ' + encData);
+                console.log( 'dec : ' + decData);                
+            });
+        });
+```
+
+실행은 다음과 같이 한다.
+
+```
+node NodeRestPost.js
+```
+
+<br/>
 
 ##### # 추가로 더 필요하게 되면 여기서 언급되지 않은 언어 를 이용하여 Client 를 작성 할 예정 이고 해당 언어 에서 REST API 를 지원 하지 않는다면 C/C++ 로 라이브러리를 만든 후 타 언어에 제공 하는 방법으로 구현 예정 이다.
 
