@@ -81,7 +81,7 @@ go get github.com/ant0ine/go-json-rest/rest
 
 
 
-Server 의 source 는   `GoRestServer.go` 로 구현 되어 있다.
+Server 의 source 는   [GoRestServer.go](https://github.com/wsk2001/computer_note/tree/master/REST/GoRestServer.go)로 구현 되어 있다.
 
 암호화 lib 는 C/C++ 로 개발되어 Go 에서 호출 및 link 하여 사용 한다.
 
