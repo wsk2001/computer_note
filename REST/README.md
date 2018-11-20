@@ -99,7 +99,7 @@ C/C++ 용 REST Client 는 libcurl, openSSL 을 이용하여 개발 하였다.
 
 libcurl 은 CURL 의 기능을 모두 지원하는 C/C++ 용 lib 로 http 관련 client 를 개발 하는데 자주 사용되는 lib 이고, **OpenSSL**은 [네트워크](https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%93%A8%ED%84%B0_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC)를 통한 데이터 통신에 쓰이는 [프로토콜](https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C)인 [TLS](https://ko.wikipedia.org/wiki/%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%ED%8A%B8_%EB%A0%88%EC%9D%B4%EC%96%B4_%EB%B3%B4%EC%95%88)와 [SSL](https://ko.wikipedia.org/wiki/SSL)의 [오픈 소스](https://ko.wikipedia.org/wiki/%EC%98%A4%ED%94%88_%EC%86%8C%EC%8A%A4) 구현판이다. 라고 위키백과에 쓰여져 있다.
 
-구현 소스는 `CurlRestPost.cpp`  로 컴파일은 
+구현 소스는 [CurlRestPost.cpp](https://github.com/wsk2001/computer_note/tree/master/REST/CurlRestPost.cpp)로  컴파일은 
 
 ```
 g++ -o CurlRestPost CurlRestPost.cpp -IC:\Tools\CURL\include -LC:\Tools\CURL\lib -lcurl
@@ -154,7 +154,7 @@ bool http_post(char * url, const char * jsonData, string & str)
 
 #### C# 용 REST Client
 
-C# 용 REST Client 는 별도의 추가 모듈을 설치 하지 않고, Visual Studio 2010, Visual Studio 2017 에서 컴파일 및 Test 되었으며 소스 파일을 `CsRestPost.cs` 이다.
+C# 용 REST Client 는 별도의 추가 모듈을 설치 하지 않고, Visual Studio 2010, Visual Studio 2017 에서 컴파일 및 Test 되었으며 소스 파일을 [CsRestPost.cs](https://github.com/wsk2001/computer_note/tree/master/REST/CsRestPost.cs) 이다.
 
 사용된 주요 Class 는 HttpWebRequest, WebRequest, Stream, WebResponse, StreamReader 등 이다.
 
@@ -185,7 +185,7 @@ st = response.GetResponseStream ();
 
 java 용 REST Client 는 JSON Data 처리를 위해 `json-simple-1.1.1.jar` 를 사용 하였다.
 
-구현된 source 는 `JavaRestPost.java` 이고 사용된 주요 Class 는 `URL`, `HttpURLConnection`, `BufferedReader`, `InputStreamReader` 등 이다.
+구현된 source 는 [JavaRestPost.java](https://github.com/wsk2001/computer_note/tree/master/REST/JavaRestPost.java)  이고 사용된 주요 Class 는 `URL`, `HttpURLConnection`, `BufferedReader`, `InputStreamReader` 등 이다.
 
 소스의 주요 부분은 다음과 같다.
 
@@ -243,7 +243,7 @@ python 으로 REST Client 를 개발 하기 위해서 별도의 모듈을 설치
 
 주요하게 보아야 할 부분은 header  지정 하는 부분과, data 를 json.dumps() 함수를 사용하여 변환 하는 부분이다
 
-소스 코드는 `PyRestSample.py` 로 소스의 길이가 길지 않으므로 전체 소스를 본 문서에 추가 하였다.
+소스 코드는 [PyRestSample.py](https://github.com/wsk2001/computer_note/tree/master/REST/JPyRestSample.py)  로 소스의 길이가 길지 않으므로 전체 소스를 본 문서에 추가 하였다.
 
 ```python
 import requests
@@ -288,7 +288,7 @@ go 언어 용 REST Client 를 개발 하기 위해서는 별도의 package 를 �
 
 소스를 보면 알겠지만 주요 함수는 `http.Post` 로 별 특별한 주의 사항 없이 사용 할 수 있다.
 
-소스 코드는 `GoRestPost.go` 에 구현 되어 있다.
+소스 코드는 [GoRestPost.go](https://github.com/wsk2001/computer_note/tree/master/REST/GoRestPost.go) 에 구현 되어 있다.
 ```go
 package main
 
@@ -357,6 +357,7 @@ npm install --save request
 주의 사항은 node.js 는 SIngle Thred, CallBack 방식을 사용 하기 때문에 코드가 순차적으로 실행 되지 않는다는 점을 주의 하여야 한다.
 
 즉 첫번째 `request` 요청(암호화)에 의한 response 를 받고 그결과를 이용하여 두번째 요청(복호화)을 할 경우 순차적으로 코드를 작성 하면 원하는 결과를 얻을 수 없다. 첫번째 결과를 받기 전에 두번째 요청이 실행 되기 때문이다. 이 문제를 피하기 위해서는 첫번째 요청의 결과를 받는 callback 함수 내부에 두번째 요청을 수행 하는 코드를 집어 넣으면 된다.
+구현 소스는 [NodeRestPost.js](https://github.com/wsk2001/computer_note/tree/master/REST/NodeRestPost.js) 
 
 아래는 node.js 에서 rest api 를 사용하는 예제 이다.
 
