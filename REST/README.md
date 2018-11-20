@@ -243,7 +243,7 @@ python 으로 REST Client 를 개발 하기 위해서 별도의 모듈을 설치
 
 주요하게 보아야 할 부분은 header  지정 하는 부분과, data 를 json.dumps() 함수를 사용하여 변환 하는 부분이다
 
-소스 코드는 [PyRestSample.py](https://github.com/wsk2001/computer_note/tree/master/REST/JPyRestSample.py)  로 소스의 길이가 길지 않으므로 전체 소스를 본 문서에 추가 하였다.
+소스 코드는 [PyRestSample.py](https://github.com/wsk2001/computer_note/tree/master/REST/PyRestSample.py)  로 소스의 길이가 길지 않으므로 전체 소스를 본 문서에 추가 하였다.
 
 ```python
 import requests
