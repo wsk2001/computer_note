@@ -87,9 +87,9 @@ Server 의 source 는   `GoRestServer.go` 로 구현 되어 있다.
 
 <br/>
 
-#### RESR Client 개발
+#### REST Client 개발
 
-RESR Client 는 각 언어별로 개발이 되어 있는데 `C/C++`, `C#`,  `Java`, `Python`, `Go`, `Node.js` 용 Client 를 작성 하였다.
+REST Client 는 각 언어별로 개발이 되어 있는데 `C/C++`, `C#`,  `Java`, `Python`, `Go`, `Node.js` 용 Client 를 작성 하였다.
 
 <br/>
 
@@ -152,7 +152,7 @@ bool http_post(char * url, const char * jsonData, string & str)
 
 <br/>
 
-### C# 용 REST Client
+#### C# 용 REST Client
 
 C# 용 REST Client 는 별도의 추가 모듈을 설치 하지 않고, Visual Studio 2010, Visual Studio 2017 에서 컴파일 및 Test 되었으며 소스 파일을 `CsRestPost.cs` 이다.
 
@@ -181,7 +181,7 @@ st = response.GetResponseStream ();
 
 <br/>
 
-### Java 용 REST Client
+#### Java 용 REST Client
 
 java 용 REST Client 는 JSON Data 처리를 위해 `json-simple-1.1.1.jar` 를 사용 하였다.
 
@@ -237,7 +237,7 @@ con.setDoOutput(true); 을 설정 하지 않으면 Permission 오류가 발생 �
 
  <br/>
 
-### Python 용 REST Client
+#### Python 용 REST Client
 
 python 으로 REST Client 를 개발 하기 위해서 별도의 모듈을 설치 할 필요는 없다.
 
@@ -280,7 +280,7 @@ if __name__ == "__main__":
 
 <br/>
 
-### Go 용 REST Client
+#### Go 용 REST Client
 
 go 언어 용 REST Client 를 개발 하기 위해서는 별도의 package 를 추가로 설치 하지 않아도 된다.
 
@@ -289,10 +289,62 @@ go 언어 용 REST Client 를 개발 하기 위해서는 별도의 package 를 �
 소스를 보면 알겠지만 주요 함수는 `http.Post` 로 별 특별한 주의 사항 없이 사용 할 수 있다.
 
 소스 코드는 `GoRestPost.go` 에 구현 되어 있다.
+```go
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+type responseEnc struct {
+	Cipher string
+}
+
+type responseDec struct {
+	Plain string
+}
+
+func main() {
+	res := responseEnc{}
+	jsonData := map[string]string{"alias": "normal", "plain": "1234567890123"}
+	jsonValue, _ := json.Marshal(jsonData)
+	response, err := http.Post("http://127.0.0.1:8080/encrypt", "application/json", bytes.NewBuffer(jsonValue))
+	if err != nil {
+		fmt.Printf("The HTTP request failed with error %s\n", err)
+	} else {
+		data, _ := ioutil.ReadAll(response.Body)
+		json.Unmarshal(data, &res)
+	}
+	fmt.Println("Cipher string : " + res.Cipher)
+
+	resDec := responseDec{}
+	jsonData = map[string]string{"alias": "normal", "cipher": res.Cipher}
+	jsonValue, _ = json.Marshal(jsonData)
+	response, err = http.Post("http://127.0.0.1:8080/decrypt", "application/json", bytes.NewBuffer(jsonValue))
+	if err != nil {
+		fmt.Printf("The HTTP request failed with error %s\n", err)
+	} else {
+		data, _ := ioutil.ReadAll(response.Body)
+		json.Unmarshal(data, &resDec)
+	}
+	fmt.Println("Plain string : " + resDec.Plain)
+
+	fmt.Println("Terminating the application...")
+}
+
+/**
+ * run : go run GoRestPost.go
+ */
+
+```
 
 <br/>
 
-### node.js 용 REST Client
+#### node.js 용 REST Client
 
 node.js 에서 REST Client 를 개발 하기 위해서 WebFramework 인 `request` 를 추가로 설치 하였다.
 
