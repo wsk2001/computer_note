@@ -1,8 +1,7 @@
 ## CPP 에서 gRPC 사용하기
 
 [gRPC 설치 및 사용법](https://github.com/wsk2001/computer_note/blob/master/gRPC/README.md) 에 이어 C++ 에서 gRPC 를 사용하는 예제를 직접 작성 하면서 정리한 내용을 기술 한다. 예제(HelloWorld) 는 google 에서 작성한 code 이므로 설치만 잘되면 오류 없이 잘 실행이 된다. 하지만 실제 project 에 적용 하려면 sample program 을 작성 해 보아야 개념이 정립된다. 따라서 실제 project 에 적용 하기 이전에 각 언어별로 sample 을 작성 하기로 하였다. 첫번째는 주 개발 언어인 C/C++ 을 이용하기로 하였다. 그리고 server(백엔드) 는 C++ 로 개발 하여 타언어(JAVA, Go, Python) Client Sample 테스트시 사용 할 계획이다.
-
-
+<br/><br/>
 
 ### 1. proto 파일 작성
 
@@ -102,8 +101,7 @@ xdb_grpc.grpc.pb.cc
 처음에는 test 를 위해 shell_script.sh 파일을 만들어서 수행 했지만 확인이 완료된 상태 에서는 Makefile 에 포함시켜서 사용 하면 된다.
 
 `Helloworld` 예제의 Makefile 을 보면 4개의 파일을 생성 할 수 있도록 되어 있다.
-
-
+<br/><br/>
 
 ### 2. 컴파일을 위한 Makefile
 
@@ -152,8 +150,7 @@ clean:
 ```
 
 - 예제의 복잡한 Makefile 에서 반드시 필요한 부분만 남기고 삭제 하였다.
-
-
+<br/><br/>
 
 ## 3. Server Source 작성
 
@@ -235,8 +232,7 @@ int main(int argc, char** argv) {
 }
 
 ```
-
-
+<br/><br/>
 
 ## 4. Client Source 작성
 
@@ -339,9 +335,7 @@ class XecuredbClient {
 int main(int argc, char** argv) {
 
   XecuredbClient xecuredb( grpc::CreateChannel( "localhost:50052", 
-												grpc::InsecureChannelCredentials()
-											  )
-						 );
+						grpc::InsecureChannelCredentials() ) );
 	  
   std::string alias("normal");
   std::string plain("1234567890123");
@@ -358,8 +352,7 @@ int main(int argc, char** argv) {
 }
 
 ```
-
-
+<br/><br/>
 
 ### 5. 컴파일 및 실행
 
@@ -402,8 +395,7 @@ Decrypt received: RPC failed
 14: Connect Failed
 Hash received: RPC failed
 ```
-
-
+<br/><br/>
 
 ##### 참고 생성된 client 프로그램을 어떤 lib 를 link 하고 있는지 확인 해 보았다.
 
