@@ -465,18 +465,142 @@ gcc HelloWorld.m `gnustep-config --objc-flags` `gnustep-config --base-libs` -o H
 
 
 
-아래는 내일 설치 및 테스트 예정
-
 ### 7. Go 에서 gRPC 사용하기
-link: https://github.com/grpc/grpc-go
-https://developer.ibm.com/kr/cloud/blockchain/2017/03/26/grpc_overview_01/
+
+
+#### 7.1 선결 요건
+
+gRPC-Go는 Go 1.9 이상이 필요합니다.
+
+```
+go version
+
+=> go version go1.6.2 linux/amd64
+```
+
+- 지원되지 않는 Version 이 설치되어 있다.
+
+
+
+#### 7.2 Installing Go 1.9 on Ubuntu 16.04
+
+##### 7.2.1 Old Version 삭제
+
+```
+sudo apt-get remove golang-go
+sudo apt-get remove --auto-remove golang-go
+```
+
+
+
+##### 7.2.2 golang-1.9-go 설치
+
+```
+-- sudo add-apt-repository ppa:gophers/archive
+sudo apt update
+sudo apt-get install -y golang-1.9-go
+
+echo "export PATH=\$PATH:/usr/lib/go-1.9/bin" >> ~/.profile
+```
+
+
+
+#### 7.3 Installation
+
+라이브러리를 설치하는 가장 간단한 방법은 다음을 실행하는 것입니다.
+
+```
+go get -u google.golang.org/grpc
+```
+
+
+
+#### 7.4 Go protoc Plugin 설치
+
+```
+go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+```
+
+
+
+#### 7.5 Server 실행
+
+```
+$GOPATH/src/google.golang.org/grpc/examples/helloworld
+
+go run greeter_server/main.go
+
+```
+
+
+
+#### 7.6 Client 실행
+
+```
+$GOPATH/src/google.golang.org/grpc/examples/helloworld
+
+go run greeter_client/main.go
+
+output >> 2018/11/23 11:11:17 Greeting: Hello world
+```
+
+참고: https://github.com/grpc/grpc-go
 
 
 
 ### 8. Java 에서 gRPC 사용하기
-link: https://github.com/grpc/grpc-java
+참고: https://github.com/grpc/grpc-java
+
+gRPC-Java는 JDK 7 이상 에서 작동합니다. gRPC-Java 클라이언트는 Android API 레벨 14 이상 (Ice Cream Sandwich 이상)에서 지원됩니다. Android 기기에 gRPC 서버를 배포하는 것은 지원되지 않습니다.
+
+`java version 확인`
+
+```
+java -version
+javac -version
+```
 
 
 
-기본적인 설치 및 테스트가 완료 되면 암호화 Server 를 gRPC 를 이용하여 구현 할 예정 입니다.
+#### 8.1 Download the example
+
+```
+git clone -b v1.16.1 https://github.com/grpc/grpc-java
+
+cd grpc-java/examples
+```
+
+
+
+#### 8.2 Client 와 Server 컴파일
+
+```
+./gradlew installDist
+```
+
+
+
+#### 8.3 Server 실행
+
+```
+./build/install/examples/bin/hello-world-server
+```
+
+
+
+#### 8.4 Client 실행
+
+```
+./build/install/examples/bin/hello-world-client
+
+-- 결과 --
+Nov 23, 2018 12:08:41 PM io.grpc.examples.helloworld.HelloWorldClient greet
+INFO: Will try to greet world ...
+Nov 23, 2018 12:08:41 PM io.grpc.examples.helloworld.HelloWorldClient greet
+INFO: Greeting: Hello world
+
+```
+
+- Java 는 설치 과정은 쉬우나 ./gradlew 등의 사용으로 적용 하는 부분이 직관적이지 않다.
+- 실행도 hello-world-client 를 보면 script 로 되어 있는데 복잡하다. 쉬운 방법을 찾야야 한다.
 
