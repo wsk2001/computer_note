@@ -56,8 +56,11 @@ C:\Apache24\bin\ApacheMonitor.exe
 
 #### 1.5 실행 확인
 
-웹 브라우저를 실행하여 http://localhost/로 접속합니다. 아래 페이지가 뜨면 정상적으로 아파치 웹 서버 설치가 완료됩니다.  httpd.conf 에서 Listen 을 80 으로 설정 하지 않고 8080 으로 변경 한 경우는 localhost:8080 처럼 해 주어야 한다.
+웹 브라우저를 실행하여 http://localhost/ 로 접속합니다. 아래 페이지가 뜨면 정상적으로 아파치 웹 서버 설치가 완료됩니다.  httpd.conf 에서 Listen 을 80 으로 설정 하지 않고 8080 으로 변경 한 경우는 localhost:8080 처럼 해 주어야 한다.
 
+---
+# It works!
+---
 
 
 ### 2. PHP 설치 하기
