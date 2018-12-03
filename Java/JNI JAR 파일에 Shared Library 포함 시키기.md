@@ -656,7 +656,7 @@ clean:
 
 
 
-각 Source 및 Makefile 만 가지고 있으면 .jar 파일 내부에 .so 또는 .dll  을  포함하여 배포가 가능 할 것으로 보임.
+위의 각 Source 및 Makefile 만 가지고 있으면 .jar 파일 내부에 .so 또는 .dll  을  포함하여 배포가 가능 할 것으로 보인다.
 
 
 
