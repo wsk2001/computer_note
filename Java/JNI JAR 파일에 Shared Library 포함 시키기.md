@@ -661,7 +661,7 @@ distclean:
 
 
 위의 각 Source 및 Makefile 만 가지고 있으면 .jar 파일 내부에 .so 또는 .dll  을  포함하여 배포가 가능 할 것으로 보인다.<br/>
-Test Project Full Source 는 `include_so_in_jar.zip` 파일을 download 하면 된다.
+Test Project Full Source 는 [include_so_in_jar.zip](https://github.com/wsk2001/computer_note/blob/master/Java/include_so_in_jar.zip) 파일을 download 하면 된다.
 
 
 ### - 끝 -
