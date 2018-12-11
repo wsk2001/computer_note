@@ -12,6 +12,8 @@
 <br/><br/>
 
 ### DB 암호화 솔루션 구축 및 개발 지원
+- gRPC 를 이용한 암호화 Server 및 Client 개발(C/C++, C#, Java, Python, Go, node.js, Ruby, PHP)
+- RESTFul 을 이용한 암호화 Server 및 Client 개발(C/C++, C#, Java, Python, Go, node.js)
 - Plugin 개발(Oracle, MS-SQL, MySQL, DB2, Cubrid, Tibero,PostgreSQL, Teradata, MariaDB
 - 각 개발언어 별 API Wrapper 개발 (C/C++,Pro*C, JAVA, VB,DELPHI, PowerBuilder, COBOL, Python, C#, Informatica)
 - BMT, PoC 수행
