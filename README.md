@@ -10,8 +10,6 @@
 아래는 프로젝트 수행 이력 입니다. 리스트에 있는것 보다 더 많은 프로젝트를 수행 했는데 작은 규모의 프로젝트는 제외 하였습니다.
 프로젝트 수행 관련 조언 또는 도움이 필요하면 wsk2001@gmail.com 으로 연락 주시면 됩니다.
 <br/><br/>
-혹시 파우치 또는 에코백 필요 하신분은 https://smartstore.naver.com/geniedaall 방문 하세요
-<br/><br/>
 
 ### DB 암호화 솔루션 구축 및 개발 지원
 - Plugin 개발(Oracle, MS-SQL, MySQL, DB2, Cubrid, Tibero,PostgreSQL, Teradata, MariaDB
