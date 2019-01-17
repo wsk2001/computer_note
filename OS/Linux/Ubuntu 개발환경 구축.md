@@ -31,7 +31,7 @@ sudo service ssh start
 ```bash
 sudo apt install -y build-essential
 
-sudo apt install cmake
+sudo apt install -y cmake
 ```
 
 <br/>
@@ -136,7 +136,7 @@ sudo apt install -y curl
 #### 12.1 Font 관련 Package 설치
 
 ```bash
-$ sudo apt-get install libfontenc1 libxfont1 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi
+$ sudo apt install -y libfontenc1 libxfont1 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi
 ```
 
 
@@ -166,7 +166,7 @@ LANG="ko_KR.UTF-8"
 #### 12.4 한글 환경 설정
 
 ```bash
-vi /etc/environment 
+sudo vi /etc/environment 
 ```
 
 아래 2 줄 추가
@@ -183,7 +183,7 @@ LANGUAGE="ko_KR:ko:en_GB:en"
 은폰트 - unfonts 추가
 
 ```bash
-apt install -y fonts-unfonts-core fonts-unfonts-extra 
+sudo apt install -y fonts-unfonts-core fonts-unfonts-extra 
 ```
 
 
@@ -191,7 +191,7 @@ apt install -y fonts-unfonts-core fonts-unfonts-extra
 백묵폰트 - baekmuk 추가
 
 ```bash
-apt install -y fonts-baekmuk
+sudo apt install -y fonts-baekmuk
 ```
 
 
@@ -199,7 +199,7 @@ apt install -y fonts-baekmuk
 나눔폰트 - nanum 추가
 
 ```bash
-apt install -y fonts-nanum fonts-nanum-coding fonts-nanum-extra
+sudo apt install -y fonts-nanum fonts-nanum-coding fonts-nanum-extra
 ```
 
 
@@ -214,6 +214,7 @@ sync
 reboot
 ```
 
-
+#### root password 변경(생성)
+sudo passwd root
 
 ...ing
