@@ -22,6 +22,7 @@ sudo apt install -y openssh-server
 dpkg -l | grep openssh
 sudo service ssh start
 ```
+- 이제 ssh 로 Linux 에 접속 할 수 있다.
 
 <br/>
 
