@@ -1,5 +1,6 @@
 Pro* C 원격 접속 옵션
 
+```
 EXEC SQL BEGIN DECLARE SECTION;
  char    username[32];
  char    password[32];
@@ -15,3 +16,4 @@ strcpy(password, "userpwd");
 strcpy(sid, "127.0.0.1:1521/ORCL");
 
 EXEC SQL CONNECT :username IDENTIFIED BY :password USING :sid;
+```
