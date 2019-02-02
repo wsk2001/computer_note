@@ -1,4 +1,4 @@
-Pro* C 원격 접속 옵션
+## Pro* C 원격 접속 옵션
 
 ```
 EXEC SQL BEGIN DECLARE SECTION;
