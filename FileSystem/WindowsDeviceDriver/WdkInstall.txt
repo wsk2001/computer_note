@@ -1,0 +1,368 @@
+2019-02-26 오전 10:27:09 - Microsoft VSIX Installer
+2019-02-26 오전 10:27:09 - -------------------------------------------
+2019-02-26 오전 10:27:09 - vsixinstaller.exe version:
+2019-02-26 오전 10:27:09 - 15.9.3041
+2019-02-26 오전 10:27:09 - -------------------------------------------
+2019-02-26 오전 10:27:09 - Command line parameters:
+2019-02-26 오전 10:27:09 - C:\Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXInstaller.exe,/a,C:\Program Files (x86)\Windows Kits\10\Vsix\WDK.vsix,/callingprocessid:4732,/installas:1200
+2019-02-26 오전 10:27:09 - -------------------------------------------
+2019-02-26 오전 10:27:09 - Microsoft VSIX Installer
+2019-02-26 오전 10:27:09 - -------------------------------------------
+2019-02-26 오전 10:27:09 - Initializing Install...
+2019-02-26 오전 10:27:10 - 확장 정보...
+2019-02-26 오전 10:27:10 - 	Identifier         : Microsoft.Windows.DriverKit
+2019-02-26 오전 10:27:10 - 	Name               : Windows Driver Kit
+2019-02-26 오전 10:27:10 - 	Author             : Microsoft Corporation
+2019-02-26 오전 10:27:10 - 	Version            : 10.0.17740.0
+2019-02-26 오전 10:27:10 - 	Description        : A set of extensions that integrates Windows Driver development into Visual Studio.
+2019-02-26 오전 10:27:10 - 	Locale             : en-US
+2019-02-26 오전 10:27:10 - 	MoreInfoURL        : 
+2019-02-26 오전 10:27:10 - 	InstalledByMSI     : False
+2019-02-26 오전 10:27:10 - 	SupportedFrameworkVersionRange : [4.5,)
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 	SignatureState     : ValidSignature
+2019-02-26 오전 10:27:10 - 	SignedBy           : Microsoft Corporation
+2019-02-26 오전 10:27:10 - 	Certificate Info   : 
+2019-02-26 오전 10:27:10 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:10 - 		[Subject]       : CN=Microsoft Corporation, OU=OPC, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+2019-02-26 오전 10:27:10 - 		[Issuer]        : CN=Microsoft Code Signing PCA 2010, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+2019-02-26 오전 10:27:10 - 		[Serial Number] : 33000001FC5DB8191027A666C10000000001FC
+2019-02-26 오전 10:27:10 - 		[Not Before]    : 2017-10-06 오전 3:26:08
+2019-02-26 오전 10:27:10 - 		[Not After]     : 2018-10-06 오전 3:26:08
+2019-02-26 오전 10:27:10 - 		[Thumbprint]    : 5E940B33DEAE5945F506ADAB946A997867A40FEF
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 	지원되는 제품            : 
+2019-02-26 오전 10:27:10 - 		Microsoft.VisualStudio.Community
+2019-02-26 오전 10:27:10 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:10 - 		Microsoft.VisualStudio.Pro
+2019-02-26 오전 10:27:10 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:10 - 		Microsoft.VisualStudio.Enterprise
+2019-02-26 오전 10:27:10 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 	참조                 : 
+2019-02-26 오전 10:27:10 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:10 - 		Identifier   : Microsoft.VisualStudio.MPF
+2019-02-26 오전 10:27:10 - 		Name         : Visual Studio MPF
+2019-02-26 오전 10:27:10 - 		Version      : [11.0,12.0)
+2019-02-26 오전 10:27:10 - 		MoreInfoURL  : 
+2019-02-26 오전 10:27:10 - 		Nested       : No
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 	필수 구성 요소           : 
+2019-02-26 오전 10:27:10 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:10 - 		Identifier   : Microsoft.VisualStudio.Component.CoreEditor
+2019-02-26 오전 10:27:10 - 		Name         : Visual Studio core editor
+2019-02-26 오전 10:27:10 - 		Version      : [15.0,16.0)
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 서명 정보(G)...
+2019-02-26 오전 10:27:10 - 	Extension is signed with a valid signature.
+2019-02-26 오전 10:27:10 - 
+2019-02-26 오전 10:27:10 - 적용 가능한 제품을 검색하고 있습니다...
+2019-02-26 오전 10:27:10 - 설치된 제품 찾음 - 전역 위치
+2019-02-26 오전 10:27:10 - 설치된 제품 찾음 - Visual Studio Professional 2017
+2019-02-26 오전 10:27:10 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\zq2obtwo.o1j\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\ywq5o2i5.ryf\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\yjrei1nc.kes\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\x3spxubm.iy1\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\wsip5iun.qnf\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\TestWindow.Dotnet\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\TestPlatform\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\o3rkgae4.ems\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Windows Azure Tools\Common\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Web Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Web Tools\Shared\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\WCF Connected Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\14.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\12.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\11.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\10.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\VC\ClassWizard\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Unit Test Explorer\TestWIExtension\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\TemplateEngine\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Portable Library Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Modeling\15.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Microsoft Office 365 Connected Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\ManagedProjectSystem\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Graphics\Debugger\Extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\TestsProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\ReferencesProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\GitProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\FileIndicatorProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\CollaborationProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Framework\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\fmn2j1jn.ely\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\fldfgssw.v3t\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\em3ozjcu.15r\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\drknwe51.xnq\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\chvzxqpj.w4y\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\atfm2vvn.3hs\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\41t33m3p.xqm\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\3npakkoh.yf1\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Visual Studio MPF\15.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\TreeNavigation\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\TreeNavigation\GraphProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Shell\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\PerfMarkers\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\ParallelDebugger\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\NavigateTo\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\NavigateTo\FileProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\DotNetObjectAlloc\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\DiagnosticsHub\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Debugger\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\CPUSampling\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\XamlLanguageService\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\XamlDiagnostics\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\WebClient\Language Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Web\Exports\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Web\ASPX\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VisualStudio\Editors\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\Project\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\NavigateTo\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\Editor\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TextMate\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TestWindow\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TemplateProviders\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TeamFoundation\Team Explorer\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ReferenceManager\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ProjectServices\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Project\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ProductUpdate\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Performance Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\OpenFolder\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\NuGet\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\SourceBasedTestDiscovery\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\LanguageServices\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\InteractiveComponents\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\ExpressionEvaluators\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\LanguageServer\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Language\GenerateType\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Language\CallHierarchy\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\InteractiveWindow\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\GettingStartedTemplates\Resources\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ExtensionManager\ServiceModule\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ErrorList\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Editorconfig\Wizard\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Editor\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Diff\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\DesignTools\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CodingConventions\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CodeAnalysis\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CMake\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CMake\TestExplorer\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ClientDiagnostics\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ClientDiagnostics\AppResponsiveness\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\Solution\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\NativeCode\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\ManagedProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\GraphProviderPackage\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\DataDesign\extension.vsixmanifest'
+2019-02-26 오전 10:27:10 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:11 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\Desktop SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:11 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\SDK ARM Additions\extension.vsixmanifest'
+2019-02-26 오전 10:27:11 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\Windows Store SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:11 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\8.1\Desktop SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:11 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\8.1\Windows Store SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:11 - Skipping 'C:\Users\wonso\AppData\Local\Microsoft SDKs' as it doesn't exist
+2019-02-26 오전 10:27:11 - ID가 'Microsoft.Windows.DriverKit'인 확장이 Visual Studio Professional 2017에 설치되어 있지 않습니다.
+2019-02-26 오전 10:27:16 - BEGIN: Processing extension pack
+2019-02-26 오전 10:27:16 - END: Processing extension pack
+2019-02-26 오전 10:27:16 - Initializing Install...
+2019-02-26 오전 10:27:16 - 확장 정보...
+2019-02-26 오전 10:27:16 - 	Identifier         : Microsoft.Windows.DriverKit
+2019-02-26 오전 10:27:16 - 	Name               : Windows Driver Kit
+2019-02-26 오전 10:27:16 - 	Author             : Microsoft Corporation
+2019-02-26 오전 10:27:16 - 	Version            : 10.0.17740.0
+2019-02-26 오전 10:27:16 - 	Description        : A set of extensions that integrates Windows Driver development into Visual Studio.
+2019-02-26 오전 10:27:16 - 	Locale             : en-US
+2019-02-26 오전 10:27:16 - 	MoreInfoURL        : 
+2019-02-26 오전 10:27:16 - 	InstalledByMSI     : False
+2019-02-26 오전 10:27:16 - 	SupportedFrameworkVersionRange : [4.5,)
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 	SignatureState     : ValidSignature
+2019-02-26 오전 10:27:16 - 	SignedBy           : Microsoft Corporation
+2019-02-26 오전 10:27:16 - 	Certificate Info   : 
+2019-02-26 오전 10:27:16 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:16 - 		[Subject]       : CN=Microsoft Corporation, OU=OPC, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+2019-02-26 오전 10:27:16 - 		[Issuer]        : CN=Microsoft Code Signing PCA 2010, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+2019-02-26 오전 10:27:16 - 		[Serial Number] : 33000001FC5DB8191027A666C10000000001FC
+2019-02-26 오전 10:27:16 - 		[Not Before]    : 2017-10-06 오전 3:26:08
+2019-02-26 오전 10:27:16 - 		[Not After]     : 2018-10-06 오전 3:26:08
+2019-02-26 오전 10:27:16 - 		[Thumbprint]    : 5E940B33DEAE5945F506ADAB946A997867A40FEF
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 	지원되는 제품            : 
+2019-02-26 오전 10:27:16 - 		Microsoft.VisualStudio.Community
+2019-02-26 오전 10:27:16 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:16 - 		Microsoft.VisualStudio.Pro
+2019-02-26 오전 10:27:16 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:16 - 		Microsoft.VisualStudio.Enterprise
+2019-02-26 오전 10:27:16 - 			Version : [15.0,16.0)
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 	참조                 : 
+2019-02-26 오전 10:27:16 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:16 - 		Identifier   : Microsoft.VisualStudio.MPF
+2019-02-26 오전 10:27:16 - 		Name         : Visual Studio MPF
+2019-02-26 오전 10:27:16 - 		Version      : [11.0,12.0)
+2019-02-26 오전 10:27:16 - 		MoreInfoURL  : 
+2019-02-26 오전 10:27:16 - 		Nested       : No
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 	필수 구성 요소           : 
+2019-02-26 오전 10:27:16 - 		-------------------------------------------------------
+2019-02-26 오전 10:27:16 - 		Identifier   : Microsoft.VisualStudio.Component.CoreEditor
+2019-02-26 오전 10:27:16 - 		Name         : Visual Studio core editor
+2019-02-26 오전 10:27:16 - 		Version      : [15.0,16.0)
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 서명 정보(G)...
+2019-02-26 오전 10:27:16 - 	Extension is signed with a valid signature.
+2019-02-26 오전 10:27:16 - 
+2019-02-26 오전 10:27:16 - 적용 가능한 제품을 검색하고 있습니다...
+2019-02-26 오전 10:27:16 - 설치된 제품 찾음 - 전역 위치
+2019-02-26 오전 10:27:16 - 설치된 제품 찾음 - Visual Studio Professional 2017
+2019-02-26 오전 10:27:16 - ID가 'Microsoft.Windows.DriverKit'인 확장이 Visual Studio Professional 2017에 설치되어 있지 않습니다.
+2019-02-26 오전 10:27:24 - InstallProgressPage ChangeType: 'SingleInstall' operationCount: '2' Text: 'Windows Driver Kit을(를) 설치하는 중...'
+2019-02-26 오전 10:27:24 - 다음 대상 제품을 선택했습니다.
+2019-02-26 오전 10:27:24 - 	Visual Studio Professional 2017
+2019-02-26 오전 10:27:24 - 
+2019-02-26 오전 10:27:24 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\zq2obtwo.o1j\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\ywq5o2i5.ryf\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\yjrei1nc.kes\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\x3spxubm.iy1\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\wsip5iun.qnf\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\TestWindow.Dotnet\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\TestPlatform\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\o3rkgae4.ems\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Windows Azure Tools\Common\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Web Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Web Tools\Shared\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\WCF Connected Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\14.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\12.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\11.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Visual Studio MPF\10.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\VC\ClassWizard\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Unit Test Explorer\TestWIExtension\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\TemplateEngine\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Portable Library Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Modeling\15.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Microsoft Office 365 Connected Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\ManagedProjectSystem\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\Graphics\Debugger\Extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\TestsProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\ReferencesProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\GitProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\FileIndicatorProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Providers\CollaborationProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\Microsoft\CodeSense\Framework\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\fmn2j1jn.ely\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\fldfgssw.v3t\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\em3ozjcu.15r\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\drknwe51.xnq\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\chvzxqpj.w4y\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\atfm2vvn.3hs\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\41t33m3p.xqm\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\3npakkoh.yf1\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Visual Studio MPF\15.0\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\TreeNavigation\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\TreeNavigation\GraphProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Shell\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\PerfMarkers\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\ParallelDebugger\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\NavigateTo\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\NavigateTo\FileProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\DotNetObjectAlloc\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\DiagnosticsHub\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\Debugger\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Platform\CPUSampling\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\XamlLanguageService\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\XamlDiagnostics\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\WebClient\Language Service\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Web\Exports\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Web\ASPX\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VisualStudio\Editors\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\Project\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\NavigateTo\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\VC\Editor\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TextMate\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TestWindow\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TemplateProviders\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\TeamFoundation\Team Explorer\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ReferenceManager\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ProjectServices\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Project\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ProductUpdate\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Performance Tools\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\OpenFolder\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\NuGet\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\SourceBasedTestDiscovery\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\LanguageServices\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\InteractiveComponents\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ManagedLanguages\VBCSharp\ExpressionEvaluators\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\LanguageServer\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Language\GenerateType\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Language\CallHierarchy\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\InteractiveWindow\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\GettingStartedTemplates\Resources\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ExtensionManager\ServiceModule\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ErrorList\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Editorconfig\Wizard\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Editor\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Diff\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\DesignTools\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CodingConventions\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CodeAnalysis\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CMake\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\CMake\TestExplorer\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ClientDiagnostics\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\ClientDiagnostics\AppResponsiveness\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\Solution\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\NativeCode\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\Providers\ManagedProvider\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\Microsoft\Architecture Tools\GraphProviderPackage\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\COMMONEXTENSIONS\DataDesign\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Capping recursion at 5 directories in each extension root due to 'default limit'.
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\Desktop SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\SDK ARM Additions\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\10\Windows Store SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\8.1\Desktop SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Found 'C:\PROGRAM FILES (X86)\COMMON FILES\MICROSOFT\EXTENSIONMANAGER\EXTENSIONS\Microsoft\Windows Kits\8.1\Windows Store SDK\extension.vsixmanifest'
+2019-02-26 오전 10:27:24 - Skipping 'C:\Users\wonso\AppData\Local\Microsoft SDKs' as it doesn't exist
+2019-02-26 오전 10:27:24 - Visual Studio Professional 2017에 확장 설치를 시작하는 중...
+2019-02-26 오전 10:27:24 - Run per machine
+2019-02-26 오전 10:27:24 - VSIX TaskScheduler: VSIX Auto Updatetask이(가) 없습니다.
+2019-02-26 오전 10:27:24 - VSIX TaskScheduler: VSIX Auto Updatetask을(를) 만들었습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Windows.UniversalCRT.Msu.8: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.2,6.3)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Windows.UniversalCRT.Msu.81: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.3,6.4)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Windows.D3DCompiler.Msu.Win7: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.6.FullRedist.NonThreshold: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,6.4)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.NET.4.6.FullRedist.NonThreshold.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,6.4)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.6.1.FullRedist.Threshold: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[10.0.10240]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.6.1.FullRedist.Threshold.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[10.0.10240]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.6.1.FullRedist.NonThreshold: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,6.4)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.NET.4.6.1.FullRedist.NonThreshold.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,6.4)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.VisualStudio.Debugger.DbgHelp.Win8: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.VisualStudio.Debugger.Remote.DbgHelp.Win8: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.VisualStudio.Debugger.Remote.DbgHelp.Win8: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Windows.UniversalCRT.Msu.7: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.VisualStudio.NuGet.PowershellBindingRedirect: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.FullRedist: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.14393]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.FullRedist.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.14393]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.1.FullRedist: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.15063]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.1.FullRedist.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.15063]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.2.FullRedist: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.16299]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.Net.4.7.2.FullRedist.Resources: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1.1,10.0.16299]'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package Microsoft.DiagnosticsHub.KB2882822.Win7: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:27 - Skipping non-applicable package WebSocket4NetV2: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Windows.81SDK.Store.DirectX.Msi: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Windows.81SDK.Store.DirectX.Msi: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Windows.81SDK.Desktop.DirectX.Msi: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Windows.81SDK.Desktop.DirectX.Msi: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '[6.1,6.3]'에 속하지 않습니다.
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Ancm.IIS.Msi: 필수 조건이 충족되지 않습니다. IISCoreWebEngineInstalledx64 And IISW3SvcInstalledx64
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Ancmv2.IIS.Msi: 필수 조건이 충족되지 않습니다. IISCoreWebEngineInstalledx64 And IISW3SvcInstalledx64
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.Azure.PowerShell: 필수 조건이 충족되지 않습니다. Not Powershell5
+2019-02-26 오전 10:27:28 - Skipping non-applicable package Microsoft.VisualStudio.OfficeDeveloperTools.WindowsIdentityFoundation.Msu: 현재 OS 버전 '10.0.17763.0'은(는) 지원되는 버전 범위 '(,6.2)'에 속하지 않습니다.
+2019-02-26 오전 10:27:55 - Visual Studio Professional 2017에 설치를 완료했습니다. 확장을 C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\0XSGI2AV.FLB\에 설치했습니다.
+2019-02-26 오전 10:27:55 - Refreshing LastAllUserExtensionsAutoUpdatedTime.
