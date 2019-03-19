@@ -35,6 +35,8 @@ SQL Server 2012부터는 추적플래그를 사용하지 않고 원격 SMB 파�
 
 
 
+
+
 [참고자료]
 
 - DeviceIoControl API
@@ -71,7 +73,7 @@ SQL Server 2012부터는 추적플래그를 사용하지 않고 원격 SMB 파�
 
 
 
-## SQL Server가 논리적 일관성 기반 I/O 오류를 발견했습니다. 
+## 2. SQL Server가 논리적 일관성 기반 I/O 오류를 발견했습니다. 
 
 잘못된 pageid (예상 1 : 363, 실제 1:59). 'C:\\Program Files\\Microsoft SQL Server\\MSSQL14.SQLEXPRESS\\MSSQL\\DATA\\master.mdf' 
 파일의 0x000000002d6000 오프셋에서 데이터베이스 ID 1의 페이지 (1 : 363)를 읽는 동안 발생했습니다. 
@@ -88,7 +90,7 @@ DBCC CHECKDB  를 이용하여 오류 Check
 
 ---
 
-## C ++에서 ACL을 사용하여 권한 정의
+## 3. C ++에서 ACL을 사용하여 권한 정의
 
 출처:  https://docs.microsoft.com/en-us/windows/desktop/secauthz/defining-permissions-with-acls-in-c--
 
@@ -252,4 +254,102 @@ BOOL SetPrivilege(
 
 #### Remarks
 권한 상수는 <span style="color:blue">Winnt.h</span> 에서 문자열로 정의됩니다. 예를 들어 SE_AUDIT_NAME 상수는 'SeAuditPrivilege'로 정의됩니다.
+
+
+
+---
+
+## 4. FSCTL_FILESYSTEM_GET_STATISTICS 관련 오류 확인
+
+dokany 확인 결과 FSCTL_FILESYSTEM_GET_STATISTICS 를 지원 하지 않는것 으로 보임.
+
+그리고 dokany 에 의해 mount 되어있는 directory 는 NTFS 를 지원하지 않는것 으로 조회됨.
+
+windows 의 심볼릭 링크를 이용하여 테스트를 하면 정상적으로 NTFS 로 나타남
+
+```
+mklink /d 링크이름 실제위치
+```
+
+
+
+아래는 확인 프로그램 소스코드
+
+```c++
+/**
+ * Windows 특정 Directory 또는 파일이 NTFS volume 인지 확인 확인 하는 프로그램
+ *
+ * 컴파일  : cl GetStatistics.c
+ * 실행예1 : GetStatistics  c:\Temp
+ * 실행예2 : GetStatistics  c:\Temp\aaa.txt
+ *  
+ */
+
+#include <windows.h>
+#include <stdio.h>
+
+void Usage(void)
+{
+	printf("\n");
+	printf("Usage: GetStatics dir_name or file_name\n");
+	printf("Ex) GetStatics C:\\Temp\n");
+	printf("Ex) GetStatics C:\\Temp\\aaa.txt\n");
+	exit(0);
+}
+
+int wmain(int argc, wchar_t ** argv)
+{
+    HANDLE 					h;
+    FILESYSTEM_STATISTICS 	*fs;
+    BYTE 					buffer[32768];
+    DWORD 					dw;
+
+	if( argc < 2 )
+	    Usage();
+	
+    h = CreateFileW(argv[1], 0, 
+        FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, 
+        NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+		
+    if (h == INVALID_HANDLE_VALUE)
+    {
+        printf("CreateFile Last Error code: %u\n", GetLastError());
+        return 1;
+    }
+
+    if (!DeviceIoControl(h, FSCTL_FILESYSTEM_GET_STATISTICS, NULL, 0, buffer, sizeof(buffer), &dw, NULL))
+    {
+        dw = GetLastError();
+        CloseHandle(h);
+        printf("DeviceIoControl: %u\n", dw);
+        if (dw == ERROR_INVALID_FUNCTION)
+        {
+            printf("This probably means the specified file or directory is not on an NTFS volume.\n");
+            printf("For example, this happens if you specify a file on a CD-ROM.\n");
+        }
+        return 1;
+    }
+
+    CloseHandle(h);
+
+    fs = (FILESYSTEM_STATISTICS *)buffer;
+    printf("Filesystem type: %u\n", fs->FileSystemType);
+
+    if (fs->FileSystemType == FILESYSTEM_STATISTICS_TYPE_NTFS)
+    {
+        printf("The file or directory is on an NTFS volume.\n");
+    }
+    else
+    {
+        printf("The file or directory is not on an NTFS volume.\n");
+    }
+    return 0;
+}
+```
+
+
+
+
+
+
 
