@@ -349,7 +349,64 @@ int wmain(int argc, wchar_t ** argv)
 
 
 
+## 5. CreateFile 의 dwFlagsAndAttributes
 
 
 
+CreateFile 의 인자중 6번째 인자인 DWORD dwFlagsAndAttributes 는 다음과 값들을 조합으로 가질 수 있다.
+
+
+
+- ATTRIBUTES
+
+FILE_ATTRIBUTE_ARCHIVE
+FILE_ATTRIBUTE_ENCRYPTED
+FILE_ATTRIBUTE_HIDDEN
+FILE_ATTRIBUTE_NORMAL
+FILE_ATTRIBUTE_OFFLINE
+FILE_ATTRIBUTE_READONLY
+FILE_ATTRIBUTE_SYSTEM
+**FILE_ATTRIBUTE_TEMPORARY**
+
+- FLAG
+
+  FILE_FLAG_BACKUP_SEMANTICS
+  **FILE_FLAG_DELETE_ON_CLOSE**
+  **FILE_FLAG_NO_BUFFERING**
+  FILE_FLAG_OPEN_NO_RECALL
+  FILE_FLAG_OPEN_REPARSE_POINT
+  FILE_FLAG_OVERLAPPED
+  FILE_FLAG_POSIX_SEMANTICS
+  FILE_FLAG_RANDOM_ACCESS
+  FILE_FLAG_SEQUENTIAL_SCAN
+  **FILE_FLAG_WRITE_THROUGH**
+
+
+
+이중에서 진하게 해놓은 플래그와 속성들에 대해서 몇가지 실험을 해 보았다.
+
+우선, **FILE_FLAG_DELETE_ON_CLOSE**(이하 DELETE_ON_CLOSE) 는 해당 파일에 대해서 참조하고 있는 핸들이 모두 닫혔을때 파일을 디스크상에서 삭제한다. 이 플래그는 CreateFile 에 사용되므로 파일을 생성하고, 생성한 파일을 쓰거나, 읽거나 하다가 마지막으로 CloseHandle() 을 호출하면 해당 파일은 자동적으로 디스크에서 삭제된다.
+
+이것을 이용해서 실행이 종료 되었을때 자동적으로 디스크에서 삭제되는 프로그램을 만들수는 없을까? 
+
+라는 의문을 해결해 보기로 했다. 
+
+1. FILE_FLAG_DELETE_ON_CLOSE 옵션을 주고 CreateFile 로 파일을 생성
+2. 실행파일을 Binary 리소스 형태로 프로젝트 내에 포함한 후 위에서 생성한 파일에 WriteFile 로 씀
+3. CreateProcess 로 위 1~2 과정에서 만든 Executable 파일을 실행
+
+하였으나, **ERROR_SHARING_VIOLATION** 이라는 오류로 인해 **CreateProcess** 가 성공적으로 호출되지 못했다. 공유 속성을 여러가지로 변경해보고 다시 컴파일 해 보았으나 실패. 아마도 현재 CreateFile 로 핸들을 얻은 파일은 CreateProces 로 새로운 프로세스를 생성하지 못하나 보다.
+
+
+다음은 **FILE_ATTRIBUTE_TEMPORARY** 속성이다. 이 MSDN의 설명에 따르면 이 속성을 지정하면 파일의 변경 내용을 디스크에 쓰지 않고 시스템 캐시 용량이 허락하는 만큼 메모리상에서 내용을 변경하고 있다가, 핸들이 닫길때 디스크에 저장한다. **FILE_FLAG_DELETE_ON_CLOSE** 와 같이 쓰이면 유용할것 같다는 의견이 있다.
+
+
+세번째로는 **FILE_FLAG_WRITE_THROUGH** 는 **FILE_FLAG_NO_BUFFERING** 플래그와 같이 쓰여서 파일을 캐싱할 것인지 아닌지를 결정한다. **FILE_FLAG_WRITE_THROUGH** 만 지정되었을 경우에는 시스템 캐시에 내용이 적용 된 후 바로 지연 없이 디스크에 변경 내용을 저장한다. 하지만, **FILE_FLAG_WRITE_THROUGH** 과 **FILE_FLAG_NO_BUFFERING** 모두 지정 되었을 경우에는 시스템 캐시에 내용을 변경하지 않고 바로 디스크에 쓴다. 
+
+읽기의 경우에는 **FILE_FLAG_WRTIE_THROUGH** 만 지정되면 파일의 원본이 아니라 디스크 캐시 등 캐싱 된 곳에서 읽어오나, **FILE_FLAG_NO_BUFFERING** 까지 같이 지정되면 무조건 원본 파일에서 읽어온다.
+
+자세한 내용은 [INFO: FILE_FLAG_WRITE_THROUGH and FILE_FLAG_NO_BUFFERING](http://support.microsoft.com/kb/99794/en-us?fr=1) 를 참조하라.
+
+
+실행중인 파일의 원본을 삭제하거나, 프로그램 종료 후 자신의 파일을 제거하는 프로그램을 만드는 방법은 더 연구해 봐야 할 것 같다.
 
