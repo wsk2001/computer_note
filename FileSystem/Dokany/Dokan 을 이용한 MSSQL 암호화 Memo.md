@@ -69,6 +69,48 @@ SQL Server 2012부터는 추적플래그를 사용하지 않고 원격 SMB 파�
 
 
 
+### 17053 관련 오류 추가 테스트
+
+SQL 서버는 Microsoft 측의 관계형 데이터베이스 관리 시스템입니다. 이 도구가 제공하는 주요 기능은 데이터 저장 및 검색입니다. SQL 서버는 데이터 (즉, 1 차, 2 차 및 트랜잭션 로그 파일)를 관리하기위한 3 가지 유형의 파일을 유지 관리합니다. 이러한 파일의 확장자는 각각 **.mdf, .ndf** 및 **.ldf**입니다.
+
+파일에서 많은 양의 데이터를 관리하는 동안 오류 발생 가능성이 높습니다. SQL 오류 17053은 SQL Server에서 발생하는 오류 중 하나입니다. Microsoft는 오류 상황을 어느 정도 처리 할 수있는 무료 유틸리티를 제공합니다. DBCC CHECDB 명령은 데이터베이스의 무결성을 검사하여 특정 수준으로 수정합니다. 그러나 SQL 오류 17053을 처리하기위한 오류 및 사전 예방 방법에 대해 자세히 설명합니다.
+
+#### Description Of SQL Error 17053:
+
+SQL Server 오류 17053은 NTFS 파일 시스템과 내부 스냅 샷의 대체 스트림을 나타냅니다. 오류 메시지는 대개 원인의 진정한 이유를 나타냅니다.
+
+**Case 1** (Operating system error665)
+
+오류 코드는 NTFS 파일 시스템에서 파일 크기 제한을 위반했음을 의미합니다. NTFS 파일 시스템의 크기 제한은 거의 Exabyte입니다. 따라서 DBCC CHECKBD를 사용하는 동안이 오류는 VSS (Volume Shadow Copy Services) 크기 제한으로 인해 발생할 수 있습니다. 기본적으로 VSS 스냅 샷은 사용 가능한 드라이브 크기의 10 % 미만일 수 있습니다. 아래에 표시된 것처럼 몇 단계로 관리 할 수 있습니다.
+
+- 컴퓨터 관리에서 디스크 관리 옵션을 선택하십시오.
+- 데이터베이스가있는 모든 드라이브에서 등록 정보를 선택하십시오.
+- 창 섀도 복사본을 선택한 다음 설정 선택
+- '제한 없음'라디오 버튼을 선택하십시오.
+- 이 옵션을 사용하면 시스템에서 VSS 제한 사항을 제거하므로 작업을 원활하게 진행할 수 있습니다.
+
+**Case 2:** (DoDevIoCtlOut() DeviceIoControl() : Operating system error 1)
+
+이 오류는 SMB 파일 공유 또는 네트워크 저장 장치를 사용할 때 발생합니다. 아래에 언급 된 데이터베이스 관련 활동을 수행하는 중에 이 오류를 만날 수 있습니다.
+
+- 새 DB를 만들려고 할때.
+- 어떤 활동을 수행하기 위해 SQL 서버를 시작하는 동안.
+- 데이터베이스를 온라인으로 마킹 할 때.
+
+이 오류는 장치 IO 컨트롤러와의 비 호환성으로 인해 발생할 수 있습니다. SQL 서버는 장치 제어 코드 FSCTL_FILESYSTEM_GET_STATISTICS 를 사용하여 로그 또는 데이터 파일을 만들고 엽니 다. 따라서 솔루션은 Windows API 장치 IO 컨트롤과 호환되는 타사 네트워크 드라이브 또는 SMB 공유를 사용하는 것입니다.
+
+**NOTE:**  
+
+NTFS 파일 시스템을 SQL 데이터 파일과 함께 사용하는 경우 오류는 무시해도되지만 ReFS 파일 시스템을 사용하면 성능 SQL 서버의 성능이 저하됩니다.
+
+
+
+다시 시작시 945 오류 발생
+
+- 액세스 할 수 없는 파일 또는 메모리 또는 디스크 공간 부족으로 인해 데이터베이스 '모델'을 열 수 없습니다. 자세한 내용은 SQL Server 오류 로그를 참조하십시오.
+
+
+
 ---
 
 
@@ -88,9 +130,53 @@ DBCC CHECKDB  를 이용하여 오류 Check
 
 
 
+## 3. MICROSOFT SQL SERVER ERROR CODE 3417
+
+출처: <https://www.sqlrecoverysoftware.net/blog/sql-error-3417.html>
+
+MS SQL Server는 가장 신뢰할 수있는 서버 환경 중 하나로 간주됩니다. 따라서 전 세계의 소규모 및 대규모 조직에서 널리 설치됩니다. 모든 데이터는 MDF 및 NDF 파일 형태로 데이터베이스에 저장됩니다. 하지만 1 차 및 2 차 데이터베이스 파일에서 발생하는 부패의 빈도 또는 불일치 빈도는 낮지 만 필연적 인 것은 아닙니다. 때로는 여러 가지 이유로 인해 사용자의 데이터가 포함 된 기본 및 보조 데이터베이스가 영향을 받으면 MDF 및 NDF 파일에 액세스 할 수 없게되고 오류가 발생합니다. SQL Server DB에서 발생한 오류 중 하나는 SQL 오류 3417입니다.이 SQL 오류에 대해 더 자세히 알아 보겠습니다.
+
+MS SQL Server 오류 코드 3417은 SQL 데이터베이스에 액세스하는 동안 만나는 일반적인 오류 중 하나입니다. 런타임 메시지가 표시됩니다.
+
+```
+'Windows could not start the SQL Server (MSSQLSERVER) service on local computer error 3417. For more information review the System Event Log.'
+```
+
+
+
+### SQL Server 오류 3417이 발생하는 이유는 무엇입니까?
+
+이 오류가 발생하는 이유는 다음과 같습니다.
+
+- 하나의 원인은 프로그램 파일의 데이터 폴더에 대한 네트워크 계정 때문일 수 있습니다.
+- 다른 이유는 Windows 설정이 어떻게 든 변경 되었기 때문일 수 있습니다.
+
+**Example:** 어떤 이유로 이 폴더를 이동 한 경우(Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL)다른 위치로 이동 한 다음 동일한 위치로 반환했습니다. 따라서 동일한 위치로 되돌아 갔지만 서버가 작동을 멈추고 다시 시작하려고 할 때 오류 코드 3417이 표시 될 수 있습니다.
+
+
+
+### SQL 오류 3417 수정 방법
+
+- Go to "C:\Program Files\Microsoft SQLServer\MSSQL.1MSSqL\Data"
+- Security(보안)/Permission(사용 권한) settings
+- 네트워크 서비스(Network Service ) 계정 추가
+- 그런 다음 다시 확인하십시오.
+
+아래에서 설명하는 방법은 Windows에서 SQL Server 오류 3417을 시작할 수 없다는 문제를 해결할 수 있습니다.
+
+**Note** -  MDF 파일이 압축되어 있지 않은지 확인해야합니다. 파일 등록 정보의 고급 속성에서 '디스크 공간을 절약하기 위해 내용 압축'을 선택 취소하십시오.
+
+
+
+### MS SQL Server 오류 코드 3417에 대한 Apt Remedy
+
+위에서 언급 한 수동 솔루션을 사용하여 오류를 수정하지 않으면 데이터베이스가 손상되었을 수 있습니다. 이러한 경우 작업을 방해하지 않으려면 SQL 오류 3417을 제거하는 기능을 포함하여 모든 손상 문제를 억제 할 수있는 제 3 자 솔루션을 사용해야합니다. SQL 복구라는 전문 도구는 이러한 도구 중 하나입니다 SQL Server 데이터베이스를 수정하는 것으로 알려져 있습니다. 소프트웨어를 복구 한 후에도 기본 및 보조 파일을 데이터베이스로 내보낼 수 있습니다.
+
+
+
 ---
 
-## 3. C ++에서 ACL을 사용하여 권한 정의
+## 4. C ++에서 ACL을 사용하여 권한 정의
 
 출처:  https://docs.microsoft.com/en-us/windows/desktop/secauthz/defining-permissions-with-acls-in-c--
 
@@ -210,42 +296,46 @@ BOOL SetPrivilege(
 
 | 상수/값                                                      | Description                                                  |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| **SE_ASSIGNPRIMARYTOKEN_NAME**<br/>TEXT("SeAssignPrimaryTokenPrivilege") | 프로세스의 기본 토큰을 지정하는 데 필요합니다. 사용자 권한 : 프로세스 수준 토큰을 바꿉니다. |
+| **SE_ASSIGNPRIMARYTOKEN_NAME**<br/>TEXT("SeAssignPrimaryTokenPrivilege") | 프로세스의 기본 토큰을 지정하는 데 필요합니다. <br/>사용자 권한 : 프로세스 수준 토큰을 바꿉니다. |
 | **SE_AUDIT_NAME**<br/>TEXT("SeAuditPrivilege")               | 감사 로그 항목을 생성하는 데 필요합니다. 보안 서버에이 권한을 부여하십시오. <br/>사용자 권한 : 보안 감사를 생성합니다. |
-| **SE_BACKUP_NAME**<br/>TEXT("SeBackupPrivilege")             | 백업 작업을 수행하는 데 필요합니다. 이 권한은 파일에 대해 지정된 액세스 제어 목록 (ACL)에 관계없이 시스템이 모든 읽기 액세스 제어를 모든 파일에 부여하도록합니다. 읽기 이외의 액세스 요청은 여전히 ACL로 평가됩니다. 이 권한은 RegSaveKey 및 RegSaveKeyExfunctions에 필요합니다. 이 권한이있는 경우 다음 액세스 권한이 부여됩니다.<br/> READ_CONTROL<br/>ACCESS_SYSTEM_SECURITY<br/>FILE_GENERIC_READ<br/>FILE_TRAVERSE<br/>사용자 권한 : 파일 및 디렉토리를 백업할 수 있습니다. |
+| <span style="color:blue">**SE_BACKUP_NAME**</span><br/>TEXT("SeBackupPrivilege") | 백업 작업을 수행하는 데 필요합니다.<br/>이 권한은 파일에 대해 지정된 액세스 제어 목록 (ACL)에 관계없이 시스템이 모든 읽기 액세스 제어를 모든 파일에 부여하도록합니다. 읽기 이외의 액세스 요청은 여전히 ACL로 평가됩니다. 이 권한은 RegSaveKey 및 RegSaveKeyExfunctions에 필요합니다. 이 권한이있는 경우 다음 액세스 권한이 부여됩니다.<br/>READ_CONTROL<br/>ACCESS_SYSTEM_SECURITY<br/>FILE_GENERIC_READ<br/>FILE_TRAVERSE<br/>사용자 권한 : 파일 및 디렉토리를 백업할 수 있습니다. |
 | **SE_CHANGE_NOTIFY_NAME**<br/>TEXT("SeChangeNotifyPrivilege") | 파일 또는 디렉토리에 대한 변경 사항에 대한 알림을 수신하려면 필수입니다. 또한이 권한으로 인해 시스템은 모든 순회 액세스 검사를 건너 뜁니다. 기본적으로 모든 사용자가 사용할 수 있습니다. <br/>사용자 권한 : 트래버스 확인을 건너 뜁니다. |
 | <span style="color:blue">**SE_CREATE_GLOBAL_NAME**</span><br/>TEXT("SeCreateGlobalPrivilege") | 터미널 서비스 세션 중 에 전역 네임 스페이스 에 명명 된 파일 매핑 개체를 만드는 데 필요합니다. 이 권한은 기본적으로 관리자, 서비스 및 로컬 시스템 계정에 대해 사용 가능합니다. <br/>사용자 권한 : 전역 개체를 만듭니다. |
 | **SE_CREATE_PAGEFILE_NAME**<br/>TEXT("SeCreatePagefilePrivilege") | 페이징 파일을 만드는 데 필요합니다. <br/>사용자 권한 : 페이지 파일을 만듭니다. |
 | **SE_CREATE_PERMANENT_NAME**<br/>TEXT("SeCreatePermanentPrivilege") | 영구 객체를 만드는 데 필요합니다. <br/>User Right : 영구 공유 객체를 만듭니다. |
-| **SE_CREATE_SYMBOLIC_LINK_NAME**<br/>TEXT("SeCreateSymbolicLinkPrivilege") | 기호 링크를 작성하는 데 필요합니다. 사용자 권한 : 심볼릭 링크를 생성합니다. |
-| **SE_CREATE_TOKEN_NAME**<br/>TEXT("SeCreateTokenPrivilege")  |                                                              |
-| **SE_DEBUG_NAME**<br/>TEXT("SeDebugPrivilege")               |                                                              |
-| **SE_DELEGATE_SESSION_USER<br/>_IMPERSONATE_NAME**<br/>TEXT("SeDelegateSessionUser<br/>ImpersonatePrivilege") |                                                              |
-| **SE_ENABLE_DELEGATION_NAME**<br/>TEXT("SeEnableDelegationPrivilege") |                                                              |
-| **SE_IMPERSONATE_NAME**<br/>TEXT("SeImpersonatePrivilege")   |                                                              |
-| **SE_INC_BASE_PRIORITY_NAME**<br/>TEXT("SeIncreaseBasePriorityPrivilege") |                                                              |
-| **SE_INCREASE_QUOTA_NAME**<br/>TEXT("SeIncreaseQuotaPrivilege") |                                                              |
-| **SE_INC_WORKING_SET_NAME**<br/>TEXT("SeIncreaseWorkingSetPrivilege") |                                                              |
-| **SE_LOAD_DRIVER_NAME**<br/>TEXT("SeLoadDriverPrivilege")    |                                                              |
-| **SE_LOCK_MEMORY_NAME**<br/>TEXT("SeLockMemoryPrivilege")    |                                                              |
-| **SE_MACHINE_ACCOUNT_NAME**<br/>TEXT("SeMachineAccountPrivilege") |                                                              |
-| **SE_MANAGE_VOLUME_NAME**<br/>TEXT("SeManageVolumePrivilege") |                                                              |
-| **SE_PROF_SINGLE_PROCESS_NAME**<br/>TEXT("SeProfileSingleProcessPrivilege") |                                                              |
-| **SE_RELABEL_NAME**<br/>TEXT("SeRelabelPrivilege")           |                                                              |
-| **SE_REMOTE_SHUTDOWN_NAME**<br/>TEXT("SeRemoteShutdownPrivilege") |                                                              |
-| **SE_RESTORE_NAME**<br/>TEXT("SeRestorePrivilege")           |                                                              |
-| **SE_SECURITY_NAME**<br/>TEXT("SeSecurityPrivilege")         |                                                              |
-| **SE_SHUTDOWN_NAME**<br/>TEXT("SeShutdownPrivilege")         |                                                              |
-| **SE_SYNC_AGENT_NAME**<br/>TEXT("SeSyncAgentPrivilege")      |                                                              |
-| **SE_SYSTEM_ENVIRONMENT_NAME**<br/>TEXT("SeSystemEnvironmentPrivilege") |                                                              |
-| **SE_SYSTEM_PROFILE_NAME**<br/>TEXT("SeSystemProfilePrivilege") |                                                              |
-| **SE_SYSTEMTIME_NAME**<br/>TEXT("SeSystemtimePrivilege")     |                                                              |
-| **SE_TAKE_OWNERSHIP_NAME**<br/>TEXT("SeTakeOwnershipPrivilege") |                                                              |
-| **SE_TCB_NAME**<br/>TEXT("SeTcbPrivilege")                   |                                                              |
-| **SE_TIME_ZONE_NAME**<br/>TEXT("SeTimeZonePrivilege")        |                                                              |
-| **SE_TRUSTED_CREDMAN_ACCESS_NAME**<br/>TEXT("SeTrustedCredManAccessPrivilege") |                                                              |
-| **SE_UNDOCK_NAME**<br/>TEXT("SeUndockPrivilege")             |                                                              |
-| **SE_UNSOLICITED_INPUT_NAME**<br/>TEXT("SeUnsolicitedInputPrivilege") |                                                              |
+| **SE_CREATE_SYMBOLIC_LINK_NAME**<br/>TEXT("SeCreateSymbolicLinkPrivilege") | 기호 링크를 작성하는 데 필요합니다. <br/>사용자 권한 : 심볼릭 링크를 생성합니다. |
+| **SE_CREATE_TOKEN_NAME**<br/>TEXT("SeCreateTokenPrivilege")  | 기본 토큰을 만드는 데 필요합니다.<br/>사용자 권한 : 토큰 개체를 만듭니다..<br/>토큰 개체 만들기'정책을 사용하여 이 권한을 사용자 계정에 추가 할 수 없습니다. 또한 Windows API를 사용하여 소유 한 프로세스에 이 권한을 추가 할 수 없습니다 .Windows Server 2003 및 Windows XP SP1 및 이전 버전 : Windows API는 소유 한 프로세스에 이 권한을 추가 할 수 있습니다. |
+| **SE_DEBUG_NAME**<br/>TEXT("SeDebugPrivilege")               | 다른 계정이 소유 한 프로세스의 메모리를 디버그하고 조정하는 데 필요합니다.<br/>사용자 권한 : 프로그램을 디버그합니다. |
+| **SE_DELEGATE_SESSION_USER<br/>_IMPERSONATE_NAME**<br/>TEXT("SeDelegateSessionUser<br/>ImpersonatePrivilege") | 동일한 세션에서 다른 사용자의 가장 (impersonation) 토큰을 얻으려면 필요합니다.<br/>사용자 권한 : 다른 사용자로 가장합니다. |
+| **SE_ENABLE_DELEGATION_NAME**<br/>TEXT("SeEnableDelegationPrivilege") | 위임에 대해 신뢰할 수 있는 사용자 및 컴퓨터 계정을 표시하는 데 필요합니다.<br/>사용자 권한 : 컴퓨터 및 사용자 계정을 위임할 수 있도록 설정합니다. |
+| <span style="color:blue">**SE_IMPERSONATE_NAME**</span><br/>TEXT("SeImpersonatePrivilege") | 가장 요청<br/>사용자 권한 : 인증 후 클라이언트를 가장합니다. |
+| **SE_INC_BASE_PRIORITY_NAME**<br/>TEXT("SeIncreaseBasePriorityPrivilege") | 프로세스의 기본 우선 순위를 높이려면 필요합니다. <br/>사용자 권한 : 프로세스의 메모리 할당량을 조정합니다. |
+| **SE_INCREASE_QUOTA_NAME**<br/>TEXT("SeIncreaseQuotaPrivilege") | 프로세스에 할당 된 할당량을 늘리는 데 필요합니다.<br/>사용자 권한 : 프로세스의 메모리 할당량을 조정합니다. |
+| **SE_INC_WORKING_SET_NAME**<br/>TEXT("SeIncreaseWorkingSetPrivilege") | 사용자 컨텍스트에서 실행되는 응용 프로그램에 더 많은 메모리를 할당합니다. <br/>사용자 권한 : 프로세스 작업 집합을 늘립니다. |
+| **SE_LOAD_DRIVER_NAME**<br/>TEXT("SeLoadDriverPrivilege")    | 장치 드라이버를로드하거나 언로드하는 데 필요합니다.<br/>사용자 권한 : 장치 드라이버 로드 및 언로드. |
+| **SE_LOCK_MEMORY_NAME**<br/>TEXT("SeLockMemoryPrivilege")    | 메모리의 물리적 페이지를 잠그는 데 필요합니다.<br/>사용자 권한 : 메모리의 페이지를 잠급니다. |
+| **SE_MACHINE_ACCOUNT_NAME**<br/>TEXT("SeMachineAccountPrivilege") | 컴퓨터 계정을 만드는 데 필요합니다.<br/>사용자 권한 : 워크 스테이션을 도메인 에 추가합니다. |
+| **SE_MANAGE_VOLUME_NAME**<br/>TEXT("SeManageVolumePrivilege") | 볼륨 관리 권한을 활성화하는 데 필요합니다.<br/>사용자 권한 : 볼륨의 파일을 관리합니다. |
+| **SE_PROF_SINGLE_PROCESS_NAME**<br/>TEXT("SeProfileSingleProcessPrivilege") | 단일 프로세스에 대한 프로파일 링 정보를 수집하는 데 필요합니다.<br/>사용자 권한 : 단일 프로세스를 프로파일링합니다. |
+| **SE_RELABEL_NAME**<br/>TEXT("SeRelabelPrivilege")           | 객체의 필수 무결성 레벨을 수정하는 데 필요합니다.<br/>사용자 권한 : 개체 레이블을 수정합니다. |
+| **SE_REMOTE_SHUTDOWN_NAME**<br/>TEXT("SeRemoteShutdownPrivilege") | 네트워크 요청을 사용하여 시스템을 종료하는 데 필요합니다.<br/>사용자 권한 : 원격 시스템에서 강제로 종료합니다. |
+| <span style="color:blue">**SE_RESTORE_NAME**</span><br/>TEXT("SeRestorePrivilege") | 복원 작업을 수행하는 데 필요합니다. 이 권한은 파일에 대해 지정된 ACL에 관계없이 시스템이 모든 쓰기 액세스 제어를 모든 파일에 부여하도록합니다. 쓰기 이외의 모든 액세스 요청은 여전히 ACL로 평가됩니다. 또한이 권한을 통해 유효한 사용자 또는 그룹 SID를 파일의 소유자로 설정할 수 있습니다. 이 권한은 RegLoadKey 함수에서 필요합니다. 이 권한이있는 경우 다음 액세스 권한이 부여됩니다.<br/>WRITE_DAC<br/>WRITE_OWNER<br/>ACCESS_SYSTEM_SECURITY
+FILE_GENERIC_WRITE
+FILE_ADD_FILE
+FILE_ADD_SUBDIRECTORY
+DELETE<br/>사용자 권한 : 파일 및 디렉토리를 복원합니다. |
+| **SE_SECURITY_NAME**<br/>TEXT("SeSecurityPrivilege")         | 감사 메시지 제어 및 보기와 같은 다양한 보안 관련 기능을 수행하는 데 필요합니다. 이 권한은 소유자를 보안 운영자로 식별합니다.<br/>사용자 권한 : 감사 및 보안 로그를 관리합니다. |
+| **SE_SHUTDOWN_NAME**<br/>TEXT("SeShutdownPrivilege")         | 로컬 시스템을 종료하는 데 필요합니다.<br/>사용자 권한 : 시스템을 종료합니다. |
+| **SE_SYNC_AGENT_NAME**<br/>TEXT("SeSyncAgentPrivilege")      | 도메인 컨트롤러가 Lightweight Directory Access Protocol 디렉터리 동기화 서비스를 사용하는 데 필요합니다. 이 권한은 소유자가 오브젝트 및 특성에 대한 보호와 상관없이 디렉토리의 모든 오브젝트 및 특성을 읽을 수있게합니다. 기본적으로 도메인의 Administrator 및 LocalSystem 계정에 할당됩니다.<br/>사용자 권한 : 디렉터리 서비스 데이터를 동기화합니다. |
+| **SE_SYSTEM_ENVIRONMENT_NAME**<br/>TEXT("SeSystemEnvironmentPrivilege") | 이 유형의 메모리를 사용하여 구성 정보를 저장하는 시스템의 비 휘발성 RAM을 수정하는 데 필요합니다.<br/>사용자 권한 : 펌웨어 환경 값을 수정합니다. |
+| **SE_SYSTEM_PROFILE_NAME**<br/>TEXT("SeSystemProfilePrivilege") | 전체 시스템에 대한 프로파일 링 정보를 수집하는 데 필요합니다.<br/>사용자 권한 : 시스템 성능을 프로파일 링합니다. |
+| **SE_SYSTEMTIME_NAME**<br/>TEXT("SeSystemtimePrivilege")     | 시스템 시간을 수정하는 데 필요합니다.<br/>사용자 권한 : 시스템 시간을 변경합니다. |
+| <span style="color:blue">**SE_TAKE_OWNERSHIP_NAME**</span><br/>TEXT("SeTakeOwnershipPrivilege") | 임의 접근을 허용하지 않고 객체의 소유권을 획득해야합니다. 이 권한은 소유자가 개체의 소유자로 합법적으로 할당 할 수있는 값으로 만 소유자 값을 설정할 수있게합니다.<br/>사용자 권한 : 파일 또는 다른 개체의 소유권을 가져옵니다. |
+| <span style="color:blue">**SE_TCB_NAME**</span><br/>TEXT("SeTcbPrivilege") | 이 권한은 소유자를 신뢰할 수있는 컴퓨터 기반의 일부로 식별합니다. 일부 신뢰할 수있는 보호 된 서브 시스템에는이 권한이 부여됩니다.<br/>사용자 권한 : 운영 체제의 일부로 작동합니다. |
+| **SE_TIME_ZONE_NAME**<br/>TEXT("SeTimeZonePrivilege")        | 컴퓨터의 내부 클럭과 관련된 표준 시간대를 조정하는 데 필요합니다.<br/>사용자 권한 : 시간대를 변경합니다. |
+| **SE_TRUSTED_CREDMAN_ACCESS_NAME**<br/>TEXT("SeTrustedCredManAccessPrivilege") | Credential Manager에 신뢰할 수있는 호출자로 액세스하는 데 필요합니다.<br/>사용자 권한 : Credential Manager에 신뢰할 수있는 호출자로 액세스합니다. |
+| **SE_UNDOCK_NAME**<br/>TEXT("SeUndockPrivilege")             | 노트북을 도킹 해제해야합니다.<br/>사용자 권한 : 도킹 스테이션에서 컴퓨터를 제거하십시오. |
+| **SE_UNSOLICITED_INPUT_NAME**<br/>TEXT("SeUnsolicitedInputPrivilege") | 터미널 장치에서 원하지 않는 입력을 읽는 데 필요합니다.<br/>사용자 권한 : 해당 사항 없음. |
 
 
 
