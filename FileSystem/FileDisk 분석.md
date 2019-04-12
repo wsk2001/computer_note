@@ -1339,3 +1339,578 @@ BOOL IsCurrentUserLocalAdministrator(void)
 
 ```
 
+
+
+---
+
+## 3. nlited systems 분석 내용
+
+출처: <https://aws.nlited.org/p1031.htm>
+
+### Disk Device
+
+Bo Branten의 filedisk-21을 참조로 사용하여 디스크 장치를 작성하는 코드를 청크에 보냈습니다. 긴 해킹 후 완전한 프로젝트를 구축 할 수 있었고, 대부분의 두 번째 날에는 원격 디버깅 문제를 다루는 등 여러 가지 문제를 해결하는 데 많은 시간을 할애했습니다.
+
+드라이버는 아무런 문제없이 작동하는 것처럼 보였지만 File Explorer에 새로운 디스크가 나타나지 않습니다. 나는 하루 하루를 성공없이 상상할 수있는 모든 것을 시도했다.
+
+오늘 저는 filedisk를 자세히 살펴보고 있습니다. 원래 버전을 사용하는 데 어려움을 겪었던 여러 가지 문제가 있었기 때문에 실제로 실행하지 못했습니다.
+
+- 주문형로드 / 언로드가 없기 때문에 부팅 중에 드라이버를 로드해야합니다. 이것은 디버깅을 매우 어색하게 만들뿐만 아니라 드라이버가 아무 것도하지 않는 것처럼 보입니다.
+- 내 드라이버 서명 인증서를 프로젝트에 통합해야합니다. 왜냐하면 filedisk 프로젝트는 표준보다 상당히 다른 Visual Studio 드라이버 템플릿을 사용하여 작성 되었기 때문에 이것은 간단하지 않았습니다. 프로젝트 속성에는 사용자 지정 빌드 단계가 없습니다.
+- filedisk 프로젝트는 이상한 (나에게) 레이아웃을 사용하여 조직되었으므로 특별히 그것에 몰두할 동기는 없었습니다.
+
+내가 디스크를 만들 수없는 이유를 알아 내려고 쓰는 데 2 일을 소비 했으므로 filedisk 프로젝트를 파악하는 데 더 많은 동기가 부여되었습니다. 내 참조 프로젝트가 실제로 작동하는지 알아야합니다. 저는 그것이 코드와 웹 사이트의 코멘트가 최근에 2015 년으로 업데이트되어야한다고 생각합니다.
+
+#### Filedisk Layout
+
+filedisk 프로젝트는 'filedisk-21'디렉토리 안에 두 개의 별도 솔루션 (보너스 혼동을 위해 'filedisk'라고 이름 지어 짐)으로 구성됩니다. 'exe'아래의 프로젝트는 가상 디스크를 마운트하고 언마운트하는 사용자 모드 인터페이스를 구축합니다. 'sys'아래의 프로젝트는 장치 드라이버를 빌드합니다. 소스 코드는 'src'디렉토리에 있고 이진 출력은 x64\\Debug\\ 디렉토리에 있습니다.
+
+#### Driver Signing
+
+이것은 쉬운 수정으로 밝혀졌습니다. 사용자 지정 단계에서 직접 signtool을 호출하는 대신 드라이버 프로젝트에는 속성 페이지가 있습니다. 실제 인증서 파일이 아닌 로컬 컴퓨터 저장소에 설치된 인증서를 가리켜 야했습니다.
+
+![](.\Images\I002108_176x120.png)
+
+#### Deploying
+
+프로젝트의 이상한 조직은 특히 드라이버가 부팅 중에로드되기 때문에 앱과 드라이버를 모두 배포하기가 까다 롭습니다. 드라이버 프로젝트에는 Visual Studio 커널 디버거를 사용한다고 가정하는 Visual Studio 드라이버 프로젝트이므로 별도의 '배포'속성이 없습니다. 그런 다음 Visual Studio는 자체 '배포 설치'를 통해 대상을 구성하려고합니다. 나는이 일을 올바르게 할 수 없었습니다. 내 목표는 이미 WinDbg로 작업하고 있지만 Visual Studio와 통신 할 수없는 것 같습니다. 나는 포트 49999를 사용하라고 말하며 포트 50005 사용을 주장합니다.
+
+어쨌든 Visual Studio 커널 디버거를 사용하고 싶지 않아서 한 줄의 .bat 파일을 작성하여 filedisk.sys를 대상에 복사했습니다.
+
+부팅하는 동안 드라이버를로드하는 것은 정말 귀찮은 일입니다. 시스템은 드라이버 파일에 열린 핸들을 남겨 둡니다. 다시 덮어 쓸 수 없습니다. 드라이버를 업데이트하려면 두 번 재부팅해야합니다.
+
+- 레지스트리에서 서비스를 사용하지 않도록 설정하십시오.
+- 드라이버를로드하지 않고 다시 부팅하십시오.
+- 드라이버 파일을 업데이트하십시오.
+- 레지스트리에서 서비스를 사용 가능하게하십시오.
+- 재부팅하여 새 드라이버를로드하십시오.
+
+이는 받아 들일 수없는 일이며, 다음 번 작업은 필요에 따라 드라이버를 로드 및 언로드하도록 앱을 업데이트하는 것입니다.
+
+응용 프로그램을 배포하는 것이 더 좋지만 여전히 고유 한 문제가 있습니다. 드라이버를 테스트하려면 여러 명령 행 옵션으로 여러 번 앱을 실행해야합니다.
+
+- filedisk /mount C:\Test\FileDisk\test.dsk 8M F:
+- filedisk /umount F:
+
+#### Running FileDisk
+
+필자는 결국 빌드 및 배포 문제를 분류하여 대상에서 FileDisk를 실행할 수있었습니다. 내 프로젝트와 똑같은 방식으로 작동합니다. 모든 것이 잘 작동하고 오류가보고되지 않으며 장치 개체가 만들어 지지만 새로운 디스크가 나타나지 않습니다. 이것은 실망 스럽지만, 저는 그 filedisk가 단순히 작동하지 않는다고 믿는 데 어려움을 겪습니다. 나는 다른 곳에서 이 프로젝트에 대한 언급을 보았으므로 그것이 여전히 효과가 있다고 확신한다. 프로젝트를 시작해야 할 것입니다.
+
+![](.\Images\I002109_262x120.png)
+
+#### Demand Load/Unload
+
+커널 디버깅은 매우 지루하고 부트 로딩은 정말 끔찍합니다. 요청시 드라이버를 로드하는 작업은 간단하고 쉽습니다. FileDisk 프로젝트가 아직 이 작업을 수행하지 않는 이유를 알지 못합니다. 앱을 시작하고 중지 할 필요가 있도록 서비스를 만드는 데 RegEdit을 사용하여 몇 가지 바로 가기를 사용하려고합니다.
+
+##### `FileDisk.reg`
+
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FileDisk]
+"DisplayName"="FileDisk virtual disk driver."
+"ErrorControl"=dword:00000001
+"Start"=dword:00000003
+"Type"=dword:00000001
+"ImagePath"="\\??\\C:\\Test\\FileDisk\\filedisk.sys"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FileDisk\Parameters]
+"NumberOfDevices"=dword:00000004
+```
+
+
+
+##### Start (load) the driver:
+
+```c
+void StartDriver(void) {
+  SC_HANDLE hMgr,hService;
+  if(!(hMgr= OpenSCManager(0,0,SC_MANAGER_CONNECT))) {
+    fprintf(stderr,"OpenSCManager() failed [%d]. Are you running as admin?\n",GetLastError());
+  } else {
+    if(!(hService= OpenService(hMgr,SERVICE_NAME,SERVICE_ALL_ACCESS))) {
+      fprintf(stderr,"OpenService(%s) failed (%d). Are you running as admin? Did you install the service?\n",SERVICE_NAME,GetLastError());
+    } else {
+      if(!StartService(hService,0,0)) {
+        int WinErr= GetLastError();
+        if(WinErr==ERROR_SERVICE_ALREADY_RUNNING) {
+          printf("Service(%s) is already running.\n",SERVICE_NAME);
+        } else {
+          fprintf(stderr,"StartService(%s) failed (%d).\n",SERVICE_NAME,WinErr);
+        }
+      } else {
+        printf("Service(%s) has been started.\n",SERVICE_NAME);
+      }
+      CloseServiceHandle(hService);
+    }
+    CloseServiceHandle(hMgr);
+  }
+}
+
+```
+
+
+
+##### Stop (unload) the driver:
+
+```c
+void StopDriver(void) {
+  SC_HANDLE hMgr,hService;
+  if(!(hMgr= OpenSCManager(0,0,SC_MANAGER_CONNECT))) {
+    fprintf(stderr,"OpenSCManager() failed [%d]. Are you running as admin?\n",GetLastError());
+  } else {
+    if(!(hService= OpenService(hMgr,SERVICE_NAME,SERVICE_ALL_ACCESS))) {
+      int WinErr= GetLastError();
+      if(WinErr==ERROR_SERVICE_DOES_NOT_EXIST) {
+        printf("Service(%s) does not exist.\n",SERVICE_NAME);
+      } else {
+        fprintf(stderr,"OpenService(%s) failed (%d). Are you running as admin? Did you install the service?\n",SERVICE_NAME,WinErr);
+      }
+    } else {
+      SERVICE_STATUS Status;
+      if(!ControlService(hService,SERVICE_CONTROL_STOP,&Status)) {
+        int WinErr= GetLastError();
+        if(WinErr==ERROR_SERVICE_NOT_ACTIVE) {
+          printf("Service(%s) is not running.\n",SERVICE_NAME);
+        } else {
+          fprintf(stderr,"ControlService(%s) failed. (%d)",SERVICE_NAME,GetLastError());
+        }
+      } else {
+        printf("Service(%s) has been stopped.\n",SERVICE_NAME);
+      }
+      CloseServiceHandle(hService);
+    }
+    CloseServiceHandle(hMgr);
+  }
+}
+```
+
+
+
+##### Patch it into main():
+
+```c
+    if(!strcmp(Command,"/start")) {
+      StartDriver();
+    } else if(!strcmp(Command,"/stop")) {
+      StopDriver();
+    } else if ((argc == 5 || argc == 6) && !strcmp(Command, "/mount"))
+
+```
+
+
+
+#### Debugging FileDisk
+
+첫 번째 작업은 FileDisk 드라이버에서 디버그 출력이 표시되지 않는 이유를 파악하는 것입니다. DriverEntry 함수에 DbgPrint () 및 DbgBreakPoint ()를 놓고 실행합니다.
+
+```c
+NTSTATUS
+DriverEntry (
+    IN PDRIVER_OBJECT   DriverObject,
+    IN PUNICODE_STRING  RegistryPath
+    )
+{
+    UNICODE_STRING              parameter_path;
+    RTL_QUERY_REGISTRY_TABLE    query_table[2];
+    ULONG                       n_devices;
+    NTSTATUS                    status;
+    UNICODE_STRING              device_dir_name;
+    OBJECT_ATTRIBUTES           object_attributes;
+    ULONG                       n;
+    USHORT                      n_created_devices;
+
+    DbgPrint("FileDisk has arrived.\n");
+    DbgBreakPoint();
+
+    parameter_path.Length = 0;
+    
+    ...
+}
+
+```
+
+
+
+DbgPrint ()에서 문서를 읽으려면 다음 레지스트리를 편집해야합니다.
+
+```
+HKEY_LOCAL_MACHINE\
+  SYSTEM\
+    CurrentControlSet\
+      Control\
+        Session Manager\
+          Debug Print Filter\
+            DEFAULT = DWORD 0xFF
+            IHVDRIVER = DWORD 0xFF
+```
+
+DbgFilter () 출력을보기 위해 DEFAULT의 모든 출력 (0xFF)을 활성화해야했습니다. 좋은 소식은 이제 filedisk.sys에서 디버그 텍스트를 볼 수 있다는 것입니다. 나쁜 소식은 시스템의 모든 드라이버에서 디버그 텍스트로 스팸되고 있다는 것입니다. 이로 인해 일부 의심스러운 활동이 노출되었지만 대부분 모든 것이 느려지 게되었습니다. DbgPrint ()에 대한 모든 호출을 DbgPrintEx (IHV_DRIVER_ID, 3, 'format', ...)로 바꿔야합니다. 이것은 더 낫지 만 여전히 최적은 아닙니다. 내 드라이버에서만 디버그 출력을보고 싶습니다. 비디오 드라이버의 디버그 출력에 전혀 관심이 없습니다. 사용자 정의 디버그 필터를 만드는 방법은 없습니다! 그 다음으로 가장 좋은 방법은 모든 디버그 출력을 ERROR로 설정하고 IHVDRIVER = 1로 설정하여 시스템을 파괴하는 것입니다. 그리고 아무도이 작업을하지 않았으며 릴리즈 빌드에서 제거하지 않았습니다. **추가 보너스로 시스템은 부팅 할 때 디버그 필터를 읽고 결코 다시 확인하지 않습니다. 필터를 바꾸고 싶을 때마다 다시 부팅해야합니다.** Ugly.
+
+DEFAULT를 끄면 도움이되었지만 스팸이 너무 많아서 시스템을 거의 사용할 수 없었습니다. IHVDRIVER가 1로 설정되어 있으며 여전히 받아 들일 수없는 양의 스팸이 있습니다. 최악의 범죄자는 onecore, 센서, UsbSleepStudy입니다. onecore 녀석은 특히 나쁜 polluters입니다. 나는 LSEROUS (DPFLTR_LSERMOUS_ID)를 시도하고 그것은 깨끗한 것 같습니다.
+
+스팸 디버그는 실제 문제입니다. 왜냐하면 대상 시스템이 WinDbg에 데이터를 보내려고 할 때 때때로 멈추는 네트워킹 문제가있는 것 같습니다. 이것은 WinDbg에서 BREAK를 치고 다시 시작하여 지울 수 있지만 디버그 텍스트가 너무 많으면 시스템을 사용할 수 없게 만듭니다.
+
+나는 모든 DbgPrintf () 호출을 Debug ()로 대체했다.
+
+`Debug()`
+
+```c
+#define DBG_CRITICAL    0x00000000
+#define DBG_ERR         0x00000001
+#define DBG_WARN        0x00000002
+#define DBG_INFO        0x00000004
+#define DBG_INIT        0x00000100
+#define DBG_IOCTL       0x00000200
+#define DBG_READ        0x00000400
+#define DBG_MEDIA       0x00000800
+#define DBG_WORK        0x00001000
+
+void Debug(DWORD Filter, const char *Fmt, ...) {
+  if(!Filter || (Filter & DbgFilter)) {
+    va_list ArgList;
+    va_start(ArgList,Fmt);
+    ULONG Level= (Filter & DBG_ERR) ? DPFLTR_ERROR_LEVEL : (Filter & DBG_WRN) ? DPFLTR_WARNING_LEVEL : 3;
+    vDbgPrintfEx(DPFLTR_LSERMOUS,Level,Fmt,ArgList);
+    va_end(ArgList);
+  }
+}
+```
+
+디버그 텍스트에 문제가 발생했습니다.
+
+```
+FileDisk: OpenMedis(\??\8M) is pending.
+FileDiskOpenFile: \??\8M
+FileDisk: File \??\8M not found.
+```
+
+파일 이름이 명령 줄에서 제대로 구문 분석되지 않고있는 것처럼 보이고 filedisk가 자동으로 실패합니다.
+
+유니 코드를 사용하는 드라이버와 8 비트 ASCII를 사용하는 응용 프로그램간에 혼란이있었습니다.
+
+ASCII / 유니 코드 항목을 정렬하는 데 당황스럽게 오랜 시간이 걸렸습니다. 그 가 UNICODE_STRING 구조체를 만들고 null 종결자를 버렸을 때, 그는 바이트를 저장하고 수백만의 미래의 노동 시간을 낭비했습니다. FileDisk 드라이버가 이제는 미디어 파일을 제대로 열지 만 새로운 디스크는 나타나지 않습니다!
+
+다음에 무엇을해야할지 모르겠습니다.(I'm not sure what to do next.)
+
+나는 이것이 가시성 문제라고 생각한다. 관리자로 앱을 실행해야하며 볼륨 장치 (및 심볼릭 링크)는 관리자 권한으로 만 볼 수 있습니다. 응용 프로그램이 종료되고 일반 사용자가 다시 시작되면 새로 생성 된 디스크가 숨겨집니다. 이것은 단지 이론 일 뿐이지 만 모든 것이 작동하는 것 (오류 없음)을 설명 할 수는 있지만 새로운 디스크는 보이지 않습니다. 내가 그들을 다시 만들 수 없기 때문에 그들이 만들어지고있는 것 같아요, 나는 그들을 삭제할 수 있습니다. 마침내 [Macrium.com](https://blog.macrium.com/virtual-disk-drivers-uac-and-nt-20c1cfc3933e)에서 다음과 같은 내용의 페이지를 발견했습니다.
+
+---
+
+그러나 UAC에서는 작동하지 않습니다. 적어도, 예상대로. 첫째로 - DefineDosDevice는 주어진 드라이브 문자에서 장치로 심볼릭 링크를 생성합니다. 원칙적으로 이것이 바로 당신이 달성하기를 원하는 것입니다. 그러나 링크가 만들어지는 위치에 따라 **당신(실행하는 user)이** 누구인지에 따라 달라집니다.
+
+- NTAUTHORITYSYSTEM: 링크가 \\GLOBAL?? 에 생성됩니다.
+- Administrator running as elevated: 권한이 부여 된 사용자의 세션 공간에 링크가 생성됩니다.
+- 정상적인 권한으로 실행되는 관리자 : 일반 사용자의 세션 공간에 링크가 생성됩니다.
+
+그래서, 당신이 누구인지에 따라 드라이브 문자가 얼마나 보이는가가 달려 있습니다. 예를 들어 일반 사용자로 실행중인 관리자로 드라이브를 만들면  탐색기를 실행하여 드라이브를 볼 수 없습니다! 반대로 상승 된 모드에서 생성 된 드라이브는 승격되지 않은 사용자에게는 보이지 않습니다.
+
+---
+
+나는 부분적인 해결책을 찾았을지도 모른다. 형식을 사용하여 전역 네임 스페이스에서 심볼릭 링크를 만들도록 강제 할 수 있습니다.
+
+```
+\DosDevices\Global\F:
+```
+
+이렇게하면 파일 탐색기를 포함하여 모든 사람이 볼 수있는 항목이 만들어집니다.
+
+![](.\Images\I002110_190x120.png)
+
+#### 새로운 디스크가 탐 색기에 나타납니다!
+
+디스크가 완전히 비어 있으므로 포맷을 해야합니다. FileDisk는 하위 수준의 저장소 만 제공하고 파일 시스템 (FAT 또는 NTFS)은 상위 파일 시스템 드라이버에서 제공합니다. NTFS 용으로 디스크를 빠르게 포맷 할 수 있습니다. NTFS는 4.27MB의 8MB 디스크를 사용합니다. 그런 다음 디스크를 다른 드라이브로 취급 할 수 있습니다. 새 파일을 만들고 읽고 쓰십시오.
+
+드라이브에서 실제 입출력을 시작하면 WinDbg로 보내지는 많은 '처리되지 않은 Ioctl'메시지가 발생하여 많은 정지 및 지연이 발생하므로 프로세스가 매우 느립니다.
+
+FileDisk 프로젝트는있는 그대로 Windows 10에서 작동하지 않습니다.
+
+그러나 이제는 기능적 가상 드라이브가 있습니다! 우와!
+
+이것은 나에게 약간의 수수께끼를 남겨 둡니다.
+
+- DeviceIoControl ()에는 관리자 권한(admin privileges)이 필요한가. (?)
+- DefineDosDevice ()에는 관리자 권한이 필요하지만 관리자가 작성한 내용은 관리자 컨텍스트에서만 볼 수 있습니다.
+- 드라이버와 통신하려면 앱에 글로벌 DOS 장치가 필요합니다.
+- 드라이버는 볼륨 문자를 알기 전에 장치를 만들어야합니다. 컨트롤 장치를 만드는 나의 초기 전략은 결국 올바른 접근 방식이었습니다.
+- 드라이버가 OPEN_FILE 명령을 보내어 볼륨 문자에 대한 심볼릭 링크를 생성 할 때까지 기다린 다음 **DosDevices\Global\F:** 형식을 사용해야합니다.
+- 드라이버에는 데스크탑의 볼륨 열거를 새로 고치는 메커니즘이 없습니다. 앱에서이 작업을 수행해야합니다.
+
+사용자 모드 DefineDosDevice ()를 사용하여 전역 이름을 만들 수 있는지 확인해야합니다.
+
+
+
+#### 정리 및 검토
+
+오늘 작업은 FileDisk 프로젝트의 제 버전을 정리하여 원본 버전을 작동시키는 데 필요한 최소한의 변경 사항을 결정하는 것입니다. 그런 다음 FileDisk의 작업 버전을 내 CryptDisk 프로젝트의 참조로 다시 사용할 수 있습니다.
+
+왜 원래의 FileDisk가 작동하지 않았는지 명확히 알 수 없습니다. Bo Branten은 분명히 2015 년 12 월 16 일에 출시 21 일 - 2 년 이내에 효과가 있다고 생각합니다. 그는 심지어 WDK 10을 사용하도록 업데이트되었다고 말합니다. 그러나 여기에는 중요한 참고 사항이 있습니다.
+
+***Note:*** 이후 버전의 Windows  Explorer에서 가상 디스크를 보려면 마운트 프로그램 filedisk.exe를 일반 사용자로 실행해야하며 관리자 권한으로 실행되는 명령 프롬프트에서는 실행하지 마십시오.
+
+**RTFM!**(Read The Fucking Manual, Read The Fucking Man page) 
+
+이 때문에 혼란 스럽지만 관리자가 드라이버를 로드해야하기 때문에. 원래의 FileDisk가 부팅시 로드되도록 구성되어있는 이유는 무엇입니까? Bo가 '숨겨진 개체 경로'문제에 부딪혔다 고 생각하고 부팅시 드라이버를 자동으로 로드하거나 UAC를 사용하지 않도록 설정하거나 관리자로 로그인하여 문제를 회피했습니다.
+
+원본 FileDisk-21 소스부터 시작하여 최소한의 변경 사항 (드라이버 서명 및로드)을 적용하고 다시 테스트해야합니다.
+
+```
+흠 ... FileDisk가 의심스러운 기원을 가지고있는 것 같습니다. FileDisk를 연구 자원으로 사용하고 그로부터 아무것도 복사하지 않도록 주의해야합니다. CryptDisk는 처음부터 완전하게 작성되었으며 상당한 구조적 디자인 차이가있는 리터럴 FileDisk 코드를 포함하지 않습니다. 질문은 : 지식이 저작권으로 보호 되는가?
+```
+
+[질문 링크](http://www.osronline.com/showThread.cfm?link=114787)
+
+디스크 장치가 생성되는 방식을 재구성했습니다. 디스크는 마운트 명령에 대한 응답으로 필요할 때 만들어지며 미디어가 마운트 해제 될 때 항상 파괴됩니다. 미디어가 없을 때 가상 디스크를 주변에 두는 것은 아무 의미가 없습니다. 또한이 방법을 사용하면 정확히 올바른 수의 장치를 만들 수 있습니다.
+
+제어 장치는 드라이버가로드 된 직후에 생성됩니다. 그러면 로더 응용 프로그램이 마운트 명령을 제어 드라이버에 보내고,이 드라이버가 미디어를 관리 할 새 디스크 장치를 만듭니다. 앱에서 볼륨 문자를 지정하고 기기 번호를 받지만 기기 번호는 사용되지 않습니다. 그런 다음 디스크 장치는 마운트 해제 명령을 포함하여 볼륨 장치 (예 :  \\.\F:)를 통해 볼륨에 대한 모든 명령을 처리합니다.
+
+모든 장치 생성 및 명명은 드라이버에서 처리되며 응용 프로그램에서만 명령을 보냅니다.
+
+#### 볼륨 마운트
+
+나는 어제와 오늘 아침에 NtString에서 버그를 분류하는 일을했습니다. 원격 커널 내부에서 문자열 코드를 디버깅하는 것만큼이나 지루한 작업은 없습니다.
+
+마운트 명령을 수행 중입니다.
+
+- 응용 프로그램은 미디어 파일, 미디어 크기 및 볼륨 문자가 들어있는 MountMedia_s 구조체를 사용하여 MOUNT ioctl을 제어 장치 (\\.\CryptControl)로 보냅니다.
+- 제어 장치는 새 디스크 장치 (\Device\CryptDisk01)를 만들고 탑재 IRP를 DeviceDisk :: Create ()에 전달합니다.
+- DeviceDisk :: Create ()는 디스크에 대한 새 작업자 스레드를 시작하고 작업 목록에 탑재 IRP를 추가하고 TaskEvent에 신호를 보내고 STATUS_PENDING을 반환합니다.
+- 제어 장치가 IRP를 대기 중으로 표시하고 반환합니다.
+- 잠시 후 디스크 장치의 작업자 스레드가 깨어나서 작업 목록에서 탑재 IRP를 가져옵니다.
+- 디스크 장치는 마운트 정보를 추출하여 미디어 파일을 생성하거나 엽니다.
+- 디스크 장치가 볼륨 링크 (\\\\DosDevices\\Global\\F:)를 만듭니다.
+- 탑재 IRP가 완료되었습니다 (IoCompleteRequest ()).
+- 작업자는 다음 TaskEvent를 기다립니다.
+
+이 모든 것이 효과가있는 것처럼 보입니다: mount 명령이 성공적으로 완료되고 새 볼륨이 파일 탐색기에 나타납니다.
+
+하지만 내 디스크 장치에는 어떤 명령도 수신되지 않습니다. 응용 프로그램이 볼륨 장치 (\\.\F:)를 열려고하면 '파일을 찾을 수 없습니다'와 함께 실패합니다. 디스크 장치 ( Device CryptDisk01)에 대한 심볼릭 링크 인 WinObj (\GLOBAL??\F:)의 볼륨을 볼 수 있습니다.
+
+Working FileDisk는 볼륨 당 2 개의 항목을 생성합니다 :
+
+\DosDevices\Global\F: -> \Devices\FileDisk\FileDisk0
+
+나는 이것이 권한 문제라고 생각한다.  WinObj를 사용하여 제어 장치의 등록 정보를 표시 할 수 있지만 디스크 장치는 표시 할 수 없습니다.
+
+![](.\Images\I002111_352x240.png)
+
+제어 장치는 IoCreateDevice ()를 사용하여 생성됩니다. 디스크 장치는 IoCreateDeviceSecure ()를 사용하여 생성되지만 모든 사용자가 액세스 할 수 있도록 허용해야합니다. 보안 설명자는 `D:P(A;;GA;;;SY)(A;;GA;;;BA)(A;;GA;;;BU)` 입니다.
+
+```
+D: DACL definition
+ P = SDDL_PROTECTED
+ (A;;GA;;;SY) = ALLOWED GENERIC_ALL SDDL_LOCAL_SYSTEM
+ (A;;GA;;;BA) = ALLOWED GENERIC_ALL SDDL_BUILTIN_ADMINISTRATORS
+ (A;;GA;;;BU) = ALLOWED GENERIC_ALL SDDL_BUILTIN_USERS
+```
+
+인증 된 사용자 (AU)도 포함시켜야 할 필요가있는 것 같지만 제어 장치를 볼 수있는 이유가 있습니다. 이것은 아무런 효과가 없었다.
+
+이제 디스크 장치는 응용 프로그램의 ioctl에 대한 응답으로 생성됩니다. 이전에는 디스크 장치가 서비스 관리자에 의해 호출 된 DriverEntry () 중에 작성되었습니다.
+
+어쩌면 DosDevices에서 CryptDisk01에 대한 링크가 필요합니까? 심볼릭 링크에 액세스 할 수 있지만 Device CryptDisk01에 액세스하는 데 여전히 실패하고 \\.\F:에 연결할 수 없습니다.
+
+같은 결과로 하드 코딩 된 이름을 사용하여 시도했습니다.
+
+내가 보는 유일한 차이점은 이제 장치가 나중에 생성된다는 것입니다. 이 이론을 테스트하려면 제어 장치가 작성된 것과 동일한 컨텍스트에서 디스크 장치를 작성해야합니다. 이렇게하려면 하드 코딩 된 MountMedia_s 구조체를 만들어야합니다. 먼저 산책을해야합니다.
+
+DriverEntry ()에서 디스크 장치를 만들면 디스크 장치 (\Device\CryptDisk)에 액세스 할 수 있습니다. 그런 다음 볼륨 장치 (\\.\F:)에 대한 핸들을 열 수 있습니다. 새 볼륨이 파일 탐색기에 나타납니다. 디스크 장치에 ioctls가 갑자기 나타납니다. 따라서로드 시간에 모든 디스크 장치를 만들어야 할 필요가있는 것 같습니다. 불행합니다. 어느 시점에서 필자는 이것이 퍼미션(permissions) (나는 생각하지 않음)인지 또는 가시성(visibility) (나는 그렇게 생각한다) 문제인지를 알아 내기 위해 좀 더 연구해야 할 필요가있다. 필요에 따라 디스크 장치를 만들고 파괴하는 것이 훨씬 더 좋을 것입니다. 사용자가 만들 디스크의 수를 모르기 때문입니다.
+
+볼륨의 모양은"\DosDevices\C:"와 같은 이름을 가진 \DosDevices\ 아래의 모든 항목의 모양 일뿐입니다. 드라이버와의 실제 상호 작용에 의존하지 않는 것처럼 보입니다.
+
+그러나 새 디스크를 포맷 할 수 없습니다. 나는 치아 빗으로 ioctls를 통과해야합니다.
+
+[ioctls.net](http://www.ioctls.net/)은 찾아보기 테이블입니다.
+
+```
+IrpTrace:
+CryptDisk|DBG DeviceDisk:Worker: Waiting for requests...
+CryptDisk|DBG DeviceDisk:IrpDispatch2(14)
+CryptDisk|DBG DeviceDisk:IoControl: 2049 (7E004)
+CryptDisk|DBG DeviceDisk:Worker:  IRP 14
+CryptDisk|DBG DeviceDisk:OpenMedia: \??\C:\Test\CryptDisk\Media.dsk
+Opening File Explorer
+CryptDisk|DBG DeviceDisk:IrpDispatch2(0)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(14)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG DeviceDisk:IrpDispatch2(18)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(18)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(2)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(2)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(0)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(18)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(14)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|DBG DeviceDisk:IrpDispatch2(14)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG DeviceDisk:IoControl: 2 (4D0008)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|DBG Device:Disk:IoctlMountQueryDeviceName: [38]\Device\CryptDisk01
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|ERR DeviceDisk:IoctlMountQueryDeviceName: Buffer overflow (4,44)
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:Worker: \Device\CryptDisk01 IRP 3
+CryptDisk|DBG DeviceDisk:IoctlGetHotPlugInfo: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetDeviceNumber: OK.
+CryptDisk|DBG DeviceDisk:IoControl: Unhandled command 6/6 (4D0018) IOCTL_MOUNTDEV_QUERY_STABLE_GUID
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+CryptDisk|DBG DeviceDisk:IoctlGetVolumeGpt: 0000000000000000
+```
+
+그것은 항상 무언가입니다 ... 나는 FileDisk를 다시 돌렸고 그 볼륨은 나타나기를 거부했습니다. 흠 ... 내 성공은 불가사의 한 사건의 조합이었던 것 같습니다. 다행히 실제로 작동하는 이전 버전으로 되돌릴 수있었습니다.
+
+이 버전?이 작동합니다! (마운트 해제가 제대로 작동하지 않을 수 있습니다.)
+
+내일 나는 FileDisk와 CryptDisk 사이의 ioctl 시퀀스를 비교하여 차이점을 찾을 수 있는지 알아볼 것입니다.
+
+#### Ioctl Tracing
+
+아래는 FileDisk의 ioctl 추적입니다. 하나의 VM에서 동일한 머신의 다른 VM으로 네트워크 전송을 사용하는 커널 디버깅 연결은 속도가 느리고 불안정합니다. 백그라운드에서 WinDbg과 목표물을 공회전시키는 것만으로도 내 네트워크가 무릎을 꿇게됩니다. 모든 ioctl을 인쇄 할 때마다 대상이 매 10 초마다 정지했기 때문에 중복되는 ioctls를 필터링해야했습니다. 드라이버가 QUERY_DEVICE_NAME에 대한 호출로 망치질됩니다.
+
+```
+FileDisk has arrived.
+FileDisk: IOCTL_?? No media. 17157/4305 [2D0C14] INVALID
+FileDisk: IOCTL_?? No media. 53760/D200 [74800] INVALID
+FileDisk: IOCTL_?? No media. 49170/C012 [70048] INVALID
+FileDisk: IOCTL_?? No media. 49170/C012 [70048] INVALID
+FileDisk: IOCTL_?? No media. 49152/C000 [70000] INVALID
+FileDisk: IOCTL_?? No media. 16386/4002 [4D0008] INVALID
+FileDisk: IOCTL_?? No media. 32782/800E [560038] INVALID
+FileDisk: IOCTL_FILE_DISK_OPEN_FILE 63488/F800 [7E000]
+FileDisk: File \??\C:\Test\FileDisk\Test.dsk opened.
+FileDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME 16386/4002 [4D0008]
+FileDisk: IOCTL_STORAGE_GET_HOTPLUG_INFO 17157/4305 [2D0C14]
+FileDisk: IOCTL_DISK_GET_PARTITION_INFO_EX 49170/C012 [70048]
+FileDisk: IOCTL_DISK_GET_PARTITION_INFO_EX 49170/C012 [70048]
+FileDisk: IOCTL_GET_DRIVE_GEOMETRY 49152/C000 [70000]
+FileDisk: IOCTL_STORAGE_GET_DEVICE_NUMBER 17440/4420 [2D1080]
+FileDisk: IOCTL_DISK_IS_WRITABLE 49161/C009 [70024]
+FileDisk: IOCTL_DISK_IS_WRITABLE 49161/C009 [70024]
+FileDisk: IOCTL_STORAGE_QUERY_PROPERTY 17664/4500 [2D1400] INVALID
+FileDisk: IOCTL_DISK_GET_LENGTH_INFO 53271/D017 [7405C]
+FileDisk: IOCTL_VOLUME_GET_GPT_ATTRIBUTES 32782/800E [560038]
+FileDisk: IOCTL_UNKNOWN 17508/4464 [2D1190] INVALID
+FileDisk: IOCTL_UNKNOWN 16390/4006 [4D0018] INVALID
+FileDisk: IOCTL_VOLUME_QUERY_ALLOCATION_UNIT 36884/9014 [564052] INVALID
+FileDisk: IOCTL_FT_BALANCED_READ_MODE 32774/8006 [66001B] INVALID
+MOUNTDEV_QUERY_DEVICE_NAME: OVERFLOW (4,106)
+FileDisk: IOCTL_UNKNOWN 49285/C085 [70214] INVALID
+MOUNTDEV_QUERY_DEVICE_NAME: OVERFLOW (4,106)
+FileDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME 16386/4002 [4D0008]
+FileDisk: IOCTL_STORAGE_GET_DEVICE_NUMBER 17440/4420 [2D1080]
+FileDisk: IOCTL_UNKNOWN 17507/4463 [2D118C] INVALID
+FileDisk: IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS 32768/8000 [560000]
+FileDisk: IOCTL_MOUNTDEV_QUERY_DEVICE_NAME 16386/4002 [4D0008]
+FileDisk: IOCTL_DISK_IS_WRITABLE 49161/C009 [70024]
+FileDisk: IOCTL_GET_DRIVE_GEOMETRY 49152/C000 [70000]
+FileDisk: IOCTL_DISK_GET_PARTITION_INFO_EX 49170/C012 [70048]
+FileDisk: IOCTL_STORAGE_QUERY_PROPERTY 17664/4500 [2D1400] INVALID
+FileDisk: IOCTL_STORAGE_GET_HOTPLUG_INFO 17157/4305 [2D0C14]
+FileDisk: IOCTL_DISK_GET_MEDIA_TYPES 49920/C300 [70C00] INVALID
+MOUNTDEV_QUERY_DEVICE_NAME: OK
+FileDisk: IOCTL_DISK_GET_LENGTH_INFO 53271/D017 [7405C]
+```
+
+변덕스러운 손가락이 그 저주받은 QUERY_DEVICE_NAME을 (를) 가리키고 있습니다. 정확히 FileDisk를 모방하고 어떤 차이가 있는지 확인해야합니다 ...
+
+나는 시행 착오를 많이 요구하는 규칙을 마침내 알아 냈습니다. MSDN 문서의 MOUNTDEV_NAME에 대한 설명은 번거롭고 혼란스럽고 중요한 세부 사항이 부족한 동시에 혼란 스럽습니다.
+
+- 출력 버퍼 크기 (pStack->Parameters.DeviceIoControl.OutputBufferLength)가 sizeof (MOUNTDEV_NAME)보다 작 으면 IoStatus.Information을 0으로 설정하고 STATUS_INVALID_PARAMETER를 반환합니다.
+- MOUNTDEV_NAME.NameLength는 장치 이름의 길이 (\Device\CryptDisk01)를 바이트 단위로 설정하고 종결자를 포함해야합니다.
+- 출력 버퍼 크기가 너무 작아서 전체 이름을 유지할 수 없으면 IoStatus.Information을 sizeof (MOUNTDEV_NAME)로 설정하고 STATUS_BUFFER_OVERFLOW를 반환하십시오. MOUNTDEV_NAME.NameLength는 이름의 크기를 유지하므로 호출자는 버퍼를 할당하고 다시 시도 할 수 있습니다. **NOTE :** MOUNTDEV_NAME.Name은 길이가 0 인 배열에 대한 C++ 규칙 때문에 길이가 1 인 배열로 선언됩니다. 즉, 필요한 크기를 'sizeof (MOUNTDEV_NAME) NameLength'로 계산해야합니다. 그렇지 않으면 sizeof (MOUNTDEV.Name)를 빼야합니다. 이 'off by one'은 호출자가 정확히 내가보고 한 크기의 버퍼를 할당했을 때 BUFFER_OVERFLOW를 잘못보고하게 만들었습니다.
+- 출력 버퍼가 충분히 크다면 유니 코드 텍스트를 터미네이터를 포함한 MOUNTDEV_NAME.Name []에 복사하고 IoStatus.Information을 sizeof (MOUNTDEV_NAME) NameLength (위 참조)로 설정하고 STATUS_SUCCESS를 반환합니다.
+
+이제 CryptDisk의 ioctl 추적이 더 유망 해 보입니다.
+
+DISK_GET_DRIVE_GEOMETRY에서 BytesPerSector를 설정하는 것을 잊었습니다. 이것은 왜 탐색기가 결국 사라질지를 설명 할 수 있습니다 - 선을 따라 어딘가로 나누었습니다.
+
+성공! 이제 내 디스크에서 포맷 대화 상자를 열 수 있습니다!
+
+![](.\Images\I002112_531x240.png)
+
+format 이 실패했습니다. 내 MediaSize는 8MB 대신 0입니다. 나는 바보 같은 버그, 30 초 수정, 5 분 디버거를 재설정했다.
+
+Format 이 시작된 다음 실패했습니다. DISK_SET_PARTITION에서 입력 대신 출력 버퍼를 확인했습니다. 1 분 수정, 5 분 디버거 재설정. (대상이 부팅되지 않아 Windows 복구가 시작되었습니다.) 많은 지루한 기다림과 Windbg 연결 재설정으로 인해 디스크가 이상하게 보입니다. 다시 부팅하고 미디어 파일을 삭제 한 다음 다시 시도해야합니다. (대상이 부팅에 실패하고, 로그인에 걸려 있고, 복구하고, 마지막으로 네 번째 시도에서 만들었습니다.)
+
+성공! '포맷 완료.' 그런 다음 새 디스크에 텍스트 파일을 만들었습니다. 정상적으로 대상을 다시 시작하려고 시도했지만 종료를 거부했습니다. 이것은 CryptDisk가 마운트 해제에 실패했기 때문일 수 있습니다. 다시 시작하고 기존 미디어 파일을 다시 마운트 할 수있었습니다. 내 파일이 디렉토리에 있었지만 내용이 손실되었습니다. 나는 '두번째 포스트!'를 만들었고 언 마운트를 건너 뛰고 정상적으로 종료 할 수있었습니다. (이번에는 내 개발 VM이 대상을 재부팅하는 동안 호스트 시스템, dev VM 및 대상을 재부팅해야합니다.) 15 분 후 최종적으로 파일을 다시 열어 텍스트를 읽을 수있었습니다.
+
+
+
+#### Post Mortem
+
+이제는 CryptDisk 프로젝트에서 일주일을 보냈습니다. 주로 가상 디스크 드라이버에서 작업했습니다.
+
+- 드라이버와 앱 셸을 만들고 프로젝트를 구성하는 날.
+- FileDisk 프로젝트를 연구하는 날.
+- 제어 장치와 디스크 장치의 첫 번째 초안을 쓰는 날.
+- 하루는 왜 내 디스크 장치가 파일 탐색기에 나타나지 않았는지 알아 내려고 보냈습니다.
+- FileDisk 참조 프로젝트로 빌드 문제를 수정하는 데 하루가 걸렸습니다.
+- Windows가 모든 프로세스에 대한 개체 디렉터리의 개인 복사본을 생성한다는 것을 알게 된 날. 'Global4Realz'개체 경로를 발견합니다.
+- NtString 클래스를 작성하는 데 하루를 소비하므로 null 종결 자에 대해 다시 걱정할 필요가 없습니다.
+- UNCODE_STRING, C-string, Name [1] 및 sizeof (MOUNTDEV_NAME) 사이에 혼란스러운 '길이'정의를 풀어가는 하루가있었습니다.
+- VMware와 KDnic 간의 비정상적인 네트워킹으로 인해 길을 잃었습니다.
+
+이 프로젝트의 원래 견적은 약 3-4 일이 걸렸습니다. 나는 희미한 디버그 환경에서 손실 될 시간을 과소 평가했으며, '개인 객체 디렉토리'전체에 의해 블라인드되었고, NtString을 작성하는 여분의 날을 보내고, GetDeviceName ()을 처리하는 하루를 잃었다.
+
+
+
+**끝**
+
+---
+
