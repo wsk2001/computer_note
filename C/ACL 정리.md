@@ -66,8 +66,7 @@ DACL을 수정하는 방법에는 3가지가 있다.
 ACL(Access Control List)은  개개의 사용자들이 디렉토리나 파일과 같은 특정 시스템 개체에 접근할 수 있는 권한을 설정해 놓은 표이다.
 
 - 공격자(해커)가 리소스에 접근 할 수 있다면 게임 끝이다.
-
-- -  “만약 레지스트리키의 ACL이 Everyone에게 모든 권한 허용으로 설정 되어 있으면, 누구나 해당 레지스트리의 키 데이터를 읽고, 쓰고 심지어는 다른 사람의 접근을 차단 할 수 있다”
+  - “만약 레지스트리키의 ACL이 Everyone에게 모든 권한 허용으로 설정 되어 있으면, 누구나 해당 레지스트리의 키 데이터를 읽고, 쓰고 심지어는 다른 사람의 접근을 차단 할 수 있다”
 
 - ACL을 이용해 리소스에 대한 접근 권한을 설정 해 두지 않으면 예측하지 못한 다양한 방법 공격이 가능하다.
   ex) 64byte 로 지정된 버퍼에 더 많은 데이터를 써버려 오버런 발생
@@ -78,8 +77,8 @@ ACE(Access Control Entry) 란? ACL의 구성 요소. ACL은 0개 혹은 이상�
 - Windows NT, 2000, XP와 이후 버젼에서 지원
 - 95, 98, Me, CE는 ACL을 지원하지 않음
 - NT와 이후 버젼 OS에서는 DACL, SACL 두 가지 지원
-  - DACL(Discretionary Access Control List) - 접근 권한 결정
-  - SACL(System Access Control List) - 감사 정책 결정
+  - **DACL**(Discretionary Access Control List) - **접근 권한 결정**
+  - **SACL**(System Access Control List) - **감사 정책 결정**
   - 둘은 비슷해 보이나 DACL은 권한을 설정하는 역할. SACL은 파일이나 폴더 혹은 주변 기기 오브젝트에 접근하는 이벤트 발생시 기록(log)을 할 수있음
 - DACL로 접근 권한을 제어 하거나, SACL로 감사 할 수 있는 보안 리소스의 예
   <http://technet.microsoft.com/ko-kr/library/bb795082.aspx> 참고
@@ -105,9 +104,10 @@ ACL 내의 모든 ACE는 반드시 의미가 있다 - 의미를 모르겠다면 
 
 
 ### 4. ACL 생성
--  Window NT 4에서 ACL 생성
+- Window NT 4에서 ACL 생성
 
-- - EXPLICIT_ACCESS
+  - EXPLICIT_ACCESS
+
   - AllocateAndInitializeSid()
   - InitailizeSecurityDescripter()
   - SetSecurityDescriptorDacl(),
@@ -115,9 +115,12 @@ ACL 내의 모든 ACE는 반드시 의미가 있다 - 의미를 모르겠다면 
     SetSecurityDescriptorGroup(),
     SetSecurityDescriptorSacl()
 
--  Windows 2000에서 ACL 생성
+- Windows 2000에서 ACL 생성
 
-- - SDDL(Security Descriptor Definition Language) 사용
+  - SDDL(Security Descriptor Definition Language) 사용
+
+
+
 
 ### 5. ACE 권한 지정 순서
 거부 ACE가 다른 ACE 보다 먼저 지정되어야 한다(이렇게 하지 않으면 허용 접근 권한이 지정되지 않는다)
@@ -126,6 +129,8 @@ ACL 내의 모든 ACE는 반드시 의미가 있다 - 의미를 모르겠다면 
 2. 명시적 허용
 3. 부모 컨테이너에서 상속된 거부
 4. 부모 컨테이너에서 상속된 허용....
+
+
 
 ### 6. NULL DACL과 그 밖의 위험한 ACE
 
@@ -275,8 +280,8 @@ Windows NT 보안 설명자는 다음과 같이 구성됩니다.
 | 2      | 2    |       | 제어 플래그                                                  |
 | 4      | 4    |       | 소유자 SID에 대한 참조.  보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
 | 8      | 4    |       | 그룹 SID에 대한 참조. 보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
-| 12     | 4    |       | DACL에 대한 참조. 보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
-| 16     | 4    |       | SACL에 대한 참조. 보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
+| 12     | 4    |       | SACL에 대한 참조. 보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
+| 16     | 4    |       | DACL에 대한 참조. 보안 설명자 머리글의 시작부터 상대적인 오프셋을 포함합니다. |
 
 ```c++
 typedef struct _SECURITY_DESCRIPTOR {
@@ -294,24 +299,24 @@ typedef struct _SECURITY_DESCRIPTOR {
 
 
 
-### Security descriptor control flags(보안 설명자 제어 플래그)
+### Security descriptor control flags(보안 설명자 제어 플래그-Control)
 
 | Value  | Identifier               | Description                                                  |
 | ------ | ------------------------ | ------------------------------------------------------------ |
-| 0x0001 | SE_OWNER_DEFAULTED       | 소유자 기본값<br/>기본 메커니즘에서 보안 설명 자 소유자의 SID를 제공했음을 나타냅니다. 이 플래그는 자원 관리자가 기본 메커니즘으로 소유자가 설정된 오브젝트를 식별하는 데 사용될 수 있습니다. |
-| 0x0002 | SE_GROUP_DEFAULTED       | 그룹 기본값<br/> 보안 설명자 그룹의 보안 식별자 (SID)가 기본 메커니즘에서 제공되었음을 나타냅니다. 이 플래그는 리소스 관리자가 기본 메커니즘으로 보안 설명자 그룹을 설정 한 개체를 식별하는 데 사용할 수 있습니다. |
-| 0x0004 | SE_DACL_PRESENT          | 현재 DACL<br/>DACL이 있는 보안 설명자를 나타냅니다. 이 플래그가 설정되어 있지 않거나 이 플래그가 설정되어 있고 DACL이 NULL이면 보안 설명자가 모든 사용자에게 전체 액세스 권한을 허용합니다. |
-| 0x0008 | SE_DACL_DEFAULTED        | DACL 기본값<br/> 기본 DACL이 있는 보안 설명자를 나타냅니다. 예를 들어 개체 작성자가 DACL을 지정하지 않으면 개체는 작성자의 액세스 토큰에서 기본 DACL을 받습니다. 이 플래그는 시스템에서 ACE 상속과 관련하여 DACL을 처리하는 방법에 영향을 줄 수 있습니다. SE_DACL_PRESENT 플래그가 설정되어 있지 않으면 시스템에서이 플래그를 무시합니다. |
-| 0x0010 | SE_SACL_PRESENT          | 현재 SACL<br/> SACL이있는 보안 설명자를 나타냅니다.          |
-| 0x0020 | SE_SACL_DEFAULTED        | SACL 기본값<br/> 보안 설명 자의 원래 공급자가 아닌 기본 메커니즘이 SACL을 제공했습니다. 이 플래그는 ACE 상속과 관련하여 시스템이 SACL을 처리하는 방법에 영향을 줄 수 있습니다. SE_SACL_PRESENT 플래그가 설정되어 있지 않으면 시스템은이 플래그를 무시합니다. |
+| 0x0001 | SE_OWNER_DEFAULTED       | **소유자 기본값**<br/>기본 메커니즘에서 보안 설명 자 소유자의 SID를 제공했음을 나타냅니다. 이 플래그는 자원 관리자가 기본 메커니즘으로 소유자가 설정된 오브젝트를 식별하는 데 사용될 수 있습니다. |
+| 0x0002 | SE_GROUP_DEFAULTED       | **그룹 기본값**<br/> 보안 설명자 그룹의 보안 식별자 (SID)가 기본 메커니즘에서 제공되었음을 나타냅니다. 이 플래그는 리소스 관리자가 기본 메커니즘으로 보안 설명자 그룹을 설정 한 개체를 식별하는 데 사용할 수 있습니다. |
+| 0x0004 | SE_DACL_PRESENT          | **현재 DACL**<br/>DACL이 있는 보안 설명자를 나타냅니다. 이 플래그가 설정되어 있지 않거나 이 플래그가 설정되어 있고 DACL이 NULL이면 보안 설명자가 모든 사용자에게 전체 액세스 권한을 허용합니다. |
+| 0x0008 | SE_DACL_DEFAULTED        | **DACL 기본값**<br/> 기본 DACL이 있는 보안 설명자를 나타냅니다. 예를 들어 개체 작성자가 DACL을 지정하지 않으면 개체는 작성자의 액세스 토큰에서 기본 DACL을 받습니다. 이 플래그는 시스템에서 ACE 상속과 관련하여 DACL을 처리하는 방법에 영향을 줄 수 있습니다. SE_DACL_PRESENT 플래그가 설정되어 있지 않으면 시스템에서이 플래그를 무시합니다. |
+| 0x0010 | SE_SACL_PRESENT          | **현재 SACL**<br/> SACL이있는 보안 설명자를 나타냅니다.      |
+| 0x0020 | SE_SACL_DEFAULTED        | **SACL 기본값**<br/> 보안 설명 자의 원래 공급자가 아닌 기본 메커니즘이 SACL을 제공했습니다. 이 플래그는 ACE 상속과 관련하여 시스템이 SACL을 처리하는 방법에 영향을 줄 수 있습니다. SE_SACL_PRESENT 플래그가 설정되어 있지 않으면 시스템은이 플래그를 무시합니다. |
 |        |                          |                                                              |
-| 0x0100 | SE_DACL_AUTO_INHERIT_REQ | DACL 자동 상속 요청                                          |
-| 0x0200 | SE_SACL_AUTO_INHERIT_REQ | SACL 자동 상속 요청                                          |
-| 0x0400 | SE_DACL_AUTO_INHERITED   | DACL 자동 상속<br/>상속 가능한 ACE를 기존 자식 개체로 자동 전파하도록 SACL을 설정하는 보안 설명자를 나타냅니다. |
-| 0x0800 | SE_SACL_AUTO_INHERITED   | SACL 자동 상속<br/>상속 가능한 ACE를 기존 자식 개체로 자동 전파하도록 SACL을 설정하는 보안 설명자를 나타냅니다. |
-| 0x1000 | SE_DACL_PROTECTED        | DACL 보호<br/>상속 가능한 ACE에 의해 보안 설명 자의 DACL이 수정되지 않도록합니다. |
-| 0x2000 | SE_SACL_PROTECTED        | SACL 보호<br/>상속 가능한 ACE에 의해 보안 설명 자의 SACL이 수정되지 않도록합니다. |
-| 0x4000 | SE_RM_CONTROL_VALID      | RM (Resource Manager) 컨트롤이 유효합니다.                   |
+| 0x0100 | SE_DACL_AUTO_INHERIT_REQ | **DACL 자동 상속 요청**                                      |
+| 0x0200 | SE_SACL_AUTO_INHERIT_REQ | **SACL 자동 상속 요청**                                      |
+| 0x0400 | SE_DACL_AUTO_INHERITED   | **DACL 자동 상속**<br/>상속 가능한 ACE를 기존 자식 개체로 자동 전파하도록 SACL을 설정하는 보안 설명자를 나타냅니다. |
+| 0x0800 | SE_SACL_AUTO_INHERITED   | **SACL 자동 상속**<br/>상속 가능한 ACE를 기존 자식 개체로 자동 전파하도록 SACL을 설정하는 보안 설명자를 나타냅니다. |
+| 0x1000 | SE_DACL_PROTECTED        | **DACL 보호**<br/>상속 가능한 ACE에 의해 보안 설명 자의 DACL이 수정되지 않도록합니다. |
+| 0x2000 | SE_SACL_PROTECTED        | **SACL 보호**<br/>상속 가능한 ACE에 의해 보안 설명 자의 SACL이 수정되지 않도록합니다. |
+| 0x4000 | SE_RM_CONTROL_VALID      | **RM (Resource Manager) 컨트롤이 유효**합니다.               |
 | 0x8000 | SE_SELF_RELATIVE         | Self Relative 자기 상대적 보안 설명자를 나타냅니다.          |
 
 
