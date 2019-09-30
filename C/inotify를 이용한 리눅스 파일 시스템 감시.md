@@ -358,3 +358,90 @@ inotify가 많은 정밀한 이벤트들 `CLOSE` versus `CLOSE_WRITE`을 지원�
 inotify가 퍼포먼스 모니터링, 디버깅, 자동화 같은 분야에 적용된다면 강력하고 정밀한 리눅스 파일 시스템의 모니터링 메커니즘이 된다. 이 글에 제시된 코드를 사용하여 최소한의 퍼포먼스 오버헤드로 실시간 파일 시스템 이벤트에 응답하고 이를 기록할 수 있는 애플리케이션을 작성할 수 있다.
 
 **참고자료**
+
+
+
+**[출처]** [[리눅스\] inotify 를 이용한 폴더/파일 변화 감시 소스 코드](http://blog.naver.com/websearch/221075783079)|**작성자** [까미유](http://blog.naver.com/websearch)
+
+리눅스에서 inotify 를 이용하면 폴더의 변화 및 파일 추가/수정/삭제/이동 등의 이벤트를 감시할 수 있습니다.  아래의 소스 코드는 inotify 를 이용한 /tmp 폴더의 폴더/파일 변화를 감시하는 소스 코드입니다.
+
+[주의] inotify 는 하위 폴더의 파일에 대한 감시가 되지 않는다. 
+
+```c++
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/inotify.h>
+
+int main( int argc, char * argv[] )
+{
+ int iFd = inotify_init();
+ if( iFd == -1 )
+ {
+  printf( "inotify_init error\n" );
+  return 0;
+ }
+ 
+ // 파일 변경을 감시할 디렉토리를 설정한다.
+ int n = inotify_add_watch( iFd, "/tmp", IN_ACCESS | IN_ATTRIB |
+      IN_CLOSE_WRITE | IN_CLOSE_NOWRITE | IN_CREATE |
+      IN_DELETE | IN_DELETE_SELF |
+      IN_MODIFY | IN_MOVE_SELF |
+      IN_MOVED_FROM | IN_MOVED_TO | IN_OPEN );
+ if( n == -1 )
+ {
+  printf( "inotify_add_watch error\n" );
+ }
+ else
+ {
+  char szBuf[8192];
+  
+  while( 1 )
+  {
+   n = read( iFd, szBuf, sizeof(szBuf) );
+   if( n < 0 )
+   {
+    printf( "read error\n" );
+    break;
+   }
+   
+   int iPos = 0;
+   
+   while( iPos < n )
+   {
+    struct inotify_event * psttEvent = (struct inotify_event *)&szBuf[iPos];
+    
+    // .a.txt.swp 와 같이 . 으로 시작하는 파일 이름은 무시한다.
+    if( psttEvent->name[0] != '.' )
+    {
+     printf( "name[%s] mask[%x] cookie[%x]", psttEvent->name, psttEvent->mask, psttEvent->cookie );
+     
+     if( psttEvent->mask & IN_ACCESS ) printf( " IN_ACCESS" );
+     if( psttEvent->mask & IN_ATTRIB ) printf( " IN_ATTRIB" );
+     if( psttEvent->mask & IN_CLOSE_WRITE ) printf( " IN_CLOSE_WRITE" );
+     if( psttEvent->mask & IN_CLOSE_NOWRITE ) printf( " IN_CLOSE_NOWRITE" );
+     if( psttEvent->mask & IN_CREATE ) printf( " IN_CREATE" );
+     if( psttEvent->mask & IN_DELETE ) printf( " IN_DELETE" );
+     if( psttEvent->mask & IN_DELETE_SELF ) printf( " IN_DELETE_SELF" );
+     if( psttEvent->mask & IN_MODIFY ) printf( " IN_MODIFY" );
+     if( psttEvent->mask & IN_MOVE_SELF ) printf( " IN_MOVE_SELF" );
+     if( psttEvent->mask & IN_MOVED_FROM ) printf( " IN_MOVED_FROM" );
+     if( psttEvent->mask & IN_MOVED_TO ) printf( " IN_MOVED_TO" );
+     if( psttEvent->mask & IN_OPEN ) printf( " IN_OPEN" );
+     
+     printf( "\n" );
+    }
+    
+    iPos += sizeof(inotify_event) + psttEvent->len;
+   }
+  }
+ }
+ 
+ close( iFd );
+
+ return 0;
+} 
+
+```
+
+
+
