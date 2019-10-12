@@ -493,7 +493,7 @@ drwxr-xr-x 3 root root 20 Mar 17 02:23 node_modules
 $ npm install express -g
 ```
 
-이렇게하면 유사한 결과가 발생하지만 모듈은 전 세계적으로 설치됩니다. 여기에서 첫 번째 행은 모듈 버전과 모듈 버전이 설치되는 위치를 보여줍니다.
+이렇게하면 유사한 결과가 발생하지만 모듈은 전역(Global)으로 설치됩니다. 여기에서 첫 번째 행은 모듈 버전과 모듈 버전이 설치되는 위치를 보여줍니다.
 
 ```
 express@4.12.2 /usr/lib/node_modules/express
@@ -523,7 +523,7 @@ express@4.12.2 /usr/lib/node_modules/express
 └── type-is@1.6.1 (media-typer@0.3.0, mime-types@2.0.10)
 ```
 
-다음 명령을 사용하여 전 세계적으로 설치된 모든 모듈을 검사 할 수 있습니다.
+다음 명령을 사용하여 전역 으로 설치된 모든 모듈을 검사 할 수 있습니다.
 
 ```
 $ npm ls -g
