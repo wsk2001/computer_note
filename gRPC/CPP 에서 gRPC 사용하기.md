@@ -19,7 +19,6 @@ package xdbproto;
 
 // The Xecuredb service definition.
 service Xecuredb {
-  // Sends a greeting
   rpc Encrypt (EncRequest) returns (EncReply) {}
   rpc Decrypt (DecRequest) returns (DecReply) {}
   rpc Hash (HashRequest) returns (HashReply) {}
