@@ -16,7 +16,7 @@
 
 ### Prerequisites
 
-이 자습서를 진행하기 전에 JavaScript에 대한 기본 지식이 있어야합니다. Node.js를 사용하여 웹 기반 응용 프로그램을 개발할 예정이므로 HTML, CSS, AJAX 등과 같은 다른 웹 기술에 대해 잘 알고 있다면 유용 할 것입니다.
+이 자습서를 진행하기 전에 <span style="color:red">JavaScript에 대한 기본 지식이 있어야합니다.</span> Node.js를 사용하여 웹 기반 응용 프로그램을 개발할 예정이므로 <span style="color:red">HTML, CSS, AJAX </span> 등과 같은 다른 웹 기술에 대해 잘 알고 있다면 유용 할 것입니다.
 
 
 
@@ -42,9 +42,9 @@ Node.js = Runtime Environment + JavaScript Library
 
 다음은 Node.js를 소프트웨어 설계자의 첫 번째 선택으로 만드는 중요한 기능 중 일부입니다.
 
-- **Asynchronous and Event Driven** − Node.js 라이브러리의 모든 API는 비동기식, 즉 비 차단 형입니다. 기본적으로 Node.js 기반 서버는 데이터를 반환하는 API를 기다리지 않습니다. 서버는이를 호출 한 후 다음 API로 이동하고 Node.js 이벤트 알림 메커니즘은 서버가 이전 API 호출로부터 응답을 얻는 데 도움이됩니다.
+- **Asynchronous and Event Driven** − Node.js 라이브러리의 모든 API는 <span style="color:red">비동기식</span>, 즉 비 차단 형입니다. 기본적으로 Node.js 기반 서버는 데이터를 반환하는 API를 기다리지 않습니다. 서버는이를 호출 한 후 다음 API로 이동하고 Node.js 이벤트 알림 메커니즘은 서버가 이전 API 호출로부터 응답을 얻는 데 도움이됩니다.
 - **Very Fast** − Google 크롬의 V8 JavaScript 엔진을 기반으로 구축 된 Node.js 라이브러리는 코드 실행 속도가 매우 빠릅니다.
-- **Single Threaded but Highly Scalable** − Node.js는 이벤트 반복과 함께 단일 스레드 모델을 사용합니다. 이벤트 메커니즘은 서버가 비 차단 방식으로 응답 할 수있게하고 요청을 처리하기위한 제한된 스레드를 만드는 기존 서버와 달리 서버의 확장 성을 높입니다. Node.js는 단일 스레드 프로그램을 사용하며 동일한 프로그램이 Apache HTTP Server와 같은 기존 서버보다 훨씬 많은 수의 요청에 서비스를 제공 할 수 있습니다.
+- **Single Threaded but Highly Scalable** − Node.js는 <span style="color:red">이벤트 반복</span>과 함께 <span style="color:red">단일 스레드</span> 모델을 사용합니다. <span style="color:red">이벤트 메커니즘은 서버가 비 차단 방식으로 응답</span> 할 수있게하고 요청을 처리하기위한 제한된 스레드를 만드는 기존 서버와 달리 서버의 확장 성을 높입니다. Node.js는 단일 스레드 프로그램을 사용하며 동일한 프로그램이 Apache HTTP Server와 같은 기존 서버보다 훨씬 많은 수의 요청에 서비스를 제공 할 수 있습니다.
 - **No Buffering** −  Node.js 응용 프로그램은 어떠한 데이터도 버퍼하지 않습니다. 이러한 응용 프로그램은 단순히 데이터를 청크로 출력합니다.
 - **License** −  Node.js는 MIT 라이선스에 따라 배포됩니다.
 
@@ -68,7 +68,7 @@ Node.js = Runtime Environment + JavaScript Library
 
 다음은 Node.js가 완벽한 기술 파트너임을 증명하는 분야입니다.
 
-- I / O 바운드 응용 프로그램
+- I/O 바운드 응용 프로그램
 - 데이터 스트리밍 애플리케이션
 - 데이터 집약형 실시간 애플리케이션 (DIRT)
 - JSON API 기반 애플리케이션
@@ -86,7 +86,7 @@ CPU 집약적 인 응용 프로그램에 Node.js를 사용하는 것은 바람�
 
 ### Try it Option Online
 
-> Node.j를 배우기 위해 자신의 환경을 설정할 필요가 없습니다. 이유는 매우 간단합니다. 이미 Node.js 환경을 온라인으로 설정 했으므로 사용 가능한 모든 예제를 온라인으로 실행하고 실습을 배울 수 있습니다. 모든 예제를 수정하고 다른 옵션을 사용하여 결과를 확인하십시오.
+> Node.js를 배우기 위해 자신의 환경을 설정할 필요가 없습니다. 이유는 매우 간단합니다. 이미 Node.js 환경을 온라인으로 설정 했으므로 사용 가능한 모든 예제를 온라인으로 실행하고 실습을 배울 수 있습니다. 모든 예제를 수정하고 다른 옵션을 사용하여 결과를 확인하십시오.
 >
 > 웹 사이트의 아래 샘플 코드 상자의 오른쪽 상단에있는 라이브 데모 옵션을 사용하여 다음 예제를 시도해보십시오.
 >
@@ -199,7 +199,7 @@ Hello, World!
 
 - **Import required modules** − Node.js 모듈을로드하려면 require 지시문을 사용합니다.
 - **Create server** − Apache HTTP Server와 비슷한 클라이언트 요청을 수신하는 서버.
-- **Read request and return response** − 이전 단계에서 작성된 서버는 브라우저 또는 콘솔이 될 수있는 클라이언트가 작성한 HTTP 요청을 읽고 응답을 리턴합니다.
+- **Read request and return response** −  클라이언트가 작성한 HTTP 요청을 읽고 응답을 리턴합니다.
 
 
 
@@ -217,7 +217,7 @@ var http = require("http");
 
 **Step 2 -** 서버 만들기
 
-생성 된 http 인스턴스와 http.createServer () 메소드를 사용하여 서버 인스턴스를 만든 다음 서버 인스턴스와 관련된 수신 대기 메소드를 사용하여 포트 8081에서 바인딩합니다. 요청 및 응답 매개 변수가있는 함수를 전달하십시오. 항상 'Hello World'를 반환하도록 샘플 구현을 작성합니다.
+생성 된 http 인스턴스와 http.createServer () 메소드를 사용하여 서버 인스턴스를 만든 다음 서버 인스턴스와 관련된 수신 대기 메소드를 사용하여 포트 8081에서 바인딩합니다. request 및 response 매개 변수가있는 함수를 전달하십시오. 항상 'Hello World'를 반환하도록 샘플 구현을 작성합니다.
 
  ```javascript
 http.createServer(function (request, response) {
@@ -292,7 +292,7 @@ Server running at http://127.0.0.1:8081/
 - **Print** −  결과를 인쇄합니다.
 - **Loop** − 사용자가 ctrl-c를 두 번 누를 때까지 위의 명령을 반복합니다.
 
-Node의 REPL 기능은 Node.js 코드를 실험하고 JavaScript 코드를 디버깅하는 데 매우 유용합니다.
+<span style="color:red">Node의 REPL 기능은 Node.js 코드를 실험하고 JavaScript 코드를 디버깅하는 데 매우 유용합니다.</span>
 
 
 
@@ -433,7 +433,7 @@ $ node
 
 Node Package Manager (NPM)는 두 가지 주요 기능을 제공합니다.
 
--  search.nodejs.org에서 검색 할 수있는 node.js 패키지 / 모듈 용 온라인 리포지토리
+-  node.js 패키지/모듈 용 온라인 리포지토리인 search.nodejs.org에서 Package 를 검색할 수 있다. 
 - 명령 줄 유틸리티는 Node.js 패키지를 설치하고 Node.js 패키지의 버전 관리 및 종속성 관리를 수행합니다.
 
 NPM은 v0.6.3 버전 이후에 Node.js 설치 파일과 함께 번들로 제공됩니다. 이를 확인하려면 콘솔을 열고 다음 명령을 입력하고 결과를 확인하십시오 -
@@ -479,7 +479,7 @@ var express = require('express');
 
 기본적으로 NPM은 로컬 모드에서 종속성을 설치합니다. 여기서 로컬 모드는 노드 응용 프로그램이있는 폴더에있는 node_modules 디렉토리의 패키지 설치를 나타냅니다. 로컬에 배포 된 패키지는 require () 메소드를 통해 액세스 할 수 있습니다. 예를 들어, express 모듈을 설치할 때 Express 모듈을 설치 한 현재 디렉토리에 node_modules 디렉토리가 작성됩니다.
 
-```
+```bash
 $ ls -l
 total 0
 drwxr-xr-x 3 root root 20 Mar 17 02:23 node_modules
@@ -487,7 +487,13 @@ drwxr-xr-x 3 root root 20 Mar 17 02:23 node_modules
 
  또는 npm ls 명령을 사용하여 로컬에 설치된 모든 모듈을 나열 할 수 있습니다.
 
-전역 적으로 설치된 패키지 / 종속성은 시스템 디렉토리에 저장됩니다. 이러한 종속성은 node.js의 CLI (명령 줄 인터페이스) 기능에서 사용할 수 있지만 노드 응용 프로그램에서 직접 require ()를 사용하여 가져올 수는 없습니다. 이제 글로벌 설치를 사용하여 익스프레스 모듈을 설치해 봅시다.
+전역에 설치된 모듈을 나열 하려면 다음과 같이 합니다.
+
+```bash
+$ node ls -g
+```
+
+전역 적으로 설치된 패키지/종속성은 시스템 디렉토리에 저장됩니다. 이러한 종속성은 node.js의 CLI (명령 줄 인터페이스) 기능에서 사용할 수 있지만 노드 응용 프로그램에서 직접 require ()를 사용하여 가져올 수는 없습니다. 이제 글로벌 설치를 사용하여 익스프레스 모듈을 설치해 봅시다.
 
 ```
 $ npm install express -g
@@ -784,7 +790,7 @@ $ npm search express
 
 ### Create a Module
 
-모듈을 생성하려면 package.json을 생성해야합니다. NPM을 사용하여 package.json을 생성하면 package.json의 기본 골격을 생성합니다.
+모듈을 생성하려면 package.json을 생성해야합니다. npm 을 사용하여 package.json을 생성하면, package.json의 기본 골격을 생성합니다.
 
 ```
 $ npm init
@@ -801,7 +807,7 @@ Press ^C at any time to quit.
 name: (webmaster)
 ```
 
-모듈에 대한 모든 필수 정보를 제공해야합니다. 위에서 언급 한 package.json 파일의 도움을 받아 다양한 정보 요구의 의미를 이해할 수 있습니다. package.json이 생성되면 다음 명령을 사용하여 유효한 전자 메일 주소를 사용하여 NPM 저장소 사이트에 자신을 등록하십시오.
+모듈에 대한 모든 필수 정보를 제공해야합니다. 위에서 언급 한 package.json 파일의 도움을 받아 다양한 정보 요구의 의미를 이해할 수 있습니다. package.json이 생성되면 다음 명령을 사용하여 유효한 e-mail 주소를 사용하여 npm 저장소 사이트에 자신을 등록하십시오.
 
 ```
 $ npm adduser
@@ -824,9 +830,9 @@ $ npm publish
 
 ### What is Callback?
 
-콜백 함수는 비동기 함수입니다. 콜백 함수는 주어진 작업이 완료 될 때 호출됩니다. 노드는 콜백을 많이 사용합니다. Node의 모든 API는 콜백을 지원하는 방식으로 작성됩니다.
+콜백 함수는 비동기 함수입니다. 콜백 함수는 주어진 작업이 완료 될 때 호출됩니다. 노드는 콜백을 많이 사용합니다. **Node의 모든 API는 콜백을 지원하는 방식으로 작성됩니다.**
 
-예를 들어, 파일을 읽는 함수는 파일 읽기를 시작하고 실행 환경으로 제어를 반환하여 다음 명령을 실행할 수 있습니다. 파일 I / O가 완료되면 콜백 함수를 호출하면서 콜백 함수를 호출합니다. 콜백 함수는 파일의 내용을 매개 변수로 전달합니다. 따라서 파일 I / O를 차단하거나 대기 할 필요가 없습니다. 이로써 Node.js는 확장 성이 뛰어나며 결과를 반환 할 함수를 기다리지 않고 많은 수의 요청을 처리 할 수 있습니다.
+예를 들어, 파일을 읽는 함수는 파일 읽기를 시작하고 실행 환경으로 제어를 반환하여 다음 명령을 실행할 수 있습니다. 파일 I/O가 완료되면 완료 콜백 함수를 호출합니다. 콜백 함수는 파일의 내용을 매개 변수로 전달합니다. 따라서 파일 I/O를 차단하거나 대기 할 필요가 없습니다. 이로써 Node.js는 확장성이 뛰어나며 결과를 반환 할 함수를 기다리지 않고 많은 수의 요청을 처리 할 수 있습니다.
 
 
 
@@ -906,7 +912,7 @@ to teach the world in simple and easy way!!!!!
 - 첫 번째 예제는 프로그램이 파일을 읽을 때까지 차단 한 다음 프로그램을 끝내기 만하면된다는 것을 보여줍니다.
 - 두 번째 예제는 프로그램이 파일 읽기를 기다리지 않고 'Program Ended'를 인쇄하는 동시에 블록하지 않은 프로그램이 파일 읽기를 계속한다는 것을 보여줍니다.
 
-따라서 차단 프로그램은 순차적으로 매우 많이 실행됩니다. 프로그래밍의 관점에서 볼 때 논리를 구현하는 것이 더 쉽지만 논 블로킹 프로그램은 순차적으로 실행되지 않습니다. 프로그램에서 처리 할 데이터를 사용해야하는 경우 연속 실행되도록 동일한 블록 내에 보관해야합니다.
+따라서 차단 프로그램은 순차적으로 매우 많이 실행됩니다. 프로그래밍의 관점에서 볼 때 논리를 구현하는 것이 더 쉽지만 <span style="color:red">**논 블로킹 프로그램은 순차적으로 실행되지 않습니다. 프로그램에서 처리 할 데이터를 사용해야하는 경우 연속 실행되도록 동일한 블록 내에 보관해야합니다.**</span>
 
 
 
@@ -999,7 +1005,7 @@ Program Ended.
 
 ### How Node Applications Work?
 
-노드 응용 프로그램에서 모든 비동기 함수는 마지막 매개 변수로 콜백을 허용하고 콜백 함수는 첫 번째 매개 변수로 오류를 허용합니다. 앞의 예제를 다시 한번 살펴 보겠습니다. 다음 내용으로 input.txt라는 텍스트 파일을 만듭니다.
+노드 응용 프로그램에서 **모든 비동기 함수는 마지막 매개 변수로 콜백을 허용하고 콜백 함수는 첫 번째 매개 변수로 오류를 허용합니다.** 앞의 예제를 다시 한번 살펴 보겠습니다. 다음 내용으로 input.txt라는 텍스트 파일을 만듭니다.
 
 ```
 Tutorials Point is giving self learning content
@@ -1057,14 +1063,14 @@ EventEmitter는 on 및 emit과 같은 여러 속성을 제공합니다. on 속�
 
 | Sr.No. | Method & Description                                         |
 | ------ | ------------------------------------------------------------ |
-| 1      | **addListener(event, listener)**<br/>청취자 배열의 끝에 지정된 이벤트에 대한 청취자를 추가합니다. 청취자가 이미 추가되었는지 확인하지 않습니다. 동일한 이벤트와 리스너의 조합을 여러 번 호출하면 리스너가 여러 번 추가됩니다. 이미 터를 반환하므로 호출을 연결할 수 있습니다. |
-| 2      | **on(event, listener)**<br/>청취자 배열의 끝에 지정된 이벤트에 대한 청취자를 추가합니다. 청취자가 이미 추가되었는지 확인하지 않습니다. 동일한 이벤트와 리스너의 조합을 여러 번 호출하면 리스너가 여러 번 추가됩니다. 이미 터를 반환하므로 호출을 연결할 수 있습니다. |
-| 3      | **once(event, listener)**<br/>이벤트에 1 회 청취자를 추가합니다. 이 리스너는 다음에 이벤트가 시작될 때만 호출되고 그 후 이벤트가 제거됩니다. 이미 터를 반환하므로 호출을 연결할 수 있습니다. |
-| 4      | **removeListener(event, listener)**<br/>청취자 배열에서 지정된 이벤트에 대한 리스너를 제거합니다. 주의 - 리스너 뒤의 리스너 배열에서 배열 인덱스를 변경합니다. removeListener는 청취자 배열로부터 청취자의 인스턴스를 1 개까지 삭제합니다. 단일 이벤트가 지정된 이벤트에 대한 리스너 배열에 여러 번 추가 된 경우 removeListener를 여러 번 호출하여 각 인스턴스를 제거해야합니다. 이미 터를 반환하므로 호출을 연결할 수 있습니다. |
-| 5      | **removeAllListeners([event])**<br/>모든 청취자 또는 지정된 이벤트의 청취자를 삭제합니다. 코드의 다른 부분에 추가 된 리스너를 제거하는 것은 좋지 않습니다. 특히 내가 생성하지 않은 이미 터 (예 : 소켓 또는 파일 스트림)에있는 경우에는 제거하는 것이 좋습니다. 이미 터를 반환하므로 호출을 연결할 수 있습니다. |
-| 6      | **setMaxListeners(n)**<br/>기본적으로 EventEmitters는 특정 이벤트에 대해 10 개 이상의 수신기가 추가되면 경고를 표시합니다. 이것은 메모리 누수를 찾는 데 유용한 유용한 기본값입니다. 분명히 모든 에미 터는 10으로 제한되어서는 안됩니다.이 기능을 사용하면이 이미 터를 증가시킬 수 있습니다. 무제한의 경우 0으로 설정하십시오. |
-| 7      | **listeners(event)**<br/>지정된 이벤트에 대한 수신기의 배열을 반환합니다. |
-| 8      | **emit(event, [arg1], [arg2], [...])**<br/>제공된 인수로 순서대로 각 리스너를 실행하십시오. 이벤트에 리스너가 있으면 true를 반환하고 그렇지 않으면 false를 반환합니다. |
+| 1      | **addListener(event, listener)**<br/> listener 배열의 끝에 지정된 이벤트에 대한 listener 를 추가합니다. listener 가 이미 추가되었는지 확인하지 않습니다. 동일한 이벤트와 리스너의 조합을 여러 번 호출하면 리스너가 여러 번 추가됩니다. emitter 를 반환하므로 호출을 연결할 수 있습니다. |
+| 2      | **on(event, listener)**<br/>listener 배열의 끝에 지정된 이벤트에 대한 listener 를 추가합니다. listener 가 이미 추가되었는지 확인하지 않습니다. 동일한 이벤트와 리스너의 조합을 여러 번 호출하면 리스너가 여러 번 추가됩니다. emitter를 반환하므로 호출을 연결할 수 있습니다. |
+| 3      | **once(event, listener)**<br/>이벤트에 1 회 listener 를 추가합니다. 이 listener 는 다음에 이벤트가 시작될 때만 호출되고 그 후 이벤트가 제거됩니다. emitter 를 반환하므로 호출을 연결할 수 있습니다. |
+| 4      | **removeListener(event, listener)**<br/>listener 배열에서 지정된 이벤트에 대한 listener 를 제거합니다. 주의 - listener 뒤의 listener 배열에서 배열 인덱스를 변경합니다. removeListener는 listener 배열로부터 listener 의 인스턴스를 1 개까지 삭제합니다. 단일 이벤트가 지정된 이벤트에 대한 listener 배열에 여러 번 추가 된 경우 removeListener를 여러 번 호출하여 각 인스턴스를 제거해야합니다. emitter 를 반환하므로 호출을 연결할 수 있습니다. |
+| 5      | **removeAllListeners([event])**<br/>모든 listener  또는 지정된 이벤트의 listener 를 삭제합니다. 코드의 다른 부분에 추가 된 listener를 제거하는 것은 좋지 않습니다. 특히 내가 생성하지 않은 emitter (예 : 소켓 또는 파일 스트림)에있는 경우에는 제거하는 것이 좋습니다. emitter 를 반환하므로 호출을 연결할 수 있습니다. |
+| 6      | **setMaxListeners(n)**<br/>기본적으로 EventEmitters는 특정 이벤트에 대해 10 개 이상의 listener 가 추가되면 경고를 표시합니다. 이것은 메모리 누수를 찾는 데 유용한 유용한 기본값입니다. 분명히 모든 emitter 는 10으로 제한되어서는 안됩니다.이 기능을 사용하면이 emitter 를 증가시킬 수 있습니다. 무제한의 경우 0으로 설정하십시오. |
+| 7      | **listeners(event)**<br/>지정된 이벤트에 대한 listener 의 배열을 반환합니다. |
+| 8      | **emit(event, [arg1], [arg2], [...])**<br/>제공된 인수로 순서대로 각 리스너를 실행합니다. 이벤트에 리스너가 있으면 true를 반환하고 그렇지 않으면 false를 반환합니다. |
 
 
 
@@ -1072,7 +1078,7 @@ EventEmitter는 on 및 emit과 같은 여러 속성을 제공합니다. on 속�
 
 | Sr.No. | Method & Description                                         |
 | ------ | ------------------------------------------------------------ |
-| 1      | **listenerCount(emitter, event)**<br/>지정된 이벤트의 청취자 수를 돌려줍니다. |
+| 1      | **listenerCount(emitter, event)**<br/>지정된 이벤트의 listener 수를 돌려줍니다. |
 
 
 
@@ -1081,7 +1087,7 @@ EventEmitter는 on 및 emit과 같은 여러 속성을 제공합니다. on 속�
 | Sr.No. | Events & Description                                         |
 | ------ | ------------------------------------------------------------ |
 | 1      | **newListener**<br/>- **event** − String: 이벤트 이름<br/>- **listener** − Function: 이벤트 핸들러 함수<br/>이 이벤트는 리스너가 추가 될 때마다 생성됩니다. 이 이벤트가 트리거되면 리스너가 이벤트의 리스너 배열에 아직 추가되지 않았을 수 있습니다. |
-| 2      | **removeListener**<br/>**event** − String 이벤트 이름입니다.<br/>**listener** − 함수 이벤트 핸들러 함수<br/>이 이벤트는 누군가가 청취자를 제거 할 때마다 방출됩니다. 이 이벤트가 트리거되면 리스너가 아직 이벤트에 대한 리스너 배열에서 제거되지 않았을 수 있습니다. |
+| 2      | **removeListener**<br/>**event** − String 이벤트 이름입니다.<br/>**listener** − 함수 이벤트 핸들러 함수<br/>이 이벤트는 누군가가  listener 를 제거 할 때마다 emitted 됩니다. 이 이벤트가 트리거되면 리스너가 아직 이벤트에 대한 리스너 배열에서 제거되지 않았을 수 있습니다. |
 
 
 
@@ -1235,9 +1241,15 @@ console.log("Octets written : "+  len);
 
 위의 프로그램을 실행하면 다음과 같은 결과를 얻습니다.
 
+역자주) buf = new Buffer(256); 는 deprecated  라고 Buffer.alloc(256) 처럼 사용 하라고 경고가 발생 합니다.
+
+**(node:3192) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.**
+
 ```
 Octets written : 20
 ```
+
+
 
 
 
@@ -1272,7 +1284,9 @@ buf.toString([encoding][, start][, end])
 #### Example
 
 ```javascript
-buf = new Buffer(26);
+// buf = new Buffer(26); // DeprecationWarning: Buffer() 
+buf = new Buffer.alloc(26);
+
 for (var i = 0 ; i < 26 ; i++) {
   buf[i] = i + 97;
 }
@@ -1383,8 +1397,8 @@ Buffer.concat(list[, totalLength])
 #### Example
 
 ```javascript
-var buffer1 = new Buffer('TutorialsPoint ');
-var buffer2 = new Buffer('Simply Easy Learning');
+var buffer1 = new Buffer.from('TutorialsPoint ');
+var buffer2 = new Buffer.from('Simply Easy Learning');
 var buffer3 = Buffer.concat([buffer1,buffer2]);
 
 console.log("buffer3 content: " + buffer3.toString());
@@ -1715,7 +1729,7 @@ Simply Easy Learning
 
 ### Piping the Streams
 
-파이핑은 한 스트림의 출력을 다른 스트림의 입력으로 제공하는 메커니즘입니다. 일반적으로 한 스트림에서 데이터를 가져 와서 해당 스트림의 출력을 다른 스트림으로 전달하는 데 사용됩니다. 배관 작업에는 제한이 없습니다. 이제는 한 파일에서 읽고 다른 파일에 쓰는 데 필요한 파이핑 예제를 보여줍니다.
+파이핑은 한 스트림의 출력을 다른 스트림의 입력으로 제공하는 메커니즘입니다. 일반적으로 한 스트림에서 데이터를 가져 와서 해당 스트림의 출력을 다른 스트림으로 전달하는 데 사용됩니다. piping작업에는 제한이 없습니다. 이제는 한 파일에서 읽고 다른 파일에 쓰는 데 필요한 파이핑 예제를 보여줍니다.
 
 다음 코드를 사용하여 main.js라는 js 파일을 만듭니다.
 
@@ -1758,7 +1772,7 @@ to teach the world in simple and easy way!!!!!
 
 ### Chaining the Streams
 
-연쇄 화는 한 스트림의 출력을 다른 스트림에 연결하고 여러 스트림 작업 체인을 만드는 메커니즘입니다. 일반적으로 배관 작업에 사용됩니다. 이제 파이핑과 연결을 사용하여 파일을 압축 한 다음 압축을 해제합니다.
+Chaining 은 한 스트림의 출력을 다른 스트림에 연결하고 여러 스트림 작업 체인을 만드는 메커니즘입니다. 일반적으로 pipe 작업에 사용됩니다. 이제 파이핑과 연결을 사용하여 파일을 압축 한 다음 압축을 해제합니다.
 
 다음 코드를 사용하여 main.js라는 js 파일을 만듭니다.
 
@@ -1814,9 +1828,13 @@ File Decompressed.
 
 
 
+wonsool
+
+
+
 ## Node.js - File System
 
-노드는 표준 POSIX 함수를 사용하는 간단한 래퍼를 사용하여 파일 I / O를 구현합니다. 노드 파일 시스템 (fs) 모듈은 다음 구문을 사용하여 가져올 수 있습니다.
+노드는 표준 POSIX 함수를 사용하는 간단한 래퍼를 사용하여 파일 I/O를 구현합니다. 노드 파일 시스템 (fs) 모듈은 다음 구문을 사용하여 가져올 수 있습니다.
 
 ```javascript
 var fs = require("fs")
@@ -1826,7 +1844,7 @@ var fs = require("fs")
 
 ### Synchronous vs Asynchronous
 
-fs 모듈의 모든 메소드에는 동기식 및 비동기식 양식이 있습니다. 비동기 메서드는 마지막 매개 변수를 완료 함수 콜백 및 콜백 함수의 첫 번째 매개 변수를 오류로 사용합니다. 동기화 메서드 대신 비동기 메서드를 사용하는 것이 좋습니다. 전자 메서드는 실행 중에 프로그램을 차단하지 않으므로 두 번째 메서드는 프로그램을 실행하지 않습니다.
+fs 모듈의 모든 메소드에는 동기식 및 비동기식 양식이 있습니다. 비동기 메서드는 마지막 매개 변수를 완료 함수 콜백 및 콜백 함수의 첫 번째 매개 변수를 오류로 사용합니다. 동기화 메서드 대신 비동기 메서드를 사용하는 것이 좋습니다. 비동기 메서드는 실행 중에 프로그램을 차단하지 않습니다.
 
 
 
@@ -1842,7 +1860,7 @@ to teach the world in simple and easy way!!!!!
 ```javascript
 var fs = require("fs");
 
-// Asynchronous read
+// Asynchronous read (비동기)
 fs.readFile('input.txt', function (err, data) {
    if (err) {
       return console.error(err);
@@ -1850,7 +1868,7 @@ fs.readFile('input.txt', function (err, data) {
    console.log("Asynchronous read: " + data.toString());
 });
 
-// Synchronous read
+// Synchronous read (동기)
 var data = fs.readFileSync('input.txt');
 console.log("Synchronous read: " + data.toString());
 
