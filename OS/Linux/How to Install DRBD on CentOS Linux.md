@@ -62,10 +62,12 @@ drbd0 장치는 두 시스템 모두에서 /dev/sdb1 블록 장치를 사용하�
 
 #### Installation
 
- drbd 패키지는 centos 배포판에서 사용할 수 없으므로 epel 저장소를 추가하여 설치를 따릅니다.
+ drbd 패키지는 centos 배포판에서 사용할 수 없으므로 epel 저장소를 추가하여 설치합니다.
 
 ```sh
 $ rpm -ivh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+$ rpm -ivh http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
+
 ```
 
 두 노드 모두에 GPG 키를 추가하십시오. GPG 키는 노드 간 통신을 암호화하는 데 사용되는 공개 키입니다.
@@ -87,7 +89,7 @@ $ yum info *drbd* | grep Name
  이제 필요한 커널 모듈과 함께 필요한 버전의 drbd를 설치하십시오.
 
 ```sh
-$ yum -y install drbd84-utils kmod-drbd84
+$ yum -y install drbd90-utils kmod-drbd90
 ```
 
  커널 모듈의 로드 여부를 확인하십시오.
@@ -159,10 +161,10 @@ $ lsblk
   - 프로토콜 A : 비동기 복제 프로토콜. 일반적으로 장거리 네트워크의 노드에 적합합니다.
   -  프로토콜 B : semi 동기식 복제 프로토콜. 메모리 동기 프로토콜이라고도합니다.
   -  프로토콜 C : 근거리 네트워크의 노드에 적합합니다.
--  노드 1과 노드 2는 개별 노드의 호스트 이름입니다. 블록을 식별하는 데만 사용하십시오.
+-  node1과 node2는 개별 노드의 호스트 이름입니다. 블록을 식별하는 데만 사용합니다.
 -  device /dev/drbd0 은 장치로 사용하기 위해 생성 된 논리 장치입니다.
 -  disk /dev/sdb1은 drbd0 이 차지할 물리적 블록 장치입니다.
-- 주소 10.20.222.14:7788 및 주소 10.20.222.15:7788은 열린 tcp 포트 7788 이있는 두 개의 각 노드의 ipaddress입니다.
+- 주소 192.168.194.143:7788 및 주소 192.168.194.144:7788은 열린 tcp 포트 7788 이있는 두 개의 각 노드의 ipaddress입니다.
 -  meta-disk internal 는 디스크의 초기 메타 데이터를 사용하도록 정의하는 데 사용됩니다.
 
  **두 노드에서 구성이 동일해야합니다.**
@@ -220,9 +222,9 @@ $ systemctl enable drbd
 
 #### 기본 및 보조 노드 설정
 
-DRDB는 한 번에 하나의 노드 만 사용하여 읽기 및 쓰기를 수행 할 수있는 기본 노드로 사용합니다.
+DRDB는 한 번에 **하나의 node 만** 읽기 및 쓰기를 수행 할 수있는 **primary 노드**로 사용합니다.
 
- 먼저 노드 1을 기본 노드로 지정합니다.
+ 먼저 node1을 primary 노드로 지정합니다.
 
 ```sh
 $ drbdadm primary linuxhandbook --force
@@ -245,13 +247,14 @@ $ drbd-overview
 여기서 얻을 수있는 정보는 다음과 같습니다.
 
 -  현재 어느 노드가 primay이고 어떤 노드가 secondary인지 나타냅니다.
+   - Primary/Secondary 로 되어 있으면 primary 이고 Secondary/Primary 로 되어 있으면 secondary 임.
 -  데이터 동기화 프로세스.
 -  drbd 장치 상태. like: Inconsistent, Uptodate, Diskless.
 
  다른 노드 인 node2는 자동으로 secondary 노드로 설정됩니다. drbd 개요 프로세스 상태를 참조하십시오.
 
 아직 수행하지 않은 주요 단계는 **drbd0 장치를 포맷**하는 것입니다. 이는 **노드 중 하나에서만 수행** 해야 합니다.
-여기에서 drbd0을 ext3으로 형식화합니다. xfs 파일 시스템도 작동합니다. /dev/sdb1과 동일한 디스크 유형을 사용하는 것이 좋습니다.
+여기에서 drbd0을 ext4으로 포맷합니다. xfs 파일 시스템도 작동합니다. /dev/sdb1과 동일한 디스크 유형을 사용하는 것이 좋습니다.
 
 ```sh
 $ mkfs -t ext4 /dev/drbd0
@@ -263,7 +266,7 @@ $ mkfs -t ext4 /dev/drbd0
 $ mount /dev/drbd0  /mnt 
 ```
 
- /mnt 대신 필요한 마운트 지점을 선택할 수 있습니다. 예를 들어, /dev/drbd0 장치를 /var/lib/mysql 에 마운트하여 mysql 데이터베이스를  drbd에서 사용할 수 있습니다.
+ /mnt 대신 필요한 마운트 지점을 선택할 수 있습니다. 예를 들어, /dev/drbd0 장치를 /home/mysql/data 에 마운트하여 mysql 데이터베이스를  drbd에서 사용할 수 있습니다.
 
 ```
 NOTE
@@ -297,17 +300,13 @@ $ drbdadm primary linuxhandbook
 $ mount /dev/drbd0  /mnt
 ```
 
-node2에 마운트 한 후 /mnt 폴더의 파일을 확인하십시오. Drbdtest.txt 파일 (node1에 작성)이 표시되어야합니다.
+node2에 마운트 한 후 /mnt 폴더의 파일을 확인하십시오. drbdtest.txt 파일 (node1에 작성)이 표시되어야합니다.
 
 ```sh
 $ ll  /mnt/
 ```
 
 drbd 클러스터 노드를 관리하고 시각화하기위한 GUI 인터페이스가 필요한 경우 [LCMC](http://lcmc.sourceforge.net/) (Linux Cluster Management Console)를 사용할 수 있습니다.
-
- 
-
-그게 다야! 시스템에서 DRBD를 잘못 인식했습니다. 쿼리가 남아 있으면 아래의 주석 섹션에서 주석을 달 수 있습니다.
 
 
 
@@ -382,3 +381,75 @@ DRBD는 3 가지 복제 모드를 지원하여 3 가지 복제 동시성을 허�
 복제 프로토콜의 선택은 배포의 두 가지 요소 인 보호 및 대기 시간에 영향을줍니다 . 대조적으로 처리량은 선택된 복제 프로토콜과 크게 독립적입니다.
 
 https://docs.linbit.com/docs/users-guide-9.0/
+
+
+
+# VMware 에 HDD 추가 및 DRBD 에서 사용하기
+
+이번장 에서는 WMware 에 HDD 를 추가 하여 DRBD 를 이용한 이중화 에 사용 하기 위한 방법을 기술 합니다.
+
+설치 OS 는 CentOS-7.6 을 이용 합니다.  이 문서는 VMware Workstation 을 이용하여 Linux 를 설치 하는 방법을 아는 사용자를 기준으로 설명 합니다. 따라서 설치 전체 과정을 기술 하지는 않으며, 설치시 필요한 부분만 기술 하도록 합니다.
+
+
+
+### node1 centos 설치
+
+![](./Images/2020-02-18_134012.png)
+
+기본 HDD 는 40G 를 설정 하고, cpu 4 개, memory 4G 를 설정 합니다. 
+
+
+
+네트워크 & 호스트 설정 부분에서 호스트 이름을 node1 으로 바꿉니다.
+
+![](./Images/2020-02-18_134657.png)
+
+
+
+
+
+설치가 완료 되었으면 vmware 에서 guest os( 설치된 node1) 을 종료 합니다.
+
+vmware 에서 종료된 node1 을 선택 후
+
+![](./Images/2020-02-18_140520.png)
+
+
+
+![](./Images/2020-02-18_140726.png)
+
+
+
+![](./Images/2020-02-18_140902.png)
+
+
+
+![](./Images/2020-02-18_141008.png)
+
+
+
+![](./Images/2020-02-18_141118.png)
+
+
+
+![](./Images/2020-02-18_141228.png)
+
+
+
+
+
+![](./Images/2020-02-18_141335.png)
+
+
+
+![](./Images/2020-02-18_141448.png)
+
+
+
+![](./Images/2020-02-18_141820.png)
+
+
+
+### node2 centos 설치
+
+node2 centos 도 동일한 과정으로 설치 하며 호스트 이름 부분만 node2 로 하여 설치 합니다.
