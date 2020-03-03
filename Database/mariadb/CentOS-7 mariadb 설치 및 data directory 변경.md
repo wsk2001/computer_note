@@ -24,12 +24,26 @@ gpgcheck=1
 
 
 
+### CentOS-8 에서는 다음 명령으로 설치 할 수 있습니다.
+
+```bash
+yum install -y mariadb-server.x86_64
+```
+
+/etc/yum.repos.d/mariadb.repo 는 추가하지 않음.
+
+
+
+
+
 ### 1.1 yum 을 이용한 설치
 
 다음 명령을 수행 하여 mariadb 를 설치 합니다.
 
 ```bash
 yum install -y MariaDB-server MariaDB-client
+or
+dnf install -y MariaDB-server MariaDB-client
 ```
 
 
@@ -59,13 +73,15 @@ os reboot
 
 ```bash
 -- mysql data 를 저장할 directory 생성
-mkdir /home/data
+mkdir -p /home/mysql/data
+
+chown -R mysql:mysql /home/mysql
 
 -- 기존 data 복사
-cp -r /var/lib/mysql/* /home/data/
+cp -r /var/lib/mysql/* /home/mysql/data/
 
 -- 퍼미션 설정
-chown -R mysql:mysql /home/data
+chown -R mysql:mysql /home/mysql/data
 ```
 
 
@@ -74,7 +90,7 @@ chown -R mysql:mysql /home/data
 
 #### 2.3.1 /etc/my.cnf 파일 수정
 
-/etc/my.cnf  파일을 열어 다음 내용을 추가 합니다.
+vi /etc/my.cnf  파일을 열어 다음 내용을 추가 합니다.
 
 ```bash
 #
@@ -92,11 +108,11 @@ chown -R mysql:mysql /home/data
 [mysqld]
 log_error = /var/log/mysql-error.log
 user = mysql
-datadir = /home/data
-socket = /home/data/mysql.sock
+datadir = /home/mysql/data
+socket = /home/mysql/data/mysql.sock
 
 [client]
-socket = /home/data/mysql.sock
+socket = /home/mysql/data/mysql.sock
 
 ```
 
@@ -249,7 +265,23 @@ sudo grep -R --color datadir /etc/mysql/*
 
 
 
+# openSUSE 에 mariadb 설치 및 data dir 변경 
 
+opensuse 의 mariadb 설치 과정은 다음과 같습니다.
+
+```bash
+$ zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/10.4/sles/15/x86_64 mariadb
+$ rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+$ zypper --gpg-auto-import-keys refresh
+$ zypper install -y MariaDB-server MariaDB-client
+$ systemctl status mariadb.service
+```
+
+
+
+datadir 변경은 CentOS 와 동일 하므로 CentOS 의 해당 절을 참조하기 바랍니다.
+
+selinux 는 redhat 계열의 linux 에만 존재 하므로 해당 부분은 작업하지 않습니다.
 
 
 
