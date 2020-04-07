@@ -11,6 +11,12 @@
 프로젝트 수행 관련 조언 또는 도움이 필요하면 wsk2001@gmail.com 으로 연락 주시면 됩니다.
 <br/><br/>
 
+### Disk 암호화 솔루션 개발
+- Windows 용 disk 암호화 솔루션 개발 (Device Driver 이용)
+- Windows 용 disk 접근제어 Device Driver 개발
+- Linux 용 disk 암호화 솔루션 개발
+- Linux 용 disk 접근제어 솔루션 개발
+
 ### DB 암호화 솔루션 구축 및 개발 지원
 - gRPC 를 이용한 암호화 Server 및 Client 개발(C/C++, C#, Java, Python, Go, node.js, Ruby, PHP)
 - RESTFul 을 이용한 암호화 Server 및 Client 개발(C/C++, C#, Java, Python, Go, node.js)
