@@ -214,6 +214,8 @@ int open(const char *path, int flags)
 unset LD_PRELOAD
 ```
 
+#### /etc/ld.so.preload 에 정의된 설정은 영향을 받지 않는다.
+
 
 
 
@@ -281,7 +283,7 @@ ld.so.preload 파일이 없으면 만들어주면 된다. 계정 상관 없이 �
 예: /etc/ld.so.preload )
 
 ```ini
-/home/tssuser/workspace/acl/tss_acl.so
+/var/xdbtss/tss_acl.so
 ```
 
 
@@ -433,4 +435,194 @@ export MOUNT_POINT=/home/tssuser/xdbtss/mnt
 ```
 
 
+
+---
+
+### RTLD_NEXT를 사용하여 C / C ++ 응용 프로그램을 해킹하는 방법
+
+---
+
+출처: http://www.vishalchovatiya.com/hack-c-cpp-application-using-rtld-next-with-an-easy-example/
+
+이전 고용주와 함께 핵심 C 라이브러리 개발자로 일하는 동안. 동적 연결에서이 RTLD_NEXT 플래그를 발견했습니다. 놀라운 기능을 가지고 있으며 비 윤리적 목적으로 쉽게 악용되거나 사용될 수 있습니다 (여기서는 개발자가 피해자가되지 않도록 교육하려고합니다). 이 기사에서는 간단한 예제와 함께 RTLD_NEXT를 사용하여 C / C ++ 애플리케이션을 해킹하는 간단한 방법을 보여줍니다.
+
+```
+Contents [hide]
+
+1 Brief
+2 Library linking & symbol resolution
+3 Intro to RTLD_NEXT
+4 Let’s hack C/C++ application using RTLD_NEXT
+4.0.1 malloc.c
+4.0.2 main.c
+4.0.3 Creating a shared library
+4.0.4 Linking & executing the main application
+5 How it works
+6 What RTLD_NEXT used for?
+7 Vulnerability
+8 Precautions you should consider
+8.0.1 Use stripped binaries for release
+8.0.2 Static linking
+8.0.3 Do not use library functions for handling proprietary data
+```
+
+
+
+#### Brief
+
+- 독점적이며 대부분의 비즈니스를 회사로 이끌어주는 C / C ++ 응용 프로그램 / 도구가 있다고 가정 해 봅시다. 해커 (또는 라이벌)가 바이너리를 크래킹하거나 라이센스 키 등이없는 상태에서 사용하지 못하게하는 라이센스 또는 암호화를 수행했습니다.
+- 이 기사의 뒷부분에서 설명 할 충분한 예방 조치를 취하지 않은 경우 RTLD_NEXT 플래그를 사용하여이 바이너리를 쉽게 해독 할 수 있습니다.
+
+#### Library linking & symbol resolution
+
+- 라이브러리 링크 및 심볼 분석, 즉 함수의 주소 추출 (동적 링크의 경우 정확하게 오프셋)은 컴파일 타임에 지정됩니다.
+- 예를 들어, 주 응용 프로그램과 함께 A.so, B.so, C.so & D.so의 순서로 동적으로 연결되고로드 된 4 개의 공유 라이브러리가 있습니다. FuncXYZ ()는 동일한 프로토 타입으로 라이브러리 C.so 및 D.so에 정의 된 기본 애플리케이션에서 호출됩니다.
+- 그런 다음 C.so의 funcXYZ ()가 D.so보다 먼저 연결 순서대로 호출됩니다.
+
+
+
+#### RTLD_NEXT 소개
+
+그러나 D.so에서 funcXYZ ()를 호출하려면 어떻게해야합니까? Dlfcn.h에 정의 된 RTLD_NEXT 플래그로이를 달성 할 수 있습니다. C.so에서 아래와 같이 funcXYZ ()를 정의해야합니다.
+
+```c++
+void funcXYZ()
+{
+    void (*fptr)(void) = NULL;
+    if ((fptr = (void (*)(void))dlsym(RTLD_NEXT, "funcXYZ")) == NULL)
+    {
+        (void)printf("dlsym: %s\n", dlerror());
+        exit(1);
+    }
+    return ((*fptr)());
+}
+```
+
+- 이제 funcXYZ ()가 기본 응용 프로그램에서 호출 될 때마다 C.so가되어 다음로드 된 라이브러리에서 동일한 기호를 검색합니다 (예 : D.so).
+- dlsym ()은 메모리에서 인수로 제공된 기호를 검색하고 동일한 함수 포인터를 리턴합니다.
+
+
+
+#### RTLD_NEXT를 사용하여 C / C ++ 애플리케이션을 해킹하자
+
+`malloc.c`
+
+```c++
+#include <stdio.h>
+#include <dlfcn.h>
+void *malloc(size_t size)
+{
+    static void *(*fptr)(size_t) = NULL;
+    /* look up of malloc, only the first time we are here */
+    if (fptr == NULL)
+    {
+        fptr = (void *(*)(size_t))dlsym(RTLD_NEXT, "malloc");
+        if (fptr == NULL)
+        {
+            printf("dlsym: %s\n", dlerror());
+            return NULL;
+        }
+    }
+    printf("Our Malloc\n");
+    return (*fptr)(size); // Calling original malloc
+}
+```
+
+
+
+`main.c`
+
+```c++
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    malloc(1);
+    return 0;
+}
+```
+
+
+
+#### Creating a shared library
+
+```bash
+$ gcc -o malloc.so -shared -fPIC malloc.c -D_GNU_SOURCE
+```
+
+
+
+#### Linking & executing the main application
+
+```bash
+$ gcc -o main main.c ./malloc.so -ldl
+$ ./main
+Our Malloc
+```
+
+참고 : 아래와 같이 LD_PRELOAD를 사용하여 지정된 라이브러리를 먼저로드 할 수도 있습니다. 컴파일에서 ./malloc.so를 명시 적으로 언급 할 필요가 없습니다.
+
+
+
+#### How it works
+
+gcc -o main main.c ./malloc.so -ldl을 사용하여 main.c를 컴파일 할 때 malloc.so를 명시 적으로 첫 번째 순서로 지정합니다. ldd 명령으로이를 확인할 수 있습니다
+
+```bash
+$ ldd main
+linux-vdso.so.1 => (0x00007fff37bf4000)
+malloc.so (0x00007fc5df598000)
+libdl.so.2 => /lib64/libdl.so.2 (0x00007fc5df37d000)
+libc.so.6 => /lib64/libc.so.6 (0x00007fc5defbb000)
+/lib64/ld-linux-x86-64.so.2 (0x00007fc5df79b000)
+```
+
+- 따라서 malloc을 호출하면 malloc.so 라이브러리에있는로드 된 라이브러리 시퀀스에서 처음 나타나는 기호를 참조합니다.
+- 이제 다음로드 된 공유 라이브러리 인 /lib64/libc.so.6에서 원본 malloc을 추출합니다.
+
+
+
+#### 어떤 RTLD_NEXT가 사용 되었습니까?
+
+'도대체 라이브러리 디자이너 / 개발자가 이런 종류의 취약점을 유지하는 이유는 무엇입니까?'
+
+RTLD_NEXT를 사용하면 다른 공유 라이브러리에 정의 된 함수 주위에 래퍼를 제공 할 수 있습니다. 적어도 그것이 dlsym의 맨 페이지가 설명하는 것입니다.
+
+아직도 혼란 스러워요! 이 기능 또는 취약점입니까?
+
+
+
+#### Vulnerability
+
+- 충분히 경험하지 못했다면 아마도 '이 취약점은 무엇입니까?'라는 질문 일 것입니다. 내 친구, 사용자에게 라이센스 문자열, 암호화 키 또는 기타 독점 데이터를 저장하여 일반적으로 프로그래머는 구조체 또는 배열 종류의 데이터 구조를 사용하여 저장합니다.
+- 이제 일반적으로 memcmp () 또는 strcmp () 라이브러리 함수를 사용하여 사용자 액세스를 비교하거나 키 / 데이터를 확인합니다. RTLD_NEXT를 사용하여 이러한 함수 주위에 래퍼를 쉽게 생성하고 조작 할 수 있습니다.
+- 일부 회사는 액세스 요청으로 true 또는 false를 반환하는 특정 함수가있을 수 있으므로 HTTP 요청에 의한 실시간 인증을 사용합니다. 해당 함수의 랩퍼를 작성하여 조작 할 수 있습니다.
+- 적중 및 시험 방법으로 기능을 찾는 데 시간이 더 걸릴 수 있습니다. 그러나 불가능하지 않습니다. 함수 이름을 알아 내기 위해 다음과 같이 기호 이름과 해당 주소 / 오프셋을 나열하는 유틸리티와 같은 nm 또는 readelf를 사용할 수 있습니다
+
+``` bash
+$ nm main 
+....                                                                                     
+0000000000600e00 d _DYNAMIC                                                               
+00000000004005b7 T main                                                                   
+                 U malloc                                                                 0000000000400540 t register_tm_clones    
+....
+```
+
+- 이진 파일 형식 ELF에 대해 더 자세히 알고 싶다면 [여기](http://www.vishalchovatiya.com/understand-elf-file-format/)에 별도의 기사를 작성했습니다.
+
+
+
+#### 고려해야 할 예방 조치
+
+##### 릴리스를 위해 제거 된 바이너리 사용
+
+컴파일 된 바이너리에는 보통 위의 nm 유틸리티를 사용하여 보여주는 심볼 정보가 포함됩니다. 그러나 바이너리를 제거 할 때 컴파일 타임에 디버깅 및 링크 확인에만 사용되므로 실행에 필요하지 않은 심볼 테이블을 제거하십시오. 제거 된 바이너리는 컴파일러 자체의 도움으로 생성 될 수 있습니다 (예 : GNU GCC 컴파일러의 -s 플래그 또는 Unix의“strip”과 같은 전용 도구가 있습니다.
+
+##### 정적 링크
+
+동적 연결 바이너리를 해제하는 대신 정적 버전을 컴파일하고 제거하십시오. 이 기사에서 다루지 않은 몇 가지 단점이 있지만.
+
+##### 독점 데이터를 처리하기 위해 라이브러리 함수를 사용하지 마십시오
+
+응용 프로그램에서 독점 데이터를 처리하는 것은 라이브러리 기능에 의존하지 않고 이상한 이름으로 자신을 디자인하십시오. 읽기 전용 독점 데이터를 바이너리 형식으로 ASCII 형식으로 저장하는 경우 메모리 덤프에 사람이 읽을 수있는 문장이나 단어가 표시되지 않도록 암호화하거나 모든 문자에 특정 숫자를 추가하십시오.
 
