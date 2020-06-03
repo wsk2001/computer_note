@@ -11,10 +11,10 @@
 프로젝트 수행 관련 조언 또는 도움이 필요하면 wsk2001@gmail.com 으로 연락 주시면 됩니다.
 <br/><br/>
 
-### Disk 암호화 솔루션 개발
-- Windows 용 disk 암호화 솔루션 개발 (Device Driver 이용)
-- Windows 용 disk 접근제어 Device Driver 개발
-- Linux 용 disk 암호화 솔루션 개발
+### Disk 암호화 솔루션(Trusted Storage Solution) 개발
+- Windows 용 disk 암호화(실시간) 솔루션 개발 (Device Driver 이용)
+- Windows 용 disk 접근제어 Device Driver 개발 (FileSystem Minifilter Driver)
+- Linux 용 disk 암호화(실시간) 솔루션 개발
 - Linux 용 disk 접근제어 솔루션 개발
 
 ### DB 암호화 솔루션 구축 및 개발 지원
