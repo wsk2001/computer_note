@@ -224,7 +224,7 @@ unset LD_PRELOAD
 
 출처: https://umbum.dev/128
 
-`LD_PRELOAD`는 prefix로 `LD_`가 붙은, [ld.so](http://man7.org/linux/man-pages/man8/ld.so.8.html#ENVIRONMENT)에 속하는 환경변수로, windows의 `AppInit_Dlls` 레지스트리와 비슷한 역할을 한다.
+`LD_PRELOAD`는 prefix로 `LD_`가 붙은, [ld.so](http://man7.org/linux/man-pages/man8/ld.so.8.html#ENVIRONMENT)에 속하는 환경변수로, <span style="color:blue">**<u>windows의 `AppInit_Dlls` 레지스트리와 비슷한 역할을 한다.</u>**</span>
 
 `LD_PRELOAD`**에 설정된 shared object는 libc를 비롯한 다른 모든 shared object보다 먼저 로딩된다.**
 
