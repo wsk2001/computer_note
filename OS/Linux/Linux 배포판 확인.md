@@ -3,6 +3,10 @@
 cat /etc/*-release | uniq
 
 hostnamectl
+
 lsb_release -a
+
 cat /etc/os-release
+
 cat /etc/issue
+
