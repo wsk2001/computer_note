@@ -1,8 +1,6 @@
 # pid 를 이용하여 접속 ip 취득 하는 방법
 
-```
-Linux 용 Source
-```
+### Linux 용 Source
 
 ```c++
 #include <stdio.h>
@@ -203,9 +201,8 @@ int main(int argc, char** argv)
 
 ```
 
-```
-Windowd 에서 ppid 구하는 소스 (getppid.c)
-```
+### Windowd 에서 ppid 구하는 소스 (getppid.c)
+
 ```c++
 #include    <windows.h>
 #include    <tlhelp32.h>
