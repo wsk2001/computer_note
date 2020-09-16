@@ -48,11 +48,30 @@ IcACL은 IL이없는 Windows Server 2003 서비스 팩 2에서 처음 도입되�
 
   ``` cmd
   C:\> icACLs "C:\Program Files" /save Perms.txt
+  C:\Temp> icacls "C:\MsSQL\Data\MSSQL15.MSSQLSERVER\MSSQL\DATA_org" /save perms.txt
   ```
 
 - 메모장에서 Perms.txt를 엽니 다
 
-  첫 줄을“Program Files”에서“Programs”로 변경하십시오. 다른 변경을하지 않도록주의하십시오.
+  첫 줄을“DATA_org”에서“DATA”로 변경하십시오. 다른 변경을하지 않도록주의하십시오.
+
+  `원본`
+
+  ``` cmd
+  DATA_org
+  D:PAI(A;OICIIO;FA;;;CO)(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;FA;;;S-1-5-80-3880718306-3832830129-1677859214-2598158968-1052248003)(A;OICI;FA;;;S-1-5-21-3424642746-4227925039-3076322912-1001)S:PAINO_ACCESS_CONTROL
+  
+  ```
+
+  `수정 후`
+
+  ``` cmd
+  DATA
+  D:PAI(A;OICIIO;FA;;;CO)(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;FA;;;S-1-5-80-3880718306-3832830129-1677859214-2598158968-1052248003)(A;OICI;FA;;;S-1-5-21-3424642746-4227925039-3076322912-1001)S:PAINO_ACCESS_CONTROL
+  
+  ```
+
+  
 
 - 파일을 저장하고 종료하십시오.
 
@@ -60,11 +79,21 @@ IcACL은 IL이없는 Windows Server 2003 서비스 팩 2에서 처음 도입되�
 
   ``` cmd
   C:\>  icACLs D:\ /restore Perms.txt
-  ```
-
+  C:\Temp> icacls C:\MsSQL\Data\MSSQL15.MSSQLSERVER\MSSQL /restore perms.txt
+```
+  
   IcACL과 함께 /t 스위치를 사용하여 초기 폴더의 모든 파일과 하위 폴더 (이 예에서는“프로그램 파일”)에 대한 권한을 저장할 수 있습니다. 또한 기본적으로 Program Files 폴더에는 IL 규칙이 없습니다. 그러나 시스템 관리자가 다른 폴더에 대한 권한을 옮기기를 원한다고 생각합니다. 일부 폴더에는 IL 규칙이있을 수 있습니다.
 
-역자 주) 위 방법은 테스트 하지는 않았으며 icacls 라는 프로그램은 있는것(OS 설치시 포함) 으로 확인 하였습니다.
+**역자 주**) <span style= "color:red"> **위 방법을 사용 할때  주의 하여야 할 사항은 다음과 같다.**</span>
+
+- <span style= "color:red"> **퍼미션을 파일로 저장 시 full path 를 지정 하여야 한다.**</span>
+- <span style= "color:red"> **저장된 파일의 첫줄은 최종 타켓 파일 또는 dir 임을 알아야 한다.**</span>
+- <span style= "color:red"> **저장된 퍼미션을 다른 directory 로 복사 할 경우는 첫줄을 원한는 파일 또는 directory 의 last name(dir) 으로 변경 하여야 한다.**</span>
+- <span style= "color:red"> **복구시 경로 지정은 last name(dir) 을 제외한 경로를 지정 하여야 한다.**</span>
+
+<span style= "color:blue">**위 의 실제 예제는 MsSQL DATA directory 를 다른 이름으로 변경 후(DATA_org) 원래 이름으로 복사(DATA) 하여 동작 하는지 확인 하는 과정임.**</span>
+
+
 
 
 
