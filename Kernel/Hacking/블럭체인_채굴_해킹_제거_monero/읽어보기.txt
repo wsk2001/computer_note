@@ -1,0 +1,4 @@
+내가 작업했던 방법과 거의 동일함.
+다시 설치되는 원인은 확인 필요.
+Linux mining virus removal .ssh3 /tmp/.
+https://www.programmersought.com/article/18165474244/

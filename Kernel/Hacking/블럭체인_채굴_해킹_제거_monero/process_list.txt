@@ -1,0 +1,259 @@
+[tssadm@localhost bin]$ ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Dec18 ?        00:00:01 /usr/lib/systemd/systemd --switched-root --system --deserialize 22
+root         2     0  0 Dec18 ?        00:00:00 [kthreadd]
+root         3     2  0 Dec18 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 Dec18 ?        00:00:00 [kworker/0:0H]
+root         7     2  0 Dec18 ?        00:00:00 [migration/0]
+root         8     2  0 Dec18 ?        00:00:00 [rcu_bh]
+root         9     2  0 Dec18 ?        00:00:00 [rcu_sched]
+root        10     2  0 Dec18 ?        00:00:00 [lru-add-drain]
+root        11     2  0 Dec18 ?        00:00:00 [watchdog/0]
+root        12     2  0 Dec18 ?        00:00:00 [watchdog/1]
+root        13     2  0 Dec18 ?        00:00:00 [migration/1]
+root        14     2  0 Dec18 ?        00:00:00 [ksoftirqd/1]
+root        15     2  0 Dec18 ?        00:00:00 [kworker/1:0]
+root        16     2  0 Dec18 ?        00:00:00 [kworker/1:0H]
+root        17     2  0 Dec18 ?        00:00:00 [watchdog/2]
+root        18     2  0 Dec18 ?        00:00:00 [migration/2]
+root        19     2  0 Dec18 ?        00:00:00 [ksoftirqd/2]
+root        21     2  0 Dec18 ?        00:00:00 [kworker/2:0H]
+root        22     2  0 Dec18 ?        00:00:00 [watchdog/3]
+root        23     2  0 Dec18 ?        00:00:00 [migration/3]
+root        24     2  0 Dec18 ?        00:00:00 [ksoftirqd/3]
+root        26     2  0 Dec18 ?        00:00:00 [kworker/3:0H]
+root        27     2  0 Dec18 ?        00:00:00 [watchdog/4]
+root        28     2  0 Dec18 ?        00:00:00 [migration/4]
+root        29     2  0 Dec18 ?        00:00:00 [ksoftirqd/4]
+root        30     2  0 Dec18 ?        00:00:00 [kworker/4:0]
+root        31     2  0 Dec18 ?        00:00:00 [kworker/4:0H]
+root        32     2  0 Dec18 ?        00:00:00 [watchdog/5]
+root        33     2  0 Dec18 ?        00:00:00 [migration/5]
+root        34     2  0 Dec18 ?        00:00:00 [ksoftirqd/5]
+root        35     2  0 Dec18 ?        00:00:00 [kworker/5:0]
+root        36     2  0 Dec18 ?        00:00:00 [kworker/5:0H]
+root        37     2  0 Dec18 ?        00:00:00 [watchdog/6]
+root        38     2  0 Dec18 ?        00:00:00 [migration/6]
+root        39     2  0 Dec18 ?        00:00:00 [ksoftirqd/6]
+root        40     2  0 Dec18 ?        00:00:00 [kworker/6:0]
+root        41     2  0 Dec18 ?        00:00:00 [kworker/6:0H]
+root        42     2  0 Dec18 ?        00:00:00 [watchdog/7]
+root        43     2  0 Dec18 ?        00:00:00 [migration/7]
+root        44     2  0 Dec18 ?        00:00:00 [ksoftirqd/7]
+root        46     2  0 Dec18 ?        00:00:00 [kworker/7:0H]
+root        48     2  0 Dec18 ?        00:00:00 [kdevtmpfs]
+root        49     2  0 Dec18 ?        00:00:00 [netns]
+root        50     2  0 Dec18 ?        00:00:00 [khungtaskd]
+root        51     2  0 Dec18 ?        00:00:00 [writeback]
+root        52     2  0 Dec18 ?        00:00:00 [kintegrityd]
+root        53     2  0 Dec18 ?        00:00:00 [bioset]
+root        54     2  0 Dec18 ?        00:00:00 [bioset]
+root        55     2  0 Dec18 ?        00:00:00 [bioset]
+root        56     2  0 Dec18 ?        00:00:00 [kblockd]
+root        57     2  0 Dec18 ?        00:00:00 [md]
+root        58     2  0 Dec18 ?        00:00:00 [edac-poller]
+root        59     2  0 Dec18 ?        00:00:00 [watchdogd]
+root        65     2  0 Dec18 ?        00:00:00 [kswapd0]
+root        66     2  0 Dec18 ?        00:00:00 [ksmd]
+root        67     2  0 Dec18 ?        00:00:00 [khugepaged]
+root        68     2  0 Dec18 ?        00:00:00 [crypto]
+root        76     2  0 Dec18 ?        00:00:00 [kworker/2:1]
+root        77     2  0 Dec18 ?        00:00:00 [kthrotld]
+root        81     2  0 Dec18 ?        00:00:00 [kmpath_rdacd]
+root        82     2  0 Dec18 ?        00:00:00 [kaluad]
+root        83     2  0 Dec18 ?        00:00:00 [kpsmoused]
+root        84     2  0 Dec18 ?        00:00:00 [kworker/0:2]
+root        85     2  0 Dec18 ?        00:00:00 [ipv6_addrconf]
+root        98     2  0 Dec18 ?        00:00:00 [deferwq]
+root       101     2  0 Dec18 ?        00:00:00 [kworker/5:1]
+root       102     2  0 Dec18 ?        00:00:00 [kworker/1:1]
+root       130     2  0 Dec18 ?        00:00:00 [kworker/7:1]
+root       138     2  0 Dec18 ?        00:00:00 [kauditd]
+root       498     2  0 Dec18 ?        00:00:00 [kworker/6:1]
+root       603     1  3 Dec18 ?        00:00:43 @usr/sbin/plymouthd --mode=boot --pid-file=/var/run/plymouth/pid --attach-to-
+root      1273     2  0 Dec18 ?        00:00:00 [ata_sff]
+root      2255     2  0 Dec18 ?        00:00:00 [scsi_eh_0]
+root      2256     2  0 Dec18 ?        00:00:00 [scsi_tmf_0]
+root      2257     2  0 Dec18 ?        00:00:00 [scsi_eh_1]
+root      2258     2  0 Dec18 ?        00:00:00 [scsi_tmf_1]
+root      2259     2  0 Dec18 ?        00:00:00 [scsi_eh_2]
+root      2260     2  0 Dec18 ?        00:00:00 [scsi_tmf_2]
+root      2261     2  0 Dec18 ?        00:00:00 [scsi_eh_3]
+root      2262     2  0 Dec18 ?        00:00:00 [scsi_tmf_3]
+root      2263     2  0 Dec18 ?        00:00:00 [scsi_eh_4]
+root      2264     2  0 Dec18 ?        00:00:00 [scsi_tmf_4]
+root      2265     2  0 Dec18 ?        00:00:00 [scsi_eh_5]
+root      2266     2  0 Dec18 ?        00:00:00 [scsi_tmf_5]
+root      2270     2  0 Dec18 ?        00:00:00 [kworker/u16:5]
+root      2271     2  0 Dec18 ?        00:00:00 [kworker/u16:6]
+root      2275     2  0 Dec18 ?        00:00:00 [scsi_eh_6]
+root      2276     2  0 Dec18 ?        00:00:00 [scsi_tmf_6]
+root      2278     2  0 Dec18 ?        00:00:00 [scsi_eh_7]
+root      2279     2  0 Dec18 ?        00:00:00 [scsi_tmf_7]
+root      2292     2  0 Dec18 ?        00:00:00 [kworker/u17:0]
+root      2293     2  0 Dec18 ?        00:00:00 [i915/signal:0]
+root      2294     2  0 Dec18 ?        00:00:00 [i915/signal:1]
+root      2295     2  0 Dec18 ?        00:00:00 [i915/signal:2]
+root      2296     2  0 Dec18 ?        00:00:00 [i915/signal:6]
+root      2621     2  0 Dec18 ?        00:00:00 [kdmflush]
+root      2622     2  0 Dec18 ?        00:00:00 [bioset]
+root      2637     2  0 Dec18 ?        00:00:00 [kdmflush]
+root      2638     2  0 Dec18 ?        00:00:00 [bioset]
+root      2657     2  0 Dec18 ?        00:00:00 [bioset]
+root      2660     2  0 Dec18 ?        00:00:00 [xfsalloc]
+root      2661     2  0 Dec18 ?        00:00:00 [xfs_mru_cache]
+root      2668     2  0 Dec18 ?        00:00:00 [xfs-buf/dm-0]
+root      2669     2  0 Dec18 ?        00:00:00 [xfs-data/dm-0]
+root      2670     2  0 Dec18 ?        00:00:00 [xfs-conv/dm-0]
+root      2671     2  0 Dec18 ?        00:00:00 [xfs-cil/dm-0]
+root      2672     2  0 Dec18 ?        00:00:00 [xfs-reclaim/dm-]
+root      2673     2  0 Dec18 ?        00:00:00 [xfs-log/dm-0]
+root      2674     2  0 Dec18 ?        00:00:00 [xfs-eofblocks/d]
+root      2679     2  0 Dec18 ?        00:00:00 [xfsaild/dm-0]
+root      2684     2  0 Dec18 ?        00:00:00 [kworker/0:1H]
+root      2757     1  0 Dec18 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root      2767     2  0 Dec18 ?        00:00:00 [kworker/2:2]
+root      2780     1  0 Dec18 ?        00:00:00 /usr/sbin/lvmetad -f
+root      2798     1  0 Dec18 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root      3288     2  0 Dec18 ?        00:00:00 [kworker/5:1H]
+root      3289     2  0 Dec18 ?        00:00:00 [kworker/2:1H]
+root      3345     2  0 Dec18 ?        00:00:00 [kworker/1:1H]
+root      3494     2  0 Dec18 ?        00:00:00 [irq/135-mei_me]
+root      4629     2  0 Dec18 ?        00:00:00 [kvm-irqfd-clean]
+root      4676     2  0 Dec18 ?        00:00:00 [kworker/7:2]
+root      5527     2  0 Dec18 ?        00:00:00 [kworker/3:1H]
+root      5531     2  0 Dec18 ?        00:00:00 [xfs-buf/sda2]
+root      5532     2  0 Dec18 ?        00:00:00 [xfs-data/sda2]
+root      5533     2  0 Dec18 ?        00:00:00 [xfs-conv/sda2]
+root      5534     2  0 Dec18 ?        00:00:00 [xfs-cil/sda2]
+root      5535     2  0 Dec18 ?        00:00:00 [xfs-reclaim/sda]
+root      5536     2  0 Dec18 ?        00:00:00 [xfs-log/sda2]
+root      5537     2  0 Dec18 ?        00:00:00 [xfs-eofblocks/s]
+root      5538     2  0 Dec18 ?        00:00:00 [xfsaild/sda2]
+root      5540     2  0 Dec18 ?        00:00:00 [kdmflush]
+root      5543     2  0 Dec18 ?        00:00:00 [bioset]
+root      5549     2  0 Dec18 ?        00:00:00 [kworker/4:2]
+root      5551     2  0 Dec18 ?        00:00:00 [xfs-buf/dm-2]
+root      5552     2  0 Dec18 ?        00:00:00 [xfs-data/dm-2]
+root      5553     2  0 Dec18 ?        00:00:00 [xfs-conv/dm-2]
+root      5554     2  0 Dec18 ?        00:00:00 [xfs-cil/dm-2]
+root      5555     2  0 Dec18 ?        00:00:00 [xfs-reclaim/dm-]
+root      5556     2  0 Dec18 ?        00:00:00 [xfs-log/dm-2]
+root      5557     2  0 Dec18 ?        00:00:00 [xfs-eofblocks/d]
+root      5558     2  0 Dec18 ?        00:00:00 [xfsaild/dm-2]
+root      5599     1  0 Dec18 ?        00:00:00 /sbin/auditd
+root      5601  5599  0 Dec18 ?        00:00:00 /sbin/audispd
+root      5602  5601  0 Dec18 ?        00:00:00 /usr/sbin/sedispatch
+root      5605     2  0 Dec18 ?        00:00:00 [rpciod]
+root      5606     2  0 Dec18 ?        00:00:00 [xprtiod]
+rpc       5635     1  0 Dec18 ?        00:00:00 /sbin/rpcbind -w
+root      5637     1  0 Dec18 ?        00:00:00 /usr/lib/systemd/systemd-logind
+polkitd   5638     1  0 Dec18 ?        00:00:00 /usr/lib/polkit-1/polkitd --no-debug
+root      5640     1  0 Dec18 ?        00:00:00 /usr/sbin/irqbalance --foreground
+root      5642     1  0 Dec18 ?        00:00:00 /usr/sbin/alsactl -s -n 19 -c -E ALSA_CONFIG_PATH=/etc/alsa/alsactl.conf --in
+root      5645     1  0 Dec18 ?        00:00:00 /usr/sbin/ModemManager
+root      5646     1  0 Dec18 ?        00:00:00 /usr/libexec/accounts-daemon
+rtkit     5656     1  0 Dec18 ?        00:00:00 /usr/libexec/rtkit-daemon
+root      5657     1  0 Dec18 ?        00:00:00 /usr/libexec/udisks2/udisksd
+root      5658     1  0 Dec18 ?        00:00:00 /sbin/rngd -f
+root      5659     1  0 Dec18 ?        00:00:00 /usr/sbin/smartd -n -q never
+libstor+  5661     1  0 Dec18 ?        00:00:00 /usr/bin/lsmd -d
+root      5666     1  0 Dec18 ?        00:00:00 /usr/sbin/abrtd -d -s
+root      5670     1  0 Dec18 ?        00:00:00 /usr/bin/abrt-watch-log -F BUG: WARNING: at WARNING: CPU: INFO: possible recu
+avahi     5671     1  0 Dec18 ?        00:00:00 avahi-daemon: running [linux.local]
+root      5672     1  0 Dec18 ?        00:00:00 /usr/sbin/gssproxy -D
+root      5673     1  0 Dec18 ?        00:00:00 /usr/bin/abrt-watch-log -F Backtrace /var/log/Xorg.0.log -- /usr/bin/abrt-dum
+dbus      5674     1  0 Dec18 ?        00:00:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --syste
+root      5689     1  0 Dec18 ?        00:00:00 /usr/sbin/mcelog --ignorenodev --daemon --syslog
+root      5717     2  0 Dec18 ?        00:00:00 [kworker/6:1H]
+root      5720     1  0 Dec18 ?        00:00:00 /bin/bash /usr/sbin/ksmtuned
+root      5731     2  0 Dec18 ?        00:00:00 [kworker/7:1H]
+avahi     5740  5671  0 Dec18 ?        00:00:00 avahi-daemon: chroot helper
+root      5749     1  0 Dec18 ?        00:00:00 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
+root      5759     2  0 Dec18 ?        00:00:00 [kworker/4:1H]
+root      5776     1  0 Dec18 ?        00:00:00 /usr/sbin/NetworkManager --no-daemon
+root      6428     1  0 Dec18 ?        00:00:00 /usr/sbin/sshd -D
+root      6429     1  0 Dec18 ?        00:00:00 /usr/sbin/cupsd -f
+root      6431     1  0 Dec18 ?        00:00:00 /usr/sbin/smbd --foreground --no-process-group
+root      6433     1  0 Dec18 ?        00:00:00 /usr/bin/python2 -Es /usr/sbin/tuned -l -P
+root      6436     1  0 Dec18 ?        00:00:00 /usr/sbin/rsyslogd -n
+root      6444     1  0 Dec18 ?        00:00:00 /usr/sbin/libvirtd
+root      6449     1  0 Dec18 ?        00:00:00 /usr/sbin/atd -f
+root      6450     1  0 Dec18 ?        00:00:00 /usr/sbin/crond -n
+root      6452     1  0 Dec18 ?        00:00:00 /usr/sbin/gdm
+root      6538  6452  0 Dec18 tty1     00:00:00 /usr/bin/X :0 -background none -noreset -audit 4 -verbose -auth /run/gdm/auth
+root      6687  6431  0 Dec18 ?        00:00:00 /usr/sbin/smbd --foreground --no-process-group
+root      6688  6431  0 Dec18 ?        00:00:00 /usr/sbin/smbd --foreground --no-process-group
+nobody    6898     1  0 Dec18 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefi
+root      6899  6898  0 Dec18 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefi
+root      6935  6431  0 Dec18 ?        00:00:00 /usr/sbin/smbd --foreground --no-process-group
+root      6941  6452  0 Dec18 ?        00:00:00 gdm-session-worker [pam/gdm-launch-environment]
+gdm       6947  6941  0 Dec18 ?        00:00:00 /usr/libexec/gnome-session-binary --autostart /usr/share/gdm/greeter/autostar
+gdm       6952     1  0 Dec18 ?        00:00:00 dbus-launch --exit-with-session /usr/libexec/gnome-session-binary --autostart
+gdm       6953     1  0 Dec18 ?        00:00:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
+gdm       6969     1  0 Dec18 ?        00:00:00 /usr/libexec/at-spi-bus-launcher
+gdm       6985  6969  0 Dec18 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.
+gdm       6990     1  0 Dec18 ?        00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+root      7022     1  0 Dec18 ?        00:00:00 /usr/libexec/postfix/master -w
+gdm       7027  6947  0 Dec18 ?        00:00:00 /usr/bin/gnome-shell
+postfix   7029  7022  0 Dec18 ?        00:00:00 pickup -l -t unix -u
+postfix   7030  7022  0 Dec18 ?        00:00:00 qmgr -l -t unix -u
+root      7062     1  0 Dec18 ?        00:00:00 /usr/libexec/upowerd
+gdm       7081     1  0 Dec18 ?        00:00:00 /usr/bin/pulseaudio --start --log-target=syslog
+gdm       7214  7027  0 Dec18 ?        00:00:00 ibus-daemon --xim --panel disable
+gdm       7217  7214  0 Dec18 ?        00:00:00 /usr/libexec/ibus-dconf
+gdm       7219     1  0 Dec18 ?        00:00:00 /usr/libexec/ibus-x11 --kill-daemon
+gdm       7222     1  0 Dec18 ?        00:00:00 /usr/libexec/ibus-portal
+gdm       7233     1  0 Dec18 ?        00:00:00 /usr/libexec/xdg-permission-store
+root      7246     1  0 Dec18 ?        00:00:00 /usr/libexec/boltd
+root      7247     1  0 Dec18 ?        00:00:00 /usr/sbin/wpa_supplicant -u -f /var/log/wpa_supplicant.log -c /etc/wpa_suppli
+root      7248     1  0 Dec18 ?        00:00:00 /usr/libexec/packagekitd
+gdm       7252  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-a11y-settings
+gdm       7254  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-clipboard
+gdm       7257  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-color
+gdm       7260  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-datetime
+gdm       7262  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-housekeeping
+gdm       7263  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-keyboard
+gdm       7266  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-media-keys
+gdm       7269  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-mouse
+gdm       7276  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-power
+gdm       7277  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-print-notifications
+gdm       7282  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-rfkill
+gdm       7283  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-screensaver-proxy
+gdm       7286  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-sharing
+gdm       7296  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-smartcard
+gdm       7298  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-sound
+gdm       7306  6947  0 Dec18 ?        00:00:00 /usr/libexec/gsd-wacom
+colord    7311     1  0 Dec18 ?        00:00:00 /usr/libexec/colord
+gdm       7343  7214  0 Dec18 ?        00:00:00 /usr/libexec/ibus-engine-simple
+root      7402  6428  0 Dec18 ?        00:00:00 sshd: tssuser [priv]
+tssuser   7408  7402  0 Dec18 ?        00:00:00 sshd: tssuser@pts/0
+tssuser   7409  7408  0 Dec18 pts/0    00:00:00 -bash
+root      7678  7409  0 Dec18 pts/0    00:00:00 su - tssadm
+tssadm    7684  7678  0 Dec18 pts/0    00:00:00 -bash
+tssadm    7810     1  0 Dec18 ?        00:00:00 ./XDServer
+root      7854     2  0 Dec18 ?        00:00:00 [kworker/3:1]
+root      8068     2  0 Dec18 ?        00:00:00 [kworker/0:0]
+root      8092  6450  0 00:00 ?        00:00:00 /usr/sbin/CROND -n
+root      8097  8092  0 00:00 ?        00:00:00 [sh] <defunct>
+gdm       8117  6947  0 00:00 ?        00:00:00 /usr/libexec/gsd-xsettings
+root      8140     1 99 00:00 ?        00:56:08 /tmp/.    -u second -o 0x592029ba:8080 -p x -p x --donate-level=3 --coin=mone
+root      8147  8092  0 00:00 ?        00:00:00 /usr/sbin/sendmail -FCronDaemon -i -odi -oem -oi -t -f root
+root      8148  8147  0 00:00 ?        00:00:00 /usr/sbin/postdrop -r
+root      8166     2  0 00:00 ?        00:00:00 [kworker/6:2]
+root      8204     2  0 00:01 ?        00:00:00 [kworker/3:0]
+root      8246  6428  0 00:06 ?        00:00:00 sshd: tssadm [priv]
+tssadm    8249  8246  0 00:06 ?        00:00:00 sshd: tssadm@pts/1
+tssadm    8253  8249  0 00:06 pts/1    00:00:00 -bash
+root      8275     1  0 00:06 ?        00:00:00 /usr/sbin/abrt-dbus -t133
+root      8308     2  0 00:06 ?        00:00:00 [kworker/3:2]
+postfix   8319  7022  0 00:06 ?        00:00:00 cleanup -z -t unix -u
+postfix   8320  7022  0 00:06 ?        00:00:00 trivial-rewrite -n rewrite -t unix -u
+postfix   8321  7022  0 00:06 ?        00:00:00 local -t unix
+root      8331  5720  0 00:06 ?        00:00:00 sleep 60
+root      8346     1  0 00:06 ?        00:00:00 /usr/libexec/fprintd
+tssadm    8357  7684  0 00:07 pts/0    00:00:00 ps -ef
+[tssadm@localhost bin]$
+
+
+find . -inum 792824 -exec rm -f {} \;
