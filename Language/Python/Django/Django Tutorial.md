@@ -458,7 +458,7 @@ $ python manage.py runserver
 
 ## Django - Creating Views
 
-보기 함수 또는 간단히 '보기'는 단순히 웹 요청을 받아 웹 응답을 반환하는 Python 함수입니다. 이 응답은 웹 페이지의 HTML 내용, 리디렉션, 404 오류 또는 XML 문서 또는 이미지 등일 수 있습니다. 예 :보기를 사용하여 웹 페이지를 작성하고보기를 연관시켜야합니다. 웹 페이지로 보려면 URL로 연결하십시오.
+view 함수 또는 간단히 'view'는 단순히 웹 요청을 받아 웹 응답을 반환하는 Python 함수입니다. 이 응답은 웹 페이지의 HTML 내용, 리디렉션, 404 오류 또는 XML 문서 또는 이미지 등일 수 있습니다. 예 :view 를 사용하여 웹 페이지를 작성하고 view 를 연관시켜야합니다. 웹 페이지로 보려면 URL로 연결하십시오.
 
 장고에서는 앱 views.py 파일에 뷰를 생성해야합니다.
 
@@ -466,9 +466,9 @@ $ python manage.py runserver
 
 ### Simple View
 
-myapp에서 '"welcome to my app!'라는 간단한보기를 만듭니다.
+myapp에서 '"welcome to my app!'라는 간단한view를 만듭니다.
 
-다음보기를 참조하십시오-
+다음view를 참조하십시오-
 
 ``` python
 from django.http import HttpResponse
@@ -478,11 +478,11 @@ def hello(request):
    return HttpResponse(text)
 ```
 
-이 뷰에서 HttpResponse를 사용하여 HTML을 렌더링합니다 (아마도 HTML 하드 코딩 된 뷰가 있음). 이보기를 페이지로 보려면 URL에 매핑하기 만하면됩니다 (다음 장에서 설명).
+이 뷰에서 HttpResponse를 사용하여 HTML을 렌더링합니다 (아마도 HTML 하드 코딩 된 뷰가 있음). 이view를 페이지로 보려면 URL에 매핑하기 만하면됩니다 (다음 장에서 설명).
 
 HttpResponse를 사용하여 뷰에서 HTML을 렌더링했습니다. 페이지를 렌더링하는 가장 좋은 방법은 아닙니다. Django는 MVT 패턴을 지원하므로 선행 뷰를 만들려면 Django-MVT와 마찬가지로 다음이 필요합니다.
 
-템플릿 : myapp / templates / hello.html
+템플릿 :  `myapp/templates/hello.html`
 
 이제 우리의 관점은 다음과 같습니다-
 
@@ -492,6 +492,8 @@ from django.shortcuts import render
 def hello(request):
    return render(request, "myapp/template/hello.html", {})
 ```
+
+
 
 뷰는 매개 변수를 사용할 수 있습니다-
 
@@ -509,7 +511,7 @@ URL에 연결되면 페이지에 매개 변수로 전달 된 숫자가 표시됩
 
 ## Django - URL Mapping
 
-이제 우리는 이전 장에서 설명한 작업 뷰를 가졌습니다. URL을 통해 해당 뷰에 액세스하려고합니다. Django는 고유 한 URL 맵핑 방법을 가지고 있으며 프로젝트 url.py 파일 (myproject / url.py)을 편집하여 수행됩니다. Url.py 파일은 다음과 같습니다-
+이제 우리는 이전 장에서 설명한 작업 뷰를 가졌습니다. URL을 통해 해당 뷰에 액세스하려고합니다. Django는 고유 한 URL 맵핑 방법을 가지고 있으며 프로젝트 url.py 파일 (myproject/url.py)을 편집하여 수행됩니다. Url.py 파일은 다음과 같습니다-
 
 ``` python
 from django.conf.urls import patterns, include, url
@@ -525,7 +527,7 @@ urlpatterns = patterns('',
 )
 ```
 
-사용자가 웹앱에서 페이지를 요청하면 Django 컨트롤러가 url.py 파일을 통해 해당보기를 찾은 다음 HTML 응답 또는 404를 찾을 수 없음 오류를 반환합니다. Url.py에서 가장 중요한 것은 'urlpatterns'튜플입니다. URL과보기 간의 매핑을 정의하는 곳입니다. 매핑은 다음과 같은 URL 패턴의 튜플입니다.
+사용자가 웹앱에서 페이지를 요청하면 Django 컨트롤러가 url.py 파일을 통해 해당view를 찾은 다음 HTML 응답 또는 404를 찾을 수 없음 오류를 반환합니다. Url.py에서 가장 중요한 것은 'urlpatterns' 튜플입니다. URL과 view 간의 매핑을 정의하는 곳입니다. 매핑은 다음과 같은 URL 패턴의 튜플입니다.
 
 ``` python
 from django.conf.urls import patterns, include, url
@@ -542,11 +544,11 @@ urlpatterns = patterns('',
 )
 ```
 
-표시된 행은 URL '/ home'을 myapp / view.py 파일에서 작성된 hello보기에 맵핑합니다. 위에서 볼 수 있듯이 매핑은 세 가지 요소로 구성됩니다.
+표시된 행은 URL '/ home'을 myapp / view.py 파일에서 작성된 helloview에 맵핑합니다. 위에서 볼 수 있듯이 매핑은 세 가지 요소로 구성됩니다.
 
 - **The pattern** −  해결하고 매핑하려는 URL과 일치하는 정규 표현식. Python 're'모듈에서 작동 할 수있는 모든 것은 패턴에 적합합니다 (url을 통해 매개 변수를 전달하려는 경우에 유용함).
 - **The python path to the view** −  모듈을 가져올 때와 동일합니다.
-- **The name** − URL 반전을 수행하려면 위 예에서와 같이 이름이 지정된 URL 패턴을 사용해야합니다. 완료되면 서버를 시작하여 다음을 통해보기에 액세스하십시오 : http://127.0.0.1/hello
+- **The name** − URL 반전을 수행하려면 위 예에서와 같이 이름이 지정된 URL 패턴을 사용해야합니다. 완료되면 서버를 시작하여 다음을 통해view에 액세스하십시오 : http://127.0.0.1/hello
 
 
 
@@ -643,11 +645,11 @@ urlpatterns = patterns('myapp.views',
    url(r'^article/(\d+)/', 'viewArticle', name = 'article'),)
 ```
 
-Django는 '/ myapp / article / 42'라는 URL을 볼 때 매개 변수 '42'를 viewArticle보기로 전달하고 브라우저에서 다음 결과를 얻습니다-
+Django는 '/ myapp / article / 42'라는 URL을 볼 때 매개 변수 '42'를 viewArticleview로 전달하고 브라우저에서 다음 결과를 얻습니다-
 
 ![](./images/passing_parameters_to_viewarticle.jpg)
 
-여기서 매개 변수의 순서는 중요합니다. 한 달의 기사 목록을 원한다고 가정하고 viewArticles보기를 추가합시다. 우리의 view.py는-
+여기서 매개 변수의 순서는 중요합니다. 한 달의 기사 목록을 원한다고 가정하고 viewArticlesview를 추가합시다. 우리의 view.py는-
 
 ``` python
 from django.shortcuts import render
@@ -681,7 +683,7 @@ urlpatterns = patterns('myapp.views',
 
 ![](./images/displaying_articles.jpg)
 
-이를 방지하기 위해 URL 매개 변수를보기 매개 변수에 링크 할 수 있습니다. 이를 위해 url.py는 다음과 같이됩니다.
+이를 방지하기 위해 URL 매개 변수를view 매개 변수에 링크 할 수 있습니다. 이를 위해 url.py는 다음과 같이됩니다.
 
 ``` python
 from django.conf.urls import patterns, include, url
@@ -961,7 +963,7 @@ $python manage.py syncdb
 
 ### Manipulating Data (CRUD)
 
-모델에서 CRUD 작업을 수행 할 수있는 방법을보기 위해 'crudops'보기를 만들어 보겠습니다. Myapp / views.py는 다음과 같이 보일 것입니다-
+모델에서 CRUD 작업을 수행 할 수있는 방법을view 위해 'crudops'view를 만들어 보겠습니다. Myapp / views.py는 다음과 같이 보일 것입니다-
 
 **myapp/views.py**
 
@@ -1017,7 +1019,7 @@ def crudops(request):
 
 모델에서 수행 할 수있는 다른 조작을 살펴 보겠습니다. CRUD 작업은 모델 인스턴스에서 수행되었으므로 이제 모델을 나타내는 클래스와 직접 작업합니다.
 
-myapp / views.py에서 '데이터 조작'보기를 만들어 봅시다.
+myapp / views.py에서 '데이터 조작'view를 만들어 봅시다.
 
 ``` python
 from myapp.models import Dreamreal
@@ -1144,7 +1146,7 @@ QuerySet을 얻으려면 이전에 본 모든 조작 방법 (filter, all, exclud
 
 웹 애플리케이션에서 여러 가지 이유로 페이지 리디렉션이 필요합니다. 특정 작업이 발생하거나 기본적으로 오류가 발생하면 사용자를 다른 페이지로 리디렉션 할 수 있습니다. 예를 들어, 사용자가 웹 사이트에 로그인하면 종종 기본 홈 페이지 또는 개인 대시 보드로 리디렉션됩니다. Django에서 리디렉션은 '리디렉션'방법을 사용하여 수행됩니다.
 
-'redirect'메소드는 인수로 사용됩니다. 문자열 A보기의 이름으로 경로 재 지정하려는 URL.
+'redirect'메소드는 인수로 사용됩니다. 문자열 Aview의 이름으로 경로 재 지정하려는 URL.
 
 myapp / views는 지금까지 다음과 같습니다-
 
@@ -1187,7 +1189,7 @@ def viewArticles(request, year, month):
    return HttpResponse(text)
 ```
 
-위의 예에서 먼저 django.shortcuts에서 리디렉션을 가져 왔고 Django 공식 웹 사이트로 리디렉션하기 위해 전체 URL을 'redirect'메소드에 문자열로 전달하고 두 번째 예 (viewArticle보기)에는 'redirect' 메소드는 뷰 이름과 그의 매개 변수를 인수로 사용합니다.
+위의 예에서 먼저 django.shortcuts에서 리디렉션을 가져 왔고 Django 공식 웹 사이트로 리디렉션하기 위해 전체 URL을 'redirect'메소드에 문자열로 전달하고 두 번째 예 (viewArticleview)에는 'redirect' 메소드는 뷰 이름과 그의 매개 변수를 인수로 사용합니다.
 
 / myapp / hello에 액세스하면 다음 화면이 나타납니다-
 
@@ -1223,7 +1225,7 @@ def viewArticle(request, articleId):
    return redirect(articles, year = "2045", month = "02")
 ```
 
-참고-URL을 생성하는 기능도 있습니다. 리디렉션과 같은 방식으로 사용됩니다. 'reverse'메소드 (django.core.urlresolvers.reverse). 이 함수는 HttpResponseRedirect 객체를 반환하지 않고 전달 된 인수로 컴파일 된보기의 URL을 포함하는 문자열을 반환합니다.
+참고-URL을 생성하는 기능도 있습니다. 리디렉션과 같은 방식으로 사용됩니다. 'reverse'메소드 (django.core.urlresolvers.reverse). 이 함수는 HttpResponseRedirect 객체를 반환하지 않고 전달 된 인수로 컴파일 된view의 URL을 포함하는 문자열을 반환합니다.
 
 
 
@@ -1241,7 +1243,7 @@ Django는 이메일을 보낼 준비가되어 있고 사용하기 쉬운 라이�
 
 ### Sending a Simple E-mail
 
-간단한 전자 메일을 보내기 위해 'sendSimpleEmail'보기를 만들어 봅시다.
+간단한 전자 메일을 보내기 위해 'sendSimpleEmail'view를 만들어 봅시다.
 
 ``` python
 from django.core.mail import send_mail
