@@ -37,7 +37,7 @@
 
 ## **모든 데이터 읽어오기**
 
-```python
+``` python
 import openpyxl as xl
 
 wb = xl.load_workbook('C:/Project/steel/faq.xlsx')
