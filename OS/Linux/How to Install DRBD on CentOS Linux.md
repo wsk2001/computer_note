@@ -2,7 +2,7 @@
 
  출처: https://linuxhandbook.com/install-drbd-linux/
 
-이 단계별 자습서는 CentOS Linux에서 DRDRBD (Distributed Replicated Block Device)를 설치하는 방법을 보여줍니다.
+이 단계별 자습서는 CentOS Linux에서 DRBD (Distributed Replicated Block Device)를 설치하는 방법을 보여줍니다.
 
  ### DRBD 란 무엇입니까?
 

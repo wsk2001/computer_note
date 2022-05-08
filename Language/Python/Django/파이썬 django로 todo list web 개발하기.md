@@ -153,14 +153,6 @@ todo list 게시판을 만들기 위한 전초 작업입니다.
 
  
 
-
-
-![img](./images/img.png)
-
-
-
- 
-
 저는 먼저 static 폴더를 하나 만들었습니다. todo_main에 디렉토리를 하나 만들어서 그 밑에 css, js를 만들고
 
 그 아래에 필요한 라이브러리 파일을 넣었습니다.
@@ -177,7 +169,7 @@ css는 저 파일들이 다 필요하지 않습니다. 부트스트랩만 적용
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_001.png)
+![img](.\images\img_001.png)
 
 
 
@@ -189,7 +181,7 @@ css는 저 파일들이 다 필요하지 않습니다. 부트스트랩만 적용
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_002.png)
+![img](.\images\img_002.png)
 
 
 
@@ -201,7 +193,7 @@ css는 저 파일들이 다 필요하지 않습니다. 부트스트랩만 적용
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_003.png)
+![img](.\images\img_003.png)
 
 
 
@@ -217,7 +209,7 @@ css는 저 파일들이 다 필요하지 않습니다. 부트스트랩만 적용
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_004.png)
+![img](.\images\img_004.png)
 
 
 
@@ -231,7 +223,7 @@ python manage.py collectstatic을 진행합니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_005.png)
+![img](.\images\img_005.png)
 
 
 
@@ -243,9 +235,9 @@ python manage.py collectstatic을 진행합니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_006.png)
+![img](.\images\img_006.png)
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_007.png)
+![img](.\images\img_007.png)
 
 
 
@@ -261,7 +253,7 @@ pip install pymysql로 간단히 설치가 가능합니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_008.png)
+![img](.\images\img_008.png)
 
 
 
@@ -291,7 +283,7 @@ mysql을 사용하기에 mysql과 관련된 설정을 하고 db이름, db계정,
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_009.png)
+![img](.\images\img_009.png)
 
 
 
@@ -303,7 +295,7 @@ todoSubject의 프로젝트 폴더로 들어가면 urls.py가 있습니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_010.png)
+![img](.\images\img_010.png)
 
 
 
@@ -321,7 +313,7 @@ todoSubject의 프로젝트 폴더로 들어가면 urls.py가 있습니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_011.png)
+![img](.\images\img_011.png)
 
 
 
@@ -333,7 +325,7 @@ todoSubject의 프로젝트 폴더로 들어가면 urls.py가 있습니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_012.png)
+![img](.\images\img_012.png)
 
 
 
@@ -351,9 +343,9 @@ todoSubject의 프로젝트 폴더로 들어가면 urls.py가 있습니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_013.png)
+![img](.\images\img_013.png)
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_014.png)
+![img](.\images\img_014.png)
 
 
 
@@ -377,7 +369,7 @@ todo_main/index.html 로 이동하라! 라는 것입니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_015.png)
+![img](.\images\img_015.png)
 
 
 
@@ -391,7 +383,7 @@ templates라는 디렉토리를 만들고 그 밑에 todo_main 폴더를 하나 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_016.png)
+![img](.\images\img_016.png)
 
 
 
@@ -405,7 +397,7 @@ python manage.py runserver를 가동!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_017.png)
+![img](.\images\img_017.png)
 
 
 
@@ -443,7 +435,7 @@ python manage.py runserver를 가동!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_018.png)
+![img](.\images\img_018.png)
 
 
 
@@ -461,7 +453,7 @@ python manage.py runserver를 가동!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_019.png)
+![img](.\images\img_019.png)
 
 
 
@@ -485,7 +477,7 @@ extends는 말 그대로 위의 header.html을 상속하겠다는 이야기고, 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_020.png)
+![img](.\images\img_020.png)
 
 
 
@@ -503,7 +495,7 @@ extends는 말 그대로 위의 header.html을 상속하겠다는 이야기고, 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_021.png)
+![img](.\images\img_021.png)
 
 
 
@@ -539,7 +531,7 @@ MTV 패턴에서 M(Model)부분에 해당됩니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_022.png)
+![img](.\images\img_022.png)
 
 
 
@@ -598,7 +590,7 @@ alter table todo_list add PRIORITY INT AFTER IS_COMPLETE
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_023.png)
+![img](.\images\img_023.png)
 
 
 
@@ -616,7 +608,7 @@ alter table todo_list add PRIORITY INT AFTER IS_COMPLETE
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_024.png)
+![img](.\images\img_024.png)
 
 
 
@@ -648,7 +640,7 @@ db를 감지합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_025.png)
+![img](.\images\img_025.png)
 
 
 
@@ -662,7 +654,7 @@ db를 감지합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_026.png)
+![img](.\images\img_026.png)
 
 
 
@@ -678,7 +670,7 @@ db를 감지합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_027.png)
+![img](.\images\img_027.png)
 
 
 
@@ -692,7 +684,7 @@ db를 감지합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_028.png)
+![img](.\images\img_028.png)
 
 
 
@@ -708,9 +700,9 @@ models.py가 변화가 있었으니까요!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_029.png)
+![img](.\images\img_029.png)
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_030.png)
+![img](.\images\img_030.png)
 
 
 
@@ -728,7 +720,7 @@ todo_list = TodoList.objects.all()을 통해 모든 객체를 가져옵니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_031.png)
+![img](.\images\img_031.png)
 
 
 
@@ -752,7 +744,7 @@ todo_list라는 값을 받았습니다. 그러면 django template language를 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_032.png)
+![img](.\images\img_032.png)
 
 
 
@@ -768,7 +760,7 @@ todo_list라는 값을 받았습니다. 그러면 django template language를 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_033.png)
+![img](.\images\img_033.png)
 
 
 
@@ -780,7 +772,7 @@ todo_list라는 값을 받았습니다. 그러면 django template language를 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_034.png)
+![img](.\images\img_034.png)
 
 
 
@@ -806,7 +798,7 @@ django에서 forms.py는 form을 만들어주는 역할을 합니다. form은 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_035.png)
+![img](.\images\img_035.png)
 
 
 
@@ -818,7 +810,7 @@ todo board 아래에 보시면 forms.py가 있을겁니다. 저것을 이용합�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_036.png)
+![img](.\images\img_036.png)
 
 
 
@@ -830,7 +822,7 @@ forms.py에는 models을 import합니다. from .models import TodoList를 통해
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_037.png)
+![img](.\images\img_037.png)
 
 
 
@@ -848,7 +840,7 @@ forms.py에는 models을 import합니다. from .models import TodoList를 통해
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_038.png)
+![img](.\images\img_038.png)
 
 
 
@@ -864,7 +856,7 @@ form method는 POST로 설정하고 {% csrf_token %}을 통해 데이터가 보�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_039.png)
+![img](.\images\img_039.png)
 
 
 
@@ -882,7 +874,7 @@ form method는 POST로 설정하고 {% csrf_token %}을 통해 데이터가 보�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_040.png)
+![img](.\images\img_040.png)
 
 
 
@@ -900,7 +892,7 @@ form method는 POST로 설정하고 {% csrf_token %}을 통해 데이터가 보�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_041.png)
+![img](.\images\img_041.png)
 
 
 
@@ -926,7 +918,7 @@ form method는 POST로 설정하고 {% csrf_token %}을 통해 데이터가 보�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_042.png)
+![img](.\images\img_042.png)
 
 
 
@@ -938,7 +930,7 @@ urls.py로 가서 url을 만들어줍니다. todo_board_insert라는 name을 가
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_043.png)
+![img](.\images\img_043.png)
 
 
 
@@ -954,7 +946,7 @@ check_post는 위와 같습니다. POST일 때와 GET일 때로 나눠집니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_044.png)
+![img](.\images\img_044.png)
 
 
 
@@ -966,7 +958,7 @@ todo_board_success.html은 위와 같이 했습니다. message를 alert으로 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_045.png)
+![img](.\images\img_045.png)
 
 
 
@@ -980,7 +972,7 @@ todo_board_success.html은 위와 같이 했습니다. message를 alert으로 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_046.png)
+![img](.\images\img_046.png)
 
 
 
@@ -994,7 +986,7 @@ save!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_047.png)
+![img](.\images\img_047.png)
 
 
 
@@ -1008,7 +1000,7 @@ save!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_048.png)
+![img](.\images\img_048.png)
 
 
 
@@ -1046,7 +1038,7 @@ save!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_049.png)
+![img](.\images\img_049.png)
 
 
 
@@ -1062,7 +1054,7 @@ pk는 게시판 고유 번호입니다. 즉 고유번호/detail url로 들어가
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_050.png)
+![img](.\images\img_050.png)
 
 
 
@@ -1082,7 +1074,7 @@ context_object_name은 해당 object의 이름을 설정해주는 것입니다. 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_051.png)
+![img](.\images\img_051.png)
 
 
 
@@ -1096,7 +1088,7 @@ context_object_name은 해당 object의 이름을 설정해주는 것입니다. 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_052.png)
+![img](.\images\img_052.png)
 
 
 
@@ -1120,7 +1112,7 @@ python manage.py runserver를 진행
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_053.png)
+![img](.\images\img_053.png)
 
 
 
@@ -1134,7 +1126,7 @@ python manage.py runserver를 진행
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_054.png)
+![img](.\images\img_054.png)
 
 
 
@@ -1170,7 +1162,7 @@ python manage.py runserver를 진행
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_055.png)
+![img](.\images\img_055.png)
 
 
 
@@ -1186,7 +1178,7 @@ update를 하기 위하여 todo_board:todo_board_update의 urls.py에 하나를 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_056.png)
+![img](.\images\img_056.png)
 
 
 
@@ -1198,7 +1190,7 @@ update를 하기 위하여 todo_board:todo_board_update의 urls.py에 하나를 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_057.png)
+![img](.\images\img_057.png)
 
 
 
@@ -1224,7 +1216,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_058.png)
+![img](.\images\img_058.png)
 
 
 
@@ -1238,7 +1230,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_059.png)
+![img](.\images\img_059.png)
 
 
 
@@ -1252,7 +1244,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_060.png)
+![img](.\images\img_060.png)
 
 
 
@@ -1268,7 +1260,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_061.png)
+![img](.\images\img_061.png)
 
 
 
@@ -1280,7 +1272,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_062.png)
+![img](.\images\img_062.png)
 
 
 
@@ -1294,7 +1286,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_063.png)
+![img](.\images\img_063.png)
 
 
 
@@ -1326,7 +1318,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_064.png)
+![img](.\images\img_064.png)
 
 
 
@@ -1338,7 +1330,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_065.png)
+![img](.\images\img_065.png)
 
 
 
@@ -1352,7 +1344,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_066.png)
+![img](.\images\img_066.png)
 
 
 
@@ -1368,7 +1360,7 @@ generic.updateview가 그것입니다. update와 관련된 기능을 제공해�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_067.png)
+![img](.\images\img_067.png)
 
 
 
@@ -1386,7 +1378,7 @@ todolist_confirm_delete.html 페이지가 없다고 나오네요
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_068.png)
+![img](.\images\img_068.png)
 
 
 
@@ -1398,7 +1390,7 @@ todolist_confirm_delete.html 페이지가 없다고 나오네요
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_069.png)
+![img](.\images\img_069.png)
 
 
 
@@ -1416,7 +1408,7 @@ csrf_token을 받아오고 제목을 화면에 표시해주면서 정말 삭제�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_070.png)
+![img](.\images\img_070.png)
 
 
 
@@ -1430,7 +1422,7 @@ csrf_token을 받아오고 제목을 화면에 표시해주면서 정말 삭제�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_071.png)
+![img](.\images\img_071.png)
 
 
 
@@ -1444,7 +1436,7 @@ csrf_token을 받아오고 제목을 화면에 표시해주면서 정말 삭제�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_072.png)
+![img](.\images\img_072.png)
 
 
 
@@ -1458,7 +1450,7 @@ confirm을 눌러줍니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_073.png)
+![img](.\images\img_073.png)
 
 
 
@@ -1510,7 +1502,7 @@ DATE_INPUT_FORMAT을 이용하면 됩니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_074.png)
+![img](.\images\img_074.png)
 
 
 
@@ -1524,7 +1516,7 @@ setting.py에다가 DATE_INPUT_FORMATS를 해줍니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_075.png)
+![img](.\images\img_075.png)
 
 
 
@@ -1538,7 +1530,7 @@ setting.py에다가 DATE_INPUT_FORMATS를 해줍니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_076.png)
+![img](.\images\img_076.png)
 
 
 
@@ -1564,7 +1556,7 @@ setting.py에다가 DATE_INPUT_FORMATS를 해줍니다
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_077.png)
+![img](.\images\img_077.png)
 
 
 
@@ -1618,7 +1610,7 @@ AJax는 JavaScript의 라이브러리중 하나이죠~ 이것을 사용하면 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_078.png)
+![img](.\images\img_078.png)
 
 
 
@@ -1638,7 +1630,7 @@ AJax는 JavaScript의 라이브러리중 하나이죠~ 이것을 사용하면 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_079.png)
+![img](.\images\img_079.png)
 
 
 
@@ -1650,7 +1642,7 @@ AJax는 JavaScript의 라이브러리중 하나이죠~ 이것을 사용하면 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_080.png)
+![img](.\images\img_080.png)
 
 
 
@@ -1670,7 +1662,7 @@ AJax는 JavaScript의 라이브러리중 하나이죠~ 이것을 사용하면 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_081.png)
+![img](.\images\img_081.png)
 
 
 
@@ -1690,7 +1682,7 @@ url과 data가 있는데요. url은 django url으로 써주면됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_082.png)
+![img](.\images\img_082.png)
 
 
 
@@ -1704,7 +1696,7 @@ url만 다르고 나머지는 같습니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_083.png)
+![img](.\images\img_083.png)
 
 
 
@@ -1718,7 +1710,7 @@ urls.py에 가셔서 위처럼 url을 추가시켜 주시면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_084.png)
+![img](.\images\img_084.png)
 
 
 
@@ -1734,7 +1726,7 @@ urls.py에 가셔서 위처럼 url을 추가시켜 주시면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_085.png)
+![img](.\images\img_085.png)
 
 
 
@@ -1750,7 +1742,7 @@ urls.py에 가셔서 위처럼 url을 추가시켜 주시면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_086.png)
+![img](.\images\img_086.png)
 
 
 
@@ -1762,7 +1754,7 @@ urls.py에 가셔서 위처럼 url을 추가시켜 주시면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_087.png)
+![img](.\images\img_087.png)
 
 
 
@@ -1796,7 +1788,7 @@ Ajax를 활용해서 checkbox 체크 여부에 따라 일정이 완료 되었는
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_088.png)
+![img](.\images\img_088.png)
 
 
 
@@ -1810,7 +1802,7 @@ Ajax를 활용해서 checkbox 체크 여부에 따라 일정이 완료 되었는
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_089.png)
+![img](.\images\img_089.png)
 
 
 
@@ -1824,7 +1816,7 @@ Ajax를 활용해서 checkbox 체크 여부에 따라 일정이 완료 되었는
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_090.png)
+![img](.\images\img_090.png)
 
 
 
@@ -1836,7 +1828,7 @@ Ajax를 활용해서 checkbox 체크 여부에 따라 일정이 완료 되었는
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_091.png)
+![img](.\images\img_091.png)
 
 
 
@@ -1850,7 +1842,7 @@ javascript onclick event를 활용해서 priority_save() 함수를 호출하도�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_092.png)
+![img](.\images\img_092.png)
 
 
 
@@ -1868,7 +1860,7 @@ priority_save 함수는 위와 같습니다. list-group을 가지고 와서 아�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_093.png)
+![img](.\images\img_093.png)
 
 
 
@@ -1884,7 +1876,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_094.png)
+![img](.\images\img_094.png)
 
 
 
@@ -1898,7 +1890,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_095.png)
+![img](.\images\img_095.png)
 
 
 
@@ -1912,7 +1904,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_096.png)
+![img](.\images\img_096.png)
 
 
 
@@ -1924,7 +1916,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_097.png)
+![img](.\images\img_097.png)
 
 
 
@@ -1940,7 +1932,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_098.png)
+![img](.\images\img_098.png)
 
 
 
@@ -1956,7 +1948,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_099.png)
+![img](.\images\img_099.png)
 
 
 
@@ -1968,7 +1960,7 @@ print를 이용해 찍어봅니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_100.png)
+![img](.\images\img_100.png)
 
 
 
@@ -2028,7 +2020,7 @@ REST는 자원의 이름(resource name)을 가지고 클라이언트와 서버�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_101.png)
+![img](.\images\img_101.png)
 
 
 
@@ -2050,7 +2042,7 @@ REST는 자원의 이름(resource name)을 가지고 클라이언트와 서버�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_102.png)
+![img](.\images\img_102.png)
 
 
 
@@ -2074,7 +2066,7 @@ python manage.py startapp todo_subject_restful_main 이라고 합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_103.png)
+![img](.\images\img_103.png)
 
 
 
@@ -2092,7 +2084,7 @@ python manage.py startapp todo_subject_restful_main 이라고 합니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_104.png)
+![img](.\images\img_104.png)
 
 
 
@@ -2112,7 +2104,7 @@ REST API를 만들 때 필수적입니다. 데이터를 통신해줘야 하니�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_105.png)
+![img](.\images\img_105.png)
 
 
 
@@ -2130,7 +2122,7 @@ from rest_framework import serializers를 한 뒤 HyperlinkedModelSerializer를 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_106.png)
+![img](.\images\img_106.png)
 
 
 
@@ -2146,7 +2138,7 @@ from rest_framework import serializers를 한 뒤 HyperlinkedModelSerializer를 
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_107.png)
+![img](.\images\img_107.png)
 
 
 
@@ -2162,7 +2154,7 @@ rest_framework에 있는 viewset에서 modelViewSet을 가져와서 연동시켜
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_108.png)
+![img](.\images\img_108.png)
 
 
 
@@ -2188,7 +2180,7 @@ python manage.py runserver나 아니면 nginx 등을 하고 있으면 다른 것
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_109.png)
+![img](.\images\img_109.png)
 
 
 
@@ -2212,7 +2204,7 @@ python manage.py runserver나 아니면 nginx 등을 하고 있으면 다른 것
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_110.png)
+![img](.\images\img_110.png)
 
 
 
@@ -2224,7 +2216,7 @@ python manage.py runserver나 아니면 nginx 등을 하고 있으면 다른 것
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_111.png)
+![img](.\images\img_111.png)
 
 
 
@@ -2238,7 +2230,7 @@ python manage.py runserver나 아니면 nginx 등을 하고 있으면 다른 것
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_112.png)
+![img](.\images\img_112.png)
 
 
 
@@ -2252,7 +2244,7 @@ python manage.py runserver나 아니면 nginx 등을 하고 있으면 다른 것
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_113.png)
+![img](.\images\img_113.png)
 
 
 
@@ -2272,7 +2264,7 @@ READ 부분이죠. 전체 데이터를 볼 수 있습니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_114.png)
+![img](.\images\img_114.png)
 
 
 
@@ -2288,7 +2280,7 @@ PUT이 UPDATE이죠 ㅎㅎ
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_115.png)
+![img](.\images\img_115.png)
 
 
 
@@ -2302,7 +2294,7 @@ PUT이 UPDATE이죠 ㅎㅎ
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_116.png)
+![img](.\images\img_116.png)
 
 
 
@@ -2356,7 +2348,7 @@ REST API에서 detail view, update, delete 등이 구현이 되어 있어야 웹
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_117.png)
+![img](.\images\img_117.png)
 
 
 
@@ -2372,7 +2364,7 @@ rest_framework에 있는 ListAPIView를 불러옵니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_118.png)
+![img](.\images\img_118.png)
 
 
 
@@ -2388,7 +2380,7 @@ list view를 이렇게 조금 수정해줍니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_119.png)
+![img](.\images\img_119.png)
 
 
 
@@ -2402,7 +2394,7 @@ list view를 이렇게 조금 수정해줍니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_120.png)
+![img](.\images\img_120.png)
 
 
 
@@ -2416,7 +2408,7 @@ detail view는 RetrieveAPIView를 상속해주면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_121.png)
+![img](.\images\img_121.png)
 
 
 
@@ -2432,7 +2424,7 @@ model과 fields를 통해 값을 설정!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_122.png)
+![img](.\images\img_122.png)
 
 
 
@@ -2446,7 +2438,7 @@ url도 그에 맞게 추가해줍니다!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_123.png)
+![img](.\images\img_123.png)
 
 
 
@@ -2482,7 +2474,7 @@ rest api에는 CRUD가 있는데요. 현재 여기서 Read 부분만 한 것이�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_124.png)
+![img](.\images\img_124.png)
 
 
 
@@ -2498,7 +2490,7 @@ rest api에는 CRUD가 있는데요. 현재 여기서 Read 부분만 한 것이�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_125.png)
+![img](.\images\img_125.png)
 
 
 
@@ -2512,7 +2504,7 @@ detail때와 마찬가지로 (?P<no>\d+)를 통해 Primary key를 이용하여�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_126.png)
+![img](.\images\img_126.png)
 
 
 
@@ -2530,7 +2522,7 @@ Create는 PUSH이구요!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_127.png)
+![img](.\images\img_127.png)
 
 
 
@@ -2542,7 +2534,7 @@ Create는 PUSH이구요!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_128.png)
+![img](.\images\img_128.png)
 
 
 
@@ -2554,7 +2546,7 @@ Create는 PUSH이구요!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_129.png)
+![img](.\images\img_129.png)
 
 
 
@@ -2568,7 +2560,7 @@ rest api의 update는 이렇게 만들 수 있습니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_130.png)
+![img](.\images\img_130.png)
 
 
 
@@ -2584,7 +2576,7 @@ localhost:8088/todo_list/8/delete로 들어갑니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_131.png)
+![img](.\images\img_131.png)
 
 
 
@@ -2598,7 +2590,7 @@ delete 버튼을 눌러줍니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_132.png)
+![img](.\images\img_132.png)
 
 
 
@@ -2612,7 +2604,7 @@ delete 버튼을 눌러줍니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_133.png)
+![img](.\images\img_133.png)
 
 
 
@@ -2628,7 +2620,7 @@ d는 dictionary 데이터를 넣어주면 됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_134.png)
+![img](.\images\img_134.png)
 
 
 
@@ -2652,7 +2644,7 @@ django에 위와 같이 requests를 이용하면 기존에 db와 연동하는 �
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_135.png)
+![img](.\images\img_135.png)
 
 
 
@@ -2668,7 +2660,7 @@ serializers.ModelSerializer를 상속해줘서 create serializer를 만들어줍
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_136.png)
+![img](.\images\img_136.png)
 
 
 
@@ -2684,7 +2676,7 @@ views.py에서는 당연히 방금 만든 serializer를 import 해야겠죠?
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_137.png)
+![img](.\images\img_137.png)
 
 
 
@@ -2702,7 +2694,7 @@ serializer_class를 아까 만든 CreateSerializer로 설정해줍니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_138.png)
+![img](.\images\img_138.png)
 
 
 
@@ -2718,7 +2710,7 @@ view.py에 class를 생성해놨으니 당연히 url과 연동을 해줘야겠�
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_139.png)
+![img](.\images\img_139.png)
 
 
 
@@ -2732,7 +2724,7 @@ POST 버튼이 하나 있네요? 이전 포스트에서 말씀드렸지만 CREAT
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_140.png)
+![img](.\images\img_140.png)
 
 
 
@@ -2746,7 +2738,7 @@ title, content에 해당하는 값을 입력해서 POST를 하면!
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_141.png)
+![img](.\images\img_141.png)
 
 
 
@@ -2764,7 +2756,7 @@ import requests를 하신다음
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_142.png)
+![img](.\images\img_142.png)
 
 
 
@@ -2790,7 +2782,7 @@ data = requests.post()를 이용해 보내주시면됩니다.
 
 
 
-![img](C:\gitbook\tech_note\posts\DevLang\Python\Django\images\img_143.png)
+![img](.\images\img_143.png)
 
 
 
