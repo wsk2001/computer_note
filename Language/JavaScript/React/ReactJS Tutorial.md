@@ -1,2126 +1,5382 @@
 # ReactJS Tutorial
 
-출처:  https://www.tutorialspoint.com/reactjs/index.htm 
+출처: https://www.tutorialspoint.com/reactjs/index.htm
+
+React는 웹 애플리케이션에서 사용자 인터페이스(UI)를 개발하기 위한 오픈 소스, JavaScript 라이브러리입니다. React는 Facebook에서 개발 및 출시합니다. Facebook은 지속적으로 React 라이브러리를 작업하고 있으며 버그를 수정하고 새로운 기능을 도입하여 개선하고 있습니다. 이 튜토리얼은 React의 아키텍처, 프로젝트 설정, 컴포넌트 생성, JSX 방법 안내로 시작하여 상태 관리, 양식 프로그래밍, 라우팅과 같은 고급 개념을 살펴보고 마지막으로 단계별 작업 예제로 마무리합니다.
 
 
 
- React는 Facebook에서 개발 한 프론트 엔드 라이브러리입니다. 웹 및 모바일 앱의보기 계층을 처리하는 데 사용됩니다. ReactJS를 사용하면 재사용 가능한 UI 구성 요소를 만들 수 있습니다. 현재 가장 인기있는 JavaScript 라이브러리 중 하나이며 강력한 기반과 그 뒤에 큰 커뮤니티가 있습니다. 
+### 대상
+
+이 튜토리얼은 프론트엔드 웹 애플리케이션 개발 분야에서 경력을 쌓고자 하는 전문가를 위해 준비되었습니다. 이 튜토리얼은 예제와 함께 React 개념을 편안하게 시작할 수 있도록 하기 위한 것입니다.
 
 
 
-### Audience
+### 전제 조건
 
-이 튜토리얼은 ReactJS를 처음 다루는 JavaScript 개발자에게 도움이 될 것입니다. 우리는 쉽게 이해할 수있는 간단한 코드 예제를 보여줌으로써 모든 개념을 소개하려고 노력할 것입니다. 모든 장을 마치면 ReactJS와 함께 일하는 것에 자신감을 갖게 될 것입니다. 보너스로 ReactJS와 잘 작동하는 추가 요소를 소개하여 모범 사례를 배우고 최신 JavaScript 트렌드를 준수 할 수 있습니다. 
-
-
-
-### Prerequisites
-
- ReactJS를 사용하려면 JavaScript, HTML5 및 CSS에 대한 지식이 있어야합니다. ReactJS가 HTML을 사용하지 않더라도 JSX는 유사하므로 HTML 지식이 매우 유용합니다. 다음 장 중 하나에서 더 자세히 설명하겠습니다. 또한 EcmaScript 2015 구문을 사용하므로이 영역에 대한 모든 지식이 도움이 될 수 있습니다. 
-
+이 튜토리얼에서 제공하는 다양한 유형의 개념을 진행하기 전에 독자가 HTML, CSS 및 OOPS 개념에 대한 기본 지식이 있다고 가정합니다. 이 외에도 독자가 JavaScript에 대한 건전한 지식을 가지고 있다면 매우 도움이 될 것입니다.
 
 
 
 
-## Overview
 
- ReactJS는 재사용 가능한 UI 구성 요소를 빌드하는 데 사용되는 JavaScript 라이브러리입니다. React 공식 문서에 따르면 다음은 정의입니다. 
+## ReactJS - 소개
 
- React는 컴포저 블 사용자 인터페이스를 구축하기위한 라이브러리입니다. 시간이 지남에 따라 변경되는 데이터를 나타내는 재사용 가능한 UI 구성 요소를 만들도록 권장합니다. 많은 사람들이 MVC에서 React를 V로 사용합니다. React는 DOM을 추상화하여 더 간단한 프로그래밍 모델과 더 나은 성능을 제공합니다. React는 Node를 사용하여 서버에서 렌더링 할 수 있으며 React Native를 사용하여 기본 앱을 구동 할 수 있습니다. React는 단방향 반응 형 데이터 흐름을 구현하여 상용구를 줄이고 기존 데이터 바인딩보다 추론하기 쉽습니다. 
+https://www.tutorialspoint.com/reactjs/reactjs_introduction.htm
 
-### React Features
-
-- **JSX** − JSX는 JavaScript 구문 확장입니다. React 개발에 JSX를 사용할 필요는 없지만 권장됩니다. 
-- **Components** −  반응은 컴포넌트에 관한 것입니다. 모든 것을 컴포넌트로 생각해야합니다. 이는 대규모 프로젝트에서 작업 할 때 코드를 유지하는 데 도움이됩니다. 
-- **Unidirectional data flow and Flux** −  React는 단방향 데이터 흐름을 구현하므로 앱에 대해 쉽게 추론 할 수 있습니다. Flux는 데이터를 단방향으로 유지하는 데 도움이되는 패턴입니다. 
-- **License** −  React는 Facebook Inc에 따라 라이센스가 부여됩니다. 문서는 CC BY 4.0에 따라 라이센스가 부여됩니다. 
-
-### React Advantages
-
--  JavaScript 객체 인 virtual DOM을 사용합니다. JavaScript 가상 DOM이 일반 DOM보다 빠르기 때문에 앱 성능이 향상됩니다. 
--  클라이언트 및 서버 측뿐만 아니라 다른 프레임 워크에서도 사용할 수 있습니다. 
--  구성 요소 및 데이터 패턴은 가독성을 향상시켜 더 큰 앱을 유지하는 데 도움이됩니다. 
-
-### React Limitations
-
--  앱의 뷰 계층 만 다루므로 개발을위한 완벽한 툴링 세트를 얻으려면 다른 기술을 선택해야합니다. 
--  인라인 템플릿 및 JSX를 사용하는데 일부 개발자에게는 어색해 보일 수 있습니다. 
+ReactJS는 단순하고 기능이 풍부한 컴포넌트 기반 JavaScript UI 라이브러리입니다. 크고 복잡한 응용 프로그램뿐만 아니라 작은 응용 프로그램을 개발하는 데 사용할 수 있습니다. ReactJS는 웹 애플리케이션을 시작하기 위한 최소한의 견고한 기능 세트를 제공합니다. React 커뮤니티는 기록적인 시간에 웹 애플리케이션을 개발할 수 있는 기성 컴포넌트의 큰 세트를 제공하여 React 라이브러리를 보완합니다. React 커뮤니티는 또한 React 라이브러리 위에 상태 관리, 라우팅 등과 같은 고급 개념을 제공합니다.
 
 
 
-## Environment Setup
+### React versions
 
- https://www.tutorialspoint.com/reactjs/reactjs_environment_setup.htm 
-
- 이 장에서는 성공적인 React 개발을위한 환경을 설정하는 방법을 보여줍니다. 관련된 많은 단계가 있지만 나중에 개발 프로세스 속도를 높이는 데 도움이됩니다. NodeJS가 필요하므로 설치하지 않은 경우 다음 표에서 링크를 확인하십시오. 
-
-| Sr.No. | Software & Description                                       |
-| ------ | :----------------------------------------------------------- |
-| 1      | **NodeJS and NPM**<br>NodeJS는 ReactJS 개발에 필요한 플랫폼입니다. NodeJS를 확인하십시오 [NodeJS Environment Setup](https://www.tutorialspoint.com/nodejs/nodejs_environment_setup.htm). |
-
- NodeJS를 성공적으로 설치 한 후 npm을 사용하여 React 설치를 시작할 수 있습니다. 두 가지 방법으로 ReactJS를 설치할 수 있습니다 
-
--  Webpack 및 babel 사용 
--  **Create-react-app** 명령 사용 
+React의 초기 버전인 0.3.0은 2013년 5월에 출시되었으며 최신 버전인 17.0.1은 2020년 10월에 출시되었습니다. 메이저 버전은 브레이킹 체인지를 도입하고 마이너 버전은 기존 기능을 손상시키지 않고 새로운 기능을 도입합니다. 버그 수정은 필요할 때마다 릴리스됩니다. React는 Sematic Versioning(semver) 원칙을 따릅니다.
 
 
 
-###  Webpack 및 babel을 사용하여 ReactJS 설치 
+### Features
 
- Webpack은 모듈 번 들러입니다 (독립 모듈 관리 및로드). 종속 모듈을 사용하여 단일 (파일) 번들로 컴파일합니다. 명령 행을 사용하거나 webpack.config 파일을 사용하여 구성하여 앱을 개발할 때이 번들을 사용할 수 있습니다. 
+React 라이브러리의 두드러진 기능은 다음과 같습니다.
 
- Babel은 JavaScript 컴파일러 및 변환기입니다. 한 소스 코드를 다른 소스 코드로 변환하는 데 사용됩니다. 이것을 사용하면 코드에서 새로운 ES6 기능을 사용할 수 있습니다. babel은 모든 브라우저에서 실행할 수있는 일반 ES5로 변환합니다. 
+- 견고한 기본 아키텍처
+- 확장 가능한 아키텍처
+- 컴포넌트 기반 라이브러리
+- JSX 기반 설계 아키텍처
+- 선언적 UI 라이브러리
 
 
 
-####  1 단계-루트 폴더 생성 
+### Benefits
 
- Mkdir 명령을 사용하여 데스크탑에 이름이 reactApp 인 폴더를 작성하여 필요한 모든 파일을 설치하십시오. 
+React 라이브러리를 사용하는 몇 가지 이점은 다음과 같습니다.
 
-```bat
-C:\Users\username\Desktop>mkdir reactApp
-C:\Users\username\Desktop>cd reactApp
+- 배우기 쉬움
+- 현대 및 레거시 애플리케이션에 쉽게 적응
+- 기능을 코딩하는 더 빠른 방법
+- 많은 수의 기성 컴포넌트 가용성
+- 크고 활동적인 커뮤니티
+
+
+
+### Applications
+
+React 라이브러리로 구동되는 몇 가지 인기 있는 웹사이트는 다음과 같습니다.
+
+- 페이스북, 인기 있는 소셜 미디어 애플리케이션
+- 인스타그램, 인기 있는 사진 공유 애플리케이션
+- 인기 있는 미디어 스트리밍 애플리케이션인 Netflix
+- 코드 아카데미, 인기 있는 온라인 교육 애플리케이션
+- Reddit, 인기 콘텐츠 공유 애플리케이션
+
+
+
+보시다시피 모든 분야에서 가장 많이 사용되는 응용 프로그램은 React Library에서 개발되고 있습니다.
+
+
+
+## ReactJS - Installation
+
+https://www.tutorialspoint.com/reactjs/reactjs_installation.htm
+
+이 장에서는 시스템에 React 라이브러리 및 관련 도구를 설치하는 방법을 설명합니다. 설치로 이동하기 전에 먼저 전제 조건을 확인하겠습니다.
+
+React는 개발자가 React 기반 웹 애플리케이션의 생성, 개발 및 배포를 빠르게 진행할 수 있도록 CLI 도구를 제공합니다. React CLI 도구는 Node.js에 따라 다르며 시스템에 설치해야 합니다. 시스템에 Node.js를 설치했으면 합니다. 아래 명령을 사용하여 확인할 수 있습니다 -
+
+``` bash
+node --version
 ```
 
- 모듈을 작성하려면 package.json 파일을 생성해야합니다. 따라서 폴더를 생성 한 후 package.json 파일을 생성해야합니다. 이렇게하려면 명령 프롬프트에서 npm init 명령을 실행해야합니다. 
+설치했을 수도 있는 Nodejs 버전을 볼 수 있습니다. 나를 위해 아래와 같이 표시됩니다.
 
-```bat
-C:\Users\username\Desktop\reactApp>npm init
+``` bash
+v14.2.0
 ```
 
- 이 명령은 패키지 이름, 설명, 작성자 등과 같은 모듈에 대한 정보를 묻습니다. –y 옵션을 사용하여 건너 뛸 수 있습니다. 
+Nodejs가 설치되어 있지 않다면 https://nodejs.org/en/download/를 방문하여 다운로드하여 설치할 수 있습니다.
 
-```bat
-C:\Users\username\Desktop\reactApp>npm init -y
-Wrote to C:\reactApp\package.json:
-{
-   "name": "reactApp",
-   "version": "1.0.0",
-   "description": "",
-   "main": "index.js",
-   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-   },
-   "keywords": [],
-   "author": "",
-   "license": "ISC"
+
+
+### Toolchain
+
+양식 유효성 검사, 모델 대화 상자 등과 같은 가벼운 기능을 개발하기 위해 CDN(콘텐츠 전달 네트워크)을 통해 React 라이브러리를 웹 애플리케이션에 직접 포함할 수 있습니다. 웹 애플리케이션에서 jQuery 라이브러리를 사용하는 것과 유사합니다. 중대형 애플리케이션의 경우 애플리케이션을 여러 파일로 작성한 다음 웹팩, 소포, 롤업 등과 같은 번들러를 사용하여 코드를 배포하기 전에 애플리케이션을 컴파일 및 번들링하는 것이 좋습니다.
+
+React 툴체인은 React 애플리케이션을 생성, 빌드, 실행 및 배포하는 데 도움이 됩니다. React 툴체인은 기본적으로 애플리케이션을 부트스트랩하는 데 필요한 모든 코드가 포함된 스타터 프로젝트 템플릿을 제공합니다.
+
+React 애플리케이션을 개발하는 데 인기 있는 도구 체인 중 일부는 다음과 같습니다.
+
+- Create React App − SPA 지향 툴체인
+- Next.js − 서버 측 렌더링 지향 툴체인
+- Gatsby − 정적 콘텐츠 지향 툴체인
+
+
+
+React 애플리케이션을 개발하는 데 필요한 도구는 다음과 같습니다.
+
+- 개발하는 동안 애플리케이션을 제공하기 위한 정적 서버인 serve
+- 바벨 컴파일러
+- Create React App CLI
+
+
+
+이 장에서 위에서 언급한 도구의 기본 사항과 설치 방법에 대해 알아보겠습니다.
+
+
+
+### The *serve* static server
+
+serve는 경량 웹 서버입니다. 정적 사이트 및 단일 페이지 응용 프로그램을 제공합니다. 빠르게 로드되고 최소 메모리를 소모합니다. React 애플리케이션을 제공하는 데 사용할 수 있습니다. 시스템에 npm 패키지 관리자를 사용하여 도구를 설치해 보겠습니다.
+
+``` sh
+npm install serve -g
+```
+
+간단한 정적 사이트를 만들고 serve 앱을 사용하여 애플리케이션을 서비스해 보겠습니다.
+
+명령 프롬프트를 열고 작업 공간으로 이동합니다.
+
+``` sh
+cd /go/to/your/workspace
+```
+
+새 폴더인 static_site를 만들고 디렉터리를 새로 만든 폴더로 변경합니다.
+
+``` sh
+mkdir static_site
+cd static_site
+```
+
+다음으로 좋아하는 html 편집기를 사용하여 폴더 안에 간단한 웹 페이지를 만듭니다.
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Static website</title>
+</head>
+<body>
+<div><h1>Hello!</h1></div>
+</body>
+</html>
+```
+
+`index.html`
+
+다음으로, serve 명령을 실행합니다.
+
+``` sh
+serve .
+```
+
+전체 폴더 대신 단일 파일인 index.html을 제공할 수도 있습니다.
+
+``` sh
+serve ./index.html
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다. 서버 응용 프로그램은 아래와 같이 웹 페이지를 제공합니다.
+
+![Hello](.\images\hello.jpg)
+
+서버는 기본 포트 3000을 사용하여 응용 프로그램을 제공합니다. 사용할 수 없는 경우 임의의 포트를 선택하여 지정합니다.
+
+   ┌───────────────────────────────┐
+   │                                                                                     │
+   │   Serving!                                                                    │
+   │                                                                                     │
+   │   - Local:            http://localhost:3000                    │
+   │   - On Your Network:  http://172.31.32.1:3000    │
+   │                                                                                     │
+   │   Copied local address to clipboard!                     │
+   │                                                                                     │
+   └───────────────────────────────┘
+
+
+
+### Babel compiler
+
+Babel은 JavaScript의 많은 변형(es2015, es6 등)을 모든 브라우저에서 지원하는 표준 JavaScript 코드로 컴파일하는 JavaScript 컴파일러입니다. React는 JavaScript의 확장인 JSX를 사용하여 사용자 인터페이스 코드를 디자인합니다. Babel은 JSX 코드를 JavaScript 코드로 컴파일하는 데 사용됩니다.
+
+Babel과 React companion을 설치하려면 아래 명령을 실행하십시오.
+
+``` bash
+npm install babel-cli@6 babel-preset-react-app@3 -g
+... 
+... 
++ babel-cli@6.26.0 
++ babel-preset-react-app@3.1.2 
+updated 2 packages in 8.685s
+```
+
+Babel은 차세대 고급 JavaScript 구문으로 애플리케이션을 작성하는 데 도움이 됩니다.
+
+
+
+### Create React App toolchain
+
+Create React App은 단일 페이지 React 애플리케이션을 생성하는 최신 CLI 도구입니다. React 커뮤니티에서 지원하는 표준 도구입니다. babel 컴파일러도 처리합니다. 로컬 시스템에 Create React App을 설치해 보겠습니다.
+
+``` bash
+> npm install -g create-react-app
++ create-react-app@4.0.1 
+added 6 packages from 4 contributors, removed 37 packages and updated 12 packages in 4.693s
+```
+
+#### Updating the toolchain
+
+React Create App 툴체인은 react-scripts 패키지를 사용하여 애플리케이션을 빌드하고 실행합니다. 애플리케이션 작업을 시작하면 npm 패키지 관리자를 사용하여 언제든지 반응 스크립트를 최신 버전으로 업데이트할 수 있습니다.
+
+``` bash
+npm install react-scripts@latest
+```
+
+
+
+### React 툴체인 사용의 장점
+
+React 툴체인은 기본적으로 많은 기능을 제공합니다. React 툴체인을 사용하면 다음과 같은 이점이 있습니다.
+
+- 애플리케이션의 사전 정의 및 표준 구조.
+- 다양한 유형의 응용 프로그램을 위한 기성품 프로젝트 템플릿입니다.
+- 개발 웹 서버가 포함되어 있습니다.
+- 타사 React 컴포넌트를 포함하는 쉬운 방법입니다.
+- 애플리케이션 테스트를 위한 기본 설정
+
+
+
+
+
+## ReactJS - 아키텍처
+
+https://www.tutorialspoint.com/reactjs/reactjs_architecture.htm
+
+React 라이브러리는 견고한 기반 위에 구축되었습니다. 간단하고 유연하며 확장 가능합니다. 앞에서 배웠듯이 React는 웹 애플리케이션에서 사용자 인터페이스를 생성하기 위한 라이브러리입니다. React의 주요 목적은 개발자가 순수한 JavaScript를 사용하여 사용자 인터페이스를 만들 수 있도록 하는 것입니다. 일반적으로 모든 사용자 인터페이스 라이브러리는 사용자 인터페이스를 설계하기 위해 새로운 템플릿 언어(학습해야 함)를 도입하고 템플릿 내부 또는 개별적으로 논리를 작성하는 옵션을 제공합니다.
+
+새로운 템플릿 언어를 도입하는 대신 React는 다음과 같은 세 가지 간단한 개념을 도입합니다.
+
+#### React elements
+
+HTML DOM의 JavaScript 표현. React는 React Element를 생성하기 위한 API인 React.createElement를 제공합니다.
+
+#### JSX
+
+사용자 인터페이스를 디자인하기 위한 JavaScript 확장입니다. JSX는 약간의 수정으로 HTML 구문을 지원하는 XML 기반의 확장 가능한 언어입니다. JSX는 React Elements로 컴파일하고 사용자 인터페이스를 만드는 데 사용할 수 있습니다.
+
+#### React component
+
+React 컴포넌트는 React 애플리케이션의 기본 빌딩 블록입니다. React 요소와 JSX를 사용하여 사용자 인터페이스를 디자인합니다. React 컴포넌트는 기본적으로 JavaScript 클래스(React.component 클래스 확장) 또는 순수 JavaScript 함수입니다. React 컴포넌트에는 속성, 상태 관리, 라이프 사이클 및 이벤트 핸들러가 있습니다. React 컴포넌트는 고급 로직뿐만 아니라 단순하게도 할 수 있습니다.
+
+React Component 장에서 컴포넌트에 대해 더 자세히 알아보겠습니다.
+
+
+
+### React 애플리케이션의 워크플로
+
+이 장에서는 간단한 React 애플리케이션을 만들고 분석하여 React 애플리케이션의 워크플로를 이해하도록 합시다.
+
+명령 프롬프트를 열고 작업 공간으로 이동합니다.
+
+``` bash
+cd /go/to/your/workspace
+```
+
+다음으로 static_site라는 폴더를 생성하고 디렉터리를 새로 생성된 폴더로 변경합니다.
+
+#### Example
+
+다음으로 hello.html 파일을 만들고 간단한 React 애플리케이션을 작성합니다.
+
+``` html
+<!DOCTYPE html> 
+<html> 
+   <head> 
+      <meta charset="UTF-8" /> 
+      <title>React Application</title> 
+   </head> 
+   <body> 
+      <div id="react-app"></div> 
+      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script> 
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+      <script language="JavaScript"> 
+         element = React.createElement('h1', {}, 'Hello React!') 
+         ReactDOM.render(element, document.getElementById('react-app')); 
+      </script> 
+   </body> 
+</html>
+```
+
+다음으로, 웹 서버 serve를 사용하여 애플리케이션을 제공합니다.
+
+``` bash
+serve ./hello.html
+```
+
+##### Output
+
+다음으로 즐겨찾는 브라우저를 엽니다. 주소 표시줄에 http://localhost:3000을 입력하고 엔터를 누릅니다.
+
+![React Hello](.\images\react_hello.jpg)
+
+코드를 분석하고 React 애플리케이션을 더 잘 이해하기 위해 약간의 수정을 가해 보겠습니다.
+
+여기서는 React 라이브러리에서 제공하는 두 가지 API를 사용합니다.
+
+##### React.createElement
+
+React 요소를 만드는 데 사용됩니다. 세 가지 매개변수가 필요합니다.
+
+- Element tag
+- Element attributes as object
+- Element content -  중첩된 React 요소도 포함할 수 있습니다.
+
+##### ReactDOM.render
+
+요소를 컨테이너에 렌더링하는 데 사용됩니다. 두 개의 매개변수가 필요합니다.
+
+- React Element OR JSX
+- 웹페이지의 루트 요소
+
+
+
+#### 중첩된 React 요소
+
+React.createElement는 중첩된 React 요소를 허용하므로 아래와 같이 중첩된 요소를 추가해 보겠습니다.
+
+##### Example
+
+``` html
+<script language="JavaScript">
+   element = React.createElement('div', {}, React.createElement('h1', {}, 'Hello React!'));
+   ReactDOM.render(element, document.getElementById('react-app')); 
+</script>
+```
+
+##### Output
+
+아래 내용을 생성합니다 -
+
+``` js
+<div><h1> Hello React!</h1></div>
+```
+
+#### JSX 사용
+
+다음으로 React 요소를 완전히 제거하고 아래와 같이 JSX 구문을 도입하겠습니다.
+
+``` html
+<!DOCTYPE html> 
+<html> 
+   <head> 
+      <meta charset="UTF-8" /> 
+      <title>React Application</title> 
+   </head> 
+   <body> 
+      <div id="react-app"></div> 
+      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script> 
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+      <script type="text/babel"> 
+         ReactDOM.render(
+            <div><h1>Hello React!</h1></div>, 
+            document.getElementById('react-app') 
+         ); 
+     </script> 
+   </body> 
+</html>
+```
+
+여기에 JSX를 JavaScript로 변환하는 babel을 포함하고 스크립트 태그에 type=“text/babel”을 추가했습니다.
+
+``` html
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+...
+...
+</script>
+```
+
+그런 다음 응용 프로그램을 실행하고 브라우저를 엽니다. 응용 프로그램의 출력은 다음과 같습니다.
+
+![Hello Jsx](.\images\hello_jsx.jpg)
+
+다음으로 새로운 React 컴포넌트인 Greeting을 생성하여 웹페이지에서 사용해보도록 하겠습니다.
+
+``` js
+<script type="text/babel">
+function Greeting() {
+return <div><h1>Hello JSX!</h1></div>
 }
+ReactDOM.render(<Greeting />, document.getElementById('react-app') );
+</script>
 ```
 
+결과는 동일하며 아래와 같습니다 -
+
+![Hello Jsx](.\images\hello_jsx.jpg)
+
+응용 프로그램을 분석하여 아래 다이어그램과 같이 React 응용 프로그램의 워크플로를 시각화할 수 있습니다.
+
+![Workflow Jsx](.\images\workflow_jsx.jpg)
+
+React 앱은 React 컴포넌트(JSX 또는 React 요소 형식으로 코딩됨)를 사용하여 만든 사용자 인터페이스와 사용자 인터페이스를 렌더링할 컨테이너를 전달하여 ReactDOM.render 메서드를 호출합니다.
+
+ReactDOM.render는 JSX 또는 React 요소를 처리하고 가상 DOM을 내보냅니다.
+
+가상 DOM이 병합되어 컨테이너에 렌더링됩니다.
 
 
-####  2 단계-React 및 react dom 설치
 
- 우리의 주요 임무는 ReactJS를 설치하고, npm의 install react 및 react-dom 명령을 각각 사용하여 설치하고 해당 dom 패키지를 설치하는 것입니다. --save 옵션을 사용하여 설치 한 패키지를 package.json 파일에 추가 할 수 있습니다. 
+#### React 애플리케이션의 아키텍처
 
-```bat
-C:\Users\Tutorialspoint\Desktop\reactApp>npm install react --save
-C:\Users\Tutorialspoint\Desktop\reactApp>npm install react-dom --save
+React 라이브러리는 UI 라이브러리일 뿐이며 복잡한 애플리케이션을 작성하기 위해 특정 패턴을 강요하지 않습니다. 개발자는 원하는 디자인 패턴을 자유롭게 선택할 수 있습니다. React 커뮤니티는 특정 디자인 패턴을 옹호합니다. 패턴 중 하나는 Flux 패턴입니다. React 라이브러리는 더 나은 코드를 작성하기 위해 Higher Order component, Context, Render props, Refs 등과 같은 많은 개념을 제공합니다. React Hooks는 큰 프로젝트에서 상태 관리를 수행하기 위해 개념을 발전시키고 있습니다. React 애플리케이션의 높은 수준의 아키텍처를 이해하려고 노력합시다.
+
+![React App](.\images\react_app.jpg)
+
+- React 앱은 단일 루트 component로 시작합니다.
+- 루트 component는 하나 이상의 component를 사용하여 빌드됩니다.
+- 각 component는 모든 수준에서 다른 component와 중첩될 수 있습니다.
+- component는 React 라이브러리의 핵심 개념 중 하나입니다. 따라서 각 component는 다른 component에서 하나의 component를 상속하는 대신 더 작은 component를 구성하여 빌드됩니다.
+- 대부분의 component는 사용자 인터페이스 component입니다.
+- React 앱은 routing, animation, state management 등과 같은 특정 목적을 위한 타사 component를 포함할 수 있습니다.
+
+
+
+## ReactJS - React 애플리케이션 만들기
+
+https://www.tutorialspoint.com/reactjs/reactjs_creating_application.htm
+
+앞에서 배웠듯이 React 라이브러리는 단순 응용 프로그램과 복잡한 응용 프로그램 모두에서 사용할 수 있습니다. 간단한 애플리케이션은 일반적으로 스크립트 섹션에 React 라이브러리를 포함합니다. 복잡한 애플리케이션에서 개발자는 코드를 여러 파일로 분할하고 코드를 표준 구조로 구성해야 합니다. 여기서 React 툴체인은 애플리케이션을 부트스트랩하기 위해 미리 정의된 구조를 제공합니다. 또한 개발자는 자신의 프로젝트 구조를 사용하여 코드를 구성할 수 있습니다.
+
+간단하면서도 복잡한 React 애플리케이션을 만드는 방법을 살펴보겠습니다.
+
+- [CDN을 사용한 간단한 애플리케이션](https://www.tutorialspoint.com/reactjs/reactjs_using_cdn.htm)
+- [React Create App cli를 사용하는 복잡한 애플리케이션](https://www.tutorialspoint.com/reactjs/reactjs_using_create_react_app_tool.htm)
+- [맞춤형 방식을 통한 복잡한 적용](https://www.tutorialspoint.com/reactjs/reactjs_customized_code.htm)
+
+### 롤업 번들러 사용
+
+롤업은 작고 빠른 JavaScript 번들러 중 하나입니다. 이번 장에서는 롤업 번들러를 어떻게 사용하는지 알아보자.
+
+터미널을 열고 작업 공간으로 이동합니다.
+
+``` bash
+cd /go/to/your/workspace
 ```
 
- 또는 단일 명령으로 모든 것을 설치할 수 있습니다- 
+다음으로, 비용 관리자 롤업 폴더를 생성하고 새로 생성된 폴더로 이동합니다. 또한 즐겨 사용하는 편집기나 IDE에서 폴더를 엽니다.
 
-```bat
-C:\Users\username\Desktop\reactApp>npm install react react-dom --save
+``` bash
+mkdir expense-manager-rollup
+cd expense-manager-rollup
 ```
 
+다음으로 프로젝트를 생성하고 초기화합니다.
 
-
-####  3 단계-웹팩 설치 
-
- Webpack을 사용하여 번 들러 설치 webpack, webpack-dev-server 및 webpack-cli를 생성하고 있습니다. 
-
-```bat
-C:\Users\username\Desktop\reactApp>npm install webpack –save
-C:\Users\username\Desktop\reactApp>npm install webpack-dev-server --save
-C:\Users\username\Desktop\reactApp>npm install webpack-cli --save
+``` bash
+npm init -y
 ```
 
- 또는 단일 명령으로 모든 것을 설치할 수 있습니다- 
+다음으로 React 라이브러리(react 및 react-dom)를 설치합니다.
 
-```bat
-C:\Users\username\Desktop\reactApp>npm install webpack webpack-dev-server webpack-cli --save
+``` bash
+npm install react@^17.0.0 react-dom@^17.0.0 --save
 ```
 
+다음으로 개발 종속성으로 babel 및 사전 설정 라이브러리를 설치합니다.
 
-
-####  4 단계-babel 설치 
-
- Babel 및 해당 플러그인 babel-core, babel-loader, babel-preset-env, babel-preset-react 및 html-webpack-plugin 설치 
-
-```bat
-C:\Users\username\Desktop\reactApp>npm install babel-core --save-dev
-C:\Users\username\Desktop\reactApp>npm install babel-loader --save-dev
-C:\Users\username\Desktop\reactApp>npm install babel-preset-env --save-dev
-C:\Users\username\Desktop\reactApp>npm install babel-preset-react --save-dev
-C:\Users\username\Desktop\reactApp>npm install html-webpack-plugin --save-dev
+``` bash
+npm install @babel/preset-env @babel/preset-react
+@babel/core @babel/plugin-proposal-class-properties -D
 ```
 
- 또는 단일 명령으로 모든 것을 설치할 수 있습니다- 
+다음으로 개발 종속성으로 롤업 및 해당 플러그인 라이브러리를 설치합니다.
 
-```bat
-C:\Users\username\Desktop\reactApp>npm install babel-core babel-loader babel-preset-env 
-   babel-preset-react html-webpack-plugin --save-dev
+``` bash
+npm i -D rollup postcss@8.1 @rollup/plugin-babel
+@rollup/plugin-commonjs @rollup/plugin-node-resolve
+@rollup/plugin-replace rollup-plugin-livereload
+rollup-plugin-postcss rollup-plugin-serve postcss@8.1
+postcss-modules@4 rollup-plugin-postcss
 ```
 
+다음으로 비동기 프로그래밍을 위한 corejs 및 재생기 런타임을 설치합니다.
 
-
-####  5 단계-파일 작성 
-
- 설치를 완료하려면 index.html, App.js, main.js, webpack.config.js 및 .babelrc와 같은 특정 파일을 만들어야합니다. 이러한 파일은 수동으로 또는 명령 프롬프트를 사용하여 만들 수 있습니다. 
-
-```bat
-C:\Users\username\Desktop\reactApp>type nul > index.html
-C:\Users\username\Desktop\reactApp>type nul > App.js
-C:\Users\username\Desktop\reactApp>type nul > main.js
-    C:\Users\username\Desktop\reactApp>type nul > webpack.config.js
-C:\Users\username\Desktop\reactApp>type nul > .babelrc
+``` bash
+npm i regenerator-runtime core-js
 ```
 
+그런 다음 루트 폴더 아래에 babel 구성 파일 .babelrc를 만들어 babel 컴파일러를 구성합니다.
 
-
-####  6 단계-컴파일러, 서버 및 로더 설정 
-
-webpack-config.js 파일을 열고 다음 코드를 추가하십시오. 우리는 webpack 진입 점을 main.js로 설정하고 있습니다. 출력 경로는 번들 앱이 제공되는 장소입니다. 또한 개발 서버를 8001 포트로 설정하고 있습니다. 원하는 포트를 선택할 수 있습니다. 
-
-**webpack.config.js**
-
-```javascript
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-   entry: './main.js',
-   output: {
-      path: path.join(__dirname, '/bundle'),
-      filename: 'index_bundle.js'
-   },
-   devServer: {
-      inline: true,
-      port: 8001
-   },
-   module: {
-      rules: [
+``` json
+{
+   "presets": [
+      [
+         "@babel/preset-env",
          {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-               presets: ['es2015', 'react']
-            }
+            "useBuiltIns": "usage",
+            "corejs": 3,
+            "targets": "> 0.25%, not dead"
          }
-      ]
-   },
-   plugins:[
-      new HtmlWebpackPlugin({
-         template: './index.html'
-      })
+      ],
+      "@babel/preset-react"
+   ],
+   "plugins": [
+      "@babel/plugin-proposal-class-properties"
    ]
 }
 ```
 
- Package.json을 열고 'scripts'오브젝트에서 'test' 'echo \\'Error : no test specified \\ '&& exit 1'을 삭제하십시오. 이 자습서에서는 테스트를 수행하지 않으므로이 줄을 삭제합니다. 대신 시작 및 빌드 명령을 추가하십시오. 
+그런 다음 루트 폴더에 rollup.config.js 파일을 생성하여 롤업 번들러를 구성합니다.
 
-```json
-"start": "webpack-dev-server --mode development --open --hot",
-"build": "webpack --mode production"
+``` js
+import babel from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import replace from '@rollup/plugin-replace';
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
+import postcss from 'rollup-plugin-postcss'
+
+export default {
+   input: 'src/index.js',
+   output: {
+      file: 'public/index.js',
+      format: 'iife',
+   },
+   plugins: [
+      commonjs({
+         include: [
+            'node_modules/**',
+         ],
+         exclude: [
+            'node_modules/process-es6/**',
+         ],
+      }),
+      resolve(),
+      babel({
+         exclude: 'node_modules/**'
+      }),
+      replace({
+         'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      postcss({
+         autoModules: true
+      }),
+      livereload('public'),
+      serve({
+         contentBase: 'public',
+         port: 3000,
+         open: true,
+      }), // index.html should be in root of project
+   ]
+}
+```
+
+다음으로 package.json을 업데이트하고 진입점(public/index.js 및 public/styles.css)과 애플리케이션을 빌드하고 실행하는 명령을 포함합니다.
+
+``` json
+...
+"main": "public/index.js",
+"style": "public/styles.css",
+"files": [
+   "public"
+],
+"scripts": {
+   "start": "rollup -c -w",
+   "build": "rollup"
+},
+...
+```
+
+다음으로, 응용 프로그램의 모든 소스 코드를 저장할 응용 프로그램의 루트 디렉터리에 src 폴더를 만듭니다.
+
+다음으로 React 컴포넌트를 포함할 src 아래에 components라는 폴더를 만듭니다. 아이디어는 두 개의 파일을 만드는 것입니다. component .js는 컴포넌트 논리를 작성하고 component.css는 컴포넌트별 스타일을 포함합니다.
+
+응용 프로그램의 최종 구조는 다음과 같습니다.
+
+``` bash
+|-- package-lock.json
+|-- package.json
+|-- rollup.config.js
+|-- .babelrc
+`-- public
+   |-- index.html
+`-- src
+   |-- index.js
+   `-- components
+   |  |-- mycom.js
+   |  |-- mycom.css
+```
+
+새 컴포넌트인 HelloWorld를 만들어 설정이 제대로 작동하는지 확인하겠습니다. Components 폴더 아래에 HelloWorld.js 파일을 생성하고 Hello World 메시지를 내보내는 간단한 컴포넌트를 작성합니다.
+
+``` js
+import React from "react";
+
+class HelloWorld extends React.Component {
+   render() {
+      return (
+         <div>
+            <h1>Hello World!</h1>
+         </div>
+      );
+   }
+}
+export default HelloWorld;
+```
+
+다음으로 src 폴더 아래에 기본 파일인 index.js를 만들고 새로 만든 컴포넌트를 호출합니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import HelloWorld from './components/HelloWorld';
+
+ReactDOM.render(
+   <React.StrictMode>
+      <HelloWorld />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+그런 다음 루트 디렉터리에 공용 폴더를 만듭니다.
+
+다음으로, 애플리케이션의 진입점이 될 index.html(공용 폴더* 아래) html 파일을 만듭니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Expense Manager :: Rollup version</title>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="./index.js"></script>
+   </body>
+</html>
+```
+
+다음으로 애플리케이션을 빌드하고 실행합니다.
+
+``` bash
+npm start
+```
+
+npm build 명령은 롤업을 실행하고 애플리케이션을 단일 파일인 dist/index.js 파일로 묶고 애플리케이션 서비스를 시작합니다. dev 명령은 소스 코드가 변경될 때마다 코드를 다시 컴파일하고 브라우저에서 변경 사항을 다시 로드합니다.
+
+``` bash
+> expense-manager-rollup@1.0.0 build /path/to/your/workspace/expense-manager-rollup 
+> rollup -c 
+rollup v2.36.1 
+bundles src/index.js → dist\index.js... 
+LiveReload enabled 
+http://localhost:10001 -> /path/to/your/workspace/expense-manager-rollup/dist 
+created dist\index.js in 4.7s 
+
+waiting for changes...
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다. 서버 응용 프로그램은 아래와 같이 웹 페이지를 제공합니다.
+
+![Hello World](.\images\hello_world.jpg)
+
+
+
+## Parcel  번들러 사용
+
+Parcel은 구성이 없는 빠른 번들러입니다. 애플리케이션의 진입점만 예상하고 종속성 자체를 해결하고 애플리케이션을 번들로 제공합니다. 이 장에서는 Parcel 번들러를 사용하는 방법을 알아보겠습니다.
+
+먼저 Parcel 번들러를 설치합니다.
+
+``` bash
+npm install -g parcel-bundler
+```
+
+터미널을 열고 작업 공간으로 이동합니다.
+
+``` bash
+cd /go/to/your/workspace
+```
+
+다음으로 cost-manager-parcel 폴더를 생성하고 새로 생성된 폴더로 이동합니다. 또한 즐겨 사용하는 편집기나 IDE에서 폴더를 엽니다.
+
+``` bash
+mkdir expense-manager-parcel
+cd expense-manager-parcel
+```
+
+다음으로 프로젝트를 생성하고 초기화합니다.
+
+``` bash
+npm init -y
+```
+
+다음으로 React 라이브러리(react 및 react-dom)를 설치합니다.
+
+``` bash
+npm install react@^17.0.0 react-dom@^17.0.0 --save
+```
+
+다음으로 개발 종속성으로 babel 및 사전 설정 라이브러리를 설치합니다.
+
+``` bash
+npm install @babel/preset-env @babel/preset-react @babel/core @babel/plugin-proposal-class-properties -D
+```
+
+그런 다음 루트 폴더 아래에 babel 구성 파일 .babelrc를 만들어 babel 컴파일러를 구성합니다.
+
+``` json
+{
+"presets": [
+"@babel/preset-env",
+"@babel/preset-react"
+],
+"plugins": [
+"@babel/plugin-proposal-class-properties"
+]
+}
+```
+
+다음으로 package.json을 업데이트하고 진입점(src/index.js)과 명령을 포함하여 애플리케이션을 빌드하고 실행합니다.
+
+``` json
+...
+"main": "src/index.js",
+"scripts": {
+"start": "parcel public/index.html",
+"build": "parcel build public/index.html --out-dir dist"
+},
+...
+```
+
+다음으로, 응용 프로그램의 모든 소스 코드를 저장할 응용 프로그램의 루트 디렉터리에 src 폴더를 만듭니다.
+
+다음으로 React 컴포넌트를 포함할 src 아래에 components라는 폴더를 만듭니다. 아이디어는 두 개의 파일을 만드는 것입니다. component .js는 컴포넌트 논리를 작성하고 component.css는 컴포넌트별 스타일을 포함합니다.
+
+응용 프로그램의 최종 구조는 다음과 같습니다.
+
+``` bash
+|-- package-lock.json
+|-- package.json
+|-- .babelrc
+`-- public
+|-- index.html
+`-- src
+|-- index.js
+`-- components
+| |-- mycom.js
+| |-- mycom.css
+```
+
+새 컴포넌트인 HelloWorld를 만들어 설정이 제대로 작동하는지 확인하겠습니다. Components 폴더 아래에 HelloWorld.js 파일을 생성하고 Hello World 메시지를 내보내는 간단한 컴포넌트를 작성합니다.
+
+``` js
+import React from "react";
+
+class HelloWorld extends React.Component {
+   render() {
+      return (
+         <div>
+            <h1>Hello World!</h1>
+         </div>
+      );
+   }
+}
+export default HelloWorld;
+```
+
+다음으로 src 폴더 아래에 기본 파일인 index.js를 만들고 새로 만든 컴포넌트를 호출합니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import HelloWorld from './components/HelloWorld';
+
+ReactDOM.render(
+   <React.StrictMode>
+      <HelloWorld />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+그런 다음 루트 디렉터리에 공용 폴더를 만듭니다.
+
+다음으로, 애플리케이션의 진입점이 될 html 파일 index.html(공용 폴더에 있음)을 만듭니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Expense Manager :: Parcel version</title>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="../src/index.js"></script>
+   </body>
+</html>
+```
+
+다음으로 애플리케이션을 빌드하고 실행합니다.
+
+``` bash
+npm start
+```
+
+npm build 명령은 Parcel 명령을 실행합니다. 즉석에서 응용 프로그램을 번들로 제공하고 제공합니다. 소스 코드가 변경될 때마다 다시 컴파일되고 브라우저에서 변경 사항도 다시 로드합니다.
+
+``` bash
+> expense-manager-parcel@1.0.0 dev /go/to/your/workspace/expense-manager-parcel
+> parcel index.html Server running at http://localhost:1234
+√ Built in 10.41s.
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:1234를 입력하고 Enter 키를 누릅니다.
+
+![Hello World](.\images\hello_world.jpg)
+
+
+
+애플리케이션의 프로덕션 번들을 생성하여 프로덕션 서버에 배포하려면 빌드 명령을 사용합니다. dist 폴더 아래에 번들로 제공되는 모든 소스 코드가 포함된 index.js 파일을 생성합니다.
+
+``` bash
+npm run build
+> expense-manager-parcel@1.0.0 build /go/to/your/workspace/expense-manager-parcel
+> parcel build index.html --out-dir dist
+
+√ Built in 6.42s.
+
+dist\src.80621d09.js.map 270.23 KB 79ms
+dist\src.80621d09.js 131.49 KB 4.67s
+dist\index.html 221 B 1.63s
 ```
 
 
 
-####  7 단계-index.html 
+## ReactJS - JSX
 
- 이것은 단지 일반적인 HTML입니다. 앱의 루트 요소로 div id = "app" 를 설정하고 번들 앱 파일 인 **index_bundle.js** 스크립트를 추가합니다. 
+https://www.tutorialspoint.com/reactjs/reactjs_jsx.htm
 
-```js
+앞에서 배웠듯이 React JSX는 JavaScript의 확장입니다. 개발자는 XML 구문을 사용하여 가상 DOM을 생성할 수 있습니다. 순수한 JavaScript(React.createElement 함수 호출)로 컴파일됩니다. JavaScript로 컴파일되기 때문에 모든 유효한 JavaScript 코드 내에서 사용할 수 있습니다. 예를 들어 아래 코드는 완벽하게 유효합니다.
+
+- 변수에 할당합니다.
+
+  ``` js
+  var greeting = <h1>Hello React!</h1>
+  ```
+
+- 조건에 따라 변수에 할당합니다.
+
+  ``` js
+  var canGreet = true;
+  if(canGreet) {
+  greeting = <h1>Hello React!</h1>
+  }
+  ```
+
+- 함수의 반환 값으로 사용할 수 있습니다.
+
+  ``` js
+  function Greeting() {
+  return <h1>Hello React!</h1>
+  
+  }
+  greeting = Greeting()
+  ```
+
+- 함수의 인수로 사용할 수 있습니다.
+
+  ``` js
+  function Greet(message) {
+  ReactDOM.render(message, document.getElementById('react-app')
+  }
+  Greet(<h1>Hello React!</h1>)
+  ```
+
+
+
+#### Expressions
+
+JSX는 순수 JavaScript 구문으로 표현을 지원합니다. 표현식은 중괄호 { } 안에 넣어야 합니다. 표현식은 JSX가 정의된 컨텍스트에서 사용 가능한 모든 변수를 포함할 수 있습니다. 표현식을 사용하여 간단한 JSX를 만들어 보겠습니다.
+
+##### Example
+
+``` html
+<script type="text/babel">
+   var cTime = new Date().toTimeString();
+   ReactDOM.render(
+      <div><p>The current time is {cTime}</p></div>, 
+      document.getElementById('react-app') );
+</script>
+```
+
+##### Output
+
+여기서 cTime은 JSX에서 표현식을 사용하여 사용합니다. 위 코드의 출력은 다음과 같습니다.
+
+``` bash
+The Current time is 21:19:56 GMT+0530(India Standard Time)
+```
+
+JSX에서 표현식을 사용할 때의 긍정적인 부작용 중 하나는 모든 문자열을 html 안전한 문자열로 변환하기 때문에 주입 공격을 방지한다는 것입니다.
+
+#### 함수
+
+JSX는 사용자 정의 JavaScript 기능을 지원합니다. 함수 사용법은 표현식과 유사합니다. 간단한 함수를 만들어 JSX 내부에서 사용해보자.
+
+##### Example
+
+``` html
+<script type="text/babel">
+   var cTime = new Date().toTimeString();
+   ReactDOM.render(
+      <div><p>The current time is {cTime}</p></div>, 
+      document.getElementById('react-app') 
+   );
+</script>
+```
+
+##### Output
+
+여기서 getCurrentTime()은 현재 시간을 가져오는 데 사용되며 출력은 아래에 지정된 것과 유사합니다.
+
+``` bash
+The Current time is 21:19:56 GMT+0530(India Standard Time)
+```
+
+
+
+#### Attributes
+
+JSX는 속성과 같은 HTML을 지원합니다. 모든 HTML 태그 및 해당 속성이 지원됩니다. 속성은 일반 HTML 속성 이름 대신 camelCase 규칙을 사용하여 지정해야 하며 JavaScript DOM API를 따릅니다. 예를 들어 HTML의 class 속성은 className으로 정의되어야 합니다. 다음은 몇 가지 다른 예입니다.
+
+- *htmlFor* instead of *for*
+- *tabIndex* instead of *tabindex*
+- *onClick* instead of *onclick*
+
+##### Example
+
+``` html
+<style>
+   .red { color: red }
+</style>
+<script type="text/babel">
+   function getCurrentTime() {
+      return new Date().toTimeString();
+   }
+   ReactDOM.render(
+      <div>
+         <p>The current time is <span className="red">{getCurrentTime()}</span></p>
+      </div>,
+      document.getElementById('react-app') 
+   );
+</script>
+```
+
+##### Output
+
+출력은 다음과 같습니다 -
+
+``` bash
+The Current time is 22:36:55 GMT+0530(India Standard Time)
+```
+
+
+
+#### 속성의 표현
+
+JSX는 속성 내에서 지정되는 표현식을 지원합니다. 속성에서 표현식과 함께 큰따옴표를 사용하면 안 됩니다. 큰따옴표를 사용하는 표현식 또는 문자열을 사용해야 합니다. 위의 예는 속성에서 표현식을 사용하도록 변경할 수 있습니다.
+
+``` html
+<style>
+   .red { color: red }
+</style>
+
+<script type="text/babel">
+   function getCurrentTime() {
+      return new Date().toTimeString();
+   }
+   var class_name = "red";
+   ReactDOM.render(
+      <div>
+         <p>The current time is <span className={class_name}>{getCurrentTime()}</span></p>
+      </div>, 
+      document.getElementById('react-app') 
+   );
+</script>
+```
+
+
+
+## ReactJS - Component
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_components.htm
+
+React 컴포넌트는 React 애플리케이션의 빌딩 블록입니다. 이번 장에서는 새로운 React 컴포넌트를 생성하는 방법과 React 컴포넌트의 기능에 대해 알아보겠습니다.
+
+React 컴포넌트는 웹 페이지에서 사용자 인터페이스의 작은 청크를 나타냅니다. React 컴포넌트의 주요 작업은 사용자 인터페이스를 렌더링하고 내부 상태가 변경될 때마다 업데이트하는 것입니다. UI를 렌더링하는 것 외에도 사용자 인터페이스에 속한 이벤트를 관리합니다. 요약하자면 React 컴포넌트는 다음과 같은 기능을 제공합니다.
+
+- 사용자 인터페이스의 초기 렌더링.
+- 이벤트 관리 및 처리.
+- 내부 상태가 변경될 때마다 사용자 인터페이스를 업데이트합니다.
+
+React 컴포넌트는 세 가지 개념을 사용하여 이러한 기능을 수행합니다.
+
+- **Properties** −  컴포넌트가 입력을 수신할 수 있도록 합니다.
+- **Events** − 컴포넌트를 활성화하여 DOM 이벤트 및 최종 사용자 상호 작용을 관리합니다.
+- **State** − 컴포넌트가 상태를 유지하도록 합니다. Stateful 컴포넌트는 상태와 관련하여 UI를 업데이트합니다.
+
+다음 장에서 모든 개념을 하나씩 배우도록 합시다.
+
+
+
+### React 컴포넌트 만들기
+
+React 라이브러리에는 두 가지 컴포넌트 유형이 있습니다. 유형은 생성 방식에 따라 분류됩니다.
+
+- **Function component** − 일반 JavaScript 기능을 사용합니다.
+- **ES6 class component** − ES6 클래스를 사용합니다.
+
+기능과 클래스 컴포넌트의 핵심 차이점은 다음과 같습니다.
+
+- 기능 컴포넌트는 본질적으로 매우 최소화됩니다. 유일한 요구 사항은 React 요소를 반환하는 것입니다.
+
+  ``` js
+  function Hello() { 
+     return '<div>Hello</div>' 
+  }
+  ```
+
+- 약간의 추가 코딩으로 ES6 클래스 컴포넌트를 사용하여 동일한 기능을 수행할 수 있습니다.
+
+  ``` js
+  class ExpenseEntryItem extends React.Component {         
+     render() { 
+        return ( 
+           <div>Hello</div> 
+        ); 
+     }
+  }
+  ```
+
+- 클래스 컴포넌트는 기본적으로 상태 관리를 지원하지만 기능 컴포넌트는 상태 관리를 지원하지 않습니다. 그러나 React는 함수 컴포넌트가 상태를 유지하기 위해 후크인 useState()를 제공합니다.
+- 클래스 컴포넌트는 라이프 사이클을 가지며 전용 콜백 API를 통해 각 라이프 사이클 이벤트에 액세스합니다. 함수 컴포넌트에는 수명 주기가 없습니다. 다시 말하지만, React는 함수 컴포넌트가 컴포넌트의 다른 단계에 액세스할 수 있도록 후크인 useEffect()를 제공합니다.
+
+
+
+### 클래스 컴포넌트 만들기
+
+비용 관리 앱에서 새로운 React 컴포넌트인 ExpenseEntryItem을 만들어 비용 입력 항목을 보여드리겠습니다. 경비 입력 항목은 이름, 금액, 날짜 및 범주로 구성됩니다. 비용 입력 항목의 개체 표현은 다음과 같습니다.
+
+``` json
+{ 
+   'name': 'Mango juice', 
+   'amount': 30.00, 
+   'spend_date': '2020-10-10' 
+   'category': 'Food', 
+}
+```
+
+즐겨 사용하는 편집기에서 경비 관리 애플리케이션을 엽니다.
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItem.css 파일을 만들어 컴포넌트의 스타일을 지정합니다.
+
+그런 다음 React.Component를 확장하여 src/components 폴더 아래에 ExpenseEntryItem.js 파일을 생성합니다.
+
+``` js
+import React from 'react'; 
+import './ExpenseEntryItem.css'; 
+class ExpenseEntryItem extends React.Component { 
+}
+```
+
+다음으로 ExpenseEntryItem 클래스 내에서 렌더링 메서드를 만듭니다.
+
+``` js
+class ExpenseEntryItem extends React.Component { 
+   render() { 
+   } 
+}
+```
+
+다음으로 JSX를 사용하여 사용자 인터페이스를 만들고 render 메소드에서 반환합니다.
+
+``` js
+class ExpenseEntryItem extends React.Component {
+   render() {
+      return (
+         <div>
+            <div><b>Item:</b> <em>Mango Juice</em></div>
+            <div><b>Amount:</b> <em>30.00</em></div>
+            <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+            <div><b>Category:</b> <em>Food</em></div>
+         </div>
+      );
+   }
+}
+```
+
+그런 다음 컴포넌트를 기본 내보내기 클래스로 지정합니다.
+
+``` js
+import React from 'react';
+import './ExpenseEntryItem.css';
+
+class ExpenseEntryItem extends React.Component {
+   render() {
+      return (
+         <div>
+            <div><b>Item:</b> <em>Mango Juice</em></div>
+            <div><b>Amount:</b> <em>30.00</em></div>
+            <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+            <div><b>Category:</b> <em>Food</em></div>
+         </div>
+      );
+   }
+}
+export default ExpenseEntryItem;
+```
+
+이제 첫 번째 React 컴포넌트를 성공적으로 만들었습니다. index.js에서 새로 만든 컴포넌트를 사용하겠습니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ExpenseEntryItem from './components/ExpenseEntryItem'
+
+ReactDOM.render(
+   <React.StrictMode>
+      <ExpenseEntryItem />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+
+
+### Example
+
+다음과 같이 CDN을 사용하여 웹 페이지에서 동일한 기능을 수행할 수 있습니다.
+
+``` html
 <!DOCTYPE html>
-<html lang = "en">
+<html>
    <head>
-      <meta charset = "UTF-8">
+      <meta charset="UTF-8" />
+      <title>React application :: ExpenseEntryItem component</title>
+   </head>
+   <body>
+      <div id="react-app"></div>
+       
+      <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script type="text/babel">
+         class ExpenseEntryItem extends React.Component {
+            render() {
+               return (
+                  <div>
+                     <div><b>Item:</b> <em>Mango Juice</em></div>
+                     <div><b>Amount:</b> <em>30.00</em></div>
+                     <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+                     <div><b>Category:</b> <em>Food</em></div>
+                  </div>
+               );
+            }
+         }
+         ReactDOM.render(
+            <ExpenseEntryItem />,
+            document.getElementById('react-app') );
+      </script>
+   </body>
+</html>
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+#### Output
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+``` sh
+Item: Mango Juice
+Amount: 30.00
+Spend Date: 2020-10-10
+Category: Food
+```
+
+
+
+### 함수 컴포넌트 만들기
+
+React 컴포넌트는 일반 JavaScript 기능을 사용하여 만들 수도 있지만 기능이 제한적입니다. 기능 기반 React 컴포넌트는 상태 관리 및 기타 고급 기능을 지원하지 않습니다. 간단한 컴포넌트를 빠르게 만드는 데 사용할 수 있습니다.
+
+위의 ExpenseEntryItem은 아래에 지정된 대로 함수에서 다시 작성할 수 있습니다.
+
+``` js
+function ExpenseEntryItem() {
+   return (
+      <div>
+         <div><b>Item:</b> <em>Mango Juice</em></div>
+         <div><b>Amount:</b> <em>30.00</em></div>
+         <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+         <div><b>Category:</b> <em>Food</em></div>
+      </div>
+   );
+}
+```
+
+여기에서는 렌더링 기능만 포함했으며 간단한 React 컴포넌트를 만드는 것으로 충분합니다.
+
+
+
+## ReactJS - Styling
+
+일반적으로 React에서는 className 속성을 통해 CSS 클래스를 사용하여 컴포넌트의 스타일을 지정할 수 있습니다. React JSX는 JavaScript 표현을 지원하기 때문에 일반적인 CSS 방법론을 많이 사용할 수 있습니다. 상위 옵션 중 일부는 다음과 같습니다.
+
+- **CSS stylesheet** − className과 함께 일반 CSS 스타일
+- **Inline styling** − CSS 스타일은 camelCase 속성과 함께 JavaScript 개체입니다.
+- **CSS Modules** − 로컬 범위 CSS 스타일.
+- **Styled component** − 컴포넌트 수준 스타일.
+- **Sass stylesheet** − 빌드 시 스타일을 일반 CSS로 변환하여 Sass 기반 CSS 스타일을 지원합니다.
+- **Post processing stylesheet** − 빌드 시 스타일을 일반 CSS로 변환하여 사후 처리 스타일을 지원합니다.
+
+이 장에서 컴포넌트의 스타일을 지정하기 위해 세 가지 중요한 방법론을 적용하는 방법을 알아보겠습니다.
+
+
+
+### CSS Stylesheet
+
+CSS 스타일시트는 일반적이고 오랜 시간 테스트를 거친 방법론입니다. 컴포넌트에 대한 CSS 스타일시트를 만들고 해당 특정 컴포넌트에 대한 모든 스타일을 입력하기만 하면 됩니다. 그런 다음 컴포넌트에서 className을 사용하여 스타일을 참조합니다.
+
+ExpenseEntryItem 컴포넌트의 스타일을 지정해 보겠습니다.
+
+즐겨 사용하는 편집기에서 경비 관리 애플리케이션을 엽니다.
+
+다음으로 ExpenseEntryItem.css 파일을 열고 몇 가지 스타일을 추가합니다.
+
+``` css
+div.itemStyle {
+color: brown;
+font-size: 14px;
+}
+```
+
+다음으로 ExpenseEntryItem.js를 열고 기본 컨테이너에 className을 추가합니다.
+
+``` js
+import React from 'react';
+import './ExpenseEntryItem.css';
+
+class ExpenseEntryItem extends React.Component {
+   render() {
+      return (
+         <div className="itemStyle">
+            <div><b>Item:</b> <em>Mango Juice</em></div>
+            <div><b>Amount:</b> <em>30.00</em></div>
+            <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+            <div><b>Category:</b> <em>Food</em></div>
+         </div>
+      );
+   }
+}
+export default ExpenseEntryItem;
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![CSS Stylesheet](.\images\css_stylesheet.jpg)
+
+CSS 스타일시트는 이해하고 사용하기 쉽습니다. 하지만 프로젝트 크기가 커지면 CSS 스타일도 늘어나 결국 클래스 이름에 많은 충돌이 발생합니다. 또한 CSS 파일을 직접 로드하는 것은 Webpack 번들러에서만 지원되며 다른 도구에서는 지원되지 않을 수 있습니다.
+
+
+
+### Inline Styling
+
+nline 스타일링은 React 컴포넌트의 스타일을 지정하는 가장 안전한 방법 중 하나입니다. DOM 기반 CSS 속성을 사용하여 모든 스타일을 JavaScript 객체로 선언하고 스타일 속성을 통해 컴포넌트에 설정합니다.
+
+컴포넌트에 인라인 스타일을 추가해 보겠습니다.
+
+즐겨 사용하는 편집기에서 비용 관리 애플리케이션을 열고 src 폴더에서 ExpenseEntryItem.js 파일을 수정합니다. 객체 유형의 변수를 선언하고 스타일을 설정합니다.
+
+``` js
+itemStyle = {
+color: 'brown',
+fontSize: '14px'
+}
+```
+
+여기서 fontSize는 CSS 속성인 font-size를 나타냅니다. 모든 css 속성은 camelCase 형식으로 표현하여 사용할 수 있습니다.
+
+다음으로 중괄호 {}를 사용하여 컴포넌트에서 itemStyle 스타일을 설정합니다.
+
+``` js
+render() {
+   return (
+      <div style={ this.itemStyle }>
+         <div><b>Item:</b> <em>Mango Juice</em></div>
+         <div><b>Amount:</b> <em>30.00</em></div>
+         <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+         <div><b>Category:</b> <em>Food</em></div>
+      </div>
+   );
+}
+```
+
+또한 스타일은 컴포넌트 내부에서 직접 설정할 수 있습니다.
+
+``` js
+render() {
+   return (
+      <div style={
+         {
+            color: 'brown',
+            fontSize: '14px'
+         }         
+      }>
+         <div><b>Item:</b> <em>Mango Juice</em></div>
+         <div><b>Amount:</b> <em>30.00</em></div>
+         <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+         <div><b>Category:</b> <em>Food</em></div>
+      </div>
+   );
+}
+```
+
+이제 애플리케이션에서 인라인 스타일을 성공적으로 사용했습니다.
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![CSS Stylesheet](.\images\css_stylesheet.jpg)
+
+
+
+### CSS Modules
+
+CSS 모듈은 스타일을 정의하는 가장 안전하고 쉬운 방법을 제공합니다. 일반 구문과 함께 일반 CSS 스타일시트를 사용합니다. 스타일을 가져오는 동안 CSS 모듈은 이름 충돌이 발생하지 않도록 모든 스타일을 로컬 범위 스타일로 변환합니다. CSS 모듈을 사용하도록 컴포넌트를 변경해 보겠습니다.
+
+즐겨 사용하는 편집기에서 경비 관리 애플리케이션을 엽니다.
+
+그런 다음 src/components 폴더 아래에 새 스타일시트인 ExpenseEntryItem.module.css 파일을 만들고 일반 CSS 스타일을 작성합니다.
+
+``` css
+div.itemStyle {
+color: 'brown';
+font-size: 14px;
+}
+```
+
+여기서 파일 명명 규칙은 매우 중요합니다. React 툴체인은 CSS 모듈을 통해 .module.css로 끝나는 CSS 파일을 사전 처리합니다. 그렇지 않으면 일반 스타일시트로 간주됩니다.
+
+그런 다음 src/component 폴더에 있는 ExpenseEntryItem.js 파일을 열고 스타일을 가져옵니다.
+
+``` js
+import styles from './ExpenseEntryItem.module.css'
+```
+
+그런 다음 컴포넌트에서 스타일을 JavaScript 표현식으로 사용합니다.
+
+``` js
+<div className={styles.itemStyle}>
+```
+
+이제 애플리케이션에서 CSS 모듈을 성공적으로 사용했습니다.
+
+최종적이고 완전한 코드는 -
+
+``` js
+import React from 'react';
+import './ExpenseEntryItem.css';
+import styles from './ExpenseEntryItem.module.css'
+
+class ExpenseEntryItem extends React.Component {
+   render() {
+      return (
+         <div className={styles.itemStyle} >
+            <div><b>Item:</b> <em>Mango Juice</em></div>
+            <div><b>Amount:</b> <em>30.00</em></div>
+            <div><b>Spend Date:</b> <em>2020-10-10</em></div>
+            <div><b>Category:</b> <em>Food</em></div>
+         </div>
+      );
+   }
+}
+export default ExpenseEntryItem;
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![CSS Stylesheet](.\images\css_stylesheet.jpg)
+
+
+
+## ReactJS - Properties (props)
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_props.htm
+
+React를 사용하면 개발자가 속성을 사용하여 동적 및 고급 컴포넌트를 만들 수 있습니다. 모든 컴포넌트는 HTML 속성과 유사한 속성을 가질 수 있으며 각 속성의 값은 속성(props)을 사용하여 컴포넌트 내부에서 액세스할 수 있습니다.
+
+예를 들어, name 속성을 가진 Hello 컴포넌트는 this.props.name 변수를 통해 컴포넌트 내부에 접근할 수 있습니다.
+
+``` html
+<Hello name="React" />
+// value of name will be "Hello* const name = this.props.name
+```
+
+React 속성은 다양한 유형의 속성 값을 지원합니다. 그들은 다음과 같습니다,
+
+- String
+- Number
+- Datetime
+- Array
+- List
+- Objects
+
+이 장에서 하나씩 배워봅시다.
+
+[속성을 사용하여 컴포넌트 만들기](https://www.tutorialspoint.com/reactjs/reactjs_create_component_using_properties.htm)
+
+[내포된 컴포넌트](https://www.tutorialspoint.com/reactjs/reactjs_nested_components.htm)
+
+[컴포넌트 사용](https://www.tutorialspoint.com/reactjs/reactjs_use_components.htm)
+
+[컴포넌트 컬렉션](https://www.tutorialspoint.com/reactjs/reactjs_component_collection.htm)
+
+
+
+## ReactJS - Event management
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_events.htm
+
+이벤트 관리는 웹 애플리케이션의 중요한 기능 중 하나입니다. 사용자가 응용 프로그램과 상호 작용할 수 있습니다. React는 웹 애플리케이션에서 사용 가능한 모든 이벤트를 지원합니다. React 이벤트 처리는 약간의 변경이 있는 DOM 이벤트와 매우 유사합니다. 이 장에서는 React 애플리케이션에서 이벤트를 처리하는 방법을 알아보겠습니다.
+
+React 컴포넌트에서 이벤트를 처리하는 단계별 프로세스를 살펴보겠습니다.
+
+- 주어진 이벤트를 처리할 이벤트 핸들러 메소드를 정의합니다.
+
+  ``` js
+  log() { 
+     cosole.log("Event is fired"); 
+  }
+  ```
+
+React는 이벤트 핸들러를 정의하기 위해 람다 함수를 사용하는 대체 구문을 제공합니다. 람다 구문은 -
+
+``` js
+log = () => { 
+   cosole.log("Event is fired"); 
+}
+```
+
+이벤트의 대상을 알고 싶다면 핸들러 메소드에 인수 e를 추가하십시오. React는 이벤트 대상 세부 정보를 핸들러 메서드로 보냅니다.
+
+``` js
+log(e) { 
+   cosole.log("Event is fired"); 
+   console.log(e.target); 
+}
+```
+
+대체 람다 구문은 -
+
+``` js
+log = (e) => { 
+   cosole.log("Event is fired"); 
+   console.log(e.target); 
+}
+```
+
+이벤트 중 추가 정보를 보내고 싶다면 추가 정보를 초기 인수로 추가한 다음 이벤트 대상에 대한 인수(e)를 추가합니다.
+
+``` js
+log(extra, e) { 
+   cosole.log("Event is fired"); 
+   console.log(e.target); 
+   console.log(extra); 
+   console.log(this); 
+}
+```
+
+컴포넌트의 생성자에서 이벤트 처리기 메서드를 바인딩합니다. 이렇게 하면 이벤트 처리기 메서드에서 이를 사용할 수 있습니다.
+
+``` js
+constructor(props) { 
+   super(props); 
+   this.logContent = this.logContent.bind(this); 
+}
+```
+
+이벤트 처리기가 대체 람다 구문으로 정의된 경우 바인딩이 필요하지 않습니다. 이 키워드는 이벤트 핸들러 메서드에 자동으로 바인딩됩니다.
+
+아래에 지정된 대로 특정 이벤트에 대한 이벤트 핸들러 방법을 설정하십시오.
+
+``` js
+<div onClick={this.log}> ... </div>
+```
+
+추가 인수를 설정하려면 이벤트 핸들러 메서드를 바인딩한 다음 추가 정보를 두 번째 인수로 전달합니다.
+
+``` js
+<div onClick={this.log.bind(this, extra)}> ... </div>
+```
+
+대체 람다 구문은 다음과 같습니다.
+
+``` js
+<div onClick={this.log(extra, e)}> ... </div>
+```
+
+여기,
+
+- [이벤트 인식 Component 만들기](https://www.tutorialspoint.com/reactjs/reactjs_create_event_aware_component.htm)
+- [Expense Manager 앱에서 이벤트를 소개합니다.](https://www.tutorialspoint.com/reactjs/reactjs_introduce_events_expense_manager_app.htm)
+
+
+
+## ReactJS - State Management
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_state.htm
+
+상태 관리는 모든 동적 응용 프로그램의 중요하고 피할 수 없는 기능 중 하나입니다. React는 React 컴포넌트에서 상태 관리를 지원하는 간단하고 유연한 API를 제공합니다. 이 장에서는 React 애플리케이션에서 상태를 유지하는 방법을 이해하도록 합시다.
+
+
+
+### 상태란 무엇입니까?
+
+State는 주어진 인스턴스에서 React 컴포넌트의 동적 속성 값을 나타냅니다. React는 각 component에 대한 동적 데이터 저장소를 제공합니다. 내부 데이터는 React component의 상태를 나타내며 component의 this.state 멤버 변수를 사용하여 액세스할 수 있습니다. component의 상태가 변경될 때마다 component는 새 상태와 함께 render() 메서드를 호출하여 자체적으로 다시 렌더링됩니다.
+
+상태 관리를 더 잘 이해하기 위한 간단한 예는 실시간 클록 component를 분석하는 것입니다. 시계 component의 기본 작업은 주어진 인스턴스에서 위치의 날짜와 시간을 표시하는 것입니다. 현재 시간이 1초마다 바뀌므로 시계 component는 현재 날짜와 시간을 그 상태로 유지해야 합니다. 시계 component의 상태가 1초마다 변경되므로 시계의 render() 메서드가 1초마다 호출되고 render() 메서드는 현재 상태를 사용하여 현재 시간을 표시합니다.
+
+상태의 간단한 표현은 다음과 같습니다 -
+
+``` json
+{
+date: '2020-10-10 10:10:10'
+}
+```
+
+이 장의 뒷부분에서 새 Clock component를 만들겠습니다.
+
+여기,
+
+[상태 관리 API](https://www.tutorialspoint.com/reactjs/reactjs_state_management_api.htm)
+
+[상태 비저장 component](https://www.tutorialspoint.com/reactjs/reactjs_stateless_component.htm)
+
+[React Hooks를 사용한 상태 관리](https://www.tutorialspoint.com/reactjs/reactjs_state_management_react_hooks.htm)
+
+[컴포넌트 수명 주기](https://www.tutorialspoint.com/reactjs/reactjs_component_life_cycle.htm)
+
+[React Hooks를 사용한 컴포넌트 라이프 사이클](https://www.tutorialspoint.com/reactjs/reactjs_component_life_cycle_react_hooks.htm)
+
+[컴포넌트의 레이아웃](https://www.tutorialspoint.com/reactjs/reactjs_layout_component.htm)
+
+[쪽수 매기기](https://www.tutorialspoint.com/reactjs/reactjs_pagination.htm)
+
+[머티리얼 UI](https://www.tutorialspoint.com/reactjs/reactjs_material_ui.htm)
+
+
+
+## ReactJS - Http Client Programming
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_http_client.htm
+
+Http 클라이언트 프로그래밍을 사용하면 응용 프로그램이 JavaScript를 통해 http 서버에 연결하고 데이터를 가져올 수 있습니다. 전체 디자인이 아닌 필요한 데이터만 가져오기 때문에 클라이언트와 서버 간의 데이터 전송을 줄이고 네트워크 속도를 향상시킵니다. 사용자 경험을 개선하고 모든 최신 웹 애플리케이션의 필수 기능이 되었습니다.
+
+오늘날 많은 서버 측 응용 프로그램은 REST API(HTTP 프로토콜을 통한 기능)를 통해 기능을 노출하고 모든 클라이언트 응용 프로그램이 기능을 사용할 수 있도록 합니다.
+
+React는 자체 http 프로그래밍 API를 제공하지 않지만 브라우저의 내장 fetch() API와 axios와 같은 타사 클라이언트 라이브러리를 지원하여 클라이언트 측 프로그래밍을 수행합니다. 이번 장에서는 React 애플리케이션에서 http 프로그래밍을 하는 방법에 대해 알아보겠습니다. 개발자는 이 장을 이해하기 위해 Http 프로그래밍에 대한 기본 지식이 있어야 합니다.
+
+
+
+### Expense Rest API 서버
+
+Http 프로그래밍을 하기 위한 전제 조건은 Http 프로토콜과 REST API 기술에 대한 기본 지식입니다. Http 프로그래밍에는 서버와 클라이언트의 두 부분이 포함됩니다. React는 클라이언트 측 애플리케이션 생성을 지원합니다. 널리 사용되는 웹 프레임워크인 Express는 서버 측 애플리케이션 생성을 지원합니다.
+
+먼저 익스프레스 프레임워크를 사용하여 Expense Rest Api 서버를 만든 다음 브라우저의 내장 가져오기 API를 사용하여 ExpenseManager 애플리케이션에서 액세스해 보겠습니다.
+
+명령 프롬프트를 열고 express-rest-api라는 새 폴더를 만듭니다.
+
+``` sh
+cd /go/to/workspace
+mkdir apiserver
+cd apiserver
+```
+
+아래 명령을 사용하여 새 노드 응용 프로그램을 초기화하십시오.
+
+``` sh
+npm init
+```
+
+npm init는 기본 프로젝트 세부 정보를 입력하라는 메시지를 표시합니다. 프로젝트 이름으로 apiserver를 입력하고 진입점으로 server.js를 입력합시다. 다른 구성은 기본 옵션으로 둡니다.
+
+``` sh
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (apiserver)
+version: (1.0.0)
+description: Rest api for Expense Application
+entry point: (index.js) server.js
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+About to write to \path\to\workspace\expense-rest-api\package.json:
+{
+   "name": "expense-rest-api",
+   "version": "1.0.0",
+   "description": "Rest api for Expense Application",
+   "main": "server.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "",
+   "license": "ISC"
+}
+Is this OK? (yes) yes
+```
+
+다음으로 아래 명령을 사용하여 express, nedb 및 cors 모듈을 설치하십시오.
+
+``` sh
+npm install express nedb cors
+```
+
+- express는 서버 측 응용 프로그램을 만드는 데 사용됩니다.
+- nedb는 비용 데이터를 저장하는 데 사용되는 데이터 저장소입니다.
+- cors는 클라이언트 액세스 세부 정보를 구성하는 익스프레스 프레임워크용 미들웨어입니다.
+
+다음으로 data.csv 파일을 만들고 테스트 목적으로 초기 비용 데이터로 채우겠습니다. 파일의 구조는 한 줄에 하나의 비용 항목을 포함하는 것입니다.
+
+``` csv
+Pizza,80,2020-10-10,Food
+Grape Juice,30,2020-10-12,Food
+Cinema,210,2020-10-16,Entertainment
+Java Programming book,242,2020-10-15,Academic
+Mango Juice,35,2020-10-16,Food
+Dress,2000,2020-10-25,Cloth
+Tour,2555,2020-10-29,Entertainment
+Meals,300,2020-10-30,Food
+Mobile,3500,2020-11-02,Gadgets
+Exam Fees,1245,2020-11-04,Academic
+```
+
+다음으로, costdb.js 파일을 만들고 초기 비용 데이터를 데이터 저장소에 로드하는 코드를 포함합니다. 코드는 데이터 저장소에서 초기 데이터를 확인하고 데이터를 저장소에서 사용할 수 없는 경우에만 로드합니다.
+
+``` js
+var store = require("nedb")
+var fs = require('fs');
+var expenses = new store({ filename: "expense.db", autoload: true })
+expenses.find({}, function (err, docs) {
+   if (docs.length == 0) {
+      loadExpenses();
+   }
+})
+function loadExpenses() {
+   readCsv("data.csv", function (data) {
+      console.log(data);
+
+      data.forEach(function (rec, idx) {
+         item = {}
+         item.name = rec[0];
+         item.amount = parseFloat(rec[1]);
+         item.spend_date = new Date(rec[2]);
+         item.category = rec[3];
+
+         expenses.insert(item, function (err, doc) {
+            console.log('Inserted', doc.item_name, 'with ID', doc._id);
+         })
+      })
+   })
+}
+function readCsv(file, callback) {
+   fs.readFile(file, 'utf-8', function (err, data) {
+      if (err) throw err;
+      var lines = data.split('\r\n');
+      var result = lines.map(function (line) {
+         return line.split(',');
+      });
+      callback(result);
+   });
+}
+module.exports = expenses
+```
+
+다음으로, server.js 파일을 만들고 비용 항목을 나열, 추가, 업데이트 및 삭제할 실제 코드를 포함합니다.
+
+``` js
+var express = require("express")
+var cors = require('cors')
+var expenseStore = require("./expensedb.js")
+var app = express()
+app.use(cors());
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+var HTTP_PORT = 8000
+app.listen(HTTP_PORT, () => {
+   console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT))
+});
+app.get("/", (req, res, next) => {
+   res.json({ "message": "Ok" })
+});
+app.get("/api/expenses", (req, res, next) => {
+   expenseStore.find({}, function (err, docs) {
+      res.json(docs);
+   });
+});
+app.get("/api/expense/:id", (req, res, next) => {
+   var id = req.params.id;
+   expenseStore.find({ _id: id }, function (err, docs) {
+      res.json(docs);
+   })
+});
+app.post("/api/expense/", (req, res, next) => {
+   var errors = []
+   if (!req.body.item) {
+      errors.push("No item specified");
+   }
+   var data = {
+      name: req.body.name,
+      amount: req.body.amount,
+      category: req.body.category,
+      spend_date: req.body.spend_date,
+   }
+   expenseStore.insert(data, function (err, docs) {
+      return res.json(docs);
+   });
+})
+app.put("/api/expense/:id", (req, res, next) => {
+   var id = req.params.id;
+   var errors = []
+   if (!req.body.item) {
+      errors.push("No item specified");
+   }
+   var data = {
+      _id: id,
+      name: req.body.name,
+      amount: req.body.amount,
+      category: req.body.category,
+      spend_date: req.body.spend_date,
+   }
+   expenseStore.update( { _id: id }, data, function (err, docs) {
+      return res.json(data);
+   });
+})
+app.delete("/api/expense/:id", (req, res, next) => {
+   var id = req.params.id;
+   expenseStore.remove({ _id: id }, function (err, numDeleted) {
+      res.json({ "message": "deleted" })
+   });
+})
+app.use(function (req, res) {
+   res.status(404);
+});
+```
+
+이제 애플리케이션을 실행할 차례입니다.
+
+``` sh
+npm run start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:8000/을 입력합니다.
+
+``` json
+{
+"message": "Ok"
+}
+```
+
+응용 프로그램이 제대로 작동하는지 확인합니다.
+
+마지막으로 URL을 http://localhost:8000/api/expense로 변경하고 Enter 키를 누릅니다. 브라우저는 초기 비용 항목을 JSON 형식으로 표시합니다.
+
+``` json
+[
+   ...
+   {
+      "name": "Pizza",
+      "amount": 80,
+      "spend_date": "2020-10-10T00:00:00.000Z",
+      "category": "Food",
+      "_id": "5H8rK8lLGJPVZ3gD"
+   },
+   ...
+]
+```
+
+다음 섹션에서 fetch() API를 통해 지출 관리자 애플리케이션에서 새로 생성된 비용 서버를 사용하겠습니다.
+
+
+
+### The fetch() api
+
+React에서 클라이언트 측 프로그래밍을 보여주는 새 애플리케이션을 만들어 보겠습니다.
+
+먼저 React 애플리케이션 생성 장의 지침에 따라 Create React App 또는 Rollup 번들러를 사용하여 새로운 react 애플리케이션 react-http-app을 생성합니다.
+
+그런 다음 즐겨 사용하는 편집기에서 응용 프로그램을 엽니다.
+
+그런 다음 응용 프로그램의 루트 디렉터리 아래에 src 폴더를 만듭니다.
+
+다음으로 src 폴더 아래에 components 폴더를 생성합니다.
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItemList.css 파일을 만들고 일반 테이블 스타일을 포함합니다.
+
+``` css
+html {
+   font-family: sans-serif;
+}
+table {
+   border-collapse: collapse;
+   border: 2px solid rgb(200,200,200);
+   letter-spacing: 1px;
+   font-size: 0.8rem;
+}
+td, th {
+   border: 1px solid rgb(190,190,190);
+   padding: 10px 20px;
+}
+th {
+   background-color: rgb(235,235,235);
+}
+td, th {
+   text-align: left;
+}
+tr:nth-child(even) td {
+   background-color: rgb(250,250,250);
+}
+tr:nth-child(odd) td {
+   background-color: rgb(245,245,245);
+}
+caption {
+   padding: 10px;
+}
+tr.highlight td { 
+    background-color: #a6a8bd;
+}
+```
+
+다음으로 src/components 폴더 아래에 ExpenseEntryItemList.js 파일을 생성하고 편집을 시작합니다.
+
+다음으로 React 라이브러리를 가져옵니다.
+
+``` js
+import React from 'react';
+```
+
+다음으로 ExpenseEntryItemList라는 클래스를 만들고 props를 사용하여 생성자를 호출합니다.
+
+``` js
+class ExpenseEntryItemList extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+}
+```
+
+다음으로 생성자에서 빈 목록으로 상태를 초기화합니다.
+
+``` js
+this.state = {
+   isLoaded: false,
+   items: []
+}
+```
+
+다음으로, 원격 서버에서 수신한 항목의 형식을 지정하는 setItems 메서드를 만든 다음 component의 상태로 설정합니다.
+
+``` js
+setItems(remoteItems) {
+   var items = [];
+   remoteItems.forEach((item) => {
+      let newItem = {
+         id: item._id,
+         name: item.name,
+         amount: item.amount,
+         spendDate: item.spend_date,
+         category: item.category
+      }
+      items.push(newItem)
+   });
+   this.setState({
+      isLoaded: true,
+      items: items
+   });
+}
+```
+
+다음으로 fetchRemoteItems 메서드를 추가하여 서버에서 항목을 가져옵니다.
+
+``` js
+fetchRemoteItems() {
+   fetch("http://localhost:8000/api/expenses")
+      .then(res => res.json())
+      .then(
+         (result) => {
+            this.setItems(result);
+         },
+         (error) => {
+            this.setState({
+               isLoaded: false,
+               error
+            });
+         }
+      )
+}
+```
+
+여기,
+
+- fetch api는 원격 서버에서 항목을 가져오는 데 사용됩니다.
+
+- setItems는 상태의 항목을 형식화하고 저장하는 데 사용됩니다.
+
+그런 다음 deleteRemoteItem 메서드를 추가하여 원격 서버에서 항목을 삭제합니다.
+
+``` js
+deleteRemoteItem(id) {
+   fetch('http://localhost:8000/api/expense/' + id, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(
+         () => {
+            this.fetchRemoteItems()
+         }
+      )
+}
+```
+
+여기,
+
+- fetch api는 원격 서버에서 항목을 삭제하고 가져오는 데 사용됩니다.
+
+- setItems는 상태의 항목을 형식화하고 저장하는 데 다시 사용됩니다.
+
+다음으로 componentDidMount 수명 주기 API를 호출하여 탑재 단계에서 component에 항목을 로드합니다.
+
+``` js
+componentDidMount() { 
+   this.fetchRemoteItems(); 
+}
+```
+
+다음으로, 목록에서 항목을 제거하는 이벤트 핸들러를 작성하십시오.
+
+``` js
+handleDelete = (id, e) => { 
+   e.preventDefault(); 
+   console.log(id); 
+
+   this.deleteRemoteItem(id); 
+}
+```
+
+다음으로 render 메소드를 작성합니다.
+
+``` js
+render() {
+   let lists = [];
+   if (this.state.isLoaded) {
+      lists = this.state.items.map((item) =>
+         <tr key={item.id} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <td>{item.name}</td>
+            <td>{item.amount}</td>
+            <td>{new Date(item.spendDate).toDateString()}</td>
+            <td>{item.category}</td>
+            <td><a href="#" onClick={(e) => this.handleDelete(item.id, e)}>Remove</a></td>
+         </tr>
+      );
+   }
+   return (
+      <div>
+         <table onMouseOver={this.handleMouseOver}>
+            <thead>
+               <tr>
+                  <th>Item</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Remove</th>
+               </tr>
+            </thead>
+            <tbody>
+               {lists}
+            </tbody>
+         </table>
+      </div>
+   );
+}
+```
+
+마지막으로 component를 내보냅니다.
+
+``` js
+export default ExpenseEntryItemList;
+```
+
+다음으로 src 폴더 아래에 index.js 파일을 생성하고 ExpenseEntryItemList 컴포넌트를 사용합니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ExpenseEntryItemList from './components/ExpenseEntryItemList';
+
+ReactDOM.render(
+   <React.StrictMode>
+         <ExpenseEntryItemList />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+마지막으로 루트 폴더 아래에 공용 폴더를 생성하고 index.html 파일을 생성합니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
       <title>React App</title>
    </head>
    <body>
-      <div id = "app"></div>
-      <script src = 'index_bundle.js'></script>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="./index.js"></script>
+   </body>
+</html>
+```
+
+다음으로 새 터미널 창을 열고 서버 애플리케이션을 시작합니다.
+
+``` sh
+cd /go/to/server/application
+npm start
+```
+
+다음으로 npm 명령을 사용하여 클라이언트 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![Material](.\images\material.jpg)
+
+제거 링크를 클릭하여 항목을 제거해 보십시오.
+
+![Materials](.\images\materials.jpg)
+
+
+
+## ReactJS - Form Programming
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_form.htm
+
+양식 프로그래밍의 특성은 상태를 유지해야 합니다. 사용자가 양식과 상호 작용할 때 입력 필드 정보가 변경되기 때문입니다. 그러나 앞서 배웠듯이 React 라이브러리는 자체적으로 상태 정보를 저장하거나 유지하지 않으며 component는 state를 관리하기 위해 state management API를 사용해야 합니다. 이를 고려하여 React는 폼 프로그래밍을 지원하기 위해 두 가지 유형의 컴포넌트를 제공합니다.
+
+- **Controlled component** - controlled component에서 React는 모든 입력 요소에 대한 특별한 속성, 값을 제공하고 입력 요소를 제어합니다. value 속성은 입력 요소의 값을 가져오고 설정하는 데 사용할 수 있습니다. component 의 state 와 동기화되어야 합니다.
+- **Uncontrolled component** − uncontrolled component 에서 React는 form 프로그래밍에 대한 최소한의 지원을 제공합니다. form 프로그래밍을 수행하려면 Ref 개념(런타임 동안 React component에서 DOM 요소를 가져오는 또 다른 반응 개념)을 사용해야 합니다.
+
+이 장에서는 제어된 component와 제어되지 않는 component를 모두 사용하여 형식 프로그래밍에 대해 알아보겠습니다.
+
+- [Controlled component](https://www.tutorialspoint.com/reactjs/reactjs_controlled_component.htm)
+- [Uncontrolled Component](https://www.tutorialspoint.com/reactjs/reactjs_uncontrolled_component.htm)
+- [Formik](https://www.tutorialspoint.com/reactjs/reactjs_formik.htm)
+
+
+
+## ReactJS - Routing
+
+웹 애플리케이션에서 라우팅은 웹 URL을 웹 애플리케이션의 특정 리소스에 바인딩하는 프로세스입니다. React에서는 URL을 component에 바인딩합니다. React는 기본적으로 사용자 인터페이스 라이브러리이기 때문에 기본적으로 라우팅을 지원하지 않습니다. React 커뮤니티는 React 애플리케이션에서 라우팅을 처리하기 위해 많은 타사 component를 제공합니다. React 애플리케이션을 위한 최고의 라우팅 라이브러리인 React Router에 대해 알아보겠습니다.
+
+
+
+### Install React Router
+
+Expense Manager 애플리케이션에 React Router component를 설치하는 방법을 알아보겠습니다.
+
+명령 프롬프트를 열고 애플리케이션의 루트 폴더로 이동합니다.
+
+``` sh
+cd /go/to/expense/manager
+```
+
+아래 명령을 사용하여 react 라우터를 설치합니다.
+
+``` sh
+npm install react-router-dom --save
+```
+
+#### Concept
+
+React 라우터는 React 애플리케이션에서 탐색을 관리하기 위해 네 가지 component를 제공합니다.
+
+- **Router** − 라우터는 최상위 component입니다. 여기에는 전체 응용 프로그램이 포함됩니다.
+
+- **Link** −  html의 앵커 태그와 유사합니다. 참조 텍스트와 함께 대상 URL을 설정합니다.
+
+  ``` html
+  <Link to="/">Home</Link>
+  ```
+
+  여기서 to 속성은 대상 URL을 설정하는 데 사용됩니다.
+
+- **Switch & Route** − 둘 다 함께 사용됩니다. 대상 URL을 component에 매핑합니다. Switch는 상위 component이고 Route는 하위 component입니다. 스위치 component에는 여러 경로 component가 있을 수 있으며 각 경로 component는 특정 URL을 component에 매핑합니다.
+
+  ``` html
+  <Switch>
+     <Route exact path="/">
+        <Home />
+     </Route>
+     <Route path="/home">
+        <Home />
+     </Route>
+     <Route path="/list">
+        <ExpenseEntryItemList />
+     </Route>
+  </Switch>
+  ```
+
+  여기에서 경로 속성은 URL과 일치하는 데 사용됩니다. 기본적으로 Switch는 프로그래밍 언어의 기존 switch 문과 유사하게 작동합니다. 대상 url을 각 자식 경로(경로 속성)와 순서대로 하나씩 일치시키고 첫 번째 일치 경로를 호출합니다.
+
+  라우터 component와 함께 React 라우터는 url에서 동적 정보를 설정하고 가져오는 옵션을 제공합니다. 예를 들어, 기사 웹사이트에서 URL에 기사 유형이 첨부되어 있을 수 있으며 기사 유형은 동적으로 추출되어야 하며 특정 유형의 기사를 가져오는 데 사용해야 합니다.
+
+  ``` html
+  <Link to="/article/c">C Programming</Link>
+  <Link to="/article/java">Java Programming</Link>
+  
+  ...
+  ...
+  
+  <Switch>
+    <Route path="article/:tag" children={<ArticleList />} />
+  </Switch>
+  ```
+
+  그런 다음 자식 component(클래스 component)에서
+
+  ``` js
+  import { withRouter } from "react-router"
+  
+  class ArticleList extends React.Component {
+     ...
+     ...
+     static getDerivedStateFromProps(props, state) {
+        let newState = {
+           tag: props.match.params.tag
+        }
+        return newState;
+     }
+     ...
+     ...
+  }
+  export default WithRouter(ArticleList)
+  ```
+
+  여기에서 WithRouter는 ArticleList 컴포넌트가 props를 통해 태그 정보에 접근할 수 있도록 합니다.
+
+  기능적 component에서 동일한 작업을 다르게 수행할 수 있습니다.
+
+  ``` js
+  function ArticleList() {
+     let { tag } = useParams();
+     return (
+        <div>
+           <h3>ID: {id}</h3>
+        </div>
+     );
+  }
+  ```
+
+  여기서 useParams는 React Router 컴포넌트에서 제공하는 커스텀 React Hooks입니다.
+
+
+
+### Nested routing
+
+React 라우터는 중첩 라우팅도 지원합니다. React 라우터는 다른 React Hooks인 useRouteMatch()를 제공하여 중첩 경로에서 상위 경로 정보를 추출합니다.
+
+``` js
+function ArticleList() {
+   // 상위 URL과 일치하는 경로를 가져옵니다.
+   let { path, url } = useRouteMatch();
+
+   return (
+      <div>
+         <h2>Articles</h2>
+         <ul>
+            <li>
+               <Link to={`${url}/pointer`}>C with pointer</Link>
+            </li>
+            <li>
+               <Link to={`${url}/basics`}>C basics</Link>
+            </li>
+         </ul>
+
+         <Switch>
+            <Route exact path={path}>
+               <h3>Please select an article.</h3>
+            </Route>
+            <Route path={`${path}/:article`}>
+               <Article />
+            </Route>
+         </Switch>
+      </div>
+   );
+}
+
+function Article() {
+   let { article } = useParams();
+   return (
+      <div>
+         <h3>The select article is {article}</h3>
+      </div>
+   );
+}
+```
+
+여기서 useRouteMatch는 일치하는 경로와 대상 URL을 반환합니다. url은 다음 수준의 링크를 만드는 데 사용할 수 있고 경로는 다음 수준의 component/화면을 매핑하는 데 사용할 수 있습니다.
+
+
+
+### Creating navigation
+
+비용 관리자 응용 프로그램에서 가능한 라우팅을 만들어 라우팅을 수행하는 방법을 알아보겠습니다. 응용 프로그램의 최소 화면은 다음과 같습니다.
+
+- **Home screen** − 애플리케이션의 랜딩 또는 초기 화면
+- **Expense list screen** −  비용 항목을 표 형식으로 표시
+- **Expense add screen** −  비용 항목을 추가하는 인터페이스 추가
+
+먼저 React 애플리케이션 생성 장의 지침에 따라 Create React App 또는 Rollup 번들러를 사용하여 새로운 react 애플리케이션 react-router-app을 생성합니다.
+
+그런 다음 즐겨 사용하는 편집기에서 응용 프로그램을 엽니다.
+
+그런 다음 응용 프로그램의 루트 디렉터리 아래에 src 폴더를 만듭니다.
+
+다음으로 src 폴더 아래에 components 폴더를 생성합니다.
+
+다음으로 src/components 폴더에 Home.js 파일을 생성하고 편집을 시작합니다.
+
+
+
+다음으로 React 라이브러리를 가져옵니다.
+
+``` js
+import React from 'react';
+```
+
+
+
+다음으로 React 라우터 라이브러리에서 Link를 가져옵니다.
+
+``` js
+import { Link } from 'react-router-dom'
+```
+
+
+
+다음으로 props를 사용하여 클래스 Home 및 호출 생성자를 만듭니다.
+
+``` js
+class Home extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+}
+```
+
+
+
+다음으로 render() 메소드를 추가하고 환영 메시지와 비용 추가 및 나열 화면에 대한 링크를 표시합니다.
+
+``` js
+render() {
+   return (
+      <div>
+         <p>Welcome to the React tutorial</p>
+         <p><Link to="/list">Click here</Link> to view expense list</p>
+         <p><Link to="/add">Click here</Link> to add new expenses</p>
+      </div>
+   )
+}
+```
+
+
+
+마지막으로 component를 내보냅니다.
+
+``` js
+export default Home;
+```
+
+
+
+Home component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from 'react';
+import { Link } from 'react-router-dom'
+
+class Home extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <div>
+            <p>Welcome to the React tutorial</p>
+            <p><Link to="/list">Click here</Link> to view expense list</p>
+            <p><Link to="/add">Click here</Link> to add new expenses</p>
+         </div>
+      )
+   }
+}
+export default Home;
+```
+
+
+
+다음으로 src/components 폴더 아래에 ExpenseEntryItemList.js 파일을 생성하고 ExpenseEntryItemList 컴포넌트를 생성합니다.
+
+``` js
+import React from 'react';
+import { Link } from 'react-router-dom'
+
+class ExpenseEntryItemList extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <div>
+            <h1>Expenses</h1>
+            <p><Link to="/add">Click here</Link> to add new expenses</p>
+            <div>
+               Expense list
+            </div>
+         </div>
+      )
+   }
+}
+export default ExpenseEntryItemList;
+```
+
+
+
+다음으로 src/components 폴더 아래에 ExpenseEntryItemForm.js 파일을 생성하고 ExpenseEntryItemForm 컴포넌트를 생성합니다.
+
+``` js
+import React from 'react';
+import { Link } from 'react-router-dom'
+
+class ExpenseEntryItemForm extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <div>
+            <h1>Add Expense item</h1>
+            <p><Link to="/list">Click here</Link> to view new expense list</p>
+            <div>
+               Expense form
+            </div>
+         </div>
+      )
+   }
+}
+export default ExpenseEntryItemForm;
+```
+
+
+
+다음으로 src/components 폴더 아래에 App.css 파일을 만들고 일반 CSS 스타일을 추가합니다.
+
+``` css
+html {
+   font-family: sans-serif;
+}
+a{
+   text-decoration: none;
+}
+p, li, a{
+   font-size: 14px;
+}
+nav ul {
+   width: 100%;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: rgb(235,235,235);
+}
+nav li {
+   float: left;
+}
+nav li a {
+   display: block;
+   color: black;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 16px;
+}
+nav li a:hover {
+   background-color: rgb(187, 202, 211);
+}
+```
+
+다음으로 src/components 폴더에 App.js 파일을 생성하고 편집을 시작합니다. App component의 목적은 하나의 component에서 모든 화면을 처리하는 것입니다. 라우팅을 구성하고 다른 모든 component에 대한 탐색을 활성화합니다.
+
+
+
+다음으로 React 라이브러리 및 기타 component를 가져옵니다.
+
+``` js
+import React from 'react';
+
+import Home from './Home'
+import ExpenseEntryItemList from './ExpenseEntryItemList'
+import ExpenseEntryItemForm from './ExpenseEntryItemForm'
+
+import './App.css'
+```
+
+
+
+다음으로 React 라우터 component를 가져옵니다.
+
+``` js
+import {
+   BrowserRouter as Router,
+   Link,
+   Switch,
+   Route
+} from 'react-router-dom'
+```
+
+
+
+다음으로 render() 메서드를 작성하고 라우팅을 구성합니다.
+
+``` js
+function App() {
+   return (
+      <Router>
+         <div>
+            <nav>
+               <ul>
+                  <li>
+                     <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                     <Link to="/list">List Expenses</Link>
+                  </li>
+                  <li>
+                     <Link to="/add">Add Expense</Link>
+                  </li>
+               </ul>
+            </nav>
+
+            <Switch>
+               <Route path="/list">
+                  <ExpenseEntryItemList />
+               </Route>
+               <Route path="/add">
+                  <ExpenseEntryItemForm />
+               </Route>
+               <Route path="/">
+                  <Home />
+               </Route>
+            </Switch>
+         </div>
+      </Router>
+   );
+}
+```
+
+
+
+다음으로 src 폴더 아래에 index.js 파일을 생성하고 App 컴포넌트를 사용합니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+
+ReactDOM.render(
+   <React.StrictMode>
+      <App />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+
+
+마지막으로 루트 폴더 아래에 공용 폴더를 생성하고 index.html 파일을 생성합니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>React router app</title>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="./index.js"></script>
    </body>
 </html>
 ```
 
 
 
-####  8 단계-App.jsx 및 main.js 
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
 
- 이것이 첫 번째 React 구성 요소입니다. 다음 장에서 React 컴포넌트에 대해 자세히 설명하겠습니다. 이 컴포넌트는 Hello World를 렌더링합니다. 
-
- **App.js** 
-
-```js
-import React, { Component } from 'react';
-class App extends Component{
-   render(){
-      return(
-         <div>
-            <h1>Hello World</h1>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
- 이 컴포넌트를 가져 와서 루트 App 요소로 렌더링해야 브라우저에서 볼 수 있습니다. 
-
- **main.js** 
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.js';
-
-ReactDOM.render(<App />, document.getElementById('app'));
-```
-
- **참조** : 무언가를 사용하고자 할 때마다 먼저 가져와야합니다. 구성 요소를 앱의 다른 부분에서 사용할 수있게하려면 생성 후 구성 요소를 내보내고 사용하려는 파일로 가져와야합니다. 
-
- 이름이 .babelrc 인 파일을 작성하고 다음 컨텐츠를 파일로 복사하십시오. 
-
-```
-{
-   "presets":["env", "react"]
-}
-```
-
-
-
-####  9 단계-서버 실행 
-
- 설정이 완료되었으며 다음 명령을 실행하여 서버를 시작할 수 있습니다. 
-
-```bat
-C:\Users\username\Desktop\reactApp>npm start
-```
-
- 브라우저에서 열어야 할 포트가 표시됩니다. 우리의 경우에는 http://localhost:8001/ 입니다. 우리가 열면 다음과 같은 결과가 나타납니다. 
-
-![](./images/running_the_server.jpg)
-
-
-
-####  10 단계-번들 생성 
-
- 마지막으로 번들을 생성하려면 명령 프롬프트에서 다음과 같이 빌드 명령을 실행해야합니다. 
-
-```bat
-C:\Users\Tutorialspoint\Desktop\reactApp>npm run build
-```
-
- 아래와 같이 현재 폴더에 번들이 생성됩니다. 
-
-![](./images/generating_the_bundle.jpg)
-
-
-
-###  Create-react-app 명령 사용 
-
- Webpack 및 babel을 사용하는 대신 create-react-app를 설치하여 ReactJS를 더 간단하게 설치할 수 있습니다. 
-
-####  1 단계-create-react-app 설치 
-
- 바탕 화면을 탐색하고 아래와 같이 명령 프롬프트를 사용하여 React 앱 만들기를 설치하십시오- 
-
-```bat
-C:\Users\Tutorialspoint>cd C:\Users\Tutorialspoint\Desktop\
-C:\Users\Tutorialspoint\Desktop>npx create-react-app my-app
-```
-
- 바탕 화면에 my-app라는 폴더가 생성되고 필요한 모든 파일이 설치됩니다. 
-
-####  2 단계-모든 소스 파일 삭제 
-
- 생성 된 my-app 폴더에서 src 폴더를 찾아 아래에 표시된 것처럼 모든 파일을 제거하십시오- 
-
-```bat
-C:\Users\Tutorialspoint\Desktop>cd my-app/src
-C:\Users\Tutorialspoint\Desktop\my-app\src>del *
-C:\Users\Tutorialspoint\Desktop\my-app\src\*, Are you sure (Y/N)? y
-```
-
-####  3 단계-파일 추가 
-
- Src 폴더에 index.css 및 index.js라는 이름의 파일을- 
-
-```bat
-C:\Users\Tutorialspoint\Desktop\my-app\src>type nul > index.css
-C:\Users\Tutorialspoint\Desktop\my-app\src>type nul > index.js
-```
-
- Index.js 파일에서 다음 코드를 추가하십시오 
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-```
-
-#### 4 단계-프로젝트 실행 
-
- 마지막으로 start 명령을 사용하여 프로젝트를 실행하십시오. 
-
-```bat
+``` sh
 npm start
 ```
 
-![](./images/run_the_project.jpg)
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+링크를 탐색하고 라우팅이 작동하는지 확인하십시오.
+
+![Navigate Links](.\images\navigate_links.jpg)
 
 
 
-## JSX
+## ReactJS - Redux
 
-출처:  https://www.tutorialspoint.com/reactjs/reactjs_jsx.htm 
+출처: https://www.tutorialspoint.com/reactjs/reactjs_redux.htm
 
- React는 일반적인 JavaScript 대신 템플릿을 위해 JSX를 사용합니다. 그것을 사용할 필요는 없지만 다음과 함께 제공되는 전문가가 있습니다. 
+React redux는 React용 고급 상태 관리 라이브러리입니다. 앞에서 배운 것처럼 React는 component 수준 상태 관리만 지원합니다. 크고 복잡한 응용 프로그램에서는 많은 수의 component가 사용됩니다. React는 상태를 최상위 component로 이동하고 속성을 사용하여 상태를 중첩 component에 전달할 것을 권장합니다. 어느 정도 도움이 되지만 component가 증가하면 복잡해집니다.
 
--  코드를 JavaScript로 컴파일하는 동안 최적화를 수행하기 때문에 더 빠릅니다. 
--  또한 형식이 안전하며 컴파일 중에 대부분의 오류가 발생할 수 있습니다. 
--  HTML에 익숙한 경우 템플릿을보다 쉽고 빠르게 작성할 수 있습니다. 
+redux 칩에 반응하고 애플리케이션 수준에서 상태를 유지하는 데 도움이 됩니다. React redux를 사용하면 모든 component가 언제든지 상태에 액세스할 수 있습니다. 또한 모든 component가 언제든지 응용 프로그램의 상태를 변경할 수 있습니다.
+
+이번 장에서는 React redux를 사용하여 React 애플리케이션을 작성하는 방법에 대해 알아보겠습니다.
 
 
 
-###  JSX 사용 
+### Concepts
 
- 대부분의 경우 JSX는 일반 HTML처럼 보입니다. 환경 설정 장에서 이미 사용했습니다. 우리가 div를 반환하는 App.jsx의 코드를보십시오. 
+React redux는 Redux 저장소라는 단일 장소에서 애플리케이션의 상태를 유지합니다. React 컴포넌트는 스토어에서 최신 상태를 얻을 수 있을 뿐만 아니라 언제든지 상태를 변경할 수 있습니다. Redux는 애플리케이션의 현재 상태를 가져오고 설정하는 간단한 프로세스를 제공하며 아래 개념을 포함합니다.
 
-`App.jsx`
+**Store** − 애플리케이션의 상태를 저장하는 중앙 위치입니다.
 
-```jsx
-import React from 'react';
+**Actions** − Action 은 수행할 작업의 유형과 작업을 수행하는 데 필요한 입력(페이로드라고 함)이 있는 일반 개체입니다. 예를 들어 상점에 항목을 추가하는 작업에는 ADD_ITEM 유형이 포함되고 항목 세부 정보가 있는 개체가 페이로드로 포함됩니다. 동작은 다음과 같이 나타낼 수 있습니다.
 
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            Hello World!!!
-         </div>
-      );
-   }
+``` js
+{
+type: 'ADD_ITEM',
+payload: { name: '..', ... }
 }
-export default App;
 ```
 
- HTML과 비슷하지만 JSX로 작업 할 때 명심해야 할 것이 몇 가지 있습니다. 
+***Reducers\*** −  리듀서는 기존 상태와 현재 작업을 기반으로 새 상태를 만드는 데 사용되는 순수 함수입니다. 새로 생성된 상태를 반환합니다. 예를 들어 항목 추가 시나리오에서 새 항목 목록을 만들고 상태와 새 항목의 항목을 병합하고 새로 만든 목록을 반환합니다.
 
+***Action creators\*** −  액션 생성자는 액션에 필요한 적절한 액션 유형과 데이터로 액션을 생성하고 액션을 반환합니다. 예를 들어, addItem 작업 생성자는 아래 객체를 반환합니다.
 
-
-### Nested Elements
-
- 더 많은 요소를 반환하려면 하나의 컨테이너 요소로 감싸 야합니다. **H1**, **h2** 및 **p** 요소의 래퍼로 **div**를 사용하는 방법에 주목하십시오. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>Header</h1>
-            <h2>Content</h2>
-            <p>This is the content!!!</p>
-         </div>
-      );
-   }
+``` js
+{
+type: 'ADD_ITEM',
+payload: { name: '..', ... }
 }
-export default App;
 ```
 
-![](./images/react_jsx_wrapper.jpg)
+**Component** −  component는 저장소에 연결하여 현재 상태를 가져오고 저장소에 작업을 전달하여 저장소가 작업을 실행하고 현재 상태를 업데이트하도록 할 수 있습니다.
 
-### Attributes
+일반적인 redux 스토어의 작업 흐름은 아래와 같이 나타낼 수 있습니다.
 
- 일반 HTML 속성 및 속성 외에도 고유 한 사용자 정의 속성을 사용할 수 있습니다. 사용자 정의 속성을 추가하려면 **data- prefix**를 사용해야합니다. 다음 예에서는 **data-myattribute**를 **p** 요소의 속성으로 추가했습니다. 
+![Redux Store](.\images\redux_store.jpg)
 
-```jsx
-import React from 'react';
+- React component는 저장소를 구독하고 응용 프로그램을 초기화하는 동안 최신 상태를 가져옵니다.
+- 상태를 변경하기 위해 React 컴포넌트는 필요한 액션을 생성하고 액션을 전달합니다.
+- Reducer는 작업을 기반으로 새 상태를 만들고 반환합니다. 새로운 상태로 업데이트 자체를 저장합니다.
+- 상태가 변경되면 store는 업데이트된 상태를 구독된 모든 component에 보냅니다.
 
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>Header</h1>
-            <h2>Content</h2>
-            <p data-myattribute = "somevalue">This is the content!!!</p>
-         </div>
-      );
-   }
-}
-export default App;
+
+
+### Redux API
+
+Redux는 component를 저장소에 연결하고 component가 저장소의 상태를 가져오고 설정할 수 있도록 하는 단일 API를 제공합니다.
+
+연결 API의 서명은 -
+
+``` js
+function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
 ```
 
+모든 매개변수는 선택 사항이며 HOC(고차 component)를 반환합니다. 고차 component는 component를 래핑하고 새 component를 반환하는 함수입니다.
 
-
-### JavaScript Expressions
-
- JavaScript 표현식은 JSX 내부에서 사용할 수 있습니다. 중괄호 {}로 감싸 야합니다. 다음 예제는 **2**를 렌더링합니다. 
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>{1+1}</h1>
-         </div>
-      );
-   }
-}
-export default App;
+``` js
+let hoc = connect(mapStateToProps, mapDispatchToProps)
+let connectedComponent = hoc(component)
 ```
 
-![](./images/react_jsx_inline_javascript.jpg)
+대부분의 경우에 충분할 처음 두 매개변수를 살펴보겠습니다.
 
- JSX 내부에 else 문이 있으면 사용할 수 없으며 대신 조건부 (삼항) 표현식을 사용할 수 있습니다. 다음 예제에서 변수 **i** 는 **1**과 같으므로 브라우저는 **true**를 렌더링하고, 다른 값으로 변경하면 **false**를 렌더링합니다. 
+- **mapStateToProps** − 아래 서명이 있는 기능을 수락합니다.
 
-```jsx
-import React from 'react';
+  ``` js
+  (state, ownProps?) => Object
+  ```
 
-class App extends React.Component {
-   render() {
-      var i = 1;
-      return (
-         <div>
-            <h1>{i == 1 ? 'True!' : 'False'}</h1>
-         </div>
-      );
-   }
-}
-export default App;
+  여기서 state는 저장소의 현재 상태를 나타내고 Object는 component의 새 props를 나타냅니다. 스토어 상태가 업데이트될 때마다 호출됩니다.
+
+  ``` js
+  (state) => { prop1: this.state.anyvalue }
+  ```
+
+- **mapDispatchToProps** − 아래 서명이 있는 기능을 수락합니다.
+
+  ``` js
+  Object | (dispatch, ownProps?) => Object
+  ```
+
+  여기에서 dispatch는 redux 저장소에서 작업을 디스패치하는 데 사용되는 디스패치 객체를 참조하고 Object는 하나 이상의 디스패치 기능을 component의 props로 참조합니다.
+
+  ``` js
+  (dispatch) => {
+  addDispatcher: (dispatch) => dispatch({ type: 'ADD_ITEM', payload: { } }),
+  removeispatcher: (dispatch) => dispatch({ type: 'REMOVE_ITEM', payload: { } }),
+  }
+  ```
+
+  
+
+### Provider component
+
+React Redux는 연결 API를 사용하여 저장소에 연결된 모든 중첩 component에서 Redux 저장소를 사용할 수 있도록 하는 Provider component와 유일한 목적을 제공합니다. 샘플 코드는 다음과 같습니다.
+
+``` js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { App } from './App'
+import createStore from './createReduxStore'
+
+const store = createStore()
+
+ReactDOM.render(
+   <Provider store={store}>
+      <App />
+   </Provider>,
+   document.getElementById('root')
+)
 ```
 
-![](./images/react_jsx_ternary_expression.jpg)
+이제 앱 component 내부의 모든 component는 연결 API를 사용하여 Redux 스토어에 액세스할 수 있습니다.
 
-### Styling
 
-인라인 스타일을 사용하는 것이 좋습니다. 인라인 스타일을 설정하려면 **camelCase** 구문을 사용해야합니다. React는 특정 요소의 숫자 값 뒤에 **px**를 자동으로 추가합니다. 다음 예제는 **myStyle** 인라인을 **h1** 요소에 추가하는 방법을 보여줍니다. 
 
-```jsx
+### 작업 예
+
+비용 관리자 애플리케이션을 다시 만들고 React redux 개념을 사용하여 애플리케이션의 상태를 유지해 보겠습니다.
+
+먼저 Create a React 애플리케이션 장의 지침에 따라 Create React App 또는 Rollup 번들러를 사용하여 새로운 react 애플리케이션 react-message-app을 생성합니다.
+
+다음으로 Redux 및 React redux 라이브러리를 설치합니다.
+
+``` sh
+npm install redux react-redux --save
+```
+
+다음으로 uuid 라이브러리를 설치하여 새로운 비용에 대한 고유 식별자를 생성합니다.
+
+``` sh
+npm install uuid --save
+```
+
+그런 다음 즐겨 사용하는 편집기에서 응용 프로그램을 엽니다.
+
+그런 다음 응용 프로그램의 루트 디렉터리 아래에 src 폴더를 만듭니다.
+
+다음으로 src 폴더 아래에 actions 폴더를 생성합니다.
+
+다음으로 src/actions 폴더에 types.js 파일을 생성하고 편집을 시작합니다.
+
+다음으로 두 가지 작업 유형을 추가합니다. 하나는 비용 추가용이고 다른 하나는 비용 제거용입니다.
+
+``` js
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+```
+
+다음으로 src/actions 폴더에 index.js 파일을 생성하여 액션을 추가하고 편집을 시작합니다.
+
+그런 다음 uuid를 가져와 고유 식별자를 만듭니다.
+
+``` js
+import { v4 as uuidv4 } from 'uuid';
+```
+
+다음으로 작업 유형을 가져옵니다.
+
+``` js
+import { ADD_EXPENSE, DELETE_EXPENSE } from './types';
+```
+
+다음으로 비용 추가를 위한 액션 유형을 반환하는 새 함수를 추가하고 내보냅니다.
+
+``` js
+export const addExpense = ({ name, amount, spendDate, category }) => ({
+   type: ADD_EXPENSE,
+   payload: {
+      id: uuidv4(),
+      name,
+      amount,
+      spendDate,
+      category
+   }
+});
+```
+
+여기에서 함수는 비용 정보의 페이로드와 함께 ADD_EXPENSE의 비용 개체 및 반환 작업 유형을 예상합니다.
+
+다음으로, 비용 삭제를 위한 액션 타입을 반환하는 새로운 함수를 추가하고 내보냅니다.
+
+``` js
+export const deleteExpense = id => ({
+   type: DELETE_EXPENSE,
+   payload: {
+      id
+   }
+});
+```
+
+여기서 함수는 비용 항목의 id가 삭제되고 비용 id의 페이로드와 함께 'DELETE_EXPENSE'의 작업 유형을 반환할 것으로 예상합니다.
+
+작업의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import { v4 as uuidv4 } from 'uuid';
+import { ADD_EXPENSE, DELETE_EXPENSE } from './types';
+
+export const addExpense = ({ name, amount, spendDate, category }) => ({
+   type: ADD_EXPENSE,
+   payload: {
+      id: uuidv4(),
+      name,
+      amount,
+      spendDate,
+      category
+   }
+});
+export const deleteExpense = id => ({
+   type: DELETE_EXPENSE,
+   payload: {
+      id
+   }
+});
+```
+
+그런 다음 src 폴더 아래에 새 폴더인 reducers를 만듭니다.
+
+그런 다음 src/reducers 아래에 index.js 파일을 만들어 reducer 함수를 작성하고 편집을 시작합니다.
+
+다음으로 작업 유형을 가져옵니다.
+
+``` js
+import { ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types';
+```
+
+다음으로, redux 스토어에서 비용을 추가하고 업데이트하는 실제 기능을 수행하기 위해 함수 비용 지출을 추가합니다.
+
+``` js
+export default function expensesReducer(state = [], action) {
+   switch (action.type) {
+      case ADD_EXPENSE:
+         return [...state, action.payload];
+      case DELETE_EXPENSE:
+         return state.filter(expense => expense.id !== action.payload.id);
+      default:
+         return state;
+   }
+}
+```
+
+감속기의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import { ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types';
+
+export default function expensesReducer(state = [], action) {
+   switch (action.type) {
+      case ADD_EXPENSE:
+         return [...state, action.payload];
+      case DELETE_EXPENSE:
+         return state.filter(expense => expense.id !== action.payload.id);
+      default:
+         return state;
+   }
+}
+```
+
+여기서 리듀서는 액션 유형을 확인하고 해당 코드를 실행합니다.
+
+다음으로 src 폴더 아래에 components 폴더를 생성합니다.
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItemList.css 파일을 만들고 html 테이블에 대한 일반 스타일을 추가합니다.
+
+``` css
+html {
+   font-family: sans-serif;
+}
+table {
+   border-collapse: collapse;
+   border: 2px solid rgb(200,200,200);
+   letter-spacing: 1px;
+   font-size: 0.8rem;
+}
+td, th {
+   border: 1px solid rgb(190,190,190);
+   padding: 10px 20px;
+}
+th {
+   background-color: rgb(235,235,235);
+}
+td, th {
+   text-align: left;
+}
+tr:nth-child(even) td {
+   background-color: rgb(250,250,250);
+}
+tr:nth-child(odd) td {
+   background-color: rgb(245,245,245);
+}
+caption {
+   padding: 10px;
+}
+tr.highlight td { 
+   background-color: #a6a8bd;
+}
+```
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItemList.js 파일을 만들고 편집을 시작합니다.
+
+다음으로 React 및 React redux 라이브러리를 가져옵니다.
+
+``` js
 import React from 'react';
+import { connect } from 'react-redux';
+```
 
-class App extends React.Component {
-   render() {
-      var myStyle = {
-         fontSize: 100,
-         color: '#FF0000'
+다음으로 ExpenseEntryItemList.css 파일을 가져옵니다.
+
+``` js
+import './ExpenseEntryItemList.css';
+```
+
+다음으로 작업 생성자를 가져옵니다.
+
+``` js
+import { deleteExpense } from '../actions';
+import { addExpense } from '../actions';
+```
+
+다음으로 ExpenseEntryItemList라는 클래스를 만들고 **prop**을 사용하여 생성자를 호출합니다.
+
+``` js
+class ExpenseEntryItemList extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+}
+```
+
+다음으로 mapStateToProps 함수를 생성합니다.
+
+``` js
+const mapStateToProps = state => {
+   return {
+      expenses: state
+   };
+};
+```
+
+여기에서 입력 상태를 component의 비용 소품에 복사했습니다.
+
+다음으로 mapDispatchToProps 함수를 생성합니다.
+
+``` js
+const mapDispatchToProps = dispatch => {
+   return {
+      onAddExpense: expense => {
+         dispatch(addExpense(expense));
+      },
+      onDelete: id => {
+         dispatch(deleteExpense(id));
       }
-      return (
-         <div>
-            <h1 style = {myStyle}>Header</h1>
-         </div>
-      );
-   }
-}
-export default App;
+   };
+};
 ```
 
-![](./images/react_jsx_inline_style.jpg)
+여기에서 우리는 비용 추가(addExpense) 함수를 전달하는 함수와 비용 삭제(deleteExpense) 함수를 전달하는 함수를 만들고 해당 함수를 component의 props에 매핑했습니다.
 
-### Comments
+그런 다음 연결 API를 사용하여 component를 내보냅니다.
 
- 주석을 작성할 때 태그의 하위 섹션에 주석을 쓰려면 중괄호 **{}**를 넣어야합니다. 앱을 작성할 때 일관성을 유지하기 위해 주석을 작성할 때 항상 **{}**을 사용하는 것이 좋습니다. 
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>Header</h1>
-            {//End of the line Comment...}
-            {/*Multi line comment...*/}
-         </div>
-      );
-   }
-}
-export default App;
+``` js
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(ExpenseEntryItemList);
 ```
 
+이제 component는 아래에 주어진 세 가지 새로운 속성을 얻습니다.
 
+- expenses − 비용 목록
+- onAddExpense − addExpense 함수를 전달하는 함수
+- onDelete − deleteExpense 함수를 전달하는 함수
 
-### Naming Convention
+다음으로 onAddExpense 속성을 사용하여 생성자의 redux 저장소에 약간의 비용을 추가합니다.
 
- **HTML 태그**는 항상 **소문자** 태그 이름을 사용하지만 **React** 구성 요소는 **대문자로 시작**합니다.참고-**className** 및 **htmlFor**를 **class** 및 **for** 대신 XML 속성 이름으로 사용해야합니다.이것은 React 공식 페이지에서 다음과 같이 설명됩니다- 
-
- JSX는 JavaScript이므로 **class** 및 **for**와 같은 식별자는 XML 속성 이름으로 사용하지 않는 것이 좋습니다. 대신 React DOM 컴포넌트는 각각 **className** 및 **htmlFor**와 같은 DOM 특성 이름을 필요로합니다. 
-
-
-
-## Components
-
-이 장에서는 구성 요소를 결합하여 앱을보다 쉽게 유지 관리하는 방법을 배웁니다. 이 방법을 사용하면 나머지 페이지에 영향을주지 않고 구성 요소를 업데이트하고 변경할 수 있습니다. 
-
-
-
-### Stateless Example
-
-다음 예제의 첫 번째 구성 요소는 **App**입니다. 이 구성 요소는 **Header** 및 **Content** 의 소유자입니다. **Header** 와 **Content** 를 별도로 작성하고 **App** 컴포넌트의 JSX 트리에 추가하기 만하면됩니다. 앱 구성 요소 만 내 보내야합니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <Header/>
-            <Content/>
-         </div>
+``` js
+if (this.props.expenses.length == 0)
+{
+   const items = [
+      { id: 1, name: "Pizza", amount: 80, spendDate: "2020-10-10", category: "Food" },
+      { id: 2, name: "Grape Juice", amount: 30, spendDate: "2020-10-12", category: "Food" },
+      { id: 3, name: "Cinema", amount: 210, spendDate: "2020-10-16", category: "Entertainment" },
+      { id: 4, name: "Java Programming book", amount: 242, spendDate: "2020-10-15", category: "Academic" },
+      { id: 5, name: "Mango Juice", amount: 35, spendDate: "2020-10-16", category: "Food" },
+      { id: 6, name: "Dress", amount: 2000, spendDate: "2020-10-25", category: "Cloth" },
+      { id: 7, name: "Tour", amount: 2555, spendDate: "2020-10-29", category: "Entertainment" },
+      { id: 8, name: "Meals", amount: 300, spendDate: "2020-10-30", category: "Food" },
+      { id: 9, name: "Mobile", amount: 3500, spendDate: "2020-11-02", category: "Gadgets" },
+      { id: 10, name: "Exam Fees", amount: 1245, spendDate: "2020-11-04", category: "Academic" }
+   ]
+   items.forEach((item) => {
+      this.props.onAddExpense(
+         { 
+            name: item.name, 
+            amount: item.amount, 
+            spendDate: item.spendDate, 
+            category: item.category 
+         }
       );
-   }
+   })
 }
-class Header extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>Header</h1>
-         </div>
-      );
-   }
-}
-class Content extends React.Component {
-   render() {
-      return (
-         <div>
-            <h2>Content</h2>
-            <p>The content text!!!</p>
-         </div>
-      );
-   }
-}
-export default App;
 ```
 
-이를 페이지에서 렌더링하려면 main.js 파일에서 가져와 reactDOM.render ()를 호출해야합니다. 우리는 이미 환경을 설정하면서 이것을했습니다. 
+다음으로 비용 ID를 사용하여 비용 항목을 삭제하는 이벤트 핸들러를 추가합니다.
 
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App />, document.getElementById('app'));
+``` js
+handleDelete = (id,e) => {
+   e.preventDefault();
+   this.props.onDelete(id);
+}
 ```
 
- 위의 코드는 다음과 같은 결과를 생성합니다. 
+여기서 이벤트 핸들러는 비용 ID와 함께 deleteExpense를 호출하는 onDelete 디스패처를 호출합니다.
 
-![](./images/react_components_stateless.jpg)
+다음으로 모든 비용의 총액을 계산하는 메서드를 추가합니다.
 
-### Stateful Example
+``` js
+getTotal() {
+   let total = 0;
+   for (var i = 0; i < this.props.expenses.length; i++) {
+      total += this.props.expenses[i].amount
+   }
+   return total;
+}
+```
 
-이 예에서는 소유자 구성 요소 (**App**)의 상태를 설정합니다. **Header** 구성 요소는 상태가 필요하지 않으므로 마지막 예와 같이 추가되었습니다. 콘텐츠 태그 대신 **table** 및 **tbody** 요소를 만들고 **data** array의 모든 객체에 대해 **TableRow**를 동적으로 삽입합니다. 
+다음으로 render() 메서드를 추가하고 비용 항목을 표 형식으로 나열합니다.
 
-이전 JavaScript 구문보다 훨씬 깔끔하게 보이는 EcmaScript 2015 화살표 구문 (=>)을 사용하고 있음을 알 수 있습니다. 이렇게하면 코드 줄이 더 적은 요소를 만들 수 있습니다. 많은 항목이 포함 된 목록을 만들어야 할 때 특히 유용합니다. 
+``` js
+render() {
+   const lists = this.props.expenses.map(
+      (item) =>
+      <tr key={item.id}>
+         <td>{item.name}</td>
+         <td>{item.amount}</td>
+         <td>{new Date(item.spendDate).toDateString()}</td>
+         <td>{item.category}</td>
+         <td><a href="#"
+            onClick={(e) => this.handleDelete(item.id, e)}>Remove</a></td>
+      </tr>
+   );
+   return (
+      <div>
+         <table>
+            <thead>
+               <tr>
+                  <th>Item</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Remove</th>
+               </tr>
+            </thead>
+            <tbody>
+               {lists}
+               <tr>
+                  <td colSpan="1" style={{ textAlign: "right" }}>Total Amount</td>
+                  <td colSpan="4" style={{ textAlign: "left" }}>
+                     {this.getTotal()}
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   );
+}
+```
 
-`App.jsx`
+여기에서 이벤트 핸들러 handleDelete를 설정하여 상점에서 비용을 제거합니다.
 
-```jsx
+ExpenseEntryItemList component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
 import React from 'react';
+import { connect } from 'react-redux';
+import './ExpenseEntryItemList.css';
+import { deleteExpense } from '../actions';
+import { addExpense } from '../actions';
 
-class App extends React.Component {
-   constructor() {
-      super();
-      this.state = {
-         data: 
-         [
-            {
-               "id":1,
-               "name":"Foo",
-               "age":"20"
-            },
-            {
-               "id":2,
-               "name":"Bar",
-               "age":"30"
-            },
-            {
-               "id":3,
-               "name":"Baz",
-               "age":"40"
-            }
+class ExpenseEntryItemList extends React.Component {
+   constructor(props) {
+      super(props);
+
+      if (this.props.expenses.length == 0){
+         const items = [
+            { id: 1, name: "Pizza", amount: 80, spendDate: "2020-10-10", category: "Food" },
+            { id: 2, name: "Grape Juice", amount: 30, spendDate: "2020-10-12", category: "Food" },
+            { id: 3, name: "Cinema", amount: 210, spendDate: "2020-10-16", category: "Entertainment" },
+            { id: 4, name: "Java Programming book", amount: 242, spendDate: "2020-10-15", category: "Academic" },
+            { id: 5, name: "Mango Juice", amount: 35, spendDate: "2020-10-16", category: "Food" },
+            { id: 6, name: "Dress", amount: 2000, spendDate: "2020-10-25", category: "Cloth" },
+            { id: 7, name: "Tour", amount: 2555, spendDate: "2020-10-29", category: "Entertainment" },
+            { id: 8, name: "Meals", amount: 300, spendDate: "2020-10-30", category: "Food" },
+            { id: 9, name: "Mobile", amount: 3500, spendDate: "2020-11-02", category: "Gadgets" },
+            { id: 10, name: "Exam Fees", amount: 1245, spendDate: "2020-11-04", category: "Academic" }
          ]
+         items.forEach((item) => {
+            this.props.onAddExpense(
+               { 
+                  name: item.name, 
+                  amount: item.amount, 
+                  spendDate: item.spendDate, 
+                  category: item.category 
+               }
+            );
+         })
       }
    }
+   handleDelete = (id,e) => {
+      e.preventDefault();
+      this.props.onDelete(id);
+   }
+   getTotal() {
+      let total = 0;
+      for (var i = 0; i < this.props.expenses.length; i++) {
+         total += this.props.expenses[i].amount
+      }
+      return total;
+   }
    render() {
+      const lists = this.props.expenses.map((item) =>
+         <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.amount}</td>
+            <td>{new Date(item.spendDate).toDateString()}</td>
+            <td>{item.category}</td>
+            <td><a href="#"
+               onClick={(e) => this.handleDelete(item.id, e)}>Remove</a></td>
+         </tr>
+      );
       return (
          <div>
-            <Header/>
             <table>
+               <thead>
+                  <tr>
+                     <th>Item</th>
+                     <th>Amount</th>
+                     <th>Date</th>
+                     <th>Category</th>
+                     <th>Remove</th>
+                  </tr>
+               </thead>
                <tbody>
-                  {this.state.data.map((person, i) => <TableRow key = {i} 
-                     data = {person} />)}
+                  {lists}
+                  <tr>
+                     <td colSpan="1" style={{ textAlign: "right" }}>Total Amount</td>
+                     <td colSpan="4" style={{ textAlign: "left" }}>
+                        {this.getTotal()}
+                     </td>
+                  </tr>
                </tbody>
             </table>
          </div>
       );
    }
 }
-class Header extends React.Component {
+const mapStateToProps = state => {
+   return {
+      expenses: state
+   };
+};
+const mapDispatchToProps = dispatch => {
+   return {
+      onAddExpense: expense => {
+         dispatch(addExpense(expense));
+      },
+      onDelete: id => {
+         dispatch(deleteExpense(id));
+      }
+   };
+};
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(ExpenseEntryItemList);
+```
+
+다음으로 src/components 폴더 아래에 App.js 파일을 생성하고 ExpenseEntryItemList 컴포넌트를 사용합니다.
+
+``` js
+import React, { Component } from 'react';
+import ExpenseEntryItemList from './ExpenseEntryItemList';
+
+class App extends Component {
    render() {
       return (
          <div>
-            <h1>Header</h1>
+            <ExpenseEntryItemList />
          </div>
-      );
-   }
-}
-class TableRow extends React.Component {
-   render() {
-      return (
-         <tr>
-            <td>{this.props.data.id}</td>
-            <td>{this.props.data.name}</td>
-            <td>{this.props.data.age}</td>
-         </tr>
       );
    }
 }
 export default App;
 ```
 
-`main.js`
+다음으로 src 폴더 아래에 index.js 파일을 생성합니다.
 
-```js
+``` js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers';
+import App from './components/App';
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+const store = createStore(rootReducer);
+
+ReactDOM.render(
+   <Provider store={store}>
+      <App />
+   </Provider>,
+   document.getElementById('root')
+);
 ```
 
- **Note**  -  **map () 함수 안에서 key = {i}** 를 사용하고 있습니다. 이렇게하면 변경 사항이있을 때 React가 전체 목록을 다시 렌더링하는 대신 필요한 요소 만 업데이트 할 수 있습니다. 많은 수의 동적으로 생성 된 요소의 성능이 크게 향상됩니다. 
+여기,
 
-![](./images/react_components_statefull.jpg)
+- 리듀서를 연결하여 createStore를 사용하여 스토어를 생성합니다.
+- React redux 라이브러리의 Provider component를 사용하고 저장소를 props로 설정하면 모든 중첩 component가 connect api를 사용하여 저장소에 연결할 수 있습니다.
+
+마지막으로 루트 폴더 아래에 공용 폴더를 생성하고 index.html 파일을 생성합니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>React Containment App</title>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="./index.js"></script>
+   </body>
+</html>
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+제거 링크를 클릭하면 redux 스토어에서 항목이 제거됩니다.
+
+![Redux](.\images\redux.jpg)
 
 
 
-## State
+## ReactJS - Animation
 
-**State** 는 데이터의 출처입니다. 우리는 항상 상태를 가능한 한 단순하게 만들고 상태 저장 구성 요소의 수를 최소화하려고 노력해야합니다. 예를 들어 상태의 데이터가 필요한 10 개의 구성 요소가있는 경우 모든 구성 요소의 상태를 유지하는 하나의 컨테이너 구성 요소를 만들어야합니다. 
+출처: https://www.tutorialspoint.com/reactjs/reactjs_animation.htm
+
+애니메이션은 현대 웹 애플리케이션의 흥미로운 기능입니다. 그것은 응용 프로그램에 상쾌한 느낌을줍니다. React 커뮤니티는 React Motion, React Reveal, react-animations 등과 같은 많은 우수한 반응 기반 애니메이션 라이브러리를 제공합니다. React 자체는 이전에 추가 옵션으로 애니메이션 라이브러리인 React Transition Group을 제공합니다. 라이브러리의 이전 버전을 향상시키는 독립 라이브러리입니다. 이번 장에서는 React Transition Group 애니메이션 라이브러리에 대해 알아보겠습니다.
 
 
 
-###  State 사용 
+### React Transition Group
 
- 다음 샘플 코드는 EcmaScript2016 구문을 사용하여 상태 저장 컴포넌트를 작성하는 방법을 보여줍니다. 
+React Transition Group 라이브러리는 애니메이션의 간단한 구현입니다. 기본적으로 애니메이션을 수행하지 않습니다. 대신 핵심 애니메이션 관련 정보를 노출합니다. 모든 애니메이션은 기본적으로 한 상태에서 다른 상태로 요소의 전환입니다. 라이브러리는 모든 요소의 가능한 최소 상태를 노출하며 다음과 같습니다.
 
-`App.jsx`
+- Entering
+- Entered
+- Exiting
+- Exited
 
-```jsx
+라이브러리는 각 상태에 대해 CSS 스타일을 설정하고 요소가 한 상태에서 다른 상태로 이동할 때 스타일을 기반으로 요소에 애니메이션을 적용하는 옵션을 제공합니다. 라이브러리는 요소의 현재 상태를 설정하는 props를 제공합니다. in props 값이 true이면 요소가 진입 상태에서 종료 상태로 이동하고 있음을 의미합니다. in props 값이 false이면 요소가 종료에서 종료로 이동하고 있음을 의미합니다.
+
+
+
+### Transition
+
+Transition은 React Transition Group에서 요소에 애니메이션 효과를 주기 위해 제공하는 기본 component입니다. 간단한 응용 프로그램을 만들고 Transition 요소를 사용하여 요소를 페이드 인/페이드 아웃해 보겠습니다.
+
+먼저 React 애플리케이션 생성 장의 지침에 따라 Create React App 또는 Rollup 번들러를 사용하여 새로운 반응 애플리케이션인 react-animation-app을 생성합니다.
+
+다음으로 React Transition Group 라이브러리를 설치합니다.
+
+``` sh
+cd /go/to/project
+npm install react-transition-group --save
+```
+
+그런 다음 즐겨 사용하는 편집기에서 응용 프로그램을 엽니다.
+
+그런 다음 응용 프로그램의 루트 디렉터리 아래에 src 폴더를 만듭니다.
+
+다음으로 src 폴더 아래에 components 폴더를 생성합니다.
+
+다음으로 src/components 폴더에 HelloWorld.js 파일을 생성하고 편집을 시작합니다.
+
+다음으로 React 및 애니메이션 라이브러리를 가져옵니다.
+
+``` js
 import React from 'react';
+import { Transition } from 'react-transition-group'
+```
 
-class App extends React.Component {
+다음으로 HelloWorld component를 만듭니다.
+
+``` js
+class HelloWorld extends React.Component {
    constructor(props) {
       super(props);
-		
-      this.state = {
-         header: "Header from state...",
-         content: "Content from state..."
-      }
-   }
-   render() {
-      return (
-         <div>
-            <h1>{this.state.header}</h1>
-            <h2>{this.state.content}</h2>
-         </div>
-      );
    }
 }
-export default App;
 ```
 
-`main.js`
+다음으로 생성자에서 전환 관련 스타일을 JavaScript 객체로 정의합니다.
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App />, document.getElementById('app'));
-```
-
- 결과는 다음과 같습니다. 
-
-![](./images/react_state_simple.jpg)
-
-
-
-## Props Overview
-
- **State** 와 **Props** 의 주요 차이점은 **Props** 가 변경 불가능하다는 것입니다. 따라서 컨테이너 구성 요소는 업데이트 및 변경할 수있는 **State** 를 정의해야하며 하위 구성 요소는 **props**를 사용하여 **State** 에서 **Data** 만 전달해야합니다. 
-
-
-
-### Props 사용 
-
- 컴포넌트에 불변의 데이터가 필요할 때 **main.js**의 **reactDOM.render ()** 함수에 props를 추가하고 컴포넌트 내에서 사용할 수 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>{this.props.headerProp}</h1>
-            <h2>{this.props.contentProp}</h2>
-         </div>
-      );
-   }
+``` js
+this.duration = 2000;
+this.defaultStyle = {
+   transition: `opacity ${this.duration}ms ease-in-out`,
+   opacity: 0,
 }
-export default App;
+this.transitionStyles = {
+   entering: { opacity: 1 },
+   entered: { opacity: 1 },
+   exiting: { opacity: 0 },
+   exited: { opacity: 0 },
+};
 ```
 
-`main.js`
+Here,
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
+- *defaultStyles* 전환 애니메이션을 설정합니다
+- *transitionStyles* 다양한 상태에 대한 스타일 설정
 
-ReactDOM.render(<App headerProp = "Header from props..." contentProp = "Content
-   from props..."/>, document.getElementById('app'));
+다음으로 생성자에서 element 의 초기 상태를 설정합니다.
 
-export default App;
-```
-
- 결과는 다음과 같습니다. 
-
-![](./images/react_props_example.jpg)
-
-### Default Props
-
- **ReactDom.render()** 요소에 추가하는 대신 구성 요소 생성자에서 직접 기본 속성 값을 설정할 수도 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>{this.props.headerProp}</h1>
-            <h2>{this.props.contentProp}</h2>
-         </div>
-      );
-   }
+``` js
+this.state = { 
+   inProp: true 
 }
-App.defaultProps = {
-   headerProp: "Header from props...",
-   contentProp:"Content from props..."
+```
+
+다음으로 3초마다 inProp 값을 변경하여 애니메이션을 시뮬레이션합니다.
+
+``` js
+setInterval(() => {
+   this.setState((state, props) => {
+      let newState = {
+         inProp: !state.inProp
+      };
+      return newState;
+   })
+}, 3000);
+```
+
+다음으로 렌더링 함수를 만듭니다.
+
+``` js
+render() { 
+   return ( 
+   ); 
 }
-export default App;
 ```
 
-`main.js`
+다음으로 Transition component를 추가합니다. in prop에 this.state.inProp을 사용하고 timeout prop에 this.duration을 사용합니다. 전환 component에는 사용자 인터페이스를 반환하는 함수가 필요합니다. 기본적으로 Render props입니다.
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
- 출력은 이전과 동일합니다. 
-
-![](./images/react_props_example.jpg)
-
-
-
-### State and Props
-
- 다음 예제는 앱에서 **State** 와 **Props**을 결합하는 방법을 보여줍니다. 부모 컴포넌트에서 **State** 를 설정하고 **props**를 사용하여 컴포넌트 트리 아래로 전달합니다. **render** 함수 내에서 하위 구성 요소에 사용되는 **headerProp** 및 **contentProp**를 설정합니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         header: "Header from props...",
-         content: "Content from props..."
-      }
-   }
-   render() {
-      return (
-         <div>
-            <Header headerProp = {this.state.header}/>
-            <Content contentProp = {this.state.content}/>
-         </div>
-      );
-   }
+``` js
+render() {
+   return (
+      <Transition in={this.state.inProp} timeout={this.duration}>
+         {state => ({
+            ... component's user interface.
+         })
+      </Transition>
+   );
 }
-class Header extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>{this.props.headerProp}</h1>
-         </div>
-      );
-   }
-}
-class Content extends React.Component {
-   render() {
-      return (
-         <div>
-            <h2>{this.props.contentProp}</h2>
-         </div>
-      );
-   }
-}
-export default App;
 ```
 
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
-결과는 이전 두 예제에서와 동일하지만 데이터 원본은 원래 상태에서 온 것입니다. 상태를 업데이트하려면 상태 만 업데이트하면 모든 하위 구성 요소가 업데이트됩니다. 자세한 내용은 이벤트 장을 참조하십시오. 
-
-![](./images/react_props_example.jpg)
-
-
-
-## Props Validation
-
- Properties  유효성 검사는 구성 요소를 올바르게 사용하도록하는 유용한 방법입니다. 앱이 커지면 개발 중에 향후 버그와 문제를 피하는 데 도움이됩니다. 또한 각 구성 요소를 어떻게 사용해야하는지 알 수 있으므로 코드를 더 읽기 쉽게 만듭니다.
-
-### Validating Props
-
-이 예에서는 필요한 모든 **Props** 로 **App**  component 를 만들고 있습니다. **App.propTypes**는 Props 검증에 사용됩니다. Props 중 일부가 우리가 할당 한 올바른 유형을 사용하지 않으면 콘솔 경고가 표시됩니다. 유효성 검사 패턴을 지정한 후 App.defaultProps를 설정합니다.  
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <h3>Array: {this.props.propArray}</h3>
-            <h3>Bool: {this.props.propBool ? "True..." : "False..."}</h3>
-            <h3>Func: {this.props.propFunc(3)}</h3>
-            <h3>Number: {this.props.propNumber}</h3>
-            <h3>String: {this.props.propString}</h3>
-            <h3>Object: {this.props.propObject.objectName1}</h3>
-            <h3>Object: {this.props.propObject.objectName2}</h3>
-            <h3>Object: {this.props.propObject.objectName3}</h3>
-         </div>
-      );
-   }
-}
-
-App.propTypes = {
-   propArray: React.PropTypes.array.isRequired,
-   propBool: React.PropTypes.bool.isRequired,
-   propFunc: React.PropTypes.func,
-   propNumber: React.PropTypes.number,
-   propString: React.PropTypes.string,
-   propObject: React.PropTypes.object
-}
-
-App.defaultProps = {
-   propArray: [1,2,3,4,5],
-   propBool: true,
-   propFunc: function(e){return e},
-   propNumber: 1,
-   propString: "String value...",
-   
-   propObject: {
-      objectName1:"objectValue1",
-      objectName2: "objectValue2",
-      objectName3: "objectValue3"
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'))
-```
-
-![](./images/props_are_valid.jpg)
-
-
-
-## Component API
-
- 이 장에서는 React 컴포넌트 API에 대해 설명합니다. **SetState(), forceUpdate** 및 **ReactDOM.findDOMNode ()**의 세 가지 방법에 대해 설명합니다. 새로운 ES6 클래스에서는이를 수동으로 바인딩해야합니다. 예제에서 **this.method.bind (this)**를 사용합니다. 
-
-
-
-### Set State
-
- **SetState()** 메서드는 구성 요소의 상태를 업데이트하는 데 사용됩니다. 이 방법은 상태를 바꾸지 않고 원래 상태에만 변경 사항을 추가합니다. 
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor() {
-      super();
-		
-      this.state = {
-         data: []
-      }
-	
-      this.setStateHandler = this.setStateHandler.bind(this);
-   };
-   setStateHandler() {
-      var item = "setState..."
-      var myArray = this.state.data.slice();
-	  myArray.push(item);
-      this.setState({data: myArray})
-   };
-   render() {
-      return (
-         <div>
-            <button onClick = {this.setStateHandler}>SET STATE</button>
-            <h4>State Array: {this.state.data}</h4>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
- 빈 배열로 시작했습니다. 버튼을 클릭 할 때마다 상태가 업데이트됩니다. 5 번 클릭하면 다음과 같은 결과가 나옵니다. 
-
-![](./images/react-component-api-set-state.jpg)
-
-
-
-### Force Update
-
- 때로는 구성 요소를 수동으로 업데이트하려고 할 수도 있습니다. 이는 **forceUpdate ()** 메소드를 사용하여 수행 할 수 있습니다. 
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor() {
-      super();
-      this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-   };
-   forceUpdateHandler() {
-      this.forceUpdate();
-   };
-   render() {
-      return (
-         <div>
-            <button onClick = {this.forceUpdateHandler}>FORCE UPDATE</button>
-            <h4>Random number: {Math.random()}</h4>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
- 버튼을 클릭 할 때마다 업데이트되는 난수를 설정합니다. 
-
-![](./images/react-component-api-force-update.jpg)
-
-
-
-### Find Dom Node
-
- DOM 조작을 위해 **ReactDOM.findDOMNode ()** 메소드를 사용할 수 있습니다. 먼저  **react-dom** 을 가져와야합니다. 
-
-```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-class App extends React.Component {
-   constructor() {
-      super();
-      this.findDomNodeHandler = this.findDomNodeHandler.bind(this);
-   };
-   findDomNodeHandler() {
-      var myDiv = document.getElementById('myDiv');
-      ReactDOM.findDOMNode(myDiv).style.color = 'green';
-   }
-   render() {
-      return (
-         <div>
-            <button onClick = {this.findDomNodeHandler}>FIND DOME NODE</button>
-            <div id = "myDiv">NODE</div>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
- 버튼을 클릭하면 **myDiv** 요소의 색상이 녹색으로 바뀝니다. 
-
-![](./images/react-component-api-find-dom-node.jpg)
-
- **Note** −   0.14 업데이트 이후, ES6를 수용하기 위해 대부분의 이전 구성 요소 API 메소드가 더 이상 사용되지 않거나 제거됩니다. 
-
-
-
-## Component Life Cycle
-
- 이 장에서는 구성 요소 수명주기 방법에 대해 설명합니다. 
-
-
-
-### Lifecycle Methods
-
-- **componentWillMount**  서버와 클라이언트 측 모두에서 렌더링 전에 실행됩니다. 
-- **componentDidMount**  클라이언트 측에서만 첫 번째 렌더링 후에 실행됩니다. 여기서 AJAX 요청과 DOM 또는 상태 업데이트가 발생합니다. 이 메소드는 다른 JavaScript 프레임 워크 및 **setTimeout** 또는 **setInterval**과 같이 실행이 지연된 함수와의 통합에도 사용됩니다. 다른 수명주기 메소드를 트리거 할 수 있도록 상태를 업데이트하는 데 사용합니다. 
-- **componentWillReceiveProps**  다른 렌더가 호출되기 전에 props가 업데이트 되 자마자 호출됩니다. 상태를 업데이트 할 때 setNewNumber에서 트리거했습니다. 
-- **shouldComponentUpdate**  True 또는 false 값을 반환해야합니다. 구성 요소를 업데이트할지 여부를 결정합니다. 기본적으로 true로 설정되어 있습니다. 상태 또는 소품이 업데이트 된 후 구성 요소를 렌더링 할 필요가없는 경우 false 값을 반환 할 수 있습니다. 
-- **componentWillUpdate**  렌더링 직전에 호출됩니다 
-- **componentDidUpdate** i 렌더링 직후에 호출됩니다. 
-- **componentWillUnmount**  컴포넌트가 돔에서 마운트 해제 된 후 호출됩니다. **main.js**에서 컴포넌트를 마운트 해제하고 있습니다. 
-
-
-
- 다음 예제에서는 생성자 함수에서 초기 **state** 를 설정합니다. **SetNewnumber**는 **state** 를 업데이트하는 데 사용됩니다. 모든 수명주기 방법은 Content 구성 요소 내에 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      
-      this.state = {
-         data: 0
-      }
-      this.setNewNumber = this.setNewNumber.bind(this)
-   };
-   setNewNumber() {
-      this.setState({data: this.state.data + 1})
-   }
-   render() {
-      return (
-         <div>
-            <button onClick = {this.setNewNumber}>INCREMENT</button>
-            <Content myNumber = {this.state.data}></Content>
-         </div>
-      );
-   }
-}
-class Content extends React.Component {
-   componentWillMount() {
-      console.log('Component WILL MOUNT!')
-   }
-   componentDidMount() {
-      console.log('Component DID MOUNT!')
-   }
-   componentWillReceiveProps(newProps) {    
-      console.log('Component WILL RECIEVE PROPS!')
-   }
-   shouldComponentUpdate(newProps, newState) {
-      return true;
-   }
-   componentWillUpdate(nextProps, nextState) {
-      console.log('Component WILL UPDATE!');
-   }
-   componentDidUpdate(prevProps, prevState) {
-      console.log('Component DID UPDATE!')
-   }
-   componentWillUnmount() {
-      console.log('Component WILL UNMOUNT!')
-   }
-   render() {
-      return (
-         <div>
-            <h3>{this.props.myNumber}</h3>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-
-setTimeout(() => {
-   ReactDOM.unmountComponentAtNode(document.getElementById('app'));}, 10000);
-```
-
- 초기 렌더링 후 다음과 같은 화면이 나타납니다. 
-
-![](./images/react-component-lifecycle-initial-screen.jpg)
-
-
-
-## Forms
-
-출처:  https://www.tutorialspoint.com/reactjs/reactjs_forms.htm 
-
- 이 장에서는 React에서 폼을 사용하는 방법을 배웁니다. 
-
-
-
-## Simple Example
-
- 다음 예에서는 **value = {this.state.data}** 인 입력 양식을 설정합니다. 입력 값이 변경 될 때마다 상태를 업데이트 할 수 있습니다. 우리는 입력 변경 사항을보고 그에 따라 상태를 업데이트하는 **onChange** 이벤트를 사용하고 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      
-      this.state = {
-         data: 'Initial data...'
-      }
-      this.updateState = this.updateState.bind(this);
-   };
-   updateState(e) {
-      this.setState({data: e.target.value});
-   }
-   render() {
-      return (
-         <div>
-            <input type = "text" value = {this.state.data} 
-               onChange = {this.updateState} />
-            <h4>{this.state.data}</h4>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
- 결과는 다음과 같습니다. 
-
-![](./images/react-forms-complex.jpg)
-
-
-
-## Events
-
- 이 장에서는 이벤트 사용 방법을 배웁니다. 
-
-### Simple Example
-
- 이것은 하나의 구성 요소 만 사용하는 간단한 예입니다. 버튼을 클릭하면 **updateState** 함수를 트리거하는 **onClick** 이벤트를 추가하고 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      
-      this.state = {
-         data: 'Initial data...'
-      }
-      this.updateState = this.updateState.bind(this);
-   };
-   updateState() {
-      this.setState({data: 'Data updated...'})
-   }
-   render() {
-      return (
-         <div>
-            <button onClick = {this.updateState}>CLICK</button>
-            <h4>{this.state.data}</h4>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
- 결과는 다음과 같습니다. 
-
-![](./images/react-events-simple.jpg)
-
-
-
-### Child Events
-
- 자식 구성 요소에서 부모 구성 요소의 **state** 를 업데이트해야 할 때 부모 구성 요소에 이벤트 처리기 (**updateState**)를 만들고이를 호출 할 수있는 자식 구성 요소에 prop (**updateStateProp**)로 전달할 수 있습니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      
-      this.state = {
-         data: 'Initial data...'
-      }
-      this.updateState = this.updateState.bind(this);
-   };
-   updateState() {
-      this.setState({data: 'Data updated from the child component...'})
-   }
-   render() {
-      return (
-         <div>
-            <Content myDataProp = {this.state.data} 
-               updateStateProp = {this.updateState}></Content>
-         </div>
-      );
-   }
-}
-class Content extends React.Component {
-   render() {
-      return (
-         <div>
-            <button onClick = {this.props.updateStateProp}>CLICK</button>
-            <h3>{this.props.myDataProp}</h3>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
- 결과는 다음과 같습니다. 
-
-![](./images/react-events-child.jpg)
-
-
-
-## Refs
-
- ref 는 요소에 대한 참조를 반환하는 데 사용됩니다. 대부분의 경우 **refs** 는 피해야하지만 DOM 측정이 필요하거나 구성 요소에 메소드를 추가 할 때 유용 할 수 있습니다. 
-
-
-
-### Using Refs
-
- 다음 예제는 refs를 사용하여 입력 필드를 지우는 방법을 보여줍니다. **ClearInput** 함수는 **ref =  "myInput"** 값을 가진 요소를 검색하고 상태를 재설정하며 버튼을 클릭 한 후 초점을 추가합니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-		
-      this.state = {
-         data: ''
-      }
-      this.updateState = this.updateState.bind(this);
-      this.clearInput = this.clearInput.bind(this);
-   };
-   updateState(e) {
-      this.setState({data: e.target.value});
-   }
-   clearInput() {
-      this.setState({data: ''});
-      ReactDOM.findDOMNode(this.refs.myInput).focus();
-   }
-   render() {
-      return (
-         <div>
-            <input value = {this.state.data} onChange = {this.updateState} 
-               ref = "myInput"></input>
-            <button onClick = {this.clearInput}>CLEAR</button>
-            <h4>{this.state.data}</h4>
-         </div>
-      );
-   }
-}
-export default App;
-```
-
-`main.js`
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App/>, document.getElementById('app'));
-```
-
- 버튼을 클릭하면 입력이 지워지고 초점이 맞춰집니다. 
-
-![](./images/react-refs-example.jpg)
-
-
-
-## Keys
-
- 반응 **Keys** 는 동적으로 생성 된 구성 요소를 사용하거나 사용자가 목록을 변경할 때 유용합니다. **key** 값을 설정하면 변경 후에도 구성 요소를 고유하게 식별 할 수 있습니다. 
-
-
-
-### Using Keys
-
- 고유 인덱스 (i)를 사용하여 **Content** 요소를 동적으로 작성해 봅시다. 지도 함수는 **data** 배열에서 세 가지 요소를 만듭니다. **key** 값은 모든 요소마다 고유해야하므로 i 를 생성 된 각 요소의 키로 지정합니다. 
-
-`App.jsx`
-
-```jsx
-import React from 'react';
-
-class App extends React.Component {
-   constructor() {
-      super();
-		
-      this.state = {
-         data:[
-            {
-               component: 'First...',
-               id: 1
-            },
-            {
-               component: 'Second...',
-               id: 2
-            },
-            {
-               component: 'Third...',
-               id: 3
-            }
-         ]
-      }
-   }
-   render() {
-      return (
-         <div>
-            <div>
-               {this.state.data.map((dynamicComponent, i) => <Content 
-                  key = {i} componentData = {dynamicComponent}/>)}
+그런 다음 컨테이너 내부에 component 사용자 인터페이스를 작성하고 컨테이너에 대한 defaultStyle 및 transitionStyles를 설정합니다.
+
+``` js
+render() {
+   return (
+      <Transition in={this.state.inProp} timeout={this.duration}>
+         {state => (
+            <div style={{
+               ...this.defaultStyle,
+               ...this.transitionStyles[state]
+            }}>
+               <h1>Hello World!</h1>
             </div>
-         </div>
-      );
-   }
+         )}
+      </Transition>
+   );
 }
-class Content extends React.Component {
+```
+
+마지막으로 component를 노출합니다.
+
+``` js
+export default HelloWorld
+```
+
+component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from "react";
+import { Transition } from 'react-transition-group';
+
+class HelloWorld extends React.Component {
+   constructor(props) {
+      super(props);
+      this.duration = 2000;
+      this.defaultStyle = {
+         transition: `opacity ${this.duration}ms ease-in-out`,
+         opacity: 0,
+      }
+      this.transitionStyles = {
+         entering: { opacity: 1 },
+         entered: { opacity: 1 },
+         exiting: { opacity: 0 },
+         exited: { opacity: 0 },
+      };
+      this.state = {
+         inProp: true
+      }
+      setInterval(() => {
+         this.setState((state, props) => {
+            let newState = {
+               inProp: !state.inProp
+            };
+            return newState;
+         })
+      }, 3000);
+   }
    render() {
       return (
-         <div>
-            <div>{this.props.componentData.component}</div>
-            <div>{this.props.componentData.id}</div>
-         </div>
+         <Transition in={this.state.inProp} timeout={this.duration}>
+            {state => (
+               <div style={{
+                  ...this.defaultStyle,
+                  ...this.transitionStyles[state]
+               }}>
+                  <h1>Hello World!</h1>
+               </div>
+            )}
+         </Transition>
       );
    }
 }
-export default App;
+export default HelloWorld;
 ```
 
-`main.js`
+다음으로 src 폴더 아래에 index.js 파일을 생성하고 HelloWorld 컴포넌트를 사용합니다.
 
-```js
+``` js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import HelloWorld from './components/HelloWorld';
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(
+   <React.StrictMode   
+      <HelloWorld /   
+   </React.StrictMode   ,
+   document.getElementById('root')
+);
 ```
 
- 각 요소의 키 값에 대해 다음 결과를 얻습니다. 
+마지막으로 루트 폴더 아래에 공용 폴더를 생성하고 index.html 파일을 생성합니다.
 
-![](./images/react-keys-example.jpg)
-
- 나중에 일부 요소를 추가 또는 제거하거나 동적으로 생성 된 요소의 순서를 변경하면 React는 키 값을 사용하여 각 요소를 추적합니다. 
-
-
-
-## Router
-
-출처:  https://www.tutorialspoint.com/reactjs/reactjs_router.htm 
-
- 이 장에서는 앱의 라우팅을 설정하는 방법을 배웁니다. 
-
-### Step 1 - Install a React Router
-
- 반응 라우터를 설치하는 간단한 방법은 명령 프롬프트 창에서 다음 코드 스니펫을 실행하는 것입니다. 
-
-```bat
-C:\Users\username\Desktop\reactApp>npm install react-router
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>React Containment App</title>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/JavaScript" src="./index.js"></script>
+   </body>
+</html>
 ```
 
-### Step 2 - Create Components
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
 
-이 단계에서는 네 가지 구성 요소를 만듭니다. 앱 구성 요소는 탭 메뉴로 사용됩니다. 경로가 변경되면 다른 세 가지 구성 요소 (홈), (정보) 및 (연락처)가 렌더링됩니다. 
+```sh
+npm start
+```
 
-`main.js`
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
 
-```js
+제거 링크를 클릭하면 redux 스토어에서 항목이 제거됩니다.
+
+![Animation](.\images\animation.jpg)
+
+### CSSTransition
+
+CSSTransition은 Transition 컴포넌트 위에 구축되었으며 classNames prop을 도입하여 Transition 컴포넌트를 개선합니다. classNames prop은 요소의 다양한 상태에 사용되는 CSS 클래스 이름을 참조합니다.
+
+예를 들어 classNames=hello prop은 CSS 클래스 아래를 참조합니다.
+
+``` css
+.hello-enter {
+   opacity: 0;
+}
+.hello-enter-active {
+   opacity: 1;
+   transition: opacity 200ms;
+}
+.hello-exit {
+   opacity: 1;
+}
+.hello-exit-active {
+   opacity: 0;
+   transition: opacity 200ms;
+}
+```
+
+CSSTransition component를 사용하여 새 component HelloWorldCSSTransition을 만들어 보겠습니다.
+
+먼저 좋아하는 편집기에서 react-animation-app 애플리케이션을 엽니다.
+
+그런 다음 src/components 폴더 아래에 HelloWorldCSSTransition.css라는 새 파일을 만들고 전환 클래스를 입력합니다.
+
+``` css
+.hello-enter {
+   opacity: 1;
+   transition: opacity 2000ms ease-in-out;
+}
+.hello-enter-active {
+   opacity: 1;
+   transition: opacity 2000ms ease-in-out;
+}
+.hello-exit {
+   opacity: 0;
+   transition: opacity 2000ms ease-in-out;
+}
+.hello-exit-active {
+   opacity: 0;
+   transition: opacity 2000ms ease-in-out;
+}
+```
+
+그런 다음 src/components 폴더 아래에 HelloWorldCSSTransition.js라는 새 파일을 만들고 편집을 시작합니다.
+
+다음으로 React 및 애니메이션 라이브러리를 가져옵니다.
+
+``` js
+import React from 'react'; 
+import { CSSTransition } from 'react-transition-group'
+```
+
+다음으로 HelloWorldCSSTransition.css를 가져옵니다.
+
+``` js
+import './HelloWorldCSSTransition.css'
+```
+
+다음으로 HelloWorld component를 만듭니다.
+
+``` js
+class HelloWorldCSSTransition extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+}
+```
+
+다음으로 생성자에서 전환 기간을 정의합니다.
+
+``` js
+this.duration = 2000;
+```
+
+다음으로 생성자에서 요소의 초기 상태를 설정합니다.
+
+``` js
+this.state = { 
+   inProp: true 
+}
+```
+
+다음으로 3초마다 inProp 값을 변경하여 애니메이션을 시뮬레이션합니다.
+
+``` js
+setInterval(() => {
+   this.setState((state, props) => {
+      let newState = {
+         inProp: !state.inProp
+      };
+      return newState;
+   })
+}, 3000);
+```
+
+다음으로 렌더링 함수를 만듭니다.
+
+``` js
+render() { 
+   return (
+   ); 
+}
+```
+
+다음으로 CSSTransition 컴포넌트를 추가합니다. in prop에는 this.state.inProp, timeout prop에는 this.duration, classNames prop에는 hello를 사용하세요. CSSTransition component는 사용자 인터페이스를 자식 소품으로 예상합니다.
+
+``` js
+render() {
+   return (
+      <CSSTransition in={this.state.inProp} timeout={this.duration} 
+         classNames="hello">
+         // ... user interface code ...   
+      </CSSTransition>
+   );
+}
+```
+
+다음으로 component 사용자 인터페이스를 작성합니다.
+
+``` js
+render() {
+   return (
+       <CSSTransition in={this.state.inProp} timeout={this.duration} 
+      classNames="hello">
+      <div>
+          <h1>Hello World!</h1>
+      </div>
+       </CSSTransition>
+   );
+}
+```
+
+마지막으로 component를 노출합니다.
+
+``` js
+export default HelloWorldCSSTransition;
+```
+
+component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from 'react';
+import { CSSTransition } from 'react-transition-group'
+import './HelloWorldCSSTransition.css' 
+
+class HelloWorldCSSTransition extends React.Component {
+   constructor(props) {
+      super(props);
+      this.duration = 2000;
+      this.state = {
+         inProp: true
+      }
+      setInterval(() => {
+         this.setState((state, props) => {
+            let newState = {
+               inProp: !state.inProp
+            };
+            return newState;
+         })
+      }, 3000);
+   }
+   render() {
+      return (
+         <CSSTransition in={this.state.inProp} timeout={this.duration} 
+            classNames="hello">
+            <div>
+               <h1>Hello World!</h1>
+            </div>
+         </CSSTransition>
+      );
+   }
+}
+export default HelloWorldCSSTransition;
+```
+
+다음으로 src 폴더 아래에 index.js 파일을 생성하고 HelloWorld 컴포넌트를 사용합니다.
+
+``` js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import HelloWorldCSSTransition from './components/HelloWorldCSSTransition';
+
+ReactDOM.render(
+   <React.StrictMode>
+      <HelloWorldCSSTransition />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+메시지는 3초마다 페이드 인 및 페이드 아웃됩니다.
+
+![Animation](.\images\animation.jpg)
+
+
+
+### TransitionGroup
+
+TransitionGroup은 목록에서 여러 전환 component를 관리하는 컨테이너 component입니다. 예를 들어 목록의 각 항목은 CSSTransition을 사용하지만 TransitionGroup은 적절한 애니메이션을 위해 모든 항목을 그룹화하는 데 사용할 수 있습니다.
+
+``` js
+<TransitionGroup>
+   {items.map(({ id, text }) => (
+      <CSSTransition key={id} timeout={500} classNames="item" >
+         <Button
+            onClick={() =>
+               setItems(items =>
+                  items.filter(item => item.id !== id)
+               )
+            }
+            >
+            &times;
+         </Button>
+         {text}
+      </CSSTransition>
+   ))}
+</TransitionGroup>
+```
+
+
+
+## ReactJS - Testing
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_testing.htm
+
+테스트는 모든 애플리케이션에서 생성된 기능이 비즈니스 로직 및 코딩 사양에 따라 작동하는지 확인하는 프로세스 중 하나입니다. React는 React component를 테스트하기 위해 React 테스트 라이브러리를 권장하고 테스트를 실행하기 위해 테스트 러너를 사용 합니다. react-testing-library를 사용하면 component를 개별적으로 확인할 수 있습니다.
+
+아래 명령을 사용하여 응용 프로그램에 설치할 수 있습니다 -
+
+``` sh
+npm install --save @testing-library/react @testing-library/jest-dom
+```
+
+
+
+### Create React app
+
+Create React 앱은 기본적으로 React 테스트 라이브러리와 jest 테스트 러너를 구성합니다. 따라서 Create React App을 사용하여 생성된 React 애플리케이션을 테스트하는 것은 명령으로 가능합니다.
+
+``` sh
+cd /go/to/react/application
+npm test
+```
+
+npm test 명령은 npm build 명령과 유사합니다. 개발자가 코드를 변경할 때 둘 다 다시 컴파일됩니다. 명령 프롬프트에서 명령을 실행하면 다음과 같은 질문이 발생합니다.
+
+``` sh
+No tests found related to files changed since last commit.
+Press `a` to run all tests, or run Jest with `--watchAll`.
+
+Watch Usage
+› Press a to run all tests.
+› Press f to run only failed tests.
+› Press q to quit watch mode.
+› Press p to filter by a filename regex pattern.
+› Press t to filter by a test name regex pattern.
+› Press Enter to trigger a test run.
+```
+
+a를 누르면 모든 테스트 스크립트를 실행하려고 시도하고 마지막으로 아래와 같이 결과를 요약합니다.
+
+``` sh
+Test Suites: 1 passed, 1 total
+Tests: 1 passed, 1 total
+Snapshots: 0 total
+Time: 4.312 s, estimated 12 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+```
+
+
+
+### 커스텀 애플리케이션에서 테스트
+
+Rollup 번들러를 사용하여 사용자 정의 React 애플리케이션을 작성하고 이 장에서 React 테스트 라이브러리와 jest 테스트 러너를 사용하여 테스트해 보겠습니다.
+
+먼저 React 응용 프로그램 만들기 장의 지침에 따라 Rollup 번들러를 사용하여 새로운 반응 응용 프로그램 react-test-app을 만듭니다.
+
+다음으로 테스트 라이브러리를 설치합니다.
+
+``` sh
+cd /go/to/react-test-app
+npm install --save @testing-library/react @testing-library/jest-dom
+```
+
+그런 다음 즐겨 사용하는 편집기에서 응용 프로그램을 엽니다.
+
+다음으로 src/components 폴더 아래에 HelloWorld.test.js 파일을 생성하여 HelloWorld 컴포넌트에 대한 테스트를 작성하고 편집을 시작합니다.
+
+다음으로 반응 라이브러리를 가져옵니다.
+
+``` js
+import React from 'react';
+```
+
+다음으로 테스트 라이브러리를 가져옵니다.
+
+``` js
+import { render, screen } from '@testing-library/react'; import '@testing-library/jest-dom';
+```
+
+다음으로 HelloWorld component를 가져옵니다.
+
+``` js
+import HelloWorld from './HelloWorld';
+```
+
+다음으로 문서에 Hello World 텍스트가 있는지 확인하는 테스트를 작성합니다.
+
+``` js
+test('test scenario 1', () => {
+   render(<HelloWorld />);
+   const element = screen.getByText(/Hello World/i);
+   expect(element).toBeInTheDocument();
+});
+```
+
+테스트 코드의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import HelloWorld from './HelloWorld';
+
+test('test scenario 1', () => {
+   render(<HelloWorld />);
+   const element = screen.getByText(/Hello World/i);
+   expect(element).toBeInTheDocument();
+});
+```
+
+다음으로, 시스템에 아직 설치되지 않은 경우 jest 테스트 러너를 설치합니다.
+
+``` sh
+npm install jest -g
+```
+
+그런 다음 응용 프로그램의 루트 폴더에서 jest 명령을 실행합니다.
+
+``` sh
+jest
+```
+
+``` sh
+PASS src/components/HelloWorld.test.js
+√ test scenario 1 (29 ms)
+
+Test Suites: 1 passed, 1 total
+Tests: 1 passed, 1 total
+Snapshots: 0 total
+Time: 5.148 s
+Ran all test suites.
+```
+
+
+
+## ReactJS - CLI Commands
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_cli_commands.htm
+
+이 장에서는 Create React App 명령줄 응용 프로그램에서 사용할 수 있는 기본 명령에 대해 알아보겠습니다.
+
+
+
+### Creating a new application
+
+Create React App은 React 애플리케이션을 생성하는 다양한 방법을 제공합니다.
+
+
+
+**npx 스크립트를 사용하는방법 .**
+
+``` sh
+npx create-react-app <react-app-name>
+npx create-react-app hello-react-app
+```
+
+
+
+**npm 패키지 관리자를 사용하는방법 .**
+
+``` sh
+npm init react-app <react-app-name>
+npm init react-app hello-react-app
+```
+
+
+
+**yarn 패키지 관리자를 사용하는방법 .**
+
+``` sh
+yarn init react-app <react-app-name>
+yarn init react-app hello-react-app
+```
+
+
+
+### 템플릿 선택
+
+Create React App은 기본 템플릿을 사용하여 React 애플리케이션을 생성합니다. 템플릿은 특정 내장 기능이 있는 초기 코드를 참조합니다. npm 패키지 서버에는 많은 고급 기능이 포함된 수백 개의 템플릿이 있습니다. Create React App을 사용하면 사용자가 –template 명령줄 스위치를 통해 템플릿을 선택할 수 있습니다.
+
+``` sh
+create-react-app my-app --template typescript
+```
+
+위 명령은 npm 서버에서 cra-template-typescript 패키지를 사용하여 반응 앱을 생성합니다.
+
+
+
+### 종속성 설치
+
+React는 npm 및 yarn에서 권장하는 프로젝트 구조를 사용하므로 React 의존성 패키지는 일반 npm 또는 yarn package 명령을 사용하여 설치할 수 있습니다.
+
+
+
+npm 패키지 관리자를 사용하는방법 .
+
+``` sh
+npm install --save react-router-dom
+```
+
+
+
+yarn 패키지 관리자를 사용하는방법 .
+
+``` sh
+yarn add react-router-dom
+```
+
+
+
+### 애플리케이션 실행
+
+React 애플리케이션은 프로젝트에서 사용하는 패키지 관리자에 따라 npm 또는 yarn 명령을 사용하여 시작할 수 있습니다.
+
+npm 패키지 관리자를 사용하는방법.
+
+``` sh
+npm start
+```
+
+
+
+yarn 패키지 관리자를 사용하는방법.
+
+``` sh
+yarn start
+```
+
+
+
+보안 모드(HTTPS)에서 애플리케이션을 실행하려면 애플리케이션을 시작하기 전에 환경 변수 HTTPS를 설정하고 true로 설정하십시오. 예를 들어, Windows 명령 프롬프트(cmd.exe)에서 아래 명령은 HTTPS를 설정하고 애플리케이션을 시작하는 것은 HTTPS 모드입니다.
+
+``` sh
+set HTTPS=true && npm start
+```
+
+
+
+## ReactJS - Building & Deployment
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_building_deployment.htm
+
+이번 장에서는 React 애플리케이션의 프로덕션 빌드 및 배포 방법을 알아보겠습니다.
+
+
+
+### Building
+
+React 애플리케이션 개발이 완료되면 애플리케이션을 번들링하여 프로덕션 서버에 배포해야 합니다. 이 장에서 응용 프로그램을 빌드하고 배포하는 데 사용할 수 있는 명령을 알아보겠습니다.
+
+단일 명령으로 애플리케이션의 프로덕션 빌드를 생성하기에 충분합니다.
+
+``` sh
+npm run build
+> expense-manager@0.1.0 build path\to\expense-manager
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+File sizes after gzip:
+
+41.69 KB build\static\js\2.a164da11.chunk.js
+2.24 KB build\static\js\main.de70a883.chunk.js
+1.4 KB build\static\js\3.d8a9fc85.chunk.js
+1.17 KB build\static\js\runtime-main.560bee6e.js
+493 B build\static\css\main.e75e7bbe.chunk.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+npm install -g serve
+serve -s build
+
+Find out more about deployment here:
+
+https://cra.link/deployment
+```
+
+애플리케이션이 빌드되면 build/static 폴더에서 애플리케이션을 사용할 수 있습니다.
+
+기본적으로 프로파일링 옵션은 비활성화되어 있으며 –profile 명령줄 옵션을 통해 활성화할 수 있습니다. –profile은 코드에 프로파일링 정보를 포함합니다. 프로파일링 정보는 React DevTools와 함께 사용하여 애플리케이션을 분석할 수 있습니다.
+
+``` bash
+npm run build -- --profile
+```
+
+
+
+### Deployment
+
+애플리케이션이 빌드되면 모든 웹 서버에 배포할 수 있습니다. 이 장에서 React 애플리케이션을 배포하는 방법을 알아보겠습니다.
+
+
+
+#### 로컬 배포
+
+서버 패키지를 사용하여 로컬 배포를 수행할 수 있습니다. 먼저 아래 명령을 사용하여 serve 패키지를 설치해 보겠습니다.
+
+``` sh
+npm install -g server
+```
+
+serve를 사용하여 응용 프로그램을 시작하려면 아래 명령을 사용하십시오.
+
+``` sh
+cd /go/to/app/root/folder
+serve -s build
+```
+
+기본적으로 포트 5000을 사용하여 애플리케이션을 제공합니다. 애플리케이션은 @ http://localhost:5000에서 볼 수 있습니다.
+
+
+
+#### 프로덕션 배포
+
+프로덕션 배포는 빌드/정적 폴더 아래에 있는 파일을 프로덕션 애플리케이션의 루트 디렉터리에 복사하여 쉽게 수행할 수 있습니다. Apache, IIS, Nginx 등을 포함한 모든 웹 서버에서 작동합니다.
+
+
+
+#### 상대 경로
+
+기본적으로 프로덕션 빌드는 애플리케이션이 웹 애플리케이션의 루트 폴더에서 호스팅된다고 가정하여 생성됩니다. 애플리케이션을 하위 폴더에서 호스팅해야 하는 경우 package.json에서 아래 구성을 사용한 다음 애플리케이션을 빌드합니다.
+
+``` sh
+{ ... "homepage": "http://domainname.com/path/to/subfolder", ... }
+```
+
+
+
+## ReactJS - Example
+
+이 자습서에서 배운 개념을 적용하여 샘플 비용 관리자 응용 프로그램을 만들어 보겠습니다. 일부 개념은 다음과 같습니다.
+
+- React 기본 사항(component, jsx, props and state)
+- react-router를 사용하는 라우터
+- Http 클라이언트 프로그래밍(웹 API)
+- Formik을 사용한 폼 프로그래밍
+- Redux를 사용한 고급 상태 관리
+- 비동기/프로그래밍 대기
+
+
+
+### 특징
+
+샘플 비용 관리자 응용 프로그램의 일부 기능은 다음과 같습니다.
+
+- 서버의 모든 비용 나열
+- 비용 항목 추가
+- 비용 항목 삭제
+
+
+
+여기,
+
+- [비용 관리자 API 문서](#비용 관리자 API)
+- [필요한 모듈 설치  문서](#필요한 모듈 설치)
+- [상태 관리자  문서](상태 관리자)
+- [비용 열람 문서](#비용 열람)
+- [비용 추가 문서](#비용 추가)
+
+
+
+### 비용 관리자 API
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_expense_manager_api.htm
+
+#### ReactJS - Expense Manager API
+
+먼저 Http 클라이언트 프로그래밍 - Expense Rest API 서버의 지시에 따라 새로운 비용 Rest API 애플리케이션을 만들고 서버를 시작합니다. 비용 서버는 http://localhost:8000에서 실행됩니다.
+
+
+
+#### 스켈레톤 애플리케이션 생성
+
+터미널을 열고 작업 공간으로 이동합니다.
+
+``` js
+> cd /go/to/your/workspace
+```
+
+
+
+다음으로 Create React App 도구를 사용하여 새로운 React 애플리케이션을 생성합니다.
+
+``` sh
+> create-react-app react-expense-app
+```
+
+시작 템플릿 코드로 새 폴더 react-expense-app을 만듭니다.
+
+
+
+다음으로 비용 관리 폴더로 이동하여 필요한 라이브러리를 설치합니다.
+
+``` sh
+cd react-expense-app
+npm install
+```
+
+npm install은 node_modules 폴더 아래에 필요한 라이브러리를 설치합니다.
+
+src 및 공용 폴더 아래의 모든 파일을 삭제합니다.
+
+다음으로 React component를 포함할 src 아래에 components라는 폴더를 만듭니다. 응용 프로그램의 최종 구조는 다음과 같습니다.
+
+``` sh
+|-- package-lock.json
+|-- package.json
+`-- public
+|-- index.html
+`-- src
+|-- index.js
+`-- components
+| |-- mycom.js
+| |-- mycom.css
+```
+
+전체 응용 프로그램을 렌더링할 루트 component인 App을 만들어 보겠습니다.
+
+Components 폴더 아래에 **App.js**라는 파일을 생성하고 Hello World 메시지를 내보내는 간단한 컴포넌트를 작성합니다.
+
+``` sh
+import React from "react";
 
 class App extends React.Component {
    render() {
       return (
          <div>
-            <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            </ul>
-            {this.props.children}
+            <h1>Hello World!</h1>
          </div>
-      )
+      );
    }
 }
 export default App;
+```
+
+
+
+다음으로 src 폴더 아래에 기본 파일인 **index.js**를 만들고 새로 만든 component를 호출합니다.
+
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './components/App'
+
+ReactDOM.render(
+   <React.StrictMode>
+      <App />
+   </React.StrictMode>,
+   document.getElementById('root')
+);
+```
+
+
+
+다음으로, 애플리케이션의 진입점이 될 **index.html**(public 폴더 아래)이라는 html 파일을 만듭니다.
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Expense App</title>
+   </head>
+   <body>
+      <div id="root"></div>
+   </body>
+</html>
+```
+
+
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![Animation](.\images\animation.jpg)
+
+
+
+### 필요한 모듈 설치
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_install_necessary_modules.htm
+
+응용 프로그램은 아래에 제공된 타사 React 라이브러리를 사용합니다.
+
+- Redux
+- React Redux
+- React Router
+- Formik
+- Redux Thunk (비동기 가져오기 API의 경우)
+
+
+
+아래 명령을 사용하여 npm 패키지 관리자를 사용하여 모든 라이브러리를 설치하십시오 -
+
+``` sh
+npm install --save redux react-redux react-router-dom formik redux-thunk
+```
+
+
+
+#### 라우터 구성
+
+다음으로 src/components 폴더 아래에 Home.js라는 새 파일을 만들고 기본적인 Home 컴포넌트를 작성합니다.
+
+``` js
+import React from "react";
 
 class Home extends React.Component {
    render() {
       return (
          <div>
-            <h1>Home...</h1>
+            <h1>Home</h1>
          </div>
-      )
+      );
    }
 }
 export default Home;
+```
 
-class About extends React.Component {
+
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItemForm.js라는 새 파일을 만들고 기본 ExpenseEntryItemForm component를 작성합니다.
+
+``` js
+import React from "react";
+
+class ExpenseEntryItemForm extends React.Component {
    render() {
       return (
          <div>
-            <h1>About...</h1>
+            <h1>Expense list</h1>
          </div>
-      )
+      );
    }
 }
-export default About;
+export default ExpenseEntryItemForm;
+```
 
-class Contact extends React.Component {
+
+
+그런 다음 src/components 폴더 아래에 ExpenseEntryItemList.js라는 새 파일을 만들고 기본 ExpenseEntryItemList component를 작성합니다.
+
+``` js
+import React from "react";
+
+class ExpenseEntryItemList extends React.Component {
    render() {
       return (
          <div>
-            <h1>Contact...</h1>
+            <h1>Expense form</h1>
          </div>
-      )
+      );
    }
 }
-export default Contact;
+export default ExpenseEntryItemList;
 ```
 
-### Step 3 - Add a Router
 
- 이제 앱에 경로를 추가하겠습니다. 이전 예제에서와 같이 App 요소를 렌더링하는 대신 이번에는 라우터가 렌더링됩니다. 각 경로에 대한 구성 요소도 설정합니다. 
 
-`main.js`
+src/components 폴더 아래에 새 파일 App.css를 만들고 응용 프로그램에 대한 일반 스타일을 추가합니다.
 
-```js
-ReactDOM.render((
-   <Router history = {browserHistory}>
-      <Route path = "/" component = {App}>
-         <IndexRoute component = {Home} />
-         <Route path = "home" component = {Home} />
-         <Route path = "about" component = {About} />
-         <Route path = "contact" component = {Contact} />
-      </Route>
-   </Router>
-), document.getElementById('app'))
+``` css
+html {
+   font-family: sans-serif;
+}
+a{
+   text-decoration: none;
+}
+p, li, a{
+   font-size: 14px;
+}
+nav ul {
+   width: 100%;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: rgb(235,235,235);
+}
+nav li {
+   float: left;
+}
+nav li a {
+   display: block;
+   color: black;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 16px;
+}
+nav li a:hover {
+   background-color: rgb(187, 202, 211);
+}
+input[type=text], input[type=number], input[type=date], select {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+input[type=submit] {
+   width: 100%;
+   background-color: #4CAF50;
+   color: white;
+   padding: 14px 20px;
+   margin: 8px 0;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+input[type=submit]:hover {
+   background-color: #45a049;
+}
+input:focus {
+   border: 1px solid #d9d5e0;
+}
+#expenseForm div {
+   border-radius: 5px;
+   background-color: #f2f2f2;
+   padding: 20px;
+}
+#expenseForm span {
+   color: red;
+}
+html {
+   font-family: sans-serif;
+}
+table {
+   border-collapse: collapse;
+   border: 2px solid rgb(200,200,200);
+   letter-spacing: 1px;
+   font-size: 0.8rem;
+}
+td, th {
+   border: 1px solid rgb(190,190,190);
+   padding: 10px 20px;
+}
+th {
+   background-color: rgb(235,235,235);
+}
+td, th {
+   text-align: left;
+}
+tr:nth-child(even) td {
+   background-color: rgb(250,250,250);
+}
+tr:nth-child(odd) td {
+   background-color: rgb(245,245,245);
+}
+caption {
+   padding: 10px;
+}
+tr.highlight td { 
+   background-color: #a6a8bd;
+}
 ```
 
- 앱이 시작되면 경로를 변경하는 데 사용할 수있는 클릭 가능한 링크 3 개가 표시됩니다. 
-
-![](./images/clickable_links.jpg)
 
 
+그런 다음 App.js를 열고 라우터 종속성을 가져옵니다.
 
-## Flux Concept
-
-Flux는 데이터가 단방향 인 프로그래밍 개념입니다. 이 데이터는 앱에 들어가서 화면에 렌더링 될 때까지 한 방향으로 흐릅니다. 
-
-
-
-###  플럭스 요소 
-
- 다음은 플럭스 개념에 대한 간단한 설명입니다. 다음 장에서는 앱에이를 구현하는 방법을 배웁니다. 
-
-- **Actions** −  데이터 플로우를 트리거하기 위해 조치가 디스패처로 전송됩니다. 
-- **Dispatcher** −  앱의 중심 허브입니다. 모든 데이터가 파견되어 상점으로 전송됩니다. 
-- **Store** −  Store는 응용 프로그램 상태와 논리가 유지되는 장소입니다. 모든 상점은 특정 상태를 유지하고 있으며 필요할 때 업데이트됩니다. 
-- **View** −  보기는 상점에서 데이터를 수신하고 앱을 다시 렌더링합니다. 
-
- 데이터 흐름은 다음 이미지에 나와 있습니다. 
-
-![](./images/react-flux-concept-image.jpg)
-
-### Flux Pros
-
-단일 방향 데이터 흐름은 이해하기 쉽습니다.
-
-앱을 유지 관리하기가 더 쉽습니다.
-
-앱 파트가 분리되었습니다. 
-
-
-
-## Using Flux
-
- 이 장에서는 React 애플리케이션에서 플럭스 패턴을 구현하는 방법을 학습합니다. 우리는 Redux 프레임 워크를 사용할 것입니다. 이 장의 목표는 Redux와 React를 연결하는 데 필요한 모든 가장 간단한 예를 제시하는 것입니다. 
-
-### Step 1 - Install Redux
-
- 명령 프롬프트 창을 통해 Redux를 설치합니다. 
-
-```bat
-C:\Users\username\Desktop\reactApp>npm install --save react-redux
+``` js
+import {
+   BrowserRouter as Router,
+   Link,
+   Switch,
+   Route
+} from 'react-router-dom';
 ```
 
-### Step 2 - Create Files and Folders
 
- 이 단계에서는 작업, 감속기 및 구성 요소를위한 폴더와 파일을 만듭니다. 이 작업을 마친 후에는 폴더 구조가 어떻게 생겼는지입니다. 
 
-```bat
-C:\Users\Tutorialspoint\Desktop\reactApp>mkdir actions
-C:\Users\Tutorialspoint\Desktop\reactApp>mkdir components
-C:\Users\Tutorialspoint\Desktop\reactApp>mkdir reducers
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > actions/actions.js
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > reducers/reducers.js
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > components/AddTodo.js
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > components/Todo.js
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > components/TodoList.js
+다음으로 App.css를 가져옵니다.
+
+``` js
+import './App.css';
 ```
 
-![](./images/react-redux-folder-structure.jpg)
 
-### Step 3 - Actions
 
- 조치는 유형 특성을 사용하여 상점으로 전송해야하는 데이터에 대해 알리는 JavaScript 오브젝트입니다. 목록에 새 항목을 추가하는 데 사용될 ADD_TODO 작업을 정의하고 있습니다. AddTodo 함수는 액션을 생성하고 생성 된 모든 아이템의 id를 설정하는 액션 생성자입니다. 
+다음으로 새로 생성된 component를 가져옵니다.
 
-`actions/actions.js`
+``` js
+import Home from './Home';
+import ExpenseEntryItemList from './ExpenseEntryItemList';
+import ExpenseEntryItemForm from './ExpenseEntryItemForm';
+```
 
-```js
-export const ADD_TODO = 'ADD_TODO'
 
-let nextTodoId = 0;
 
-export function addTodo(text) {
+그런 다음 앱 component에서 라우터를 구성합니다.
+
+``` js
+class App extends React.Component {
+   render() {
+      return (
+         <Router>
+            <div>
+               <nav>
+                  <ul>
+                     <li><Link to="/">Home</Link></li>
+                     <li><Link to="/list">List Expenses</Link>lt;/li>
+                     <li><Link to="/add">Add Expense</Link></li>
+                  </ul>
+               </nav>
+               <Switch>
+                  <Route path="/list">
+                     <div style={   { padding: "10px 0px" }   }>
+                        <ExpenseEntryItemList />
+                     </div>
+                  </Route>
+                  <Route path="/add">
+                     <div style={   { padding: "10px 0px" }   }>
+                        <ExpenseEntryItemForm />
+                     </div>
+                  </Route>
+                  <Route path="/">
+                        <div>
+                     <Home />
+                     </div>
+                  </Route>
+               </Switch>
+            </div>
+         </Router>
+      );
+   }
+}
+```
+
+
+
+앱 component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from "react";
+import {
+   BrowserRouter as Router,
+   Link,
+   Switch,
+   Route
+} from 'react-router-dom';
+
+import './App.css';
+import Home from './Home';
+import ExpenseEntryItemList from './ExpenseEntryItemList';
+import ExpenseEntryItemForm from './ExpenseEntryItemForm';
+
+class App extends React.Component {
+   render() {
+      return (
+         <Router>
+            <div>
+               <nav>
+                  <ul>
+                     <li><Link to="/">Home</Link></li>
+                     <li><Link to="/list">List Expenses</Link></li>
+                     <li><Link to="/add">Add Expense</Link></li>
+                  </ul>
+               </nav>
+
+               <Switch>
+                  <Route path="/list">
+                     <div style={{ padding: "10px 0px" }}>
+                        <ExpenseEntryItemList />
+                     </div>
+                  </Route>
+                  <Route path="/add">
+                     <div style={{ padding: "10px 0px" }}>
+                        <ExpenseEntryItemForm />
+                     </div>
+                  </Route>
+                  <Route path="/">
+                     <div>
+                        <Home />
+                     </div>
+                  </Route>
+               </Switch>
+            </div>
+         </Router>
+      );
+   }
+}
+export default App;
+```
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![Modules](.\images\modules.jpg)
+
+
+
+### 상태 관리자
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_state_management.htm
+
+우리는 redux 스토어를 관리하기 위해 아래의 작업을 수행할 것입니다.
+
+- async fetch api를 통해 서버에서 비용을 가져와 Redux 스토어에 설정합니다.
+- 비동기 가져오기 프로그래밍을 통해 서버에 새로운 비용을 추가하고 Redux 스토어에 새 비용을 추가하도록 설정합니다.
+- async fetch api를 통해 서버에서 기존 비용을 삭제하고 Redux 스토어를 업데이트합니다.
+
+Redux 상태를 관리하기 위한 액션 유형, 액션 생성자, 액션 및 리듀서를 생성해 보겠습니다.
+
+src 폴더 아래에 폴더 *actions* 을 만듭니다.
+
+다음으로 작업 유형을 생성하기 위해 types.js 파일을 생성합니다.
+
+``` js
+export const LIST_EXPENSE_STARTED = 'LIST_EXPENSE_STARTED';
+export const LIST_EXPENSE_SUCCESS = 'LIST_EXPENSE_SUCCESS';
+export const LIST_EXPENSE_FAILURE = 'LIST_EXPENSE_FAILURE';
+
+export const ADD_EXPENSE_STARTED = 'ADD_EXPENSE_STARTED';
+export const ADD_EXPENSE_SUCCESS = 'ADD_EXPENSE_SUCCESS';
+export const ADD_EXPENSE_FAILURE = 'ADD_EXPENSE_FAILURE';
+
+export const DELETE_EXPENSE_STARTED = 'DELETE_EXPENSE_STARTED';
+export const DELETE_EXPENSE_SUCCESS = 'DELETE_EXPENSE_SUCCESS';
+export const DELETE_EXPENSE_FAILURE = 'DELETE_EXPENSE_FAILURE';
+```
+
+
+
+다음으로 action 폴더 아래에 index.js 파일을 생성하여 action Creator를 생성합니다.
+
+``` js
+import {
+   LIST_EXPENSE_STARTED, LIST_EXPENSE_SUCCESS, LIST_EXPENSE_FAILURE,
+   ADD_EXPENSE_STARTED, ADD_EXPENSE_SUCCESS, ADD_EXPENSE_FAILURE,
+   DELETE_EXPENSE_STARTED, DELETE_EXPENSE_SUCCESS, DELETE_EXPENSE_FAILURE,
+} from "./types";
+export const getExpenseListStarted = () => {
    return {
-      type: ADD_TODO,
-      id: nextTodoId++,
-      text
-   };
+      type: LIST_EXPENSE_STARTED
+   }
+}
+export const getExpenseListSuccess = data => {
+   return {
+      type: LIST_EXPENSE_SUCCESS,
+      payload: {
+         data
+      }
+   }
+}
+export const getExpenseListFailure = error => {
+   return {
+      type: LIST_EXPENSE_FAILURE,
+      payload: {
+         error
+      }
+   }
+}
+export const addExpenseStarted = () => {
+   return {
+      type: ADD_EXPENSE_STARTED
+   }
+}
+export const addExpenseSuccess = data => {
+   return {
+      type: ADD_EXPENSE_SUCCESS,
+      payload: {
+         data
+      }
+   }
+}
+export const addExpenseFailure = error => {
+   return {
+      type: ADD_EXPENSE_FAILURE,
+      payload: {
+         error
+      }
+   }
+}
+export const deleteExpenseStarted = () => {
+   return {
+      type: DELETE_EXPENSE_STARTED
+   }
+}
+export const deleteExpenseSuccess = data => {
+   return {
+      type: DELETE_EXPENSE_SUCCESS,
+      payload: {
+         data
+      }
+   }
+}
+export const deleteExpenseFailure = error => {
+   return {
+      type: DELETE_EXPENSE_FAILURE,
+      payload: {
+         error
+      }
+   }
 }
 ```
 
-### Step 4 - Reducers
 
- 작업은 앱에서 변경 사항 만 트리거하지만 감속기는 해당 변경 사항을 지정합니다. 우리는 switch 문을 사용하여 ADD_TODO 작업을 검색하고 있습니다. 감속기는 업데이트 된 상태를 계산하고 리턴하기 위해 두 개의 매개 변수 (상태 및 조치)를 취하는 함수입니다. 
 
- 첫 번째 기능은 새 항목을 만드는 데 사용되며 두 번째 기능은 해당 항목을 목록으로 푸시합니다. 결국 우리는 앞으로 사용할 새로운 감속기를 추가 할 수있는 combineReducers 도우미 기능을 사용하고 있습니다. 
+여기에서 fetch api의 모든 가능한 결과(성공, 실패 및 오류)에 대해 하나의 작업 생성기를 만들었습니다. 3개의 웹 API 호출을 사용할 것이고 각 호출에는 3개의 가능한 결과가 있으므로 9명의 작업 생성자를 사용합니다.
 
-`reducers/reducers.js`
+다음으로 작업 폴더 아래에 expenseActions.js 파일을 만들고 비용을 가져오고 추가 및 삭제하고 상태 변경 사항을 전달하는 세 가지 기능을 만듭니다.
 
-```js
-import { combineReducers } from 'redux'
-import { ADD_TODO } from '../actions/actions'
+``` js
+import {
+   getExpenseListStarted, getExpenseListSuccess, getExpenseListFailure,
+   addExpenseStarted, addExpenseSuccess, addExpenseFailure,
+   deleteExpenseStarted, deleteExpenseSuccess, deleteExpenseFailure
+} from "./index";
+export const getExpenseList = () => async dispatch => {
+   dispatch(getExpenseListStarted());
+   try {
+      const res = await fetch('http://localhost:8000/api/expenses');
+      const data = await res.json();
+      var items = [];
+      data.forEach((item) => {
+         let newItem = {
+            id: item._id,
+            name: item.name,
+            amount: item.amount,
+            spendDate: item.spend_date,
+            category: item.category
+         }
+         items.push(newItem)
+      });
+      dispatch(getExpenseListSuccess(items));
+   } catch (err) {
+      dispatch(getExpenseListFailure(err.message));
+   }
+}
+export const addExpense = (data) => async dispatch => {
+   dispatch(addExpenseStarted());
 
-function todo(state, action) {
+   let newItem = {
+      name: data.name,
+      amount: data.amount,
+      spend_date: data.spendDate,
+      category: data.category
+   }
+   console.log(newItem);
+   try {
+      const res = await fetch('http://localhost:8000/api/expense', {
+         method: 'POST',
+         body: JSON.stringify(newItem),
+         headers: {
+            "Content-type": "application/json; charset=UTF-8"
+         } 
+      });
+      const data = await res.json();
+      newItem.id = data._id;
+      dispatch(addExpenseSuccess(newItem));
+   } catch (err) {
+      console.log(err);
+      dispatch(addExpenseFailure(err.message));
+   }
+}
+export const deleteExpense = (id) => async dispatch => {
+   dispatch(deleteExpenseStarted());
+   try {
+      const res = await fetch('http://localhost:8000/api/expense/' + id, {
+         method: 'DELETE'
+      });
+      const data = await res.json();
+      dispatch(deleteExpenseSuccess(id));
+   } catch (err) {
+      dispatch(deleteExpenseFailure(err.message));
+   }
+}
+```
+
+여기,
+
+- 웹 API 호출을 수행하기 위해 비동기 가져오기 API를 사용했습니다.
+
+- 성공, 실패 및 오류 이벤트 동안 적절한 조치를 전달하기 위해 디스패치 기능을 사용했습니다.
+
+
+
+src 폴더 아래에 reducers 폴더를 생성하고, reducers 폴더 아래에 index.js 파일을 생성하여 Redux 리듀서를 생성합니다.
+
+``` js
+import {
+   LIST_EXPENSE_STARTED, LIST_EXPENSE_SUCCESS, LIST_EXPENSE_FAILURE,
+   ADD_EXPENSE_STARTED, ADD_EXPENSE_SUCCESS, ADD_EXPENSE_FAILURE,
+   DELETE_EXPENSE_STARTED, DELETE_EXPENSE_SUCCESS, DELETE_EXPENSE_FAILURE
+} from "../actions/types";
+
+// define initial state of user
+const initialState = {
+   data: null,
+   loading: false,
+   error: null
+}
+export default function expenseReducer(state = initialState, action) {
    switch (action.type) {
-      case ADD_TODO:
+      case LIST_EXPENSE_STARTED:
          return {
-            id: action.id,
-            text: action.text,
+            ...state,
+            loading: true
+         }
+      case LIST_EXPENSE_SUCCESS:
+         const { data } = action.payload;
+         return {
+            ...state,
+            data,
+            loading: false
+         }
+      case LIST_EXPENSE_FAILURE:
+         const { error } = action.payload;
+         return {
+            ...state,
+            error
+         }
+      case ADD_EXPENSE_STARTED:
+         return {
+            ...state,
+            loading: true
+         }
+      case ADD_EXPENSE_SUCCESS:
+         return {
+            ...state,
+            loading: false
+         }
+      case ADD_EXPENSE_FAILURE:
+         const { expenseError } = action.payload;
+         return {
+            ...state,
+            expenseError
+         }
+      case DELETE_EXPENSE_STARTED:
+         return {
+            ...state,
+            loading: true
+         }
+      case DELETE_EXPENSE_SUCCESS:
+         return {
+            ...state,
+            data: state.data.filter(expense => expense.id !== action.payload.data),
+            loading: false
+         }
+      case DELETE_EXPENSE_FAILURE:
+         const { deleteError } = action.payload;
+         return {
+            ...state,
+            deleteError
          }
       default:
          return state
    }
 }
-function todos(state = [], action) {
-   switch (action.type) {
-      case ADD_TODO:
-         return [
-            ...state,
-            todo(undefined, action)
-         ]
-      default:
-         return state
-   }
-}
-const todoApp = combineReducers({
-   todos
-})
-export default todoApp
 ```
 
-### Step 5 - Store
+여기에서 각 작업 유형에 대한 redux 저장소 상태를 업데이트했습니다.
 
- 스토어는 앱의 상태를 유지하는 장소입니다. 리듀서가 있으면 상점을 만드는 것이 매우 쉽습니다. 우리는 상점 속성을 공급자 요소에 전달하여 경로 구성 요소를 래핑합니다. 
+그런 다음 src 폴더 아래 index.js 파일을 열고 모든 component가 redux 스토어에 연결하여 작동할 수 있도록 Provider component를 포함합니다.
 
-`main.js`
+``` js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers';
+import App from './components/App';
 
-```js
-import React from 'react'
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
-import { render } from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-
-import App from './App.jsx'
-import todoApp from './reducers/reducers'
-
-let store = createStore(todoApp)
-let rootElement = document.getElementById('app')
-
-render(
-   <Provider store = {store}>
+ReactDOM.render(
+   <Provider store={store}>
       <App />
    </Provider>,
-	
-   rootElement
-)
+   document.getElementById('root')
+);
 ```
 
-### Step 6 - Root Component
+여기,
 
- 앱 구성 요소는 앱의 루트 구성 요소입니다. 루트 구성 요소 만 redux를 알고 있어야합니다. 주목해야 할 중요한 부분은 루트 구성 요소 앱을 상점에 연결하는 데 사용되는 연결 기능입니다.
+- 가져온 createStore 및 applyMiddleware
+- redux-thunk 라이브러리에서 가져온 썽크(비동기 가져오기 API용)
+- redux 라이브러리에서 가져온 공급자
+- 리듀서 및 썽크 미들웨어를 구성하여 createStore를 사용하여 newstore 생성
+- redux 저장소를 사용하여 Provider component를 최상위 component로 연결했습니다.
 
-이 함수는 select 함수를 인수로 사용합니다. Select 함수는 상점에서 상태를 가져 와서 컴포넌트에서 사용할 수있는 props (visibleTodos)를 리턴합니다. 
 
-`App.jsx`
 
-```jsx
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { addTodo } from './actions/actions'
+### 비용 열람
 
-import AddTodo from './components/AddTodo.js'
-import TodoList from './components/TodoList.js'
+출처: https://www.tutorialspoint.com/reactjs/reactjs_list_expenses.htm
 
-class App extends Component {
-   render() {
-      const { dispatch, visibleTodos } = this.props
-      
-      return (
-         <div>
-            <AddTodo onAddClick = {text =>dispatch(addTodo(text))} />
-            <TodoList todos = {visibleTodos}/>
-         </div>
-      )
-   }
-}
-function select(state) {
-   return {
-      visibleTodos: state.todos
-   }
-}
-export default connect(select)(App);
+ExpenseEntryItemList.js를 열고 redux 라이브러리에서 연결을 가져옵니다.
+
+``` js
+import { connect } from 'react-redux';
 ```
 
-### Step 7 - Other Components
 
- 이러한 구성 요소는 redux를 인식해서는 안됩니다. 
 
-`components/AddTodo.js`
+다음으로 addExpenseList 및 deleteExpense 작업을 가져옵니다.
 
-```js
-import React, { Component, PropTypes } from 'react'
+``` js
+import { getExpenseList, deleteExpense } from '../actions/expenseActions';
+```
 
-export default class AddTodo extends Component {
-   render() {
-      return (
-         <div>
-            <input type = 'text' ref = 'input' />
-				
-            <button onClick = {(e) => this.handleClick(e)}>
-               Add
-            </button>
-         </div>
-      )
-   }
-   handleClick(e) {
-      const node = this.refs.input
-      const text = node.value.trim()
-      this.props.onAddClick(text)
-      node.value = ''
-   }
+
+
+다음으로 props가 있는 생성자를 추가합니다.
+
+``` js
+constructor(props) {
+super(props);
 }
 ```
 
-`components/Todo.js`
 
-```js
-import React, { Component, PropTypes } from 'react'
 
-export default class Todo extends Component {
-   render() {
-      return (
-         <li>
-            {this.props.text}
-         </li>
-      )
-   }
+다음으로 componentDidMount() 라이프 사이클에서 getExpenseList를 호출합니다.
+
+``` js
+componentDidMount() {
+this.props.getExpenseList();
 }
 ```
 
-`components/TodoList.js`
 
-```js
-import React, { Component, PropTypes } from 'react'
-import Todo from './Todo.js'
 
-export default class TodoList extends Component {
-   render() {
-      return (
-         <ul>
-            {this.props.todos.map(todo =>
-               <Todo
-                  key = {todo.id}
-                  {...todo}
-               />
-            )}
-         </ul>
-      )
-   }
+다음으로 비용 제거 옵션을 처리하는 메서드를 작성합니다.
+
+``` js
+handleDelete = (id,e) => {
+e.preventDefault();
+this.props.deleteExpense(id);
 }
 ```
 
- 앱을 시작하면 목록에 항목을 추가 할 수 있습니다. 
-
-![](./images/react-redux-example.jpg)
 
 
+이제 총 비용을 계산하는 함수 getTotal을 작성해 보겠습니다.
 
-## Animations
-
-이 장에서는 React를 사용하여 요소에 애니메이션을 적용하는 방법을 배웁니다.
-
-
-
-### 1 단계-React CSS Transitions Group 설치
-
-이것은 기본 CSS 전환 및 애니메이션을 만드는 데 사용되는 React 애드온입니다. 명령 프롬프트 창에서 설치합니다.
-
-``` bash
-C:\Users\username\Desktop\reactApp>npm install react-addons-css-transition-group
+``` js
+getTotal() {
+   let total = 0;
+   if (this.props.expenses != null) {
+      for (var i = 0; i < this.props.expenses.length; i++) {
+         total += this.props.expenses[i].amount
+      }
+   }
+   return total;
+}
 ```
 
 
 
-### 2 단계-CSS 파일 추가
+다음으로, 렌더링 방법을 업데이트하고 비용 항목을 나열합니다.
 
-새 파일 style.css를 만들어 보겠습니다.
+``` js
+render() {
+   let lists = [];
 
-``` bash
-C:\Users\Tutorialspoint\Desktop\reactApp>type nul > css/style.css
-```
-
-앱에서 사용할 수 있으려면 index.html의 head 요소에 링크해야합니다.
-
-``` html
-<!DOCTYPE html>
-<html lang = "en">
-   <head>
-      <link rel = "stylesheet" type = "text/css" href = "./style.css">
-      <meta charset = "UTF-8">
-      <title>React App</title>
-   </head>
-   <body>
-      <div id = "app"></div>
-      <script src = 'index_bundle.js'></script>
-   </body>
-</html>
-```
-
-### 3 단계-애니메이션 표시
-
-기본적인 React 컴포넌트를 만들 것입니다. ReactCSSTransitionGroup 요소는 애니메이션을 적용 할 구성 요소의 래퍼로 사용됩니다. transitionAppear 및 transitionAppearTimeout을 사용하는 반면 transitionEnter 및 transitionLeave는 false입니다.
-
-`app.jsx`
-
-``` jsx
-import React from 'react';
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-
-class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <ReactCSSTransitionGroup transitionName = "example"
-               transitionAppear = {true} transitionAppearTimeout = {500}
-               transitionEnter = {false} transitionLeave = {false}>
-					
-               <h1>My Element...</h1>
-            </ReactCSSTransitionGroup>
-         </div>      
+   if (this.props.expenses != null) {
+      lists = this.props.expenses.map((item) =>
+         <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.amount}</td>
+            <td>{new Date(item.spendDate).toDateString()}</td>
+            <td>{item.category}</td>
+            <td><a href="#"
+               onClick={(e) => this.handleDelete(item.id, e)}>Remove</a></td>
+         </tr>
       );
    }
+   return (
+      <div>
+         <table>
+            <thead>
+               <tr>
+                  <th>Item</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Remove</th>
+               </tr>
+            </thead>
+            <tbody>
+               {lists}
+               <tr>
+                  <td colSpan="1" style={{ textAlign: "right" }}>Total Amount</td>
+                  <td colSpan="4" style={{ textAlign: "left" }}>
+                     {this.getTotal()}
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   );
 }
-export default App;
 ```
 
-`main.js`
 
-```js
-import React from 'react'
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+다음으로 mapStateToProps 및 mapDispatchToProps 메소드를 작성하십시오.
+
+``` js
+const mapStateToProps = state => {
+   return {      
+      expenses: state.data
+   };
+};
+const mapDispatchToProps = {
+   getExpenseList,
+   deleteExpense
+};
 ```
 
-CSS 애니메이션은 매우 간단합니다.
+여기서는 redux store의 비용 항목을 비용 속성에 매핑하고 distpatcher, getExpenseList 및 deleteExpense를 component 속성에 연결합니다.
 
-`css/style.css`
 
-``` css
-.example-appear {
-   opacity: 0.04;
-}
-.example-appear.example-appear-active {
-   opacity: 2;
-   transition: opacity 50s ease-in;
-}
+
+마지막으로 connect api를 사용하여 컴포넌트를 Redux 스토어에 연결합니다.
+
+``` js
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(ExpenseEntryItemList);
 ```
 
-앱을 시작하면 요소가 페이드 인됩니다.
 
-![](./images/react-animations-appear.jpg)
 
-### 4 단계-애니메이션 입력 및 종료
+응용 프로그램의 전체 소스 코드는 다음과 같습니다.
 
-목록에서 요소를 추가하거나 제거하고자 할 때 입력 및 종료 애니메이션을 사용할 수 있습니다.
+``` js
+import React from "react";
+import { connect } from 'react-redux';
+import { getExpenseList, deleteExpense } from '../actions/expenseActions';
 
-`App.jsx`
-
-``` jsx
-import React from 'react';
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-
-class App extends React.Component {
+class ExpenseEntryItemList extends React.Component {
    constructor(props) {
       super(props);
-		
-      this.state = {
-         items: ['Item 1...', 'Item 2...', 'Item 3...', 'Item 4...']
-      }
-      this.handleAdd = this.handleAdd.bind(this);
-   };
-   handleAdd() {
-      var newItems = this.state.items.concat([prompt('Create New Item')]);
-      this.setState({items: newItems});
    }
-   handleRemove(i) {
-      var newItems = this.state.items.slice();
-      newItems.splice(i, 1);
-      this.setState({items: newItems});
+   componentDidMount() {
+      this.props.getExpenseList();
+   }
+   handleDelete = (id, e) => {
+      e.preventDefault();
+      this.props.deleteExpense(id);
+   }
+   getTotal() {
+      let total = 0;
+      if (this.props.expenses != null) {
+         for (var i = 0; i < this.props.expenses.length; i++) {
+            total += this.props.expenses[i].amount
+         }
+      }
+      return total;
    }
    render() {
-      var items = this.state.items.map(function(item, i) {
-         return (
-            <div key = {item} onClick = {this.handleRemove.bind(this, i)}>
-               {item}
-            </div>
+      let lists = [];
+      if (this.props.expenses != null) {
+         lists = this.props.expenses.map((item) =>
+            <tr key={item.id}>
+               <td>{item.name}</td>
+               <td>{item.amount}</td>
+               <td>{new Date(item.spendDate).toDateString()}</td>
+               <td>{item.category}</td>
+               <td><a href="#"
+                  onClick={(e) => this.handleDelete(item.id, e)}>Remove</a>
+               </td>
+            </tr>
          );
-      }.bind(this));
-      
+      }
       return (
-         <div>      
-            <button onClick = {this.handleAdd}>Add Item</button>
-				
-            <ReactCSSTransitionGroup transitionName = "example" 
-               transitionEnterTimeout = {500} transitionLeaveTimeout = {500}>
-               {items}
-            </ReactCSSTransitionGroup>
+         <div>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Item</th>
+                     <th>Amount</th>
+                     <th>Date</th>
+                     <th>Category</th>
+                     <th>Remove</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {lists}
+                  <tr>
+                     <td colSpan="1" style={{ textAlign: "right" }}>Total Amount</td>
+                     <td colSpan="4" style={{ textAlign: "left" }}>
+                        {this.getTotal()}
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
          </div>
       );
    }
 }
-export default App;
-```
-
-`main.js`
-
-``` js
-import React from 'react'
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-
-ReactDOM.render(<App />, document.getElementById('app'));
-```
-
-`css/style.css`
-
-``` css
-.example-enter {
-   opacity: 0.04;
-}
-.example-enter.example-enter-active {
-   opacity: 5;
-   transition: opacity 50s ease-in;
-}
-.example-leave {
-   opacity: 1;
-}
-.example-leave.example-leave-active {
-   opacity: 0.04;
-   transition: opacity 50s ease-in;
-}
-```
-
-앱을 시작하고 항목 추가 버튼을 클릭하면 프롬프트가 나타납니다.
-
-![](./images/react-animations-enter-prompt.jpg)
-
-이름을 입력하고 확인을 누르면 새 요소가 페이드 인됩니다.
-
-![](./images/react-animations-enter-fade-in.jpg)
-
-이제 일부 항목 (항목 3 ...)을 클릭하여 삭제할 수 있습니다. 이 항목은 목록에서 사라집니다.
-
-![](./images/react-animations-leave-fade-out.jpg)
-
-
-
----
-
-## Higher Order Components
-
-상위 구성 요소는 기존 구성 요소에 추가 기능을 추가하는 데 사용되는 JavaScript 함수입니다. 이러한 함수는 순수하므로 데이터를 수신하고 해당 데이터에 따라 값을 반환합니다. 데이터가 변경되면 다른 데이터 입력으로 고차 함수가 다시 실행됩니다. 반환되는 구성 요소를 업데이트하려면 HOC를 변경할 필요가 없습니다. 함수가 사용하는 데이터를 변경하기 만하면됩니다.
-
-**Higher Order Component** (HOC) 는 '정상'구성 요소를 둘러싸고 추가 데이터 입력을 제공합니다. 실제로 하나의 구성 요소를 취하고 원래 구성 요소를 래핑하는 다른 구성 요소를 반환하는 함수입니다.
-
-이 개념이 어떻게 작동하는지 쉽게 이해하기 위해 간단한 예를 살펴 보겠습니다. MyHOC는 데이터를 MyComponent로 전달하는 데만 사용되는 고차 함수입니다. 이 함수는 MyComponent를 가져 와서 newData로 향상시키고 화면에 렌더링 될 향상된 구성 요소를 반환합니다.
-
-``` js
-import React from 'react';
-
-var newData = {
-   data: 'Data from HOC...',
-}
-
-var MyHOC = ComposedComponent => class extends React.Component {
-   componentDidMount() {
-      this.setState({
-         data: newData.data
-      });
-   }
-   render() {
-      return <ComposedComponent {...this.props} {...this.state} />;
-   }
+const mapStateToProps = state => {
+   return {
+      expenses: state.data
+   };
 };
-class MyComponent extends React.Component {
+const mapDispatchToProps = {
+   getExpenseList,
+   deleteExpense
+};
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(ExpenseEntryItemList);
+```
+
+
+
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
+
+``` sh
+npm start
+```
+
+
+
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
+
+![List Expenses](.\images\list_expenses.jpg)
+
+
+
+
+
+### 비용 추가
+
+출처: https://www.tutorialspoint.com/reactjs/reactjs_add_expense.htm
+
+ExpenseEntryItemList.js를 열고 redux 라이브러리에서 연결을 가져옵니다.
+
+``` js
+import { connect } from 'react-redux';
+```
+
+
+
+다음으로 Formik 라이브러리를 가져옵니다.
+
+``` js
+import { Formik } from 'formik';
+```
+
+
+
+다음으로 라우터 라이브러리에서 withRouter 메소드를 가져옵니다.
+
+``` js
+import { withRouter } from "react-router-dom";
+```
+
+
+
+다음으로 액션 라이브러리에서 addExpense를 가져옵니다.
+
+``` js
+import { addExpense } from '../actions/expenseActions';
+```
+
+
+
+다음으로 비용에 대한 초기 값으로 생성자를 만듭니다.
+
+``` js
+constructor(props) {
+super(props);
+this.initialValues = { name: '', amount: '', spend_date: '', category: '' }
+}
+```
+
+
+
+다음으로 validate 메소드를 작성하십시오.
+
+``` js
+validate = (values) => {
+   const errors = {};
+   if (!values.name) {
+      errors.name = 'Required';
+   }
+   if (!values.amount) {
+      errors.amount = 'Required';
+   }
+   if (!values.spend_date) {
+      errors.spend_date = 'Required';
+   }
+   if (!values.category) {
+      errors.category = 'Required';
+   }
+   return errors;
+}
+```
+
+
+
+다음으로 이벤트 핸들러 메소드를 추가합니다.
+
+```js
+handleSubmit = (values, setSubmitting) =< {
+   setTimeout(() =< {
+      let newItem = {
+         name: values.name,
+         amount: values.amount,
+         spendDate: values.spend_date,
+         category: values.category
+      }
+      this.props.addExpense(newItem);
+      setSubmitting(false);
+      this.props.history.push("/list");
+   }, 400);
+}
+```
+
+여기,
+
+- 비용 항목을 추가하기 위해 addExpense 메소드 사용
+- 라우터 히스토리 방식을 사용하여 경비 목록 페이지로 이동합니다.
+
+다음으로 Formik 라이브러리를 사용하여 생성된 양식으로 렌더링 방법을 업데이트합니다.
+
+``` js
+render() {
+   return (
+      <div id="expenseForm">
+         <Formik
+            initialValues={this.initialValues}
+            validate={values => this.validate(values)}
+            onSubmit={(values, { setSubmitting }) => this.handleSubmit(values, setSubmitting)}>
+            {
+               ({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  /* and other goodies */
+               }) => (
+                  <form onSubmit={handleSubmit}>
+                     <label for="name">Title <span>{errors.name && touched.name && errors.name}</span></label>
+                     <input type="text" id="name" name="name" placeholder="Enter expense title"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.name} />
+
+                     <label for="amount">Amount <span>{errors.amount && touched.amount && errors.amount}</span></label>
+                     <input type="number" id="amount" name="amount" placeholder="Enter expense amount"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.amount} />
+
+                     <label for="spend_date">Spend Date <span>{errors.spend_date && touched.spend_date && errors.spend_date}</span></label>
+                     <input type="date" id="spend_date" name="spend_date" placeholder="Enter date"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.spend_date} />
+
+                     <label for="category">Category <span>{errors.category && touched.category && errors.category}</span></label>
+                     <select id="category" name="category"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.category}>
+                        <option value="">Select</option>
+                        <option value="Food">Food</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Academic">Academic</option>
+                     </select>
+                     <input type="submit" value="Submit" disabled={isSubmitting} />
+                  </form>
+               )
+            }
+         </Formik>
+      </div>
+   )
+}
+```
+
+
+
+그런 다음 디스패치 메서드를 component 속성에 매핑합니다.
+
+``` js
+const mapDispatchToProps = { 
+   addExpense, 
+};
+```
+
+
+
+마지막으로 component를 연결하여 저장하고 WithRouter로 component를 래핑하여 라우터 링크에 프로그래밍 방식으로 액세스합니다.
+
+``` js
+export default withRouter(connect(
+   null,
+   mapDispatchToProps
+)(ExpenseEntryItemForm));
+```
+
+
+
+component의 전체 소스 코드는 다음과 같습니다.
+
+``` js
+import React from "react";
+
+import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import { withRouter } from "react-router-dom";
+import { addExpense } from '../actions/expenseActions';
+
+class ExpenseEntryItemForm extends React.Component {
+   constructor(props) {
+      super(props);
+
+      this.initialValues = { name: '', amount: '', spend_date: '', category: '' }
+   }
+   validate = (values) => {
+      const errors = {};
+      if (!values.name) {
+         errors.name = 'Required';
+      }
+      if (!values.amount) {
+         errors.amount = 'Required';
+      }
+      if (!values.spend_date) {
+         errors.spend_date = 'Required';
+      }
+      if (!values.category) {
+         errors.category = 'Required';
+      }
+      return errors;
+   }
+   handleSubmit = (values, setSubmitting) => {
+      setTimeout(() => {
+         let newItem = {
+            name: values.name,
+            amount: values.amount,
+            spendDate: values.spend_date,
+            category: values.category
+         }
+         this.props.addExpense(newItem);
+         setSubmitting(false);
+         this.props.history.push("/list");
+      }, 400);
+   }
    render() {
       return (
-         <div>
-            <h1>{this.props.data}</h1>
+         <div id="expenseForm">
+            <Formik
+               initialValues={this.initialValues}
+               validate={values => this.validate(values)}
+               onSubmit={(values, { setSubmitting }) => this.handleSubmit(values, setSubmitting)}>
+               {
+                  ({
+                     values,
+                     errors,
+                     touched,
+                     handleChange,
+                     handleBlur,
+                     handleSubmit,
+                     isSubmitting,
+                     /* and other goodies */
+                  }) => (
+                     <form onSubmit={handleSubmit}>
+                        <label for="name">Title <span>{errors.name && touched.name && errors.name}</span></label>
+                        <input type="text" id="name" name="name" placeholder="Enter expense title"
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           value={values.name} />
+
+                        <label for="amount">Amount <span>{errors.amount && touched.amount && errors.amount}</span></label>
+                        <input type="number" id="amount" name="amount" placeholder="Enter expense amount"
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           value={values.amount} />
+
+                        <label for="spend_date">Spend Date <span>{errors.spend_date && touched.spend_date && errors.spend_date}</span></label>
+                        <input type="date" id="spend_date" name="spend_date" placeholder="Enter date"
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           value={values.spend_date} />
+
+                        <label for="category">Category <span>{errors.category && touched.category && errors.category}</span></label>
+                        <select id="category" name="category"
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           value={values.category}>
+                           <option value="">Select</option>
+                           <option value="Food">Food</option>
+                           <option value="Entertainment">Entertainment</option>
+                           <option value="Academic">Academic</option>
+                        </select>
+                        <input type="submit" value="Submit" disabled={isSubmitting} />
+                     </form>
+                  )
+               }
+            </Formik>
          </div>
       )
    }
 }
-
-export default MyHOC(MyComponent);
+const mapDispatchToProps = {
+   addExpense,
+};
+export default withRouter(connect(
+   null,
+   mapDispatchToProps
+)(ExpenseEntryItemForm));
 ```
 
-앱을 실행하면 데이터가 MyComponent로 전달되는 것을 볼 수 있습니다.
-
-![](./images/react-higher-order-components-output.jpg)
-
-> **Note** −  다른 기능에 대해 고차 구성 요소를 사용할 수 있습니다. 이러한 순수 함수는 함수형 프로그래밍의 핵심입니다. 익숙해지면 앱을 유지 관리하거나 업그레이드하기가 더 쉬워지는 것을 알 수 있습니다.
 
 
+다음으로 npm 명령을 사용하여 애플리케이션을 제공합니다.
 
----
-
-## Best Practices
-
-이 장에서는 앱 개발 중에 일관성을 유지하는 데 도움이되는 React 모범 사례, 방법 및 기술을 나열합니다.
-
-- **State** − 상태는 가능한 한 피해야합니다. 상태를 중앙 집중화하고 구성 요소 트리에 소품으로 전달하는 것이 좋습니다. 동일한 데이터가 필요한 구성 요소 그룹이있을 때마다 상태를 유지할 컨테이너 요소를 설정해야합니다. Flux 패턴은 React 앱에서 상태를 처리하는 좋은 방법입니다.
-- **PropTypes** − PropTypes는 항상 정의되어야합니다. 이것은 앱의 모든 소품을 추적하는 데 도움이되며 동일한 프로젝트에서 작업하는 모든 개발자에게도 유용합니다.
-- **Render** −  대부분의 앱 로직은 render 메서드 내에서 이동해야합니다. 컴포넌트 라이프 사이클 메소드에서 로직을 최소화하고 해당 로직을 렌더링 메소드로 이동해야합니다. 우리가 사용하는 상태와 소품이 적을수록 코드가 더 깔끔해집니다. 우리는 항상 상태를 가능한 한 단순하게 만들어야합니다. state 나 props에서 무언가를 계산해야한다면 render 메서드 내에서 계산할 수 있습니다.
-- **Composition** − React 팀은 단일 책임 원칙을 사용할 것을 제안합니다. 이는 하나의 구성 요소가 하나의 기능 만 담당해야 함을 의미합니다. 일부 구성 요소에 둘 이상의 기능이있는 경우 모든 기능에 대해 새 구성 요소를 리팩터링하고 만들어야합니다.
-- **Higher Order Components (HOC)** − 이전 React 버전은 재사용 가능한 기능을 처리하기위한 믹스 인을 제공했습니다. 믹스 인은 이제 더 이상 사용되지 않으므로 해결책 중 하나는 HOC를 사용하는 것입니다.
+``` sh
+npm start
+```
 
 
 
-## Useful Resources
+그런 다음 브라우저를 열고 주소 표시줄에 http://localhost:3000을 입력하고 Enter 키를 누릅니다.
 
-다음 리소스에는 ReactJS에 대한 추가 정보가 포함되어 있습니다. 이것에 대한 더 깊은 지식을 얻으려면 그들을 사용하십시오.
+![List Expenses](.\images\list_expenses.jpg)
 
-### Useful Links on ReactJS
+마지막으로 기본 기능을 갖춘 간단한 React 응용 프로그램을 성공적으로 만들었습니다.
 
-- [ReactJS Wiki](https://en.wikipedia.org/wiki/React_(JavaScript_library)) − Wikipedia Reference for ReactJS
-- [ReactJS](https://reactjs.org/) − Official Website of ReactJS
+
+
+### Conclusion
+
+React는 가장 인기 있고 적극 권장되는 UI 프레임워크 중 하나입니다. 그 인기에 걸맞게 아주 오랫동안 개발되어 활발히 유지되고 있습니다. React 프레임워크를 배우는 것은 프론트 엔드 개발자에게 좋은 출발점이며 전문 경력을 향상시키는 데 확실히 도움이 될 것입니다.
 
 
 
