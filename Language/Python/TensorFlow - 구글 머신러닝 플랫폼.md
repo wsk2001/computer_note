@@ -79,7 +79,7 @@ Contents
 
 **텐서 (Tensor)**는 TensorFlow의 가장 주요한 객체이며, TensorFlow의 작업은 주로 텐서의 연산으로 이루어집니다.
 
-즉, TensorFlow는 **텐서 (Tensor)**를 정의하고 연산을 수행하도록 하는 프레임워크 (Framework)입니다.
+즉, <span style="color:red">TensorFlow는 **텐서 (Tensor)**를 정의하고 연산을 수행하도록 하는 프레임워크 (Framework)입니다.</span>
 
 ## 2) 텐서의 차원 - 랭크 (Rank)
 
