@@ -14,3 +14,6 @@ avl_create (avl_comparison_func *compare, void *param,
 
 비교 함수 |compare|를 사용하여 새 테이블을 만들고 반환합니다. 매개변수 |param| 사용 및 메모리 할당자 |할당자|.
 반환 |NULL| 메모리 할당이 실패한 경우.
+
+
+
