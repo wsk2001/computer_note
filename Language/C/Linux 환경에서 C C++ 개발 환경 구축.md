@@ -20,6 +20,8 @@
 - .bashrc, .profile, .bashprofile 설정 방법
 - SSH 설치 및 사용 방법
 - SSH Client 설치 및 사용 방법
+- scp 사용법
+  - https://wlsvud84.tistory.com/11
 - Windows Editor 에서 Linux 파일 수정 방법
 - Linux CLI Tool 사용법
   - netstat, ...
@@ -30,7 +32,7 @@
 - Linux 방화벽
 - 개발 시 참조용 utility
   - ldd, nm
-- 
+- Everything
 
 
 
