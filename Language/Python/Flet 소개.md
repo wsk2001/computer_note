@@ -2481,3 +2481,1861 @@ ft.app(target=main, port=8550, view=ft.WEB_BROWSER)
 
 출처: https://flet.dev/docs/guides/python/client-storage
 
+
+
+Flet의 클라이언트 저장소 API를 사용하면 클라이언트 측의 키-값 데이터를 영구 저장소에 저장할 수 있습니다. Flet 구현은 shared_preferences Flutter 패키지를 사용합니다.
+
+실제 저장 메커니즘은 Flet 앱이 실행되는 플랫폼에 따라 다릅니다.
+
+- Web - [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage).
+- Desktop - JSON file.
+- iOS - [NSUserDefaults](https://developer.apple.com/documentation/foundation/nsuserdefaults).
+- Android - [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences).
+
+스토리지에 데이터 쓰기:
+
+```python
+# strings
+page.client_storage.set("key", "value")
+
+# numbers, booleans
+page.client_storage.set("number.setting", 12345)
+page.client_storage.set("bool_setting", True)
+
+# lists
+page.client_storage.set("favorite_colors", ["read", "green", "blue"])
+```
+
+
+
+NOTE
+
+shared_preferences 플러그인을 사용하는 각 Flutter 애플리케이션에는 고유한 환경 설정 세트가 있습니다. 동일한 Flet 클라이언트(Flutter 앱)가 여러 Flet 앱의 UI를 실행하는 데 사용되므로 하나의 Flet 애플리케이션에 저장된 모든 값은 동일한 사용자가 실행하는 다른 Flet 앱에서 보거나 사용할 수 있습니다.
+
+하나의 애플리케이션 설정을 다른 것과 구별하려면 {company}.{product}.와 같이 모든 스토리지 키에 고유한 접두어를 사용하는 것이 좋습니다. 예를 들어 하나의 앱에 인증 토큰을 저장하려면 acme.one_app.auth_token 키를 사용하고 다른 앱에서는 acme.second_app.auth_token을 사용합니다.
+
+CAUTION
+
+민감한 데이터를 클라이언트 저장소로 보내기 전에 암호화하는 것은 Flet 앱 개발자의 책임이므로 다른 앱이나 앱 사용자가 읽거나 변조하지 않습니다.
+
+데이터 읽기:
+
+```python
+# The value is automatically converted back to the original type
+value = page.client_storage.get("key")
+
+colors = page.client_storage.get("favorite_colors")
+# colors = ["read", "green", "blue"]
+```
+
+
+
+키가 있는지 확인.
+
+```python
+page.client_storage.contains_key("key") # True if the key exists
+```
+
+
+
+모든 키 가져오기:
+
+```python
+page.client_storage.get_keys("key-prefix.")
+```
+
+
+
+값을 제거합니다.
+
+```python
+page.client_storage.remove("key")
+```
+
+
+
+저장소를 비웁니다.
+
+```python
+page.client_storage.clear()
+```
+
+
+
+CAUTION
+
+clear()는 동일한 사용자가 실행한 모든 Flet 앱의 모든 기본 설정을 제거하고 영구적인 애플리케이션 데이터가 클라이언트 저장소에 저장되어서는 안 된다는 경고 역할을 하는 위험한 함수입니다.
+
+
+
+---
+
+### Session storage
+
+Flet은 서버 측의 사용자 세션에 키-값 데이터를 저장하기 위한 API를 제공합니다.
+
+세션에 데이터 쓰기:
+
+```python
+# strings
+page.session.set("key", "value")
+
+# numbers, booleans
+page.session.set("number.setting", 12345)
+page.session.set("bool_setting", True)
+
+# lists
+page.session.set("favorite_colors", ["read", "green", "blue"])
+```
+
+
+
+CAUTION
+
+현재 Flet 구현에서 세션 저장소에 저장된 데이터는 일시적이며 앱을 다시 시작할 때 보존되지 않습니다.
+
+
+
+Reading data:
+
+```python
+# The value is automatically converted back to the original type
+value = page.session.get("key")
+
+colors = page.session.get("favorite_colors")
+# colors = ["read", "green", "blue"]
+```
+
+
+
+Check if a key exists:
+
+```python
+page.session.contains_key("key") # True if the key exists
+```
+
+
+
+Get all keys:
+
+```python
+page.session.get_keys()
+```
+
+
+
+Remove a value:
+
+```python
+page.session.remove("key")
+```
+
+
+
+Clear the session storage:
+
+```python
+page.session.clear()
+```
+
+
+
+---
+
+### 민감한 데이터 암호화
+
+출처: https://flet.dev/docs/guides/python/encrypting-sensitive-data\
+
+토큰, 키, 신용 카드 번호 및 기타 '비밀'과 같은 민감한 데이터는 데이터 위반을 방지하기 위해 암호화된 형태로 유휴 상태(데이터베이스, 파일, 클라이언트 스토리지)에 저장되어야 합니다.
+
+Flet에는 대칭 알고리즘(암호화 및 암호 해독에 동일한 키가 사용됨)을 사용하여 중요한 텍스트 데이터를 암호화 및 해독하는 유틸리티 방법이 포함되어 있습니다. 그들은 약간의 추가 강화가 있는 AES 128인 암호화 패키지의 Fernet 구현과 PBKDF2를 사용하여 사용자 암호에서 암호화 키를 파생합니다.
+
+
+
+#### Secret key
+
+암호화 비밀 키(암호 또는 암호 문구라고도 함)는 사용자가 구성하고 데이터를 암호화 및 해독하는 데 사용되는 임의의 암호와 유사한 문자열입니다. 암호화 알고리즘은 비밀 키를 사용하여 암호화 키(32바이트)를 '파생'합니다.
+
+> **DANGER**
+>
+> 실수로 대중에게 노출되지 않도록 소스 코드에 비밀을 포함하지 마십시오!
+
+환경 변수를 통해 앱에 비밀을 제공할 수 있습니다.
+
+``` py
+import os
+secret_key = os.getenv("MY_APP_SECRET_KEY")
+```
+
+앱을 실행하기 전에 명령줄에서 암호를 설정합니다.
+
+```bash
+$ export MY_APP_SECRET_KEY="<secret>"
+```
+
+> **NOTE**
+>
+> 환경 변수를 통해 비밀을 전달하는 것은 개발자와 서비스 공급자 사이에서 일반적인 관행이지만 일부 환경에서 비밀이 유출되는 것을 완전히 방지하지는 못합니다. 비밀 파일 또는 볼트 서비스 마운트와 같은 다른 메커니즘을 사용하여 응용 프로그램에 비밀을 주입할 수 있습니다.
+
+
+
+#### 데이터 암호화
+
+encrypt() 메서드를 사용하여 문자열을 암호화합니다.
+
+``` py
+import os
+from flet.security import encrypt, decrypt
+
+secret_key = os.getenv("MY_APP_SECRET_KEY")
+plain_text = "This is a secret message!"
+encrypted_data = encrypt(plain_text, secret_key)
+```
+
+encryption_data는 URL 안전 base64 인코딩 문자열입니다.
+
+encrypt는 문자열만 허용하므로 모든 개체는 암호화 전에 JSON, XML 또는 기타 텍스트 기반 형식으로 직렬화되어야 합니다.
+
+``` py
+import os
+from flet.security import encrypt, decrypt
+
+secret_key = os.getenv("MY_APP_SECRET_KEY")
+encrypted_data = "601llp2zpPp4QjBWe2cOwGdBQUFBQUJqTTFJbmgyWU5jblVp..."
+plain_text = decrypt(encrypted_data, secret_key)
+print(plain_text)
+```
+
+
+
+---
+
+### PubSub
+
+Flet을 사용하여 채팅 앱을 빌드하는 경우 세션 간에 사용자 메시지를 전달해야 합니다. 사용자가 메시지를 보내면 다른 모든 앱 세션에 브로드캐스트되고 해당 페이지에 표시되어야 합니다.
+
+Flet은 페이지 세션 간의 비동기 통신을 위한 간단한 내장 PubSub 메커니즘을 제공합니다.
+
+Flet PubSub를 사용하면 모든 앱 세션에 메시지를 브로드캐스팅하거나 특정 '주제'(또는 '채널') 가입자에게만 보낼 수 있습니다.
+
+일반적인 PubSub 사용법은 다음과 같습니다.
+
+- 브로드캐스트 메시지를 구독하거나 앱 세션 시작 시 주제를 구독합니다.
+- 브로드캐스트 메시지를 보내거나 '보내기' 버튼 클릭과 같은 일부 이벤트에 대한 주제로 보냅니다.
+- 브로드캐스트 메시지 구독을 취소하거나 '탈퇴' 버튼 클릭과 같은 특정 이벤트의 주제 구독을 취소합니다.
+- page.on_close의 모든 항목에서 구독을 취소합니다.
+
+다음은 간단한 채팅 애플리케이션의 예입니다.
+
+``` py
+import flet as ft
+
+def main(page: ft.Page):
+    page.title = "Flet Chat"
+
+    # subscribe to broadcast messages
+    def on_message(msg):
+        messages.controls.append(ft.Text(msg))
+        page.update()
+
+    page.pubsub.subscribe(on_message)
+
+    def send_click(e):
+        page.pubsub.send_all(f"{user.value}: {message.value}")
+        # clean up the form
+        message.value = ""
+        page.update()
+
+    messages = ft.Column()
+    user = ft.TextField(hint_text="Your name", width=150)
+    message = ft.TextField(hint_text="Your message...", expand=True)  # fill all the space
+    send = ft.ElevatedButton("Send", on_click=send_click)
+    page.add(messages, ft.Row(controls=[user, message, send]))
+
+ft.app(target=main, view=ft.WEB_BROWSER)
+```
+
+![img](.\Images\chat-app-example.gif)
+
+
+
+---
+
+### User controls
+
+사용자 컨트롤(UserControl)을 사용하면 기존 Flet 컨트롤을 결합하여 격리된 재사용 가능 구성 요소를 구축할 수 있습니다. 사용자 컨트롤은 컨트롤처럼 동작하며 메서드와 속성을 가질 수 있습니다.
+
+다음은 최소한의 사용자 컨트롤(UserControl) 예입니다.
+
+``` py
+import flet as ft
+
+class GreeterControl(ft.UserControl):
+    def build(self):
+        return ft.Text("Hello!")
+
+def main(page):
+    page.add(GreeterControl())
+
+ft.app(target=main)
+```
+
+UserControl은 컨트롤의 UI를 빌드하기 위해 호출되는 build() 메서드를 구현해야 하며 단일 컨트롤 인스턴스 또는 컨트롤 목록을 반환해야 합니다. UserControl은 스택에서 상속되므로 여러 자식이 서로 위에 정렬됩니다. 컨트롤의 UI를 다르게 정렬해야 하는 경우 행, 열 또는 기타 레이아웃 컨트롤을 사용하세요. 예를 들면 다음과 같습니다.
+
+``` py
+class GreeterControl(ft.UserControl):
+    def build(self):
+        return ft.Column([
+            ft.TextField(label="Your name"),
+            ft.ElevatedButton("Login")
+        ])
+```
+
+UserControl은 외부 레이아웃과 격리됩니다. 즉, 상위 컨트롤에 대해 update() 메서드가 호출될 때 UserControl 내부의 모든 변경 사항은 업데이트 다이제스트에 포함되지 않습니다. UserControl은 self.update()를 호출하여 변경 사항을 Flet 페이지에 푸시해야 합니다. 예를 들면 다음과 같습니다.
+
+``` py
+import flet as ft
+
+class Counter(ft.UserControl):
+    def add_click(self, e):
+        self.counter += 1
+        self.text.value = str(self.counter)
+        self.update()
+
+    def build(self):
+        self.counter = 0
+        self.text = ft.Text(str(self.counter))
+        return ft.Row([self.text, ft.ElevatedButton("Add", on_click=self.add_click)])
+
+def main(page):
+    page.add(Counter(), Counter())
+
+ft.app(target=main)
+```
+
+![img](.\Images\user-control-counter.gif)
+
+이벤트 핸들러(예: def add_click(self, e)) 및 컨트롤 참조(예: self.text)를 클래스 멤버로 선언하거나 로컬 변수 및 내부 함수를 사용하여 build() 메서드 내에서 모든 UserControl의 논리를 구현할 수 있습니다. 예를 들어 위의 코드는 다음과 같이 다시 작성할 수 있습니다.
+
+``` py
+class Counter(ft.UserControl):
+    def build(self):
+
+        self.counter = 0
+        text = ft.Text(str(self.counter))
+
+        def add_click(e):
+            self.counter += 1
+            text.value = str(self.counter)
+            self.update()
+
+        return ft.Row([text, ft.ElevatedButton("Add", on_click=add_click)])
+```
+
+> **NOTE**
+>
+> counter는 add_click 메서드 내에서 볼 수 없으므로 로컬 변수로 선언할 수 없으므로 클래스 필드 self.counter로 선언해야 합니다.
+
+사용자 컨트롤에는 사용자 지정 데이터를 전달하는 생성자가 있을 수 있습니다. 예를 들면 다음과 같습니다.
+
+``` py
+import flet as ft
+
+class Counter(ft.UserControl):
+    def __init__(self, initial_count):
+        super().__init__()
+        self.counter = initial_count
+
+    def build(self):
+        text = ft.Text(str(self.counter))
+        def add_click(e):
+            self.counter += 1
+            text.value = str(self.counter)
+            self.update()
+
+        return ft.Row([text, ft.ElevatedButton("Add", on_click=add_click)])
+
+# then use the control
+def main(page):
+    page.add(
+        Counter(100),
+        Counter(200))
+
+ft.app(target=main)
+```
+
+> **NOTE**
+>
+> super().`__init__`()는 항상 자신의 생성자에서 호출해야 합니다.
+
+사용자 컨트롤은 수명 주기 '후크' 메서드를 제공합니다.
+
+- `did_mount()` - UserControl이 페이지에 추가되고 임시 ID가 할당된 후에 호출됩니다.
+- `will_unmount()` - UserControl이 페이지에서 제거되기 전에 호출됩니다.
+
+이러한 방법을 사용하여 간단한 '카운트다운' 컨트롤을 구현할 수 있습니다.
+
+``` py
+import flet as ft
+import time, threading
+
+class Countdown(ft.UserControl):
+    def __init__(self, seconds):
+        super().__init__()
+        self.seconds = seconds
+
+    def did_mount(self):
+        self.running = True
+        self.th = threading.Thread(target=self.update_timer, args=(), daemon=True)
+        self.th.start()
+
+    def will_unmount(self):
+        self.running = False
+
+    def update_timer(self):
+        while self.seconds and self.running:
+            mins, secs = divmod(self.seconds, 60)
+            self.countdown.value = "{:02d}:{:02d}".format(mins, secs)
+            self.update()
+            time.sleep(1)
+            self.seconds -= 1
+
+    def build(self):
+        self.countdown = ft.Text()
+        return self.countdown
+
+def main(page: Page):
+    page.add(Countdown(120), Countdown(60))
+
+ft.app(target=main)
+```
+
+![img](.\Images\user-control-countdown.gif)
+
+
+
+---
+
+### Control 참조
+
+Flet 컨트롤은 개체이며 해당 속성에 액세스하려면 해당 개체에 대한 참조(변수)를 유지해야 합니다.
+
+다음 예를 고려하십시오.
+
+``` py
+import flet as ft
+
+def main(page):
+
+    first_name = ft.TextField(label="First name", autofocus=True)
+    last_name = ft.TextField(label="Last name")
+    greetings = ft.Column()
+
+    def btn_click(e):
+        greetings.controls.append(ft.Text(f"Hello, {first_name.value} {last_name.value}!"))
+        first_name.value = ""
+        last_name.value = ""
+        page.update()
+        first_name.focus()
+
+    page.add(
+        first_name,
+        last_name,
+        ft.ElevatedButton("Say hello!", on_click=btn_click),
+        greetings,
+    )
+
+ft.app(target=main)
+```
+
+main() 메서드의 맨 처음에 우리는 버튼의 on_click 핸들러에서 사용할 세 개의 컨트롤을 생성합니다. 두 개의 TextField는 이름과 성을 위한 것이고 Column은 인사말 메시지를 위한 컨테이너입니다. 모든 속성이 설정된 컨트롤을 만들고 main() 메서드의 끝에서 page.add() 호출에서 해당 참조(변수)를 사용합니다.
+
+더 많은 모드 컨트롤과 이벤트 핸들러가 추가되면 모든 컨트롤 정의를 한 곳에 유지하는 것이 어려워져 main() 본문 전체에 분산됩니다. page.add() 매개변수를 보면(IDE에서 변수 정의로 계속 점프하지 않고) 최종 양식이 어떻게 생겼는지 상상하기 어렵습니다.
+
+``` py
+    page.add(
+        first_name,
+        last_name,
+        ft.ElevatedButton("Say hello!", on_click=btn_click),
+        greetings,
+    )
+```
+
+first_name은 TextField이고 자동 초점이 설정되어 있습니까? 인사말은 행입니까 아니면 열입니까?
+
+
+
+#### Ref 클래스
+
+Flet은 컨트롤에 대한 참조를 정의하고, 이벤트 핸들러에서 해당 참조를 사용하고, 트리를 구축하는 동안 나중에 실제 컨트롤에 대한 참조를 설정할 수 있는 Ref 유틸리티 클래스를 제공합니다. 아이디어는 React에서 나옵니다.
+
+새로운 유형의 제어 참조를 정의하려면 다음을 수행하십시오.
+
+``` py
+first_name = ft.Ref[ft.TextField]()
+```
+
+참조된 컨트롤(컨트롤 역참조)에 액세스하려면 Ref.current 속성을 사용합니다.
+
+``` py
+# empty first name
+first_name.current.value = ""
+```
+
+참조 세트 Control.ref 특성에 제어를 지정하려면 다음을 수행하십시오.
+
+``` py
+page.add(
+    ft.TextField(ref=first_name, label="First name", autofocus=True)
+)
+```
+
+> **NOTE**
+>
+> 모든 Flet 컨트롤에는 ref 속성이 있습니다.
+
+참조를 사용하도록 프로그램을 다시 작성할 수 있습니다.
+
+``` py
+import flet as ft
+
+
+def main(page):
+
+    first_name = ft.Ref[ft.TextField]()
+    last_name = ft.Ref[ft.TextField]()
+    greetings = ft.Ref[ft.Column]()
+
+    def btn_click(e):
+        greetings.current.controls.append(
+            ft.Text(f"Hello, {first_name.current.value} {last_name.current.value}!")
+        )
+        first_name.current.value = ""
+        last_name.current.value = ""
+        page.update()
+        first_name.current.focus()
+
+    page.add(
+        ft.TextField(ref=first_name, label="First name", autofocus=True),
+        ft.TextField(ref=last_name, label="Last name"),
+        ft.ElevatedButton("Say hello!", on_click=btn_click),
+        ft.Column(ref=greetings),
+    )
+
+ft.app(target=main)
+```
+
+이제 page.add()에서 페이지의 구조와 모든 컨트롤을 명확하게 볼 수 있습니다.
+
+예, .current를 추가해야 하므로 논리가 좀 더 장황해집니다. ref의 컨트롤에 액세스하려면 개인 취향의 문제입니다 :)
+
+
+
+---
+
+### Accessibility
+
+Flet은 기본 운영 체제에서 제공하는 것 외에도 접근성을 위한 일류 프레임워크 지원을 포함하는 Flutter를 기반으로 합니다.
+
+
+
+#### 스크린 리더
+
+모바일의 경우 화면 판독기(TalkBack, VoiceOver)를 사용하면 시각 장애가 있는 사용자가 화면 콘텐츠에 대한 음성 피드백을 받고 모바일의 제스처 및 데스크톱의 키보드 단축키를 통해 UI와 상호 작용할 수 있습니다. 모바일 장치에서 VoiceOver 또는 TalkBack을 켜고 앱을 탐색하십시오.
+
+웹의 경우 현재 다음 스크린 리더가 지원됩니다.
+
+모바일 브라우저:
+
+- iOS - VoiceOver
+- Android - TalkBack
+
+데스크톱 브라우저:
+
+- MacOS - VoiceOver
+- Windows - JAWs & NVDA
+
+웹의 스크린 리더 사용자는 시맨틱 트리를 구축하려면 '접근성 활성화' 버튼을 토글해야 합니다.
+
+
+
+#### Text
+
+Text.semantics_label 속성을 사용하여 기본 텍스트 컨트롤 의미 체계를 재정의합니다.
+
+
+
+#### Buttons
+
+텍스트가 있는 모든 버튼은 적절한 의미 체계를 생성합니다.
+
+Tooltip 속성을 사용하여 IconButton, FloatingActionButton 및 PopupMenuButton 버튼에 대한 스크린 리더 시맨틱을 추가합니다.
+
+
+
+#### 맞춤 시맨틱
+
+특정 요구 사항의 경우 시맨틱 제어를 사용하십시오.
+
+
+
+#### 디버깅 시맨틱
+
+page.show_semantics_debugger를 True로 설정하여 프레임워크에서 보고하는 접근성 정보를 표시하는 오버레이를 표시합니다.
+
+앱 개발 중에 시맨틱 디버거를 편리하게 전환하기 위해 특정 키보드 단축키를 구현할 수 있습니다.
+
+![img](.\Images\debug-accessibility-toggle.gif)
+
+``` py
+import flet as ft
+
+def main(page: ft.Page):
+    page.title = "Flet counter example"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+    def on_keyboard(e: ft.KeyboardEvent):
+        print(e)
+        if e.key == "S" and e.ctrl:
+            page.show_semantics_debugger = not page.show_semantics_debugger
+            page.update()
+
+    page.on_keyboard_event = on_keyboard
+
+    txt_number = ft.Text("0", size=40)
+
+    def button_click(e):
+        txt_number.value = str(int(txt_number.value) + 1)
+        page.update()
+
+    page.add(
+        txt_number,
+        ft.Text("Press CTRL+S to toggle semantics debugger"),
+        ft.FloatingActionButton(
+            icon=ft.icons.ADD, tooltip="Increment number", on_click=button_click
+        ),
+    )
+
+ft.app(target=main, view=ft.WEB_BROWSER)
+```
+
+
+
+---
+
+### Mobile support
+
+이 문서에서는 모바일로 전환하기 위한 Flet의 비전을 다루고 로드맵을 제공합니다.
+
+
+
+#### Server-Driven UI
+
+Flet은 서버 기반 UI(SDUI) 프레임워크입니다. SDUI는 Technology Radar 게시물에서 가장 잘 설명된 새로운 기술입니다.
+
+> 서버 기반 UI는 렌더링을 모바일 앱의 일반 컨테이너로 분리하고 각 뷰의 구조와 데이터는 서버에서 제공합니다. 이는 한때 앱 스토어를 왕복해야 했던 변경 사항을 이제 서버가 보내는 응답에 대한 간단한 변경을 통해 수행할 수 있음을 의미합니다.
+
+DoorDash, Airbnb, Lyft 등과 같은 회사는 출시 기간을 단축하기 위해 모바일 앱에서 서버 기반 UI를 성공적으로 구현해 왔습니다.
+
+
+
+##### Flet approach
+
+Flet은 Python 또는 다른 언어로 작성된 프로그램이 서버에서 실행되고 앱 스토어의 독립형 Flutter 앱(.apk 또는 .ipa 패키지) 또는 Flutter 위젯을 다른 앱의 일부 - 모바일로 전달됨:
+
+![img](.\Images\flet-highlevel-diagram.svg)
+
+SDUI 경험이 준비되면 독립형 모바일 패키지 작업을 시작할 것입니다.
+
+
+
+#### Roadmap
+
+모바일 플랫폼에서 Flet 앱에 최상의 경험을 제공하기 위해 올해 말까지 다음 항목을 출시할 계획입니다.
+
+##### Flutter용 Flet 위젯
+
+우리가 할 첫 번째 단계는 Flet 클라이언트를 Flutter 위젯으로 분리하고 패키지를 https://pub.dev에 게시하는 것입니다. 그런 다음 Flet 위젯을 모바일 개발자가 기존 또는 새로운 Flutter 앱에 통합하여 핵심 앱 기능에 동적 서버 기반 UI 경험을 추가할 수 있습니다. 완전한 Flet 앱을 호스팅할 목적으로 단일 Flet 위젯으로 새로운 Flutter 앱을 만들 수도 있습니다.
+
+개발자는 Android, iOS, Linux, macOS 또는 Windows 플랫폼에 앱을 패키징, 서명 및 배포하기 위해 Flutter 가이드를 따릅니다.
+
+Flet 팀은 Flutter 앱의 패키징, 서명 및 게시를 자동화하는 샘플 CI 파이프라인을 제공합니다.
+
+##### iOS 및 Android용 Flet Studio
+
+다음 단계는 'Flet 프레임워크로 개발된 모바일 경험 테스트'를 위한 App Store 및 Google Play의 독립 실행형 'Flet Studio' 앱(이름이 최종이 아님)입니다. 개발자 또는 베타 테스터는 Flet Studio 내에서 호스팅된 Flet 앱의 URL을 '등록'하고 모바일 장치에서 어떻게 작동하는지 즉시 확인할 수 있습니다.
+
+##### 화이트 라벨 Flet 모바일 앱
+
+사용자 App Store 또는 Google Play 계정에 화이트 레이블이 지정된 Flet 앱을 자동 게시하기 위한 가이드 및 CI 파이프라인을 제공할 예정입니다. 이 앱은 특정 앱 URL에 '고정'되며 네트워크 사용량을 최소화하기 위해 앱 자산(미디어, 글꼴)을 추가로 묶을 수 있습니다.
+
+##### Flet 앱용 독립형 모바일 패키지
+
+우리는 Flet 프레임워크, 사용자 프로그램, 언어 런타임 및 모든 종속성을 독립 실행형 모바일 패키지(.apk 또는 .ipa 패키지)로 함께 번들링하기 위한 방법을 조사하고 프로토타입을 개발할 예정이므로 Flet 프로그램에는 웹 서버가 필요하지 않습니다.
+
+##### 기본 앱에 Flet 포함
+
+Flutter Add-to-App 기능을 사용하여 Flet 위젯을 기존 기본 Android 및 iOS 앱(Flutter로 개발되지 않음)에 통합하기 위한 가이드, 샘플 앱 및 CI 파이프라인을 제공할 예정입니다. Put Flutter to work 문서는 Flutter를 기존 모바일 앱에 통합하는 방법에 대한 실제 예를 제공합니다.
+
+
+
+---
+
+### 핫 리로드
+
+flet Python 모듈을 설치하면 핫 리로드로 웹 및 데스크탑 앱을 실행할 수 있는 flet 명령 도구(Flet CLI)도 설치됩니다.
+
+``` bash
+usage: flet run [-h] [--port PORT] [--directory] [--recursive] [--hidden] [--web]
+                script
+
+Runs Flet app in Python with hot reload.
+
+positional arguments:
+  script                path to a Python script
+
+options:
+  -h, --help            show this help message and exit
+  -v, --verbose         -v for detailed output and -vv for more detailed
+  -p PORT, --port PORT  custom TCP port to run Flet app on
+  -d, --directory       watch script directory
+  -r, --recursive       watch script directory and all sub-directories recursively
+  -n, --hidden          application window is hidden on startup
+  -w, --web             open app in a web browser
+```
+
+기본적으로 flet은 단일 스크립트 파일만 감시합니다. 스크립트 디렉토리의 모든 파일을 보려면 --directory 플래그를 사용하십시오. --recursive 플래그를 사용하여 스크립트 디렉토리와 모든 하위 디렉토리를 재귀적으로 감시합니다.
+
+예를 들어:
+
+``` bash
+flet run main.py -d
+```
+
+
+
+---
+
+### 데스크톱 앱 패키징
+
+Flet Python 앱과 모든 종속 항목을 실행 파일로 패키징할 수 있으며 사용자는 Python 인터프리터나 모듈을 설치하지 않고도 컴퓨터에서 실행할 수 있습니다.
+
+Flet은 PyInstaller API를 래핑하여 Flet Python 앱과 모든 종속성을 Windows, macOS 및 Linux용 단일 패키지로 패키징합니다. Windows 패키지를 생성하려면 Windows에서 PyInstaller를 실행해야 합니다. Linux 앱을 빌드하려면 Linux에서 실행해야 합니다. macOS에서 macOS 앱을 빌드합니다.
+
+PyInstaller 설치부터 시작하십시오.
+
+``` py
+pip install pyinstaller
+```
+
+.py 파일이 있는 디렉터리로 이동하고 다음 명령을 사용하여 앱을 빌드합니다.
+
+``` py
+flet pack your_program.py
+```
+
+이제 번들 Flet 앱을 dist 폴더에서 사용할 수 있습니다. 프로그램을 실행하여 작동하는지 확인하십시오.
+
+맥OS에서:
+
+``` bash
+open dist/your_program.app
+```
+
+Windows에서:
+
+``` cmd
+dist\your_program.exe
+```
+
+리눅스에서:
+
+``` bash
+dist/your_program
+```
+
+이제 dist 폴더의 내용을 압축하여 사용자에게 배포할 수 있습니다! 패키지 프로그램을 실행하기 위해 Python이나 Flet을 설치할 필요가 없습니다. Electron의 훌륭한 대안입니다!
+
+기본적으로 실행 파일/번들은 Python 스크립트와 동일한 이름을 갖습니다. --name 인수로 변경할 수 있습니다.
+
+``` bash
+flet pack your_program.py --name bundle_name
+```
+
+
+
+#### 패키지 아이콘 사용자 정의
+
+기본 번들 앱 아이콘은 플로피 디스크가 컴퓨터 데이터를 저장하는 데 사용되었던 고대 시대를 그리워하는 젊은 개발자에게 혼란을 줄 수 있는 디스켓입니다.
+
+--icon 인수를 추가하여 아이콘을 자신의 아이콘으로 바꿀 수 있습니다.
+
+``` bash
+flet pack your_program.py --icon <your-image.png>
+```
+
+PyInstaller는 제공된 PNG를 플랫폼별 형식(Windows의 경우 .ico 및 macOS의 경우 .icns)으로 변환하지만 이를 위해서는 Pillow 모듈을 설치해야 합니다.
+
+
+
+
+
+#### 패키징 자산
+
+Flet 앱에는 자산이 포함될 수 있습니다. 제공된 앱 자산은 your_program.py 옆의 assets 폴더에 있으며 macOS/Linux에서 --add-data 인수를 사용하여 애플리케이션 패키지에 추가할 수 있습니다.
+
+``` py
+flet pack your_program.py --add-data "assets:assets"
+```
+
+Windows  에서는 (`assets;assets`) ;로 구분되어야 합니다.
+
+``` bash
+flet pack your_program.py --add-data "assets;assets"
+```
+
+
+
+#### macOS 번들 사용자 지정
+
+macOS 번들 세부 정보는 다음 플렛 팩 macOS 관련 인수를 사용하여 사용자 지정할 수 있습니다.
+
+- `--product-name` - Dock, 활동 모니터, 정보 대화 상자에 표시되는 macOS 번들의 표시 이름입니다.
+- `--product-version` - '정보' 대화 상자에 표시된 번들 버전.
+- `--copyright` - '정보' 대화 상자에 표시된 저작권 표시.
+- `--bundle-id` 고유 번들 ID.
+
+
+
+#### Windows 실행 가능 메타데이터 사용자 정의
+
+Windows 실행 가능 '세부 정보' 속성 대화 상자는 다음 플렛 팩 인수를 사용하여 사용자 지정할 수 있습니다.
+
+- --product-name - '제품 이름' 필드.
+- --product-version - '제품 버전' 필드.
+- --file-version - '파일 버전' 필드.
+- --file-description - '파일 설명' 필드, 작업 관리자의 프로그램 표시 이름.
+- --copyright - '저작권' 필드.
+
+
+
+#### 다중 플랫폼 패키징에 CI 사용
+
+특정 OS용 PyInstaller로 앱 패키지를 만들려면 해당 OS에서 실행해야 합니다.
+
+Mac 또는 PC에 대한 액세스 권한이 없는 경우 AppVeyor - Windows, Linux 및 macOS용 지속적 통합 서비스를 사용하여 세 가지 플랫폼 모두에 대한 앱을 번들로 묶을 수 있습니다. 즉, 지속적 통합(CI)은 리포지토리에 대한 모든 푸시에서 애플리케이션을 빌드, 테스트 및 배포(지속적인 전달 - CD)하는 자동화된 프로세스입니다.
+
+AppVeyor는 GitHub, GitLab 및 Bitbucket에서 호스팅되는 오픈 소스 프로젝트에 대해 무료입니다. AppVeyor를 사용하려면 해당 소스 제어 공급자 중 하나에 있는 리포지토리에 앱을 푸시합니다.
+
+AppVeyor를 시작하려면 무료 계정에 가입하세요.
+
+'새 프로젝트' 버튼을 클릭하고 AppVeyor가 GitHub, GitLab 또는 Bitbucket 계정에 액세스할 수 있도록 승인하고 프로그램이 있는 저장소를 선택하고 새 프로젝트를 만듭니다.
+
+이제 Windows, Linux 및 macOS용 앱 패키징을 구성하려면 리포지토리 appveyor.yml의 루트에 다음 콘텐츠가 포함된 파일을 추가합니다. appveyor.yml은 모든 커밋에서 실행해야 하는 빌드, 테스트, 패키징 및 배포 명령을 설명하는 빌드 구성 파일 또는 CI 워크플로입니다.
+
+> **NOTE**
+>
+> flet-dev/python-ci-example 리포지토리를 포크하고 필요에 따라 사용자 지정할 수 있습니다.
+
+GitHub 리포지토리에 변경 사항을 푸시하면 AppVeyor가 자동으로 새 빌드를 시작합니다.
+
+![img](.\Images\appveyor-ci-flet-python-project.png)
+
+리포지토리에 푸시할 때마다 CI 워크플로가 수행하는 작업:
+
+- 깨끗한 가상 머신에 리포지토리를 복제합니다.
+- pip를 사용하여 앱 종속성을 설치합니다.
+- Flet pack을 실행하여 Python 앱을 Windows, macOS 및 Ubuntu용 번들로 패키징합니다.
+- Zip/Tar 앱 번들을 만들고 'Artifacts'에 업로드합니다.
+- 새 태그가 푸시되면 App Bundle을 GitHub 릴리스에 업로드합니다. 새 태그를 눌러 출시하세요!
+
+> 깃허브_토큰
+>
+> appveyor.yml의 GITHUB_TOKEN은 생성된 패키지를 저장소 '릴리스'에 게시하기 위해 AppVeyor에서 사용하는 GitHub 개인 액세스 토큰(PAT)입니다. 자체 토큰을 생성하고 appveyor.yml에서 교체해야 합니다. GitHub 계정에 로그인하고 개인 액세스 토큰 페이지로 이동합니다. '새 토큰 생성'을 클릭하고 공용 또는 개인 저장소에 대해 각각 'public_repo' 또는 'repo' 범위를 선택하십시오. 생성된 토큰을 클립보드에 복사하고 AppVeyor Portal로 돌아갑니다. 구성 데이터 암호화 페이지로 이동하여 토큰을 '암호화할 값' 필드에 붙여넣고 '암호화' 버튼을 클릭합니다. appveyor.yml의 GITHUB_TOKEN 아래에 암호화된 값을 넣습니다.
+
+Python 프로젝트에 대해 AppVeyor를 구성하고 새 태그를 리포지토리에 푸시하고 GitHub 릴리스의 세 가지 플랫폼 모두에 대한 데스크톱 번들을 '자동으로' 가져옵니다! 
+
+![img](.\Images\appveyor-ci-flet-github-releases.png)
+
+GitHub 릴리스 외에도 Amazon S3 버킷 또는 Azure Blob 스토리지에 대한 아티팩트 릴리스를 구성할 수도 있습니다.
+
+
+
+## Deploying web app
+
+Flet 앱은 Python 앱과 Flet 웹 서버가 모두 번들로 함께 배포됨을 의미하는 '독립 실행형' 웹 앱으로 배포될 수 있습니다.
+
+
+
+### 호스팅 제공업체 선택
+
+Flet 앱은 WebSocket을 사용하여 UI의 실시간 부분 업데이트 및 이벤트를 프로그램으로 다시 보냅니다. Flet 앱의 호스팅 공급자를 선택할 때 WebSockets 지원에 주의를 기울여야 합니다. 때로는 WebSocket이 허용되지 않거나 더 비싼 제품의 일부로 제공되며 때로는 시간 초과로 WebSocket 연결을 주기적으로 끊는 프록시가 있습니다(Flet은 재연결 논리를 구현하지만 어쨌든 앱 사용자에게는 불쾌한 동작일 수 있습니다).
+
+Flet 앱용 호스팅 공급자를 선택할 때 또 다른 중요한 요소는 대기 시간입니다. UI에 대한 모든 사용자 작업은 Flet 앱에 메시지를 보내고 앱은 업데이트된 UI를 사용자에게 다시 보냅니다. 대부분의 사용자에게 더 가까운 곳에서 앱을 실행할 수 있도록 호스팅 제공업체에 여러 데이터 센터가 있는지 확인하세요.
+
+> **NOTE**
+>
+> 우리는 이 섹션에서 호스팅 공급자와 제휴하지 않습니다. 우리는 단지 그들의 서비스를 사용하고 그것을 좋아합니다.
+
+
+
+---
+
+### Fly.io
+
+[Fly.io는 강력한 WebSocket 지원을 제공하며 사용자와 가까운 데이터 센터에 앱을 배포할 수 있습니다. 최대 3개의 애플리케이션을 무료로 호스팅할 수 있는 넉넉한 프리 티어로 매우 매력적인 가격이 책정되어 있습니다.
+
+Fly를 시작하려면 flyctl을 설치한 다음 인증합니다.
+
+```text
+flyctl auth login
+```
+
+
+
+flyctl로 앱을 배포하려면 Python 앱이 있는 폴더에 다음 3개 파일을 추가해야 합니다.
+
+애플리케이션 종속성 목록이 포함된 requirements.txt를 생성합니다. 최소한 flet 모듈을 포함해야 합니다.
+
+requirements.txt
+
+```txt
+flet>=0.1.33
+```
+
+
+
+Fly 애플리케이션을 설명하는 fly.toml을 만듭니다.
+
+fly.toml
+
+```toml
+app = "<your-app-name>"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+  FLET_SERVER_PORT = "8080"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+```
+
+
+
+https:// your-app-name .fly.dev와 같이 애플리케이션 URL에서도 사용되는 원하는 애플리케이션 이름으로 your-app-name을 바꿉니다.
+
+FLET_SERVER_PORT 환경 변수의 값을 Flet 웹 앱이 실행될 내부 TCP 포트인 8080으로 설정하고 있습니다.
+
+애플리케이션 컨테이너를 빌드하기 위한 명령이 포함된 Dockerfile을 생성합니다.
+
+```Dockerfile
+FROM python:3-alpine
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["python", "./main.py"]
+```
+
+
+
+`main.py` is a file with your Python program.
+
+NOTE
+
+Fly.io는 모든 앱을 Docker 컨테이너로 배포하지만 Fly의 좋은 점은 무료 원격 Docker 빌더를 제공하므로 컴퓨터에 Docker를 설치할 필요가 없다는 것입니다.
+
+다음으로 명령줄을 앱이 있는 폴더로 전환하고 다음 명령을 실행하여 새 Fly 앱을 만들고 초기화합니다.
+
+```text
+flyctl apps create --name <your-app-name>
+```
+
+
+
+다음을 실행하여 앱을 배포합니다.
+
+```text
+flyctl deploy
+```
+
+
+
+그게 다야! 다음을 실행하여 브라우저에서 앱을 엽니다.
+
+```text
+flyctl apps open
+```
+
+
+
+---
+
+### Replit
+
+Replit은 모든 언어로 작성된 웹 앱을 위한 온라인 IDE 및 호스팅 플랫폼입니다. 프리 티어를 사용하면 일부 성능 제한이 있는 앱을 얼마든지 실행할 수 있습니다.
+
+Replit에서 앱을 실행하려면:
+
+- [Sign up](https://replit.com/signup?from=landing) on Replit.
+- Click "New repl" button.
+- Select "Python" language from a list and provide repl name, e.g. `my-app`.
+- Click "Packages" tab and search for `flet` package; select its latest version.
+- Click "Secrets" tab and add `FLET_SERVER_PORT` variable with value `5000`.
+- Switch back to "Files" tab and copy-paste your app into `main.py`.
+- Run the app. Enjoy.
+
+
+
+- 리플릿에 가입하세요.
+- '새 교체' 버튼을 클릭합니다.
+- 목록에서 'Python' 언어를 선택하고 repl 이름을 제공합니다. 내 앱.
+- '패키지' 탭을 클릭하고 플렛 패키지를 검색합니다. 최신 버전을 선택하십시오.
+- '비밀' 탭을 클릭하고 값이 5000인 FLET_SERVER_PORT 변수를 추가합니다.
+- '파일' 탭으로 다시 전환하고 앱을 복사하여 main.py에 붙여넣습니다.
+- 앱을 실행합니다. 즐기다.
+
+
+
+---
+
+### Self Hosting
+
+NGINX를 사용하여 자체 서버에서 Flet 앱을 호스팅합니다.
+
+AWS, Oracle, Linode 등에서 사용할 수 있는 무료 및 저렴한 클라우드 서버 계층이 있습니다.
+
+
+
+#### Flet 환경 설정
+
+##### `requirements.txt` and virtualenv
+
+애플리케이션 종속성 목록이 포함된 requirements.txt를 생성합니다. 최소한 flet 모듈을 포함해야 합니다.
+
+`requirements.txt`
+
+``` txt
+flet>=0.2.4
+```
+
+virtualenv를 생성하고 요구 사항을 설치합니다.
+
+``` cmd
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+##### Sample `main.py` Flet app
+
+`main.py`
+
+``` py
+import flet as ft
+import os
+
+
+# set Flet path to an empty string to serve at the root URL (e.g., https://lizards.ai/)
+# or a folder/path to serve beneath the root (e.g., https://lizards.ai/ui/path
+DEFAULT_FLET_PATH = ''  # or 'ui/path'
+DEFAULT_FLET_PORT = 8502
+
+
+def main(page: ft.Page):
+    page.title = "You Enjoy Mychatbot"
+    page.add(ft.Text("Reba put a stopper in the bottom of the tub"))
+
+
+if __name__ == "__main__":
+    flet_path = os.getenv("FLET_PATH", DEFAULT_FLET_PATH)
+    flet_port = int(os.getenv("FLET_PORT", DEFAULT_FLET_PORT))
+    ft.app(name=flet_path, target=main, view=None, port=flet_port)
+```
+
+
+
+#### Flet 서버 자동 시작
+
+##### 시스템 단위 파일 생성
+
+시스템 서비스 단위 파일 flet.service를 사용하여 Flet 서버를 자동으로 시작합니다.
+
+아래 설정에서는 flet 앱 스크립트가 $HOME/flet-app/main.py에 정의되어 있다고 가정합니다. 설정에 따라 User, Group, WorkingDirectory 등을 교체합니다.
+
+`flet.service`
+
+```
+[Unit]
+Description=Flet Server
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/flet-app
+Environment="PATH=/home/ubuntu/flet-app/.venv/bin"
+ExecStart=/home/ubuntu/flet-app/.venv/bin/python /home/ubuntu/flet-app/main.py
+
+[Install]
+WantedBy=multi-user.target
+```
+
+##### Flet 서버 활성화
+
+``` bash
+cd /etc/systemd/system
+sudo ln -s /home/ubuntu/flet-app/flet.service
+sudo systemctl start flet
+sudo systemctl enable flet
+sudo systemctl status flet
+```
+
+
+
+#### NGINX Proxy Setup
+
+NGINX는 Flet 앱과 websocket을 프록시합니다.
+
+/etc/nginx/sites-available/* 구성 파일에서 필요에 따라 경로와 포트를 업데이트합니다.
+
+``` bash
+    location / {
+        proxy_pass         http://127.0.0.1:8502/;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+    
+    location /ws {
+        proxy_pass         http://127.0.0.1:8502/ws;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+```
+
+그게 다야! NGINX를 다시 시작하고 브라우저에서 앱을 엽니다.
+
+
+
+## Tutorials
+
+출처: https://flet.dev/docs/tutorials
+
+
+
+### Flet을 사용하여 Python에서 To-Do 앱 만들기
+
+이 자습서에서는 Flet 프레임워크를 사용하여 Python에서 ToDo 웹 앱을 만든 다음 인터넷에서 공유하는 방법을 단계별로 보여줍니다. 이 앱은 Python 코드의 180줄(포맷!)로 구성된 단일 파일 콘솔 프로그램이지만 풍부하고 응답성이 뛰어난 UI를 갖춘 다중 세션, 최신 단일 페이지 애플리케이션입니다.
+
+![img](.\Images\todo-complete-demo-web.gif)
+
+[여기](https://flet-todo.fly.dev/)에서 라이브 데모를 볼 수 있습니다.
+
+튜토리얼을 위해 ToDo 앱을 선택했습니다. 페이지 레이아웃 구축, 컨트롤 추가, 이벤트 처리, 목록 표시 및 편집, 재사용 가능한 UI 구성 요소 만들기, 배포 옵션 등 웹 앱을 만드는 데 필요한 모든 기본 개념을 다루기 때문입니다. .
+
+자습서는 다음 단계로 구성됩니다.
+
+- Flet 시작하기
+- 페이지 컨트롤 추가 및 이벤트 처리
+- 목록 항목 보기, 편집 및 삭제
+- 목록 항목 필터링
+- 마무리
+- 앱 배포
+
+
+
+#### Flet 시작하기
+
+Flet 웹 앱을 작성하려면 HTML, CSS 또는 JavaScript를 알 필요는 없지만 Python 및 객체 지향 프로그래밍에 대한 기본 지식은 필요합니다.
+
+Flet에는 Python 3.7 이상이 필요합니다. Flet을 사용하여 Python에서 웹 앱을 만들려면 먼저 flet 모듈을 설치해야 합니다.
+
+``` bash
+pip install flet
+```
+
+시작하려면 간단한 hello-world 앱을 만들어 보겠습니다.
+
+다음 내용으로 hello.py를 만듭니다.
+
+``` py
+import flet as ft
+
+def main(page: ft.Page):
+    page.add(ft.Text(value="Hello, world!"))
+
+ft.app(target=main)
+```
+
+이 앱을 실행하면 인사말이 포함된 새 창이 표시됩니다.
+
+![img](.\Images\todo-app-hello-world.png)
+
+
+
+#### 페이지 컨트롤 추가 및 이벤트 처리
+
+이제 다중 사용자 ToDo 앱을 만들 준비가 되었습니다.
+
+시작하려면 작업 이름을 입력하기 위한 TextField와 새 작업이 있는 확인란을 표시할 이벤트 처리기가 있는 '+' FloatingActionButton이 필요합니다.
+
+다음 내용으로 todo.py를 생성합니다.
+
+``` py
+import flet as ft
+
+def main(page: ft.Page):
+    def add_clicked(e):
+        page.add(ft.Checkbox(label=new_task.value))
+        new_task.value = ""
+        page.update()
+
+    new_task = ft.TextField(hint_text="Whats needs to be done?")
+
+    page.add(new_task, ft.FloatingActionButton(icon=ft.icons.ADD, on_click=add_clicked))
+
+ft.app(target=main)
+```
+
+앱을 실행하면 다음과 같은 페이지가 표시됩니다.
+
+![img](.\Images\todo-app-1.png)
+
+
+
+#### Page layout
+
+이제 앱을 보기 좋게 만들어 봅시다! 우리는 전체 앱이 600px 너비의 페이지 상단 중앙에 있기를 원합니다. TextField 및 '+' 버튼은 가로로 정렬되어야 하며 전체 앱 너비를 차지해야 합니다.
+
+![img](.\Images\todo-diagram-1.svg)
+
+[`Row`](https://flet.dev/docs/controls/row)  는 자식 컨트롤을 페이지에 가로로 배치하는 데 사용되는 컨트롤입니다.  [`Column`](https://flet.dev/docs/controls/column)은 자식 컨트롤을 페이지에 세로로 배치하는 데 사용되는 컨트롤입니다.
+
+todo.py 내용을 다음으로 바꿉니다.
+
+``` py
+import flet as ft
+
+
+def main(page: ft.Page):
+    def add_clicked(e):
+        tasks_view.controls.append(ft.Checkbox(label=new_task.value))
+        new_task.value = ""
+        view.update()
+
+    new_task = ft.TextField(hint_text="Whats needs to be done?", expand=True)
+    tasks_view = ft.Column()
+    view=ft.Column(
+        width=600,
+        controls=[
+            ft.Row(
+                controls=[
+                    new_task,
+                    ft.FloatingActionButton(icon=ft.icons.ADD, on_click=add_clicked),
+                ],
+            ),
+            tasks_view,
+        ],
+    )
+
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.add(view)
+
+ft.app(target=main)
+```
+
+앱을 실행하면 다음과 같은 페이지가 표시됩니다.
+
+![img](.\Images\todo-app-2.png)
+
+**Check Box 는 Whats needs to be done? 에 문자열 입력 후 + 버튼을 눌렀을 때 생성 된다.**
+
+
+
+#### 재사용 가능한 UI 구성 요소
+
+기본 기능에서 앱을 계속 작성할 수 있지만 가장 좋은 방법은 재사용 가능한 UI 구성 요소를 만드는 것입니다. 더 큰 프로젝트의 일부가 될 앱 헤더, 사이드 메뉴 또는 UI에서 작업하고 있다고 상상해 보십시오. 지금은 이러한 용도를 생각할 수 없더라도 구성 가능성과 재사용 가능성을 염두에 두고 모든 웹 앱을 만드는 것이 좋습니다.
+
+재사용 가능한 ToDo 앱 구성 요소를 만들기 위해 상태 및 표시 논리를 별도의 클래스에 캡슐화합니다.
+
+``` py
+import flet as ft
+
+class TodoApp(ft.UserControl):
+    def build(self):
+        self.new_task = ft.TextField(hint_text="Whats needs to be done?", expand=True)
+        self.tasks = ft.Column()
+
+        # application's root control (i.e. "view") containing all other controls
+        return ft.Column(
+            width=600,
+            controls=[
+                ft.Row(
+                    controls=[
+                        self.new_task,
+                        ft.FloatingActionButton(icon=ft.icons.ADD, on_click=self.add_clicked),
+                    ],
+                ),
+                self.tasks,
+            ],
+        )
+
+    def add_clicked(self, e):
+        self.tasks.controls.append(ft.Checkbox(label=self.new_task.value))
+        self.new_task.value = ""
+        self.update()
+
+
+def main(page: ft.Page):
+    page.title = "ToDo App"
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.update()
+
+    # create application instance
+    todo = TodoApp()
+
+    # add application's root control to the page
+    page.add(todo)
+
+ft.app(target=main)
+```
+
+> **NOTE**
+>
+> 페이지에 두 개의 TodoApp 구성 요소를 추가해 보세요.
+>
+> ``` py
+> # create application instance
+> app1 = TodoApp()
+> app2 = TodoApp()
+> 
+> # add application's root control to the page
+> page.add(app1, app2)
+> ```
+
+
+
+#### 목록 항목 보기, 편집 및 삭제
+
+이전 단계에서는 확인란으로 표시된 작업 항목이 있는 기본 ToDo 앱을 만들었습니다. 작업 이름 옆에 '편집' 및 '삭제' 버튼을 추가하여 앱을 개선해 보겠습니다. '편집' 버튼은 작업 항목을 편집 모드로 전환합니다.
+
+
+
+![img](.\Images\todo-diagram-2.svg)
+
+
+
+이 단계 전에는 코드가 튜토리얼에 완전히 포함될 만큼 짧았습니다. 앞으로는 단계에서 도입된 변경 사항만 강조 표시할 것입니다.
+
+[여기](https://github.com/flet-dev/examples/blob/main/python/tutorials/todo/to-do-4.py)에서 이 단계의 전체 코드를 복사합니다. 아래에서 보기, 편집 및 삭제 작업을 구현하기 위해 수행한 변경 사항에 대해 설명합니다.
+
+작업 항목 보기 및 작업을 캡슐화하기 위해 새 작업 클래스를 도입했습니다.
+
+``` py
+import flet
+from flet import (
+    Checkbox,
+    Column,
+    FloatingActionButton,
+    IconButton,
+    Page,
+    Row,
+    TextField,
+    UserControl,
+    colors,
+    icons,
+)
+
+
+class Task(UserControl):
+    def __init__(self, task_name, task_delete):
+        super().__init__()
+        self.task_name = task_name
+        self.task_delete = task_delete
+
+    def build(self):
+        self.display_task = Checkbox(value=False, label=self.task_name)
+        self.edit_name = TextField(expand=1)
+
+        self.display_view = Row(
+            alignment="spaceBetween",
+            vertical_alignment="center",
+            controls=[
+                self.display_task,
+                Row(
+                    spacing=0,
+                    controls=[
+                        IconButton(
+                            icon=icons.CREATE_OUTLINED,
+                            tooltip="Edit To-Do",
+                            on_click=self.edit_clicked,
+                        ),
+                        IconButton(
+                            icons.DELETE_OUTLINE,
+                            tooltip="Delete To-Do",
+                            on_click=self.delete_clicked,
+                        ),
+                    ],
+                ),
+            ],
+        )
+
+        self.edit_view = Row(
+            visible=False,
+            alignment="spaceBetween",
+            vertical_alignment="center",
+            controls=[
+                self.edit_name,
+                IconButton(
+                    icon=icons.DONE_OUTLINE_OUTLINED,
+                    icon_color=colors.GREEN,
+                    tooltip="Update To-Do",
+                    on_click=self.save_clicked,
+                ),
+            ],
+        )
+        return Column(controls=[self.display_view, self.edit_view])
+
+    def edit_clicked(self, e):
+        self.edit_name.value = self.display_task.label
+        self.display_view.visible = False
+        self.edit_view.visible = True
+        self.update()
+
+    def save_clicked(self, e):
+        self.display_task.label = self.edit_name.value
+        self.display_view.visible = True
+        self.edit_view.visible = False
+        self.update()
+
+    def delete_clicked(self, e):
+        self.task_delete(self)
+
+
+class TodoApp(UserControl):
+    def build(self):
+        self.new_task = TextField(hint_text="Whats needs to be done?", expand=True)
+        self.tasks = Column()
+
+        # application's root control (i.e. "view") containing all other controls
+        return Column(
+            width=600,
+            controls=[
+                Row(
+                    controls=[
+                        self.new_task,
+                        FloatingActionButton(icon=icons.ADD, on_click=self.add_clicked),
+                    ],
+                ),
+                self.tasks,
+            ],
+        )
+
+    def add_clicked(self, e):
+        task = Task(self.new_task.value, self.task_delete)
+        self.tasks.controls.append(task)
+        self.new_task.value = ""
+        self.update()
+
+    def task_delete(self, task):
+        self.tasks.controls.remove(task)
+        self.update()
+
+
+def main(page: Page):
+    page.title = "ToDo App"
+    page.horizontal_alignment = "center"
+    page.update()
+
+    # create application instance
+    app = TodoApp()
+
+    # add application's root control to the page
+    page.add(app)
+
+
+flet.app(target=main)
+```
+
+작업 항목 보기 및 작업을 캡슐화하기 위해 새 작업 클래스를 도입했습니다.
+
+``` py
+class Task(ft.UserControl):
+    def __init__(self, task_name):
+        super().__init__()
+        self.task_name = task_name
+
+    def build(self):
+        self.display_task = ft.Checkbox(value=False, label=self.task_name)
+        self.edit_name = ft.TextField(expand=1)
+
+        self.display_view = ft.Row(
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                self.display_task,
+                ft.Row(
+                    spacing=0,
+                    controls=[
+                        ft.IconButton(
+                            icon=ft.icons.CREATE_OUTLINED,
+                            tooltip="Edit To-Do",
+                            on_click=self.edit_clicked,
+                        ),
+                        ft.IconButton(
+                            ft.icons.DELETE_OUTLINE,
+                            tooltip="Delete To-Do",
+                            on_click=self.delete_clicked,
+                        ),
+                    ],
+                ),
+            ],
+        )
+
+        self.edit_view = ft.Row(
+            visible=False,
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                self.edit_name,
+                ft.IconButton(
+                    icon=ft.icons.DONE_OUTLINE_OUTLINED,
+                    icon_color=ft.colors.GREEN,
+                    tooltip="Update To-Do",
+                    on_click=self.save_clicked,
+                ),
+            ],
+        )
+        return ft.Column(controls=[self.display_view, self.edit_view])
+
+    def edit_clicked(self, e):
+        self.edit_name.value = self.display_task.label
+        self.display_view.visible = False
+        self.edit_view.visible = True
+        self.update()
+
+    def save_clicked(self, e):
+        self.display_task.label = self.edit_name.value
+        self.display_view.visible = True
+        self.edit_view.visible = False
+        self.update()
+```
+
+또한 '추가' 버튼을 클릭할 때 작업 인스턴스를 만들고 유지하도록 TodoApp 클래스를 변경했습니다.
+
+``` py
+class TodoApp(ft.UserControl):
+    def build(self):
+        self.new_task = ft.TextField(hint_text="Whats needs to be done?", expand=True)
+        self.tasks = ft.Column()
+        # ...
+
+    def add_clicked(self, e):
+        task = Task(self.new_task.value, self.task_delete)
+        self.tasks.controls.append(task)
+        self.new_task.value = ""
+        self.update()
+```
+
+'삭제' 작업 작업을 위해 작업 제어 인스턴스를 매개 변수로 허용하는 TodoApp 클래스의 task_delete() 메서드를 구현했습니다.
+
+``` py
+class TodoApp(ft.UserControl):
+    # ...
+    def task_delete(self, task):
+        self.tasks.controls.remove(task)
+        self.update()
+```
+
+그런 다음 task_delete 메서드에 대한 참조를 Task 생성자에 전달하고 'Delete' 버튼 이벤트 핸들러에서 호출했습니다.
+
+``` py
+class Task(ft.UserControl):
+    def __init__(self, task_name, task_delete):
+        super().__init__()
+        self.task_name = task_name
+        self.task_delete = task_delete
+
+        # ...        
+
+    def delete_clicked(self, e):
+        self.task_delete(self)
+```
+
+앱을 실행하고 작업 편집 및 삭제를 시도합니다.
+
+![img](.\Images\view-edit-delete.gif)
+
+
+
+#### 목록 항목 필터링
+
+작업을 생성, 편집 및 삭제할 수 있는 기능적인 ToDo 앱이 이미 있습니다. 생산성을 더욱 높이기 위해 상태별로 작업을 필터링할 수 있기를 원합니다.
+
+여기에서 이 단계의 전체 코드를 복사합니다. 아래에서 필터링을 구현하기 위해 수행한 변경 사항에 대해 설명합니다.
+
+탭 컨트롤은 필터를 표시하는 데 사용됩니다.
+
+``` py
+
+# ...
+
+class TodoApp(ft.UserControl):
+    def __init__(self):
+        self.tasks = []
+        self.new_task = ft.TextField(hint_text="Whats needs to be done?", expand=True)
+        self.tasks = ft.Column()
+
+        self.filter = ft.Tabs(
+            selected_index=0,
+            on_change=self.tabs_changed,
+            tabs=[ft.Tab(text="all"), ft.Tab(text="active"), ft.Tab(text="completed")],
+        )
+
+        self.view = ft.Column(
+            width=600,
+            controls=[
+                ft.Row(
+                    controls=[
+                        self.new_task,
+                        ft.FloatingActionButton(icon=ft.icons.ADD, on_click=self.add_clicked),
+                    ],
+                ),
+                ft.Column(
+                    spacing=25,
+                    controls=[
+                        self.filter,
+                        self.tasks,
+                    ],
+                ),
+            ],
+        )
+```
+
+상태에 따라 다른 작업 목록을 표시하기 위해 '모두', '활성' 및 '완료' 작업이 포함된 세 개의 목록을 유지할 수 있습니다. 그러나 우리는 동일한 목록을 유지하고 상태에 따라 작업의 가시성만 변경하는 더 쉬운 접근 방식을 선택했습니다.
+
+TodoApp 클래스에서 모든 작업을 반복하고 작업 상태에 따라 표시 속성을 업데이트하는 update() 메서드를 재정의했습니다.
+
+``` py
+class TodoApp(ft.UserControl):
+
+    # ...
+
+    def update(self):
+        status = self.filter.tabs[self.filter.selected_index].text
+        for task in self.tasks.controls:
+            task.visible = (
+                status == "all"
+                or (status == "active" and task.completed == False)
+                or (status == "completed" and task.completed)
+            )
+        super().update()
+```
+
+필터링은 탭을 클릭하거나 작업 상태를 변경할 때 발생해야 합니다. TodoApp.update() 메서드는 탭에서 선택한 값이 변경되거나 작업 항목 확인란을 클릭할 때 호출됩니다.
+
+``` py
+class TodoApp(ft.UserControl):
+
+    # ...
+
+    def tabs_changed(self, e):
+        self.update()
+
+class Task(ft.UserControl):
+    def __init__(self, task_name, task_status_change, task_delete):
+        super().__init__()
+        self.completed = False
+        self.task_name = task_name
+        self.task_status_change = task_status_change
+        self.task_delete = task_delete
+
+    def build(self):
+        self.display_task = ft.Checkbox(
+            value=False, label=self.task_name, on_change=self.status_changed
+        )
+        # ...
+
+    def status_changed(self, e):
+        self.completed = self.display_task.value
+        self.task_status_change(self)
+```
+
+앱을 실행하고 탭을 클릭하여 작업 필터링을 시도하십시오.
+
+![img](.\Images\todo-app-filtering.gif)
+
+
+
+#### 마무리 (Final touches)
+
+이제 Todo 앱이 거의 완성되었습니다. 마지막 터치로 완료되지 않은 작업 수를 표시하는 바닥글(열 컨트롤)(텍스트 컨트롤)과 'Clear completed' 버튼을 추가합니다.
+
+[여기](https://github.com/flet-dev/examples/blob/main/python/apps/todo/todo.py)에서 이 단계의 전체 코드를 복사합니다. 아래에서 바닥글을 구현하기 위해 수행한 변경 사항을 강조 표시했습니다.
+
+``` py
+class TodoApp():
+    def __init__(self):
+        # ...
+
+        self.items_left = ft.Text("0 items left")
+
+        self.view = ft.Column(
+            width=600,
+            controls=[
+                ft.Row([ ft.Text(value="Todos", style="headlineMedium")], alignment=ft.MainAxisAlignment.CENTER),
+                ft.Row(
+                    controls=[
+                        self.new_task,
+                        ft.FloatingActionButton(icon=ft.icons.ADD, on_click=self.add_clicked),
+                    ],
+                ),
+                ft.Column(
+                    spacing=25,
+                    controls=[
+                        self.filter,
+                        self.tasks,
+                        ft.Row(
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                            controls=[
+                                self.items_left,
+                                ft.OutlinedButton(
+                                    text="Clear completed", on_click=self.clear_clicked
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+        )
+
+    # ...
+
+    def clear_clicked(self, e):
+        for task in self.tasks.controls[:]:
+            if task.completed:
+                self.task_delete(task)
+
+    def update(self):
+        status = self.filter.tabs[self.filter.selected_index].text
+        count = 0
+        for task in self.tasks.controls:
+            task.visible = (
+                status == "all"
+                or (status == "active" and task.completed == False)
+                or (status == "completed" and task.completed)
+            )
+            if not task.completed:
+                count += 1
+        self.items_left.value = f"{count} active item(s) left"
+        super().update()
+```
+
+앱 실행:
+
+![img](.\Images\todo-app-4.png)
+
+
+
+#### 앱 배포
+
+축하합니다! Flet을 사용하여 첫 번째 Python 앱을 만들었습니다. 멋져 보입니다!
+
+이제 여러분의 앱을 세상과 공유할 시간입니다!
+
+Flet 앱을 웹 앱으로 Fly.io 또는 Replit에 배포하려면 [다음 지침](https://flet.dev/docs/guides/python/deploying-web-app)을 따르십시오.
+
+
+
+#### Summary
+
+이 자습서에서는 다음 방법을 배웠습니다.
+
+- 간단한 Flet 앱을 만듭니다.
+- 재사용 가능한 UI 구성 요소로 작업합니다.
+- 열 및 행 컨트롤을 사용하여 UI 레이아웃을 디자인합니다.
+- 목록 작업: 항목 보기, 편집 및 삭제, 필터링
+- Flet 앱을 웹에 배포합니다.
+
+
+
+추가 정보를 보려면 컨트롤 및 예제 리포지토리를 탐색할 수 있습니다.
+
+여러분의 피드백을 듣고 싶습니다! [이메일](hello@flet.dev)을 보내거나 [Discord](https://discord.gg/dzWXP8SHG8)에서 토론에 참여하거나 [Twitter](https://twitter.com/fletdev)에서 팔로우하세요.
+
+
+
+---
+
+### Flet을 사용하여 Python에서 계산기 앱 만들기
+
+출처: https://flet.dev/docs/tutorials/python-calculator
+
+이 자습서에서는 Flet 프레임워크를 사용하여 Python에서 계산기 앱을 만들고 웹 앱으로 배포하는 방법을 단계별로 보여줍니다. 이 앱은 간단한 콘솔 프로그램이지만 iPhone 계산기 앱 UI와 유사한 다중 플랫폼 애플리케이션입니다.
+
+![img](.\Images\calc-app.gif)
+
+[여기](https://flet-calc.fly.dev/)에서 라이브 데모를 찾을 수 있습니다.
+
+이 자습서에서는 페이지 레이아웃 빌드, 컨트롤 추가, 재사용 가능한 UI 구성 요소 만들기, 이벤트 처리 및 배포 옵션과 같은 웹 앱 만들기의 모든 기본 개념을 다룹니다.
+
+자습서는 다음 단계로 구성됩니다.
+
+- Flet 시작하기
+- 페이지 컨트롤 추가
+- 건물 페이지 레이아웃
+- 재사용 가능한 UI 구성 요소
+- 이벤트 처리
+- 데스크톱 앱으로 패키징
+- 웹 앱 배포
+- 요약
+
