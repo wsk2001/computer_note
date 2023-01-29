@@ -70,6 +70,15 @@ Linux 시스템에서 파일 시스템은 **'/'**로 표시되는 루트 디렉�
 
 - **/bin**: 이 디렉토리에는 명령줄 유틸리티와 같이 시스템이 작동하는 데 필수적인 이진 실행 파일이 포함되어 있습니다.
 - **/sbin**: 이 디렉토리에는 시스템 관리 유틸리티와 같은 시스템 바이너리 실행 파일이 포함되어 있습니다.
+- **/dev**: 각종 디바이스 파일들이 위치해 있는데 크게 블록 디바이스와 캐릭터 디바이스로 나뉠 수 있다. **블록 디바이스**란 HDD와 같은 주변 장치를 말하는데, 데이타가 블록 단위로 읽고 쓰여지며 랜덤하게 액세스할 수 있다. 반면 **캐릭터 디바이스**는 입출력이 한 바이트 단위로 이루어지며 데이터가 순차적으로 읽고 쓰여진다. 디바이스를 새로 만들 때에는 **mknod** 명령을 이용하면 되며, 물론 /bin 에 위치해 있다. mount를 할 때에 필요한 디바이스 몇 개만 소개한다.
+  - **/dev/fd0**: 플로피 디스크 디바이스
+    - 첫 번째 FDD의 디바이스로 두 번째의 경우는 0 대신 1을, 세 번째의 경우는 2를 써주면 된다.
+  - **/dev/hda or /dev/hda1**: IDE 하드 디스크 디바이스
+    - 마지막 부분의 hda에서 'a'는 위치를 나타내는 것으로, 'a'는 primary master, 'b'는 primary slave, 'c'는 secondary master, 'd'는 secondary slave를 의미한다. 그리고 그 뒤에 숫자가 없을 경우에는 전체를 의미한다. 숫자를 달 경우에는 파티션을 의미한다.
+  - **/dev/sda, /dev/sda1**: SCSI 하드 디스크 디바이스
+    - IDE 하드 디스크 디바이스와 같으나 'h' 대신 's'를 쓴다.
+  - **/dev/cdrom**: CD-ROM 디바이스이다
+
 - **/etc**:  이 디렉토리에는 시스템 및 설치된 소프트웨어에 대한 구성 파일이 포함되어 있습니다.
 - **/usr**: 이 디렉토리에는 라이브러리, 문서 및 응용 프로그램과 같은 사용자 관련 파일이 포함되어 있습니다.
 - **/var**: 이 디렉토리에는 로그 파일, 스풀 파일 및 임시 파일과 같은 가변 데이터가 들어 있습니다.
@@ -868,68 +877,344 @@ ccccccccccc
 
  
 
+### 7.3 notepad++ 에 FTP Plugin 설치 및 사용
+
+출처: http://triki.net/apps/3187
+
+Table of Contents
+
+1. [NppFTP, FTP 플러그인](http://triki.net/apps/3187#dry_toc_1)
+2. [NppFTP 설치](http://triki.net/apps/3187#dry_toc_2)
+3. [FTP 창 활성화](http://triki.net/apps/3187#dry_toc_3)
+4. [NppFTP 기본 사용법](http://triki.net/apps/3187#dry_toc_4)
+5. [참고자료](http://triki.net/apps/3187#dry_toc_5)
+
+무료 소스 코드 프로그램인 Notepad++ 는 다양한 플러그인을 지원하지만 역시 그 중 최고는 NppFTP(FTP 플러그인) 입니다. 아래는 Notepad++ 에서 FTP 기능을 사용하기 위해 NppFTP 플러그인을 설치 하고 사용하는 기본 방법을 정리 한 것입니다.
+
+(아래 작업은 Notepad++ Plugin manager 가 설치 되어 있어야 합니다.)
+
+#### NppFTP, FTP 플러그인
+
+NppFTP 를 이용하면 아주 간단하게 자신의 사이트, 블로그의 소스 파일을 수정하고 업로드 할 수 있습니다.
+
+#### NppFTP 설치
+
+Notepad++ 를 열고 상단 메뉴에서 *Plugins – Plugin Manager – Show Plugin Manager* 로 이동합니다. Plugin Manager 창에서 NppFTP 를 찾아 체크하고 하단의 Install 버튼을 누르면 NppFTP 가 설치 됩니다.
+
+[![img](https://i0.wp.com/triki.net/wp-content/uploads/2018/10/181003-nppftp-install.png?fit=1003%2C934)](https://i0.wp.com/triki.net/wp-content/uploads/2018/10/181003-nppftp-install.png?fit=1003%2C934)Notepad++ 플러그인 매니저에서 NppFTP 설치
+
+#### FTP 창 활성화
+
+NppFTP 플러그인을 설치 했다면 NppFTP 창을 활성화 시켜 이용해야 합니다. 상단 메뉴의 *Plugins -NppFTP – Show NppFTP Window* 를 실행해 NppFTP 창을 활성화 시켜줍니다.
+
+NppFTP 창이 활성화 되었다면, NppFTP 창 상단에서 제일 우측의 *Show messages window* 버튼을 눌러 NppFTP 메시지 창을 활성화 시킵니다. 이 창은 FTP 접속과 관련된 모든 로그를 보여 줍니다. 접속이 안된 경우, 파일 업로드가 안된 경우 등을 확인 할 때 유용하므로 꼭 활성화 시켜주도록 합니다.
+
+
+
+이제 본격적으로 Notepad++ 에서 FTP 기능을 사용할 수 있는 환경 구축이 완료 되었습니다.
+
+#### NppFTP 기본 사용법
+
+본격적으로 자신의 FTP 서버에 접속하기 위해서는 먼저 FTP 서버 프로필 세팅이 필요합니다. 활성화 시킨 NppFTP 창에서 상단 톱니바퀴 버튼(설정)을 눌러 *Profile settings* 메뉴로 들어 갑니다.
+
+[![img](https://i2.wp.com/triki.net/wp-content/uploads/2018/10/181003-nppftp-profile-settings.png?fit=790%2C618)](https://i2.wp.com/triki.net/wp-content/uploads/2018/10/181003-nppftp-profile-settings.png?fit=790%2C618)NppFTP – Profile settings 화면
+
+새로운 창이 하나 켜지는데 여기서 *Add new* 버튼을 클릭해 자신이 관리하는 웹사이트의 FTP 서버에 대한 정보를 등록합니다.
+
+프로필 세팅이 완료 되면 NppFTP Window 상단 제일 좌측의 연결 버튼이 활성화 됩니다. 연결 버튼을 이용해 자신의 FTP 서버에 접속한 후 본격적으로 파일 수정을 시작하면 됩니다.
+
+파일 수정이 끝나고 저장만 하면 자동으로 서버에 파일이 업로드 됩니다.
+
+------
+
+조금은 복잡해 보이지만 사실은 간단한 이 과정이 Notepad++ 에서 NppFTP 플러그인 사용의 기본입니다.
+
+#### 참고자료
+
+- [GitHub – NppFTP](https://ashkulz.github.io/NppFTP/) 
+
+
+
+### 7.4 특정 패턴의 문자열이 포함된 파일 찾기
+
+Linux 에서 개발 작업시 여러개의 소스 파일을 사용하여 개발을 진행 하게 됩니다. 이때 특정한 문자열("예: 함수") 이 포함되어 있는 파일이 어디에 있는지 기억이 나지 않을 경우 쉽게 찾을 수 있는 script 입니다.
+
+사용법
+
+`find . -name "파일 패턴" | xargs egrep "찾을 문자열"
+
+ex)
+
+``` bash
+find . -name "*.cpp" | xargs egrep "printf"
+```
+
+위 명령은 현재경로 '.' 아래의 모든 경로 에서 확장자가 cpp 로 되어 있는 파일 중 printf 문자열을 가지고 있는 파일 을 찾고 해당 내용을 console 에 보여 달라는 명령 입니다.
+
+
+
+### 7.5 vi 편집기 사용하기
+
+리눅스 에서 가장 많이 사용되는 편집기는 vi 편집기 입니다.
+
+vi는 다른 편집기들과는 다르게 모드형 편집기라는 특징이 있습니다.
+
+vi 를 처음 기동 시키면 명령 모드로 진입이 되며 이때는 글자를 입력 할 수 없고 vi 로 어떤 일을 하게될지 명령을 기다리는 상태가 됩니다.
+
+vi 의 모드는 명령 모드, 편집 모드, 라인 모드 3가지로 구분 되며 각각의 모드별로 사용 할 수 있는 기능은 다ㅡㅁ과 같습니다.
+
+명령 모드
+
+- 모드 변경, 복사, 이동, 삭제, 등의 작업을 할 수 있습니다.
+- 명령 모드 에서 i, a, o 등의 키를 입력 하면 편집 모드로 진입 됩니다.
+
+편집 모드
+
+- 문서의 작성 및 편집을 할 수 있는 모드 입니다.
+- ESC 키의 입력에 의해 명령 모드로 복귀 할 수 있습니다.
+
+라인 모드 (또는 ex 모드)
+
+- 라인 모드는 명령 모드에서 : key 입력에 의해 진입 할 수 있습니다.
+- :w, :q, :wq 등의 명령을 수행 하여 쓰기 및 vi 를 종료 할 수 있습니다.
+- :sh, bash 등 실행 명령을 통해 외부 파일을 실행 할 수 있습니다.
+  - 외부 파일의 실행이 종료되면 (sh, bash 를 실행 한 경우) exit 명령으로 다시 vi 로 돌아 올 수 있습니다.
+
+
+
+**표로 정리한 vi 모드**
+
+| 모드      | 역할 및 특징                                                 |
+| --------- | ------------------------------------------------------------ |
+| 명령 모드 | vi를 실행시키면 가장 먼저 접하는 기본이 되는 모드로 커서의 이동, 수정, 삭제, 복사 붙이기, 탐색  등을 한다. 입력 모드 전환키인 i,a,o,I,A,O 등을 입력하면 입력 모드로 전환되고,   명령 모드로 다시 전환하려면 [Esc] 키를 누르면 된다. |
+| 입력 모드 | 입력 모드 이외에도 편집 모드, input mode, insert mode 등으로 불리며,   글자를 입력하는 문서를 만드는 모드이다.   명령 모드에서 입력 전환키를 눌러서 전환하면 화면 아래에 '-- INSERT --'라고 표시된다. |
+| ex   모드 | 명령 모드에서 ':'키를 입력했을 때 화면 맨 아랫줄에서 명령을 수행하는 모드로  저장, 종료, 탐색, 치환 및 vi 환경 설정 등의 역할을 하는 모드이다. |
+
+
+
+**입력 모드 전환 명령어**
+
+먼저 입력 모드로 들어가기 위해 i,a,o,I,A,O가 있다고 했는데 각각 무슨 차이일까
+
+| i    | 현재 커서의 위치부터 입력              | I    | 현재 커서 줄의 맨 앞에서부터 입력 ( shift + i ) |
+| ---- | -------------------------------------- | ---- | ----------------------------------------------- |
+| a    | 현재 커서의 위치 다음 칸부터 입력      | A    | 현재 커서 줄의 맨 마지막부터 입력 ( shift + a)  |
+| o    | 현재 커서의 다음 줄에 입력             | O    | 현재 커서의 이전 줄에 입력 ( shfit + o )        |
+| s    | 현재 커서 위치의 한 글자를 지우고 입력 | S    | 현재 커서의 한 줄을 지우고 입력 ( shift + s )   |
+
+
+
+**커서 이동 명령어**
+
+사실 커서 이동은 키보드의 4개 화살표를 이용해서 이동하면 됩니다. 그러나 가끔 하위 버전의 Linux 또는 Unix 에서 vi 를 사용 할때 화살표 key 가 동작 하지 않을 때가 있습니다. 이 때는 hjkl key 를 이용하여 커서를 이동 해야 합니다.
+
+| 명령         | 설명                                                      |
+| ------------ | --------------------------------------------------------- |
+| h            | 커서를 왼쪽으로 한 칸 이동 ( ← 이랑 같은 의미 )           |
+| j            | 커서를 아래로 한 칸 이동 ( ↓와 같은 의미 )                |
+| k            | 커서를 위로 한 칸 이동 ( ↑와 같은 의미 )                  |
+| l            | 커서를 오른쪽으로 이동 ( →와 같은 의미 )                  |
+| w            | 다음 단어의 처음으로 이동 ( 왠지 word의 약자 같은 느낌? ) |
+| ^            | 줄의 첫 문자로 이동                                       |
+| $            | 줄의 맨 끝으로 이동 (:$은 줄의 제일 끝으로 이동)          |
+| 0            | 첫 번째 열로 이동 (:0은 줄의 제일 처음으로 이동)          |
+| G            | 제일 끝 행으로 이동 ( shift + G )                         |
+| gg           | 제일 첫 행으로 이동 ( g + g )                             |
+| nG           | n 번째 행으로 이동                                        |
+| :숫자 +enter | 해당 숫자의 행으로 이동                                   |
+| H            | 화면의 첫 줄로 이동 ( Head ) (shift + h)                  |
+| M            | 화면의 중간으로 이동 ( Middle ) (shift + m)               |
+| L            | 화면의 끝 줄로 이동 ( Last ) (shift + l)                  |
+| [Ctrl] + b   | 이전 화면으로 이동 (Page Up과 같아요)                     |
+| [Ctrl + d]   | 반 전도 화면 이동 (스크롤 중간 정도 내린거 같은거.)       |
+| [Ctrl] + F   | 다음 화면으로 이동 (Page Down과 같아요)                   |
+| n%           | 입력한 n퍼센트에 해당하는 줄로 이동                       |
+
+
+
+**삭제 복사 붙여넣기 명령어**
+
+| 명령    | 설명                                                  |
+| ------- | ----------------------------------------------------- |
+| x       | 현재 커서가 위치한 문자를 삭제 ( del와 같은 의미예요) |
+| dw      | 단어 삭제                                             |
+| dd      | 현재 커서의 행 삭제                                   |
+| 숫자 dd | 현재 커서부터 숫자만큼의 행 삭제                      |
+| yy      | 현재 커서가 있는 행을 복사                            |
+| 숫자 yy | 현재 커서부터 숫자만큼의 행을 복사                    |
+| p       | 복사한 내용을 현재 행 이후에 붙여 넣기                |
+| P       | 복사한 내용을 현재 행 이전에 붙여 넣기 ( shift + p )  |
+
+
+
+**되돌리기 및 검색**
+
+| 명령         | 설명                                                         |
+| ------------ | ------------------------------------------------------------ |
+| u            | 직전에 내린 명령을 취소                                      |
+| /exp + enter | 'exp' 와 같은 문자열을 현재 커서가 위치한 곳부터 아래 방향으로 검색 |
+| ?exp + enter | 'exp'와 같은 문자열을 뒤에서부터 찾습니다. 즉 위 방향으로 검색! |
+| n            | 찾은 문자 중에서 다음 문자로 이동                            |
+| N            | n이 아래로 검색을 계속 내려가는 거라면 N은 위로 검색을 계속하는거 (shift + n) |
+
+vi 사용법  출처: https://jhnyang.tistory.com/54
+
+
+
+**vi 명령 모드에서 문자열 찾기**
+
+명령 모드 에서 / key 를 누르고 문자열을 입력 후 <enter> key 를 누르면 해당 문자열이 있는곳 으로 이동 합니다.
+
+문자열을 발경 하지 못한 경우 'Pattern not found' 오류가 발생 합니다.
+
+
+
+**vi 명령 모드에서 문자열 일괄 수정 하기 찾기**
+
+명령 모드 에서 : key 를 눌러 라인 모드로 진입 후 다음과 같이 입력 하면 문자열을 바꿀 수 있습니다.
+
+**:start line num, end line num/원본분자열/바꿀문자열/g**
+
+ ex)
+
+```vim
+:1,$s/read/write/g
+```
+
+설명: 해당 파일의 첫줄 부터 마지막 줄 까지 검색 하여 "read" 문자열을 "write" 로 수정 하라 는 명령 입니다.
+
+
+
+## 8. Linux kernel 및 Device Driver 소개
+
+리눅스에서는 모든 것을 파일로 관리하게 되어있습니다.
+
+어떤 장치를 리눅스에 마운트하면 리눅스에서는 해당 장치를 표현하는 장치 파일로 장치관리가 됩니다.
+
+이 장치파일들을 사용할 수 있게 해주는 것이 바로 장치 드라이버(Device Driver)입니다.
+
+### 8.1 device driver 구분 (블록 디바이스, 케릭터 디바이스)
+
+- **블록 디바이스(Block Device)**
+
+  보통 하드디스크나 CD/DVD, 플로피디스크 등의 장치를 말하며, 블록이나 섹터 등의 정해진 단위로 데이터를 전송합니다. I/O 전송속도가 높은 것이 특징입니다.
+
+- **캐릭터 디바이스(Character Device)**
+
+  키보드, 마우스, 테이프, 모니터, 프린터 등의 장치가 있으며, byte 단위로 데이터를 전송합니다. I/O 전송속도가 다소 느릴 수도 있으나, 어플리케이션단에서 버퍼링을 제어하므로, 성능에 따라 차이가 있을 수 있습니다.
+
+### 8.2 Kernel Version 확인 방법
+
+Linux 에서 Device Driver 를 개발 할 경우 Kernel Version 에 따라 Device Driver 가 오동작 또는 Hang 이 걸리는 등 심각한 오류를 발생 시킬 수 있으므로 반드시 지원하는 Kernel Version 을 확인 후 kernel module 을 설치 하여야 합니다.
+
+일반 개발자의 경우 Device Driver 를 개발할 가능성이 적지만 System Programming 을 하는경우 Device Driver 를 이용해야 해결이 되는 경우가 있으므로 Kernel Version 은 매우 중요하게 확인 하여야 합니다.
+
+Linux 의 kernel version 은 다음 명령을 실행 하여 알 수 있습니다.
+
+``` bash
+[root@localhost ~]# uname -r
+4.18.0-305.3.1.el8.x86_64
+```
+
+위 명령을 실행한 Linux 장치는 Kernel Version이 '4.18.0-305' 임을 알 수있습니다.  대부분의 경우 4.18 까지만 확인이 되면 대부분 호환이 됩니다.
+
+
+
+### 8.3 kernel Module 설치 방법
+
+Linux Kernel 별로 지원 하는 함수의 protype 이 수정/삭제 되는 경우가 있으므로 하위 Version 에서 지원하던 source 가 상위 version 에서 컴파일 되지 않는 경우가 자주 있습니다.
+
+Linux 의 커널 모듈 설치는 별점 문서인 [리눅스 커널 컴파일(Kernel Compile) 및 모듈(Module) 관리.md](리눅스 커널 컴파일(Kernel Compile) 및 모듈(Module) 관리.md) 파일을 참조 하시기 바랍니다.
+
+
+
+   
+
+## 9. 개발 Tool 설치 및 테스트 방법
+
+### 9.1 yum 사용법
+
+yum은 Red Hat 기반 Linux 배포판(예: Fedora 및 CentOS)용 패키지 관리자로 명령줄에서 패키지를 쉽게 설치, 업데이트 및 제거할 수 있습니다. yum을 사용하는 방법은 다음과 같습니다.
+
+- 패키지 설치: yum install [패키지 이름]
+
+- 패키지 업데이트: yum update [패키지 이름]
+
+- 패키지 제거: yum remove [패키지 이름]
+
+- 패키지 검색: yum search [keyword]
+
+- 설치된 패키지 나열: yum list installed
+
+- 사용 가능한 업데이트 나열: yum check-update
+
+- yum 캐시 정리: yum clean all
+
+참고: 충분한 권한을 얻으려면 sudo와 함께 yum 명령을 실행해야 할 수도 있습니다.
+
+
+
+### 9.2 CentOS 8 미러 서버용 repo 파일 변경 방법
+
+yum 을 이용하여 package 를 설치 할때 package 를 검색하는 경로인 repository 에 package 가 존재 하여야 검색 및 설치를 할 수 있습니다.
+
+최근에 Red Hat 재단 에서 CentOS 의 지원을 하지 않기로 하면서 Package 보관하는 repository를 제대로 관리하지 않아 CentOS 의 package 설치시 오류가 발생 하는데 이때 대처 할 수 있는 방법 입니다.
+
+ root user 로 switch 후 작업을 진행 하여야 합니다.
+
+``` bash
+cd /etc/yum.repos.d/
+
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
+```
+
+ 
+
+### 9.3 yum 을 이용한 gcc-c++ 설치
+
+repository  의 변경 작업이 완료 되었으면 다음 명령을 실행 하여 c++ 컴파일러를 설치 할 수 있습니다.
+
+``` bash
+yum install -y gcc-c++
+```
+
+다음 명령을 실행 하여 테스트를 진행 합니다.
+
+``` bash
+[root@localhost ~]# c++
+c++: fatal error: no input files
+compilation terminated.
+[root@localhost ~]#
+```
 
 
 
 
-- 특정 패턴의 문자열이 포함된 파일 찾기, 기타, ... 
+
+## 10. Makefile 만드는법
+
+- 간단한 Makefile 예제 및 설명
+
+- Static lib 만드는법 및 사용 방법
+
+- Dynamic lib 만드는법  및 사용 방법
+
+- Makefile 여러 경로에 있는 소스 일괄 Build
+
+- Makefile 에서 Shell 사용하기
 
 
 
-- VI 에디터 기본 사용법
-  - 커서 이동, 삽입, 수정, 삭제
-  - 찾기, 일괄 변경, Shell 획득,
-  - 기타, ...
+## 11.  개발 능률 행상을 위해 vi 에 설치하는 Plugin
+
+Linux 에서 C/C++ 개발시 능률 향상을 위해 ctags 및  taglist 를 설치하여 사용하는 방법 입니다.
 
 
 
-- SSH 설치 및 방화벽 설정
-  - SSH Server 설치
-  - 방화벽 설정
-  - SSH Client Terminal Application 설치 및 사용 방법
-    - Xterm (MobaXterm)
-  - SSH Client 편집기 (notepad++) 를 이용한 Linux 파일 수정
 
-
-
-- Linux kernel 및 Device Driver 소개
-
-  - device driver 구분 (블럭 디바이스, 케릭터 디바이스)
-
-  - Kernel Version 확인 방법
-
-  - kernel Module 설치 방법
-
-    
-
-- 개발 Tool 설치 방법 및 테스트
-
-  - sudo apt-get update 
-
-  - sudo apt-get install build-essential 
-  - Sample program 작성 및 테스트
-
-  
-
-- Makefile 만드는법
-
-  - 간단한 Makefile 예제 및 설명
-
-  - Static lib 만드는법 및 사용 방법
-
-  - Dynamic lib 만드는법  및 사용 방법
-
-  - Makefile 여러 경로에 있는 소스 일괄 Build
-
-  - Makefile 에서 Shell 사용하기
-
-  
-
-- Linux 에서 C/C++ 을 이용한 개발시 능률을 향상 시키는 Plugin 설치 및 사용법
-
-  - ctags, taglib 사용법
-  
-  
 
 
 - C/C++ 개발 시 참조용 명령어
