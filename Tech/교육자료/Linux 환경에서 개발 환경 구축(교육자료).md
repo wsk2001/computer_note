@@ -285,7 +285,7 @@ CentOS 8.4 에는 기본적으로 ssh가 설치 및 활성화 되어 있습니�
 
 #### 5.2.2.1 CentOS 7 이후의 방화벽 변경 사항
 
-CentOS 7 부터는 firewalld 서비스가 기본 방화벽으로 활성화 되도록 적용 되었습니다..
+CentOS 7 부터는 firewalld 서비스가 기본 방화벽으로 활성화 되도록 적용 되었습니다.
 
 이전 Version 에는 iptables를 사용했는데 CentOS 7 부터 firewalld 라는 방화벽 시스템이 기본으로 바뀜
 
@@ -319,6 +319,15 @@ firewall-cmd --reload
 firewall-cmd --permanent --zone=public --add-port=22/tcp
 firewall-cmd --reload
 firewall-cmd --list-port
+
+# 시작
+systemctl start firewalld	
+
+# 중지
+systemctl enable firewalld	
+
+# 재시작
+firewall-cmd --reload
 ```
 
 
@@ -335,7 +344,7 @@ mobaxterm  의 설치 과정은 일반  software 의 설치와 유사한 방법�
 
 mobaxterm  을 실행 한 후 Session 버튼을 눌러 접속할 SSH 주소를 추가 합니다.
 
-![](C:\GitHub\computer_note\Tech\교육자료\Images\SSH-Install\ssh-client.png)
+![](.\Images\SSH-Install\ssh-client.png)
 
 
 
@@ -705,8 +714,6 @@ export LD_LIBRARY_PATH=/home/user/lib:/home/user/test/lib
 
 
 
-alias,  function 추가, PATH 에 .: 추가 
-
 ### 6.1 환경변수 load
 
 .bashrc 또는 .bash_profile 의 환경변수 를 수정 하였으면 다음번 login 이후에 적용이 된다,  하지만 재login 않고 현재 접속된 환경 에서 설정을 적용 하려면 다음 명령을 실핼 하면 됩니다.
@@ -719,6 +726,94 @@ source ./.bash_profile
 . ./.bashrc
 . ./.bash_profile
 ```
+
+
+
+### 6.2 Linux 유용한 환경변수
+
+linux bash shell 은 .bashrc 또는 .bash_profile 파일을 읽어서 환경 변수를 설정 합니다.  다음은 유용한 환경 변수 입니다.
+
+#### 6.2.1 alias(별칭)
+
+Linux의 alias는 명령 또는 명령 집합에 대한 바로 가기입니다. alias를 생성하여 시간을 절약하고 자주 사용하는 명령을 단순화할 수 있습니다. 예: 'alias ls='ls --color=auto''는 'ls --color=auto' 명령에 대한 별칭 'ls'를 생성합니다. 별칭을 사용하려면 터미널에 'ls'를 입력하면 'ls --color=auto'가 실행됩니다. 별칭을 제거하려면 'unalias' 명령 다음에 alias 이름을 사용하십시오.
+
+alias 는 명령어의 별칭 으로 사용 법은 다음과 같습니다.
+
+.bashrc 또는 .bash_profile 에 다음 명령을 추가 합니다.
+
+``` bash
+alias [alias 이름]='명령어'
+
+# 예
+alias src='cd ~/workspace/test_source/source/project/testproj'
+```
+
+위처럼 alias 를 지정 하고 적용(재 login 시 적용됨)이 되었으면 Terminal 창에서 src  입력 후 enter key 를 누르면 ~/workspace/test_source/source/project/testproj 경로로 이동 됩니다.
+
+
+
+#### 6.2.2 bash 함수
+
+Linux의 bash 함수는 단일 이름으로 그룹화된 명령 집합입니다. 함수는 별칭과 비슷하지만 인수를 허용하고 더 복잡한 논리 및 제어 구조를 포함할 수 있습니다. 다음 구문을 사용하여 bash 셸에서 정의됩니다.
+
+``` bash
+function function_name {
+  commands
+}
+```
+
+예를 들어, 다음 함수 'hello'는 사용자에게 인사를 출력합니다.
+
+``` bash
+function hello {
+  echo "Hello, $1"
+}
+```
+
+다음과 같이 함수 이름 뒤에 임의의 인수를 입력하여 함수를 호출할 수 있습니다. 함수를 제거하려면 'unset' 명령 다음에 함수 이름을 사용하십시오.
+
+``` bash
+> hello World
+```
+
+다음은 특정한 문자열을 포함하고 있는 파일을 찾아서 표시하는 bash 함수의 사용 예 입니다.
+
+``` bash
+pfind()
+{
+        find . -name $1 | xargs egrep $2
+}
+```
+
+사용법은 다음과 같습니다.
+
+``` bash
+pfind *.cpp printf
+```
+
+위 명령은 현재 directory 아래(sub directory 포함) 에서 확장자가 .cpp 인 파일 중 printf 문자열을 포함 하고 있는 줄을 파일명과 함께 보여 줍니다
+
+
+
+#### 6.2.3 PATH 환경 변수
+
+Linux 에서 명령을 실행 하면 명령어가 OS 의 기본 directory 에 없는 경우는 환경 변수 PATH 에 기술된 순서로 명령어를 찾습니다. 현재 경로에 'testmain' 이라는 App 이 존재 하는 경우에도 testmain 이라고 입력 하면 testmain  Not Found 라는 오류를 보여줍니다.
+
+이때 오류를 해결 하기 위해 .bashrc 또는 .bash_profile 에 다음 명령을 추가 합니다.
+
+``` bash
+export PATH=.:$PATH
+```
+
+설명:
+
+`.` : 현재 directory
+
+`:`: 여러개의 경로를 등록 할 경우 구분자
+
+`$PATH` : 기존에 등록되어 있던 환경변수 PATH 의 값
+
+이제 적용이 완료되면 현재 경로의 파일은 `./` 를 입력 하지 않아도 참조 할 수 있습니다.
 
 
 
@@ -1194,17 +1289,466 @@ compilation terminated.
 
 
 
-## 10. Makefile 만드는법
+## 10. Makefile 활용 방법
 
-- 간단한 Makefile 예제 및 설명
+### 10.1 Makefile 이란 ?
 
-- Static lib 만드는법 및 사용 방법
+Makefile은 소프트웨어 개발에서 프로젝트의 종속성을 빌드하고 관리하는 데 사용되는 특수 파일입니다. **프로젝트 빌드, 중간 파일 정리 및 테스트 실행과 같은 작업을 자동화하는 일련의 규칙을 제공합니다.** Makefile에는 프로젝트 빌드 방법을 지정하는 대상, 종속성 및 명령 세트가 포함되어 있습니다. 'make' 유틸리티는 Makefile을 읽고 지정된 규칙에 따라 프로젝트를 빌드합니다.
 
-- Dynamic lib 만드는법  및 사용 방법
+*** Windows 용 Visual C++ 에는 Makefile 파일을 이용하여 Build 하는 utility 로 nmake 가 있습니다.**
 
-- Makefile 여러 경로에 있는 소스 일괄 Build
 
-- Makefile 에서 Shell 사용하기
+
+### 10.2 자주 사용하는 자동변수
+
+다음 표는 Makefile 생성시 자주 사용하는 자동 변수 입니다.
+
+| 변수 | 설명                                                |
+| :--: | --------------------------------------------------- |
+|  $@  | 목표(출력, 생성되는) 이름                           |
+|  $*  | 목표 이름에서 확장자가 없는 이름                    |
+|  $<  | 첫 번째 전제 조건의 파일 이름                       |
+|  $?  | 목표 파일 보다 더 최근에 갱신된 파일 이름           |
+|  $^  | 현재 Target이 의존하는 대상들의 전체 목록           |
+|  $?  | 현재 Target이 의존하는 대상들 중 변경된 것들의 목록 |
+
+
+
+### 10.3 간단한 Makefile 예제 및 설명
+
+``` bash
+# 컴파일러 지정
+CC          = g++
+
+# 최종 목적 파일
+target          = TssNAS-Agent
+
+# 임의의 변수 선언
+tdx_dir     = ../tdxdisk_linux
+
+# C 컴파일 옵션 지정
+CFLAGS      = -m64 -fPIC -DMACHINE64 -D_FILE_OFFSET_BITS=64 -D_REENTRANT \
+                          -I. -I./include -I$(tdx_dir)/include -I/usr/include/fuse
+
+# C++ 컴파일 옵션 지정
+CPPFLAGS    = $(CFLAGS) -std=c++11
+
+# link 옵션 지정
+LFLAGS      = -L. -L$(tdx_dir)/lib64 -lm -lrt  -lfuse -lXecureCrypto \
+                          -ltdxdisk -ltdxapi -lpthread
+
+LFLAGS_SSL      = -lssl -lcrypto
+
+# source 파일 목록
+SRCS            = main.cpp fs_usermode.cpp tss_utils.cpp \
+                          tss_crypto.cpp tss_acl.cpp
+
+# object 목록을 만든다. SRCS 변수에서 .cpp 문자열을 .o 로 바꾼 목록을 만든다.
+OBJS            = $(SRCS:.cpp=.o )
+
+# 확장자가 .c 로 되어 있는 파일 컴파일 옵션
+.c.o:
+        $(CC) $(CFLAGS) -c $*.c
+
+# 확장자가 .cpp 로 되어 있는 파일 컴파일 옵션
+.cpp.o:
+        $(CC) $(CPPFLAGS) -c $*.cpp
+
+# 접미사(확장자) 종속성 옵션
+.SUFFIXES: .o .c .cpp
+
+# all 뒤의 종속 항목을 실행
+all:  $(OBJS) $(target) make_acl sha256hash
+
+# target 변수에 선언된 목적물(실행파일 또는 object)이 OBJS 변수 목록에 선언된 파일보다 이전 시간대에 생성이 되었으면
+# 아래 명령을 실행 한다. $(CC) 부터 아래쪽의 종속된 명령은 반드시 TAB 으로 들여 쓰기가 되어 있어야 한다.
+$(target): $(OBJS)
+        $(CC) -m64 -fPIC -o $@ $^ $(LFLAGS)
+        cp -f $(target) ./bin/
+        cp -f $(target) ../Installer/
+
+
+make_acl: make_acl_main.cpp
+        $(CC) -m64 -fPIC -o $@ $^
+        cp -f $@ ./bin/
+        cp -f $@ ../Installer/utils/
+
+sha256hash: sha256hash.cpp
+        $(CC) -m64 -fPIC -o $@ $^ $(LFLAGS_SSL)
+        cp -f $@ ./bin/
+        cp -f $@ ../Installer/utils/
+
+# 중간 목적 파일 지우기
+clean:
+        rm -f *.o
+
+# 중간 파일 및 최종 목적 파일 지우기
+distclean:
+        rm -f *.o
+        rm -f $(target) make_acl sha256hash
+        rm -f  ./bin/$(target)  ./bin/make_acl  ./bin/sha256hash
+
+# 최종 목적 파일 배포
+dist:
+        cp -f $(target) ./bin/
+        cp -f make_acl ./bin/
+        cp -f sha256hash ./bin/
+        cp -f $(target) ../Installer/
+        cp -f make_acl ../Installer/utils/
+        cp -f sha256hash ../Installer/utils/
+```
+
+
+
+### 10.4 Static(정적 라이브러리) LIB 생성 및 활용
+
+GCC(GNU Compiler Collection)는 정적 라이브러리와 동적 라이브러리를 모두 생성할 수 있습니다.
+
+**정적 라이브러리는 컴파일 시간에 실행 파일과 직접 연결됩니다.** 결과 바이너리 파일에는 프로그램을 실행하는 데 필요한 모든 코드가 포함되어 있습니다. 이렇게 하면 결과 파일이 더 커지지만 자체 포함되어 있어 라이브러리를 설치하지 않고도 모든 시스템에서 실행할 수 있습니다.
+
+**공유 라이브러리라고도 하는 동적 라이브러리는 런타임에 연결됩니다.** 실행 파일에는 라이브러리에 대한 참조만 포함되며 실제 코드는 별도의 파일에 저장됩니다. 이렇게 하면 실행 파일이 더 작아지지만 프로그램을 실행하려면 컴퓨터에 라이브러리를 설치해야 합니다. 동적 라이브러리는 프로그램을 다시 컴파일하지 않고도 업데이트할 수 있으므로 더 유연합니다.
+
+GCC에서 -c 및 -ar 옵션을 사용하여 정적 라이브러리를 생성하고 -fPIC 및 -shared 옵션을 사용하여 동적 라이브러리를 생성할 수 있습니다.
+
+
+
+다음은 테스트용 정적 라이브러리와 동적 라이브러리 생성에 사용되는 소스 파일들 입니다.
+
+`subfunc.c`
+
+``` c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void say_string(char* str)
+{
+    if(str == NULL)
+    {
+        printf("%s(%d) variable str is null\n", __FILE__, __LINE__ );
+        exit(0);
+    }
+    printf(str);
+}
+```
+
+`subfunc.h`
+
+``` c
+#include <stdio.h>
+
+#ifndef SUBFUNC_H
+#define SUBFUNC_H
+
+void say_string(char* str);
+
+#endif
+```
+
+`main.c`
+
+``` c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "subfunc.h"
+
+int main(int argc, char** argv)
+{
+    say_string("hello world\n");
+}
+```
+
+
+
+**정적 라이브러리 생성용 Makefile (mk_static_lib.mk)**
+
+``` bash
+CC = gcc
+
+target = libsubfunc.a
+
+CFLAGS = -m64 -fPIC -c
+
+SRCS = subfunc.c
+OBJS = $(SRCS:.c=.o )
+
+.c.o:
+        $(CC) $(CFLAGS) -c $*.c
+
+.SUFFIXES: .o .c
+
+all: $(target)
+
+
+$(target): $(OBJS)
+        ar rvs $@ $(OBJS)
+        rm -f $(OBJS)
+
+clean:
+        rm -f $(OBJS)
+
+distclean:
+        rm -f $(target)
+```
+
+
+
+**실행 파일 생성용 Makefile**
+
+``` bash
+CC = gcc
+
+target = testmain
+
+
+CFLAGS = -m64 -fPIC -I. -DMACHINE64 -D_FILE_OFFSET_BITS=64 -D_REENTRANT
+
+LFLAGS = -L. -lsubfunc
+
+SRCS = main.c
+OBJS = $(SRCS:.c=.o )
+
+.c.o:
+        $(CC) $(CFLAGS) -c $*.c
+
+.SUFFIXES: .o .c
+
+all: $(target)
+
+
+$(target): $(OBJS)
+        $(CC) -o $@ $(OBJS) $(LFLAGS)
+
+clean:
+        rm -f $(OBJS)
+
+distclean:
+        rm -f $(target)
+```
+
+
+
+위의 모든 파일을 같은 경로에 넣고 다음 명령을 실행 하여 컴파일을 실행 합니다.
+
+``` bash
+[testuser@localhost StaticLIB]$ make -f mk_static_lib.mk
+gcc -m64 -fPIC -c -c subfunc.c
+ar rvs libsubfunc.a subfunc.o
+r - subfunc.o
+rm -f subfunc.o
+
+[testuser@localhost StaticLIB]$
+[testuser@localhost StaticLIB]$ make all
+gcc -o testmain main.o  -L. -lsubfunc
+[testuser@localhost StaticLIB]$
+
+```
+
+make utility 는 옵션 없이 실행 하면 Makefile 을 찾아서 컴파일을 실행 합니다. 그러나 Makefile 대신 다른 이름의 파일을 이용하여 컴파일 할 때는 -f 옵션을 이용하여 컴파일 하면 됩니다.
+
+위 컴파일 결과 실행 파일 testmain 이 생성 되었고 ./testmain 으로 실행 하면 "hello world" message 를 표시하며 프로그램이 종료 됩니다.
+
+
+
+### 10.5 Dynamic(동적 라이브러리) LIB 생성 및 활용
+
+동적 라이브러리 생성에 사용하는 source(subfunc.c, subfunc.h, main.c) 파일은 위의 정적 library 를 태스트 할때 사용한 source 를 그대로 사용 합니다.
+
+아래는 동적 라이브러리를 만들고 사용 할때 쓰는 Makefile 입니다.
+
+**동적 라이브러리 생성용 Makefile (mk_so.mk)**
+
+``` bash
+CC = gcc
+
+target = libsubfunc.so
+
+CFLAGS = -m64 -fPIC -c
+LFLAGS = -shared
+
+SRCS = subfunc.c
+OBJS = $(SRCS:.c=.o )
+
+.c.o:
+        $(CC) $(CFLAGS) -c $*.c
+
+.SUFFIXES: .o .c
+
+all: $(target)
+
+
+$(target): $(OBJS)
+        $(CC) -o  $@ $(OBJS) $(LFLAGS)
+        rm -f $(OBJS)
+
+clean:
+        rm -f $(OBJS)
+
+distclean:
+        rm -f $(target)
+
+```
+
+정적 라이브러리용 Makefile 과 유사 하지만 target 과 LFLAGS 가 바뀐것에 주목 하시기 바랍니다.
+
+
+
+**실행 파일 생성용 Makefile**
+
+``` bash
+CC = gcc
+
+target = testmain
+
+
+CFLAGS = -m64 -fPIC -I. -DMACHINE64 -D_FILE_OFFSET_BITS=64 -D_REENTRANT
+
+LFLAGS = -L. -lsubfunc
+
+SRCS = main.c
+OBJS = $(SRCS:.c=.o )
+
+.c.o:
+        $(CC) $(CFLAGS) -c $*.c
+
+.SUFFIXES: .o .c
+
+all: $(target)
+
+
+$(target): $(OBJS)
+        $(CC) -o $@ $(OBJS) $(LFLAGS)
+
+clean:
+        rm -f $(OBJS)
+
+distclean:
+
+```
+
+Makefile 은 정적 컴파일때 사용한것을 그대로 사용 합니다.
+
+ 위의 모든 파일을 같은 경로에 넣고 다음 명령을 실행 하여 컴파일을 실행 합니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$ make -f mk_so.mk
+gcc -m64 -fPIC -c -c subfunc.c
+gcc -o  libsubfunc.so subfunc.o  -shared
+rm -f subfunc.o
+
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$ make
+gcc -o testmain main.o  -L. -lsubfunc
+[testuser@localhost SharedOBJ]$
+```
+
+컴파일이 정상적으로 수행 되었습니다.
+
+하지만 아래 명령으로 실행을 해 보면 오류가 발생 합니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$ ./testmain
+./testmain: error while loading shared libraries: libsubfunc.so: cannot open shared object file: No such file or directory
+
+```
+
+같은 경로에 있는 libsubfunc.so 파일을 찾을 수 없다는 오류 입니다.
+
+위 오류를 다시 확인 하기 위해서 다음 명령을 실행 합니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$ ldd ./testmain
+        linux-vdso.so.1 (0x00007fff6fb32000)
+        libsubfunc.so => not found
+        libc.so.6 => /lib64/libc.so.6 (0x00007f16a2f89000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f16a334e000)
+[testuser@localhost SharedOBJ]$
+
+```
+
+./testmain 를 실행 하기 위해서 필요한 .so 파일들과 해당파일의 경로 및 파일명이 표시 되는데 "libsubfunc.so => not found" 즉 libsubfunc.so 파일을 찾지 못하고 있습니다.
+
+해당 오류를 해결 하기 위해서 다음 명령을 실행 합니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$ export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$ ldd ./testmain
+        linux-vdso.so.1 (0x00007ffc143e6000)
+        libsubfunc.so => ./libsubfunc.so (0x00007fd8a3e22000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007fd8a3a5d000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fd8a4024000)
+[testuser@localhost SharedOBJ]$
+```
+
+위 명령 실행 후 다시 ./testmain 을 실행 하면 정상적으로 동작 합니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$ ./testmain
+hello world
+[testuser@localhost SharedOBJ]$
+```
+
+
+
+### 10.6 기타
+
+Makefile 여러 경로에 있는 소스 일괄 Build 는 별도로 첨부된 [Makefile 여러 경로에 있는 소스 일괄 Build](Makefile 여러 경로에 있는 소스 일괄 Build.md) 를 참조 하세요
+
+Makefile 에서 Shell 사용하기 는 별도로 첨부된 [Makefile 에서 Shell 사용하기](Makefile 에서 Shell 사용하기.md) 를 참조 하세요.
+
+- Linux C/C++ 에서 Daemon 프로그램 만들기는 [MakeDaemon.md](MakeDaemon.md) 을 참조 하세요
+
+
+
+
+
+### 10.7 C/C++ 개발 시 참조용 명령어
+
+다음 명령어(tool) 들은 C/C++ 로 App 개발시 유용하게 사용 할 수 있는 명령어 들 입니다.
+
+#### 10.7.1 ldd
+
+Linux의 'ldd' 명령은 주어진 실행 파일에 필요한 공유 라이브러리를 인쇄하는 데 사용됩니다. 관련 버전 정보와 함께 실행 파일이 의존하는 공유 라이브러리의 이름과 경로를 표시합니다.
+
+'ldd' 명령의 기본 구문은 다음과 같습니다.
+
+``` bash
+ldd [실행파일명]
+```
+
+예를 들어 'ls' 명령에 필요한 공유 라이브러리를 보려면 다음 명령을 실행합니다.
+
+``` bash
+ldd /bin/ls
+```
+
+'ldd' 명령의 출력은 다른 시스템에서 실행 파일을 실행할 때 누락된 라이브러리 종속성 또는 호환성 문제를 해결하는 데 유용할 수 있습니다.
+
+#### 10.7.2 nm
+
+Linux의 'nm' 명령은 개체 파일 또는 실행 파일의 기호 테이블을 표시하는 데 사용됩니다. 기호 테이블은 프로그램에서 사용되는 기호 목록과 기호의 주소, 크기 및 유형과 같은 관련 정보입니다.
+
+'nm' 명령의 기본 구문은 다음과 같습니다.
+
+``` bash
+nm [object파일명]
+```
+
+예를 들어 개체 파일 'main.o'의 기호 테이블을 표시하려면 다음 명령을 실행합니다.
+
+``` bash
+nm main.o
+```
+
+'nm' 명령의 출력에는 기호 유형(예: 전역 함수의 경우 T, 전역 변수의 경우 D), 크기 및 주소와 같은 관련 정보와 개체 파일의 기호 목록이 표시됩니다.
+
+'nm' 명령은 종종 프로그래머가 개체 파일에 정의된 기호를 확인하거나 공유 라이브러리에서 사용되는 기호를 검사하는 데 사용됩니다. 누락된 기호 또는 기호 해결과 관련된 문제를 디버깅하는 데에도 사용할 수 있습니다.
 
 
 
@@ -1212,146 +1756,399 @@ compilation terminated.
 
 Linux 에서 C/C++ 개발시 능률 향상을 위해 ctags 및  taglist 를 설치하여 사용하는 방법 입니다.
 
+### 11.1 ctags 설치 및 사용
 
+ctags는 소스 코드의 Symbol(전역변수, 함수, 매크로 정의 등)들의 정보를 모아 tags 파일을 생성하는 Tool 입니다.
 
+주로 소스 분석 시 사용하는데 vi(vim)과 함께 사용 시 간단하고 직관적인 인터페이스로 굉장히 유용하게 사용됩니다.
 
+사용법 자체는 매우 간단합니다.
 
+#### 11.1.1 설치
 
-- C/C++ 개발 시 참조용 명령어
+아래 명령을 실행 하여 ctags 를 설치 합니다.
 
-  - ldd, nm
-  - 기타
+``` bash
+yum install -y ctags
+```
 
-  
+#### 11.1.2 tags 생성
 
-- 기타 Tool 및 참조 할만한 기술 소개
+**분석하고자 하는 소스의 최상위 디렉토리로 이동**한 뒤 다음 명령어를 실행하여 tags 정보를 생성합니다.
 
-  - scp 사용법
+``` bash
+ctags -R
+```
 
-  - 네트워크 모니터링 (netstat)
+#### 11.1.3 vi 에 tags 경로 지정
 
-  - LD_PRELOAD
-  - 기타
+다음 명령을 실행 하여 vi(vim, 이하 vi) 에 tags 위치를 지정 합니다.
 
+``` bash
+vi ~/.vimrc
 
+# vi 가 기동 되면
+set tags=/home/testuser/TEST_DIR/tags
+```
 
-- 실습 및 질의 응답.
+#### 11.1.4 심볼(함수, 전역변수, ...) 이 정의된 곳으로 이동 및 복귀
 
+vi 를 이용하여 소스 파일을 열고 보던 중 함수의 원형을 보려고 하면 해당 함수의 위치로 이동 후 ctrl 키 + 우측 대괄호 key(**ctrl + ]**) 를 눌러서 해당 함수로 이동 합니다.
 
+ctrl + ] 를 눌러 이동 하여 함수를 살핀 후 원래 보던 source 쪽으로 이동을 하려면 **ctrl + t** key를 눌러 복귀 합니다.
 
-위에 소개한 목차는 최종 문서 작성시 순서가 변경 될 수 있으며, 필요에 의해 항목이 추가 될 수 있습니다.
+### 11.2 taglist 설치 및 사용
 
+#### 11.2.1 설치
 
+Taglist는 소스 코드 탐색을 위한 vim 플러그인입니다. 사용하려면 Vim이 설치되어 있어야 합니다. 다음은 Taglist 사용 방법에 대한 기본 가이드입니다.
 
-자료 보여주고 피드백 받은내용
+- 플러그인 설치: https://sourceforge.net/projects/vim-taglist/files/latest/download 에서 taglist_46.zip 파일을 download 합니다.
 
-- System 함수 사용방법
+  - 해당 계정 에만 적용 방법
 
-  - 사용 목적 Lock, 또는 Return 값 Check
+    다음 명령을 실행 합니다.
 
-- Rtc 설정 및 read 방법
-
-  - Linux 시스템의 실시간 시계(RTC)는 hwclock 명령을 사용하여 설정할 수 있습니다. hwclock 명령은 명령줄에서 하드웨어 시계(BIOS 또는 CMOS 시계라고도 함)를 읽고 설정하는 데 사용됩니다. Linux에서 RTC를 설정하는 구문은 다음과 같습니다.
-
-  - ``` bash
-    sudo hwclock --set --date "MM/DD/YYYY HH:MM:SS"
+    ``` bash
+    mkdir ~/.vim
+    
+    cp taglist_46.zip ~/.vim
+    
+    cd ~/.vim
+    
+    unzip taglist_46.zip
     ```
 
-    ```
-    이 명령은 하드웨어 시계를 지정된 날짜 및 시간으로 설정합니다. 날짜 및 시간은 'MM/DD/YYYY HH:MM:SS'(월/일/년 시:분:초) 형식이어야 합니다.
-    
-    --systohc 옵션을 사용하여 하드웨어 시계를 현재 시스템 시간으로 설정할 수도 있습니다.
-    
-    sudo hwclock --systohc
-    
-    하드웨어 시계가 잘못된 시간으로 설정된 경우, 특히 시스템의 시간대가 올바르게 설정되지 않은 경우 문제가 발생할 수 있으므로 hwclock 명령을 주의해서 사용해야 한다는 점도 중요합니다.
-    ```
+  - 전체 계정에 적용 하는 방법
 
-  - 읽는 방법
+    - 압축을 해제 하여 doc/taglist.txt 파일을 `/usr/share/vim/vim80/doc` 에 복사 합니다.
 
-    Linux에서 RTC(Real-Time Clock)는 ioctl 시스템 호출 및 RTC_RD_TIME 요청을 사용하여 C에서 읽을 수 있습니다.
+    - 압축을 해제 하여 plugin/taglist.vim 파일을 `/usr/share/vim/vim80/plugin`  에 복사 합니다.
 
-    다음은 C에서 RTC 시간을 읽는 방법의 예입니다.
+  이제 설치는 완료 되었습니다.
 
-    ``` c
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <fcntl.h>
-    #include <unistd.h>
-    #include <linux/rtc.h>
-    #include <sys/ioctl.h>
+- 태그 파일 생성: 소스 코드 디렉토리에서 ctags 명령을 실행하여 태그 파일을 생성합니다.
+
+- Vim 열기: Vim에서 검색하려는 파일을 엽니다.
+
+- 태그 목록 호출:   vi 의 명령 모드 에서 :Tlist를 입력하여 태그 목록 창을 엽니다.
+
+- 태그 찾아보기: 커서 키를 사용하여 태그를 탐색하고 Enter 키를 눌러 선택한 태그로 이동합니다.
+
+- 태그 목록 닫기: :q를 입력하여 태그 목록 창을 닫습니다.
+
+#### 11.2.2 사용
+
+이제 vi 에서 원하는 소스 파일을 열고 명령 모드 에서 `:Tlist` 를 입력 하면 tags 목록 창이 왼쪽에 나타납니다.
+
+![](.\Images\Etc\taglist-001.png)
+
+![](.\Images\Etc\taglist-002.png)
+
+이때 왼쪽 목록 창과 오른쪽 편집 창 으로 커서를 옮기는 방법은 ctrl + w + w 입니다.
+
+왼쪽 목록 창에서 원하는 목록을 선택 후 <enter> key 를 누르면 해당 함수 또는 전역 변수가 선언된 위치로 이동 합니다. (커서의 위치는 편집창 쪽으로 이동)
+
+
+
+#### 11.2.3 taglist 사용 참조
+
+```
+ 설정
+1. taglist 다운(http://vim-taglist.sourceforge.net/)
+2. mkdir ~/.vim
+3. cp taglist_46.zip ~/.vim
+4. cd ~/.vim
+5. unzip taglist_46.zip
+
+- 사용
+1. vi 에서 실행
+:Tlist
+
+2. 좌우 이동
+Ctrl + w + w
+
+3. 태그창에서 분류 접었다 펴기
++/-
+
+4. .vimrc 설정
+- 태그 범위(함수, 매크로, 구조체 등)를 표시
+let Tlist_Display_Tag_Scope = 1
+
+- 함수 원형을 표시
+let Tlist_Display_Prototype = 1
+
+- 태그 리스트 소팅 (소스 코드 위치 순서가 아닌 이름 순서로 표시)
+let Tlist_Sort_Type = "name"
+
+- 태그 리스트 창을 우측에 표시
+let Tlist_Use_Right_Window = 1
+
+- 태그 리스트 창의 폭을 35문자로 지정
+let Tlist_WinWidth = 35
+```
+
+
+
+## 12. 기타 Tool 및 참조 할 만한 기술 소개
+
+### 12.1 scp 사용법
+
+**scp 는** ssh 원격 접속 프로토콜을 기반으로 한 SecureCopy(scp)의 약자로서 원격지에 있는 파일과 디렉터리를 보내거나 가져올 때 사용하는 파일 전송 프로토콜입니다. 네트워크가 연결되어 있는 환경에서 ssh와 동일한 22번 포트와 identity file을 사용해서 파일을 송수신하기 때문에 보안적으로도 안정된 프로토콜이라고 할 수 있겠습니다. 사용법은 아래와 같습니다.
+
+#### 12.1.1 **단일 파일을 원격지로 보낼 때.**
+
+**scp [옵션] [파일명] [원격지_id]@[원격지_ip]:[받는 위치]**
+
+``` bash
+scp testfile2 root@192.168.198.132:/tmp/datadir 
+```
+
+현재 위치의 testfile2를 원격지 192.168.198.132:/tmp/datadir경로에 파일을 전송합니다.
+
+#### 12.1.2 **복수의 파일을 원격지로 보낼 때.**
+
+**구문 : # scp [옵션] [파일명 1] [파일명 2] [원격지_id]@[원격지_ip]:[받는 위치]**
+
+``` bash
+ scp tesfile1 testfile2 root@192.168.198.132:/tmp/datadir
+```
+
+현재 위치의 tesfile1 testfile3을 동시에 원격지 192.168.198.132:/tmp/datadir경로에 파일을 전송합니다.
+
+#### 12.1.3 **여러 파일을 포함하고 있는 디렉터리를 원격지로 보낼 때**
+
+**구문 : # scp [옵션] [디렉터리 이름] [원격지_id]@[원격지_ip]:[보낼 경로]**
+
+``` bash
+scp -r testdata root@192.168.198.132:/tmp/datadir
+```
+
+옵션으로 -r 을 사용 합니다.
+
+Linux 에서 -r 또는 -R 을 옵션으로 사용하는 경우는 대부분 recursive(재귀)를 의미 합니다. (예: sub directory 전체가 대상임)
+
+현재 위치의 testdata directory 아래에 있는 모든 파일과 directory 그리고 subdirectory 에 있는 모든 파일 들을 root@192.168.198.132:/tmp/datadir 경로로 전송 합니다.
+
+추가적인 옵션을 살펴보면 다음과 같습니다.
+
+|    옵션    | 내용                                | 사용 예           |
+| :--------: | ----------------------------------- | ----------------- |
+|     r      | 디렉토리 내 모든 파일/디렉토리 복사 | scp -r            |
+| p (소문자) | 원본 권한 속성 유지 복사            | scp -p            |
+| P (대문자) | 포트 번호 지정 복사                 | scp -P [포트번호] |
+| c (소문자) | 압축 복사                           | scp -c            |
+|     v      | 과정 출력 복사                      | scp -v            |
+|     a      | 아카이브 모드 복사                  | scp -a            |
+
+
+
+### 12.2 네트워크 모니터링 (netstat)
+
+Linux의 'netstat' 명령은 네트워크 연결, 라우팅 테이블 및 네트워크 통계와 같은 네트워크 관련 정보를 표시하는 데 사용됩니다.
+
+'netstat' 명령의 기본 구문은 다음과 같습니다.
+
+``` bash
+netstat [options]
+```
+
+'netstat' 명령에 일반적으로 사용되는 몇 가지 옵션은 다음과 같습니다.
+
+- `-a`: 모든 소켓 표시(수신 및 설정된 연결 모두)
+- `-t`: TCP 연결만 표시
+- `-u`: UDP 연결만 표시
+- `-l`: listening소켓만 표시
+- `-n`: 호스트 이름을 확인하는 대신 숫자 주소 표시
+- `-p`: 열린 port 번호를 표시 합니다.
+
+아래는 자주 사용하는 option 을 활용한 예 입니다.
+
+``` bash
+[testuser@localhost SharedOBJ]$
+[testuser@localhost SharedOBJ]$ netstat -antp | grep 22
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
+tcp        0      0 192.168.198.132:22      192.168.198.1:60229     ESTABLISHED -
+tcp        0      0 192.168.198.132:22      192.168.198.1:65425     ESTABLISHED -
+tcp        0      0 192.168.198.132:22      192.168.198.1:65282     ESTABLISHED -
+tcp        0      0 192.168.198.132:22      192.168.198.1:65424     ESTABLISHED -
+tcp        0     48 192.168.198.132:22      192.168.198.1:60226     ESTABLISHED -
+tcp        0      0 192.168.198.132:22      192.168.198.1:65281     ESTABLISHED -
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+tcp6       0      0 ::1:53322               ::1:6011                ESTABLISHED 4439/dbus-launch
+tcp6       0      0 ::1:6011                ::1:53322               ESTABLISHED -
+[testuser@localhost SharedOBJ]$
+```
+
+ 22번 포트가 열려 있는걸 확인 할때 사용 합니다.
+
+**실제 Linux 에서 port 를 통해 전송되는 Data 를 모니터링 할 경우는 Wireshark 를 많이 이용합니다**
+
+
+
+### 12.3 내가 작성한 함수를 대신 호출 해줘(LD_PRELOAD)
+
+LD_PRELOAD는 프로그램이 실행될 때 다른 라이브러리보다 먼저 로드되어야 하는 추가 사용자 정의 공유 라이브러리를 지정하는 데 사용되는 Linux의 환경 변수입니다. LD_PRELOAD로 지정된 라이브러리는 표준 시스템 라이브러리보다 먼저 로드되어 사용자가 표준 라이브러리 기능의 동작을 무시하거나 시스템 라이브러리에서 제공하지 않는 추가 기능을 로드할 수 있습니다.
+
+LD_PRELOAD를 사용하기 위한 기본 구문은 다음과 같습니다.
+
+``` bash
+LD_PRELOAD=[library_path1] [library_path2] ... [program_name]
+```
+
+예를 들어, 다른 라이브러리보다 먼저 로드된 사용자 지정 라이브러리 'my_library.so'가 있는 프로그램 'my_program'을 실행하려면 다음 명령을 실행합니다.
+
+``` bash
+LD_PRELOAD=./my_library.so ./my_program
+```
+
+LD_PRELOAD는 사용자 지정 라이브러리 디버깅, 테스트 및 개발에 자주 사용되며 성능 또는 호환성 이유로 시스템 라이브러리의 동작을 재정의하는 데 사용할 수도 있습니다. **그러나 LD_PRELOAD를 잘못 사용하면 예측할 수 없는 동작 및 안정성 문제가 발생할 수 있으므로 주의해서 사용해야 합니다.**
+
+
+
+
+
+## 13. 별도 교육 요청 사항
+
+### 13.1 C 의 system 함수 사용 방법
+
+gcc 의 system() 함수는 shell 명령을 실행 하는 함수 입니다. App 에서 system() 함수를 호출 하면 해당 함수가 종료 될 때 까지 App 이 멈추어 있게 됩니다.
+
+system 함수의 prototype 은 `int system(const char *command);` 입니다, command 에 실행할 명령을 기술 하면 됩니다.
+
+system() 함수는 실행에 실패 하면 -1 값을 반환 하며, 성공 하였을 경우 해당 명령의 종료 값 을 반환 합니다. (해당 명령의 exit(값))
+
+system() 함수를 중단 없이 사용 하고자 할 경우 fork() 함수를 사용하여 자식 process 를 생성 한 후 호출 하는 방법이 유용 하며, system() 함수와 유사한 함수들 에는 execp() 등이 있습니다.
+
+다른 process 에서 출력 하는 여러 줄의 message 를 받아서 처리할 경우는 popen() 함수의 사용을 고려 해야 합니다.
+
+아래는 system() 함수 사용 예 입니다.
+
+``` c++
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char** argv)
+{
+    char buff[ 256 ];
+    int  nres = 0;
     
-    int main() {
-        int rtc_fd;
-        struct rtc_time rtc_tm;
+    memset(buff, 0x00, sizeof(buff));
+    sprintf(buff, "ls -altr");
     
-        rtc_fd = open("/dev/rtc0", O_RDONLY);
-        if (rtc_fd == -1) {
-            perror("open");
-            exit(1);
-        }
-    
-        if (ioctl(rtc_fd, RTC_RD_TIME, &rtc_tm) == -1) {
-            perror("ioctl");
-            close(rtc_fd);
-            exit(1);
-        }
-    
-        printf("Current RTC date/time is %d-%d-%d, %02d:%02d:%02d.\n",
-            rtc_tm.tm_mday, rtc_tm.tm_mon + 1, rtc_tm.tm_year + 1900,
-            rtc_tm.tm_hour, rtc_tm.tm_min, rtc_tm.tm_sec);
-    
+    nres = system(buff);
+    exit(0);    
+}
+```
+
+
+
+### 13.2 RTC 설정 및 읽는 방법
+
+#### 13.2 1 RTC 설정 방법
+
+Linux 시스템의 실시간 시계(RTC)는 hwclock 명령을 사용하여 설정할 수 있습니다. hwclock 명령은 명령줄에서 하드웨어 시계(BIOS 또는 CMOS 시계라고도 함)를 읽고 설정하는 데 사용됩니다. Linux에서 RTC를 설정하는 구문은 다음과 같습니다.
+
+``` bash
+hwclock --set --date "MM/DD/YYYY HH:MM:SS"
+```
+
+이 명령은 하드웨어 시계를 지정된 날짜 및 시간으로 설정합니다. 날짜 및 시간은 'MM/DD/YYYY HH:MM:SS'(월/일/년 시:분:초) 형식이어야 합니다.
+
+--systohc 옵션을 사용하여 하드웨어 시계를 현재 시스템 시간으로 설정할 수도 있습니다.
+
+``` bash
+hwclock --systohc
+```
+
+하드웨어 시계가 잘못된 시간으로 설정된 경우, 특히 시스템의 시간대가 올바르게 설정되지 않은 경우 문제가 발생할 수 있으므로 hwclock 명령을 주의해서 사용해야 한다는 점도 중요합니다.
+
+#### 13.2.2 RTC 읽는 방법
+
+Linux에서 RTC(Real-Time Clock)는 ioctl 시스템 호출 및 RTC_RD_TIME 요청을 사용하여 C에서 읽을 수 있습니다.
+
+다음은 C에서 RTC 시간을 읽는 방법의 예입니다.
+
+``` c
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/rtc.h>
+#include <sys/ioctl.h>
+
+int main() {
+    int rtc_fd;
+    struct rtc_time rtc_tm;
+
+    rtc_fd = open("/dev/rtc0", O_RDONLY);
+    if (rtc_fd == -1) {
+        perror("open");
+        exit(1);
+    }
+
+    if (ioctl(rtc_fd, RTC_RD_TIME, &rtc_tm) == -1) {
+        perror("ioctl");
         close(rtc_fd);
-        return 0;
+        exit(1);
     }
-    ```
 
-    이 코드는 open() 함수를 사용하여 '/dev/rtc0'에 있는 RTC 장치 파일을 연 다음 RTC_RD_TIME 요청과 함께 ioctl() 함수를 사용하여 현재 RTC 시간을 rtc_time 구조체로 읽습니다. 구조체에는 일, 월, 연도, 시, 분 및 초에 대한 필드가 포함되어 있습니다. 그런 다음 날짜와 시간이 콘솔에 인쇄됩니다.
+    printf("Current RTC date/time is %d-%d-%d, %02d:%02d:%02d.\n",
+        rtc_tm.tm_mday, rtc_tm.tm_mon + 1, rtc_tm.tm_year + 1900,
+        rtc_tm.tm_hour, rtc_tm.tm_min, rtc_tm.tm_sec);
 
-    RTC 장치 파일은 '/dev/rtc' 또는 '/dev/misc/rtc'와 같이 시스템의 다른 경로에 있을 수 있습니다.
-    또한 이 예제는 RTC 장치 드라이버용으로 작성되었으며 다른 장치의 경우 접근 방식이 다를 수 있습니다.
+    close(rtc_fd);
+    return 0;
+}
+```
 
-    
+이 코드는 open() 함수를 사용하여 '/dev/rtc0'에 있는 RTC 장치 파일을 연 다음 RTC_RD_TIME 요청과 함께 ioctl() 함수를 사용하여 현재 RTC 시간을 rtc_time 구조체로 읽습니다. 구조체에는 일, 월, 연도, 시, 분 및 초에 대한 필드가 포함되어 있습니다. 그런 다음 날짜와 시간이 콘솔에 인쇄됩니다.
 
-- Task 스케쥴링 방법
+RTC 장치 파일은 '/dev/rtc' 또는 '/dev/misc/rtc'와 같이 시스템의 다른 경로에 있을 수 있습니다.
+또한 이 예제는 RTC 장치 드라이버용으로 작성되었으며 다른 장치의 경우 접근 방식이 다를 수 있습니다.
 
-  - C에서 Linux 작업 스케줄링
 
-  - Linux에서 C의 태스크 스케줄링은 sched.h 라이브러리의 sched_setscheduler() 함수를 사용하여 달성할 수 있습니다. 이 기능은 주어진 프로세스에 대한 스케줄링 정책과 우선 순위를 설정합니다.
 
-    다음은 C에서 프로세스에 대한 스케줄링 정책 및 우선 순위를 설정하는 방법의 예입니다.
+### 13.3 C에서 Linux 작업 스케줄링
 
-    ``` C
-    #include <sched.h>
-    #include <unistd.h>
-    
-    int main() {
-        int policy = SCHED_FIFO;  // or SCHED_RR, SCHED_OTHER
-        struct sched_param param;
-        param.sched_priority = 1; // set priority to 1
-    
-        int ret = sched_setscheduler(0, policy, &param);
-        if (ret == -1) {
-            perror("sched_setscheduler");
-            exit(1);
-        }
-        // 나머지 코드
-        return 0;
+Linux에서 C의 태스크 스케줄링은 sched.h 라이브러리의 sched_setscheduler() 함수를 사용하여 달성할 수 있습니다. 이 기능은 주어진 프로세스에 대한 스케줄링 정책과 우선 순위를 설정합니다.
+
+다음은 C에서 프로세스에 대한 스케줄링 정책 및 우선 순위를 설정하는 방법의 예입니다.
+
+``` C
+#include <sched.h>
+#include <unistd.h>
+
+int main() {
+    int policy = SCHED_FIFO;  // or SCHED_RR, SCHED_OTHER
+    struct sched_param param;
+    param.sched_priority = 1; // set priority to 1
+
+    int ret = sched_setscheduler(0, policy, &param);
+    if (ret == -1) {
+        perror("sched_setscheduler");
+        exit(1);
     }
-    ```
+    // 나머지 코드
+    return 0;
+}
+```
 
-    이 코드는 우선 순위가 1인 First-In First-Out 실시간 스케줄링을 나타내는 SCHED_FIFO로 스케줄링 정책을 설정합니다. 다른 가능한 정책으로는 라운드 로빈 스케줄링을 위한 SCHED_RR과 표준 Linux 스케줄러를 위한 SCHED_OTHER가 있습니다. sched_setscheduler()의 첫 번째 매개변수는 프로세스 ID이며, 이 경우 0은 현재 프로세스를 의미합니다.
+이 코드는 우선 순위가 1인 First-In First-Out 실시간 스케줄링을 나타내는 SCHED_FIFO로 스케줄링 정책을 설정합니다. 다른 가능한 정책으로는 라운드 로빈 스케줄링을 위한 SCHED_RR과 표준 Linux 스케줄러를 위한 SCHED_OTHER가 있습니다. sched_setscheduler()의 첫 번째 매개변수는 프로세스 ID이며, 이 경우 0은 현재 프로세스를 의미합니다.
 
-    sched_param 구조체의 sched_priority 필드는 프로세스의 우선 순위를 설정합니다. 유효한 우선 순위 범위는 일정 정책에 따라 다르며 SCHED_FIFO 및 SCHED_RR의 경우 0
-    99, SCHED_OTHER의 경우 0
-    sched_get_priority_max(SCHED_OTHER)일 수 있습니다.
+sched_param 구조체의 sched_priority 필드는 프로세스의 우선 순위를 설정합니다. 유효한 우선 순위 범위는 일정 정책에 따라 다르며 SCHED_FIFO 및 SCHED_RR의 경우 0
+99, SCHED_OTHER의 경우 0
+sched_get_priority_max(SCHED_OTHER)일 수 있습니다.
 
-    높은 우선 순위를 설정한다고 해서 프로세스가 항상 실행된다는 보장은 없으며 시스템 부하 및 기타 요인에 따라 달라집니다. 또한 실시간 스케줄링 정책은 적절하게 사용되지 않으면 시스템 전체 잠금을 유발할 수 있으므로 위험할 수 있습니다.
+높은 우선 순위를 설정한다고 해서 프로세스가 항상 실행된다는 보장은 없으며 시스템 부하 및 기타 요인에 따라 달라집니다. 또한 실시간 스케줄링 정책은 적절하게 사용되지 않으면 시스템 전체 잠금을 유발할 수 있으므로 위험할 수 있습니다.
 
-    프로세스에 대한 스케줄링 정책 및 우선순위를 설정하려면 수퍼유저 권한이 필요할 수 있으며 스케줄링 정책이 성공적으로 설정되었는지 확인하려면 sched_setscheduler() 함수의 반환 값을 확인해야 합니다.
+프로세스에 대한 스케줄링 정책 및 우선순위를 설정하려면 수퍼유저 권한이 필요할 수 있으며 스케줄링 정책이 성공적으로 설정되었는지 확인하려면 sched_setscheduler() 함수의 반환 값을 확인해야 합니다.
 
-    
 
-- 에대해서 교육내용에 추가해 달라고 하네요
 
-- 환경은 centos 8.4 면 좋겠다고 합니다. 가능할까요?
+## 14. 실습 및 Q&A
+
