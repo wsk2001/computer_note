@@ -102,7 +102,7 @@ Linux 시스템에서 파일 시스템은 **'/'**로 표시되는 루트 디렉�
 - PC 에 USB Device  또는 CD 를 이용하여 설치하는 방법
 - VMWare Workspation Player 를 이용하여 설치하는 방법(추천)
 - VirtualBox 를 이용하여 설치하는 방법
-- WSL 을 이용하는 설치하는 방법(추천)
+- **WSL** 을 이용하는 설치하는 방법(추천)
 - Docker 를 이용하는 방법 (VirtualBox 가 설치되어 있어야 한다)
 - 클라우드 환경을 이용하는 방법
   - AWS
@@ -511,7 +511,7 @@ Linux의 'root' 사용자는 관리 권한이 있는 수퍼유저이며 일반 �
 >
 > 요즘의 대부분의 Linux 에서는 sudo 명령을 이용하여 superuser 권한이 있어야 실행 할 수 있는 명령을 실행 할 수 있습니다. 대표적으로 Ubuntu  에서 사용 하며, 현재는 CentOS 에서도 사용 할 수 있습니다. Ubuntu 에서는설치시 등록된 default user 가 sudo 권한을 가지고 있지만 CentOS 에서는 별도의 설정이 필요 합니다.
 
-CentOS 에서 사용자 추가 및 삭제는 superuser 원한을 가지고 있는 root user 가 작업을 하는것이 일반적 입니다.
+CentOS 에서 사용자 추가 및 삭제는 superuser 권한을 가지고 있는 root user 가 작업을 하는것이 일반적 입니다.
 
 일반 user 에서 root user 로 switching 하는 방법은 su  명령을 이용합니다.
 
@@ -829,7 +829,7 @@ Linux의 tar 명령은 .tar 형식의 아카이브 파일을 생성, 추출 및 
 
 - 디렉토리의 아카이브를 생성하려면 다음 구문을 사용하십시오.
   ``` bash
-  tar -cvf archive.tar /path/to/directory
+  tar -cvf archive.tar /path/to/directory/
   ```
 
 - 아카이브에서 파일을 추출하려면 다음 구문을 사용하십시오.
@@ -970,7 +970,7 @@ ccccccccccc
 
 원본 파일에 직접 Access  하는것과 동일한 결과가 나타납니다.
 
-개발 단계 에서 Dynamic library 를 만들어 사용 할 경우 Version 별로 물리적인 파일이 생성 된 경우 테스트를 위해 심볼릭 링크를 이용하면 컴파일 환경(Makefile, ...)을 변경 하자 않고도 쉽게 테스트 할 수 있습니다.
+**개발 단계 에서 Dynamic library 를 만들어 사용 할 경우 Version 별로 물리적인 파일이 생성 된 경우 테스트를 위해 심볼릭 링크를 이용하면 컴파일 환경(Makefile, ...)을 변경 하자 않고도 쉽게 테스트 할 수 있습니다.**
 
  
 
