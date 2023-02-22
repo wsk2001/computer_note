@@ -138,17 +138,15 @@ import ReactDOM from 'react-dom';
 
 \- 이렇게 3가지로 잘 정리되어 있습니다. 
 
- 
-
- 
-
- 
+  
 
 ### **1) (다른 프레임워크) 보다 적은 코드**
 
 
 
-![img](.\images\V4KMkrzrnNz76onNbliFk0_img.png)출처 :&nbsp;https://svelte.dev/
+![img](.\images\V4KMkrzrnNz76onNbliFk0_img.png)
+
+출처 :&nbsp;https://svelte.dev/
 
 
 
@@ -160,7 +158,9 @@ import ReactDOM from 'react-dom';
 
 
 
-![img](.\images\4ZTeQJLSx3XFOPH6UKwzG0_img.png)왼쪽부터 Svelte, React, Vue 순서로 코드 작성
+![img](.\images\4ZTeQJLSx3XFOPH6UKwzG0_img.png)
+
+왼쪽부터 Svelte, React, Vue 순서로 코드 작성
 
 
 
@@ -233,8 +233,8 @@ import ReactDOM from 'react-dom';
 ```
 <script>
 	let count = 0;
-        $: square = count * count;
-        const handleClick = () => count = count + 1;
+    $: square = count * count;
+    const handleClick = () => count = count + 1;
 </script>
 
 <button on:click={handleClick}>
@@ -244,8 +244,6 @@ import ReactDOM from 'react-dom';
 ```
 
 \- 스크립트 안의 코드는 현재 3줄이라는 것은 잘 보면 됩니다. 
-
- 
 
  
 
