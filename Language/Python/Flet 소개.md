@@ -156,7 +156,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\basic-app-structure.png)
+![img](.\Images\basic-app-structure.png)
 
 > NOTE
 >
@@ -208,7 +208,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\controls-text.png)
+![img](.\Images\controls-text.png)
 
 > NOTE
 >
@@ -286,7 +286,7 @@ def main(page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\simple-ToDo.png)
+![img](.\Images\simple-ToDo.png)
 
 >  INFO
 >
@@ -359,7 +359,7 @@ def main(page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\control-refs.png)
+![img](.\Images\control-refs.png)
 
 main() 메서드의 맨 처음에 우리는 버튼의 on_click 핸들러에서 사용할 세 개의 컨트롤을 생성합니다. 두 개의 TextField는 이름과 성을 위한 것이고 Column은 인사말 메시지를 위한 컨테이너입니다. 모든 속성이 설정된 컨트롤을 만들고 main() 메서드의 끝에서 page.add() 호출에서 해당 참조(변수)를 사용합니다.
 
@@ -433,7 +433,7 @@ def main(page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\control-refs-rewritten.png)
+![img](.\Images\control-refs-rewritten.png)
 
 이제 page.add()에서 페이지의 구조와 모든 컨트롤을 명확하게 볼 수 있습니다.
 
@@ -458,7 +458,7 @@ btn = ft.ElevatedButton("Click me!")
 page.add(btn)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\getting-user-input-elevated-button.png)
+![img](.\Images\getting-user-input-elevated-button.png)
 
 웹 페이지의 컨트롤에 의해 생성된 모든 이벤트는 계속해서 스크립트로 다시 전송되므로 버튼 클릭에 어떻게 응답합니까?
 
@@ -497,7 +497,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\getting-user-input-event-handlers.png)
+![img](.\Images\getting-user-input-event-handlers.png)
 
 #### Textbox
 
@@ -525,7 +525,7 @@ def main(page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\getting-user-input-textbox.png)
+![img](.\Images\getting-user-input-textbox.png)
 
 #### Checkbox
 
@@ -551,7 +551,7 @@ def main(page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\getting-user-input-checkbox.png)
+![img](.\Images\getting-user-input-checkbox.png)
 
 #### Dropdown
 
@@ -579,7 +579,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\getting-user-input-dropdown.png)
+![img](.\Images\getting-user-input-dropdown.png)
 
 
 
@@ -620,7 +620,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\keyboard-shortcuts.png)
+![img](.\Images\keyboard-shortcuts.png)
 
 ---
 
@@ -647,7 +647,7 @@ ft.app(target=main, view=ft.WEB_BROWSER)
 프로그램을 실행하고 페이지의 모든 텍스트 줄을 처음 로드하고 렌더링하는 데 몇 초가 걸릴 뿐만 아니라 스크롤도 느리고 느리다는 것을 확인하십시오.
 
 
-![img](D:\GitHub\computer_note\Language\Python\Images\scroll-column.gif)
+![img](.\Images\scroll-column.gif)
 
 항목이 많은 목록을 표시하려면 현재 스크롤 위치에서만 볼 수 있는 요청 시 항목을 렌더링하는 [ListView](https://flet.dev/docs/controls/listview) 및 [GridView](https://flet.dev/docs/controls/gridview) 컨트롤을 사용합니다.
 
@@ -676,7 +676,7 @@ ft.app(target=main, view=ft.WEB_BROWSER)
 이제 스크롤이 부드럽고 빨라 마우스 움직임을 따라갈 수 있습니다.
 
 
-![img](D:\GitHub\computer_note\Language\Python\Images\scroll-listview.gif)
+![img](.\Images\scroll-listview.gif)
 
 
 
@@ -719,7 +719,7 @@ def main(page: ft.Page):
 ft.app(target=main, view=ft.WEB_BROWSER)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\row-wrap-as-grid.png)
+![img](.\Images\row-wrap-as-grid.png)
 
 브라우저 창을 스크롤하고 크기를 조정해 보십시오. 모든 것이 작동하지만 매우 느립니다.
 
@@ -756,7 +756,7 @@ def main(page: ft.Page):
 ft.app(target=main, view=ft.WEB_BROWSER)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\grid-view.png)
+![img](.\Images\grid-view.png)
 
 GridView를 사용하면 스크롤 및 창 크기 조정이 부드럽고 반응이 빠릅니다!
 
@@ -790,7 +790,7 @@ def main(page: ft.Page):
 ft.app(target=main, view=ft.WEB_BROWSER)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\sending-page-updates-in-batches.png)
+![img](.\Images\sending-page-updates-in-batches.png)
 
 
 
@@ -853,7 +853,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\drag-and-drop-number.gif)
+![img](.\Images\drag-and-drop-number.gif)
 
 따라서 on_accept 이벤트가 발생할 때 '소스'(드래그 가능) 및 '대상'(드래그 대상) 컨트롤에 어떤 일이 발생하는지 결정하는 것은 개발자의 책임입니다.
 
@@ -888,7 +888,7 @@ ft.app(target=main)
 ...
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\drag-and-drop-number-2.gif)
+![img](.\Images\drag-and-drop-number-2.gif)
 
 끌기 대상 제어에는 on_will_accept 및 on_leave 이벤트 핸들러가 추가로 있어 대상에 무언가를 '드롭'할 적절한 시점을 시각화하는 데 도움이 됩니다. 들어오는 끌기를 허용할 준비가 되면 대상 컨트롤 주위에 테두리를 그리도록 예제에서 DragTarget을 수정해 보겠습니다.
 
@@ -965,7 +965,7 @@ def main(page: ft.Page):
 ft.app(target=main)
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\drag-and-drop-number-3.gif)
+![img](.\Images\drag-and-drop-number-3.gif)
 
 
 
@@ -983,7 +983,7 @@ ft.app(target=main)
 - AppBar에서 '뒤로' 버튼에 대한 호출을 가로채는 쉬운 방법입니다.
 - 브라우저 기록과 강력한 동기화.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\routing-app-example.gif)
+![img](.\Images\routing-app-example.gif)
 
 위 예제의 [소스 코드](https://github.com/flet-dev/examples/blob/main/python/apps/routing-navigation/building-views-on-route-change.py)를 살펴보십시오.
 
@@ -1063,7 +1063,7 @@ flet.app(target=main, view=flet.WEB_BROWSER)
 
 페이지 경로는 # 기호 다음의 애플리케이션 URL 부분입니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\page-address-route.png)
+![img](.\Images\page-address-route.png)
 
 사용자가 애플리케이션 URL에 설정하지 않은 경우 기본 애플리케이션 경로는 /입니다. 모든 경로는 /로 시작합니다(예: /store, /authors/1/books/2).
 
@@ -1099,7 +1099,7 @@ ft.app(target=main, view=ft.WEB_BROWSER)
 
 이제 URL 해시를 몇 번 업데이트한 다음 뒤로/앞으로 버튼을 사용해 보세요! 경로가 변경될 때마다 페이지에 추가된 새 메시지가 표시되어야 합니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\page-route-change-event.gif)
+![img](.\Images\page-route-change-event.gif)
 
 
 
@@ -1132,7 +1132,7 @@ ft.app(target=main, view=ft.WEB_BROWSER)
 
 Flet의 페이지는 이제 단순한 단일 페이지가 아니라 샌드위치처럼 서로 겹쳐진 View의 컨테이너입니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\page-views.svg)
+![img](.\Images\page-views.svg)
 
 뷰 모음은 네비게이터 기록을 나타냅니다. 페이지에는 뷰 컬렉션에 액세스하기 위한 page.views 속성이 있습니다.
 
@@ -1246,7 +1246,7 @@ Flet 서버에 대한 URL 전략은 경로 또는 해시(기본값)로 설정할
 
 웹, macOS, Window, Linux, iOS 및 Android와 같은 모든 플랫폼에서 작동합니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\file-picker-all-modes-demo.png)
+![img](.\Images\file-picker-all-modes-demo.png)
 
 위 [데모의 소스 코드](https://github.com/flet-dev/examples/blob/main/python/controls/file-picker/file-picker-all-modes.py)를 확인하십시오.
 
@@ -1474,7 +1474,7 @@ on_upload 이벤트의 이벤트 개체는 다음 필드가 있는 FilePickerUpl
 
 여러 파일 업로드를 보여주는 [예제](https://github.com/flet-dev/examples/blob/main/python/controls/file-picker/file-picker-upload-progress.py)를 확인하십시오.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\file-picker-multiple-uploads.png)
+![img](.\Images\file-picker-multiple-uploads.png)
 
 모든 속성과 예제는 [파일 선택기](https://flet.dev/docs/controls/filepicker) 컨트롤 문서를 참조하세요.
 
@@ -1515,7 +1515,7 @@ animate_* 속성은 다음 값 중 하나를 가질 수 있습니다.
 
 컨트롤의 animate_opacity를 True, 숫자 또는 animation.Animation 클래스의 인스턴스(위 참조)로 설정하면 Control.opacity 속성의 암시적 애니메이션이 활성화됩니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-opacity.gif)
+![img](.\Images\animate-opacity.gif)
 
 ``` py
 import flet as ft
@@ -1551,7 +1551,7 @@ ft.app(target=main)
 
 컨트롤의 animate_rotation을 True, 숫자 또는 animation.Animation 클래스의 인스턴스(위 참조)로 설정하면 Control.rotate 속성의 암시적 애니메이션이 활성화됩니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-rotation.gif)
+![img](.\Images\animate-rotation.gif)
 
 ``` py
 from math import pi
@@ -1589,7 +1589,7 @@ ft.app(target=main)
 
 컨트롤의 animate_scale을 True, 숫자 또는 animation.Animation 클래스의 인스턴스(위 참조)로 설정하면 Control.scale 속성의 암시적 애니메이션이 활성화됩니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-scale.gif)
+![img](.\Images\animate-scale.gif)
 
 ``` py
 import flet as ft
@@ -1630,7 +1630,7 @@ offset 속성은 컨트롤 크기에 맞게 조정된 컨트롤의 가로 x 및 
 
 오프셋 애니메이션은 다양한 슬라이딩 효과에 사용됩니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-offset.gif)
+![img](.\Images\animate-offset.gif)
 
 ``` py
 import flet as ft
@@ -1666,7 +1666,7 @@ ft.app(target=main)
 
 컨트롤 위치는 스택 컨트롤 내에서만 작동합니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-position.gif)
+![img](.\Images\animate-position.gif)
 
 ``` py
 import flet as ft
@@ -1706,7 +1706,7 @@ ft.app(target=main)
 
 Container.animate를 True, 숫자 또는 animation.Animation 클래스의 인스턴스(위 참조)로 설정하면 크기, 배경색, 테두리 스타일, 그라데이션과 같은 컨테이너 속성의 암시적 애니메이션이 활성화됩니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animate-container.gif)
+![img](.\Images\animate-container.gif)
 
 ``` py
 import flet as ft
@@ -1737,7 +1737,7 @@ ft.app(target=main)
 
 AnimatedSwitcher는 새 컨트롤과 이전에 AnimatedSwitcher에 콘텐츠로 설정된 컨트롤 간의 애니메이션 전환을 허용합니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\animated-switcher-images.gif)
+![img](.\Images\animated-switcher-images.gif)
 
 ``` py
 import time
@@ -1866,11 +1866,11 @@ Flet 인증을 GitHub와 통합하려면 먼저 새 GitHub OAuth 앱을 등록�
 {application-url}/api/oauth/redirect
 ```
 
-![img](D:\GitHub\computer_note\Language\Python\Images\github-new-oauth-app.png)
+![img](.\Images\github-new-oauth-app.png)
 
 OAuth 앱 세부 정보 페이지에서 '새 클라이언트 암호 생성' 버튼을 클릭합니다. '클라이언트 ID' 및 '클라이언트 암호' 값을 안전한 위치에 복사합니다. Flet 앱에 필요합니다.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\github-oauth-app-details.png)
+![img](.\Images\github-oauth-app-details.png)
 
 
 
@@ -1920,7 +1920,7 @@ $ export GITHUB_CLIENT_SECRET="<client_secret>"
 - **Web** app - 새 팝업 창(팝업 차단기가 꺼져 있는지 확인).
 - **Mobile** app - 인앱 웹 브라우저.
 
-![img](D:\GitHub\computer_note\Language\Python\Images\github-oauth-authorize.png)
+![img](.\Images\github-oauth-authorize.png)
 
 
 
