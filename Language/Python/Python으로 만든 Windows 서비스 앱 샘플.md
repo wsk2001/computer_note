@@ -99,3 +99,74 @@ Python으로 만든 Windows 서비스 애플리케이션을 작성하고 실행�
 
 참고: 서비스를 설치하고 관리하려면 터미널을 관리자로 실행해야 할 수 있습니다.
 
+
+
+---
+
+# python 으로 windows service 프로그램 만들기
+
+
+
+Windows 서비스를 만들기 위해서는 `win32serviceutil` 모듈과 `pywin32` 패키지가 필요합니다. `pywin32` 패키지는 `pip` 명령어로 설치할 수 있습니다.
+
+``` cmd
+pip install pywin32
+```
+
+아래 예제는 "HelloWorldService" 라는 이름의 간단한 Windows 서비스를 만드는 예제입니다. 이 서비스는 매 초마다 현재 시간을 로그로 남기는 간단한 기능을 수행합니다.
+
+``` py
+import logging
+import os
+import time
+
+import win32service
+import win32serviceutil
+import win32event
+
+class HelloWorldService(win32serviceutil.ServiceFramework):
+    _svc_name_ = "HelloWorldService"
+    _svc_display_name_ = "Hello World Service"
+    _svc_description_ = "This service logs the current time every second."
+
+    def __init__(self, args):
+        win32serviceutil.ServiceFramework.__init__(self, args)
+        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
+
+    def SvcStop(self):
+        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+        win32event.SetEvent(self.hWaitStop)
+
+    def SvcDoRun(self):
+        logging.info("Hello World Service started.")
+        while True:
+            logging.info(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            time.sleep(1)
+
+if __name__ == '__main__':
+    logging.basicConfig(
+        filename=os.path.join(os.getcwd(), 'helloworld.log'),
+        format='%(asctime)s %(message)s',
+        level=logging.INFO
+    )
+    win32serviceutil.HandleCommandLine(HelloWorldService)
+
+```
+
+위 코드를 실행하면 `HelloWorldService` 라는 이름의 Windows 서비스가 등록됩니다. 이제 아래 명령어를 실행하여 서비스를 시작하거나 중지할 수 있습니다.
+
+``` cmd
+# 서비스 등록
+python <파일이름>.py install
+# 서비스 시작
+python <파일이름>.py start
+# 서비스 중지
+python <파일이름>.py stop
+# 서비스 삭제
+python <파일이름>.py remove
+```
+
+
+
+서비스가 실행되면 `helloworld.log` 파일에 로그가 기록됩니다. `logging` 모듈을 사용하여 로그를 작성하고, `time` 모듈을 사용하여 현재 시간을 기록합니다. `win32serviceutil.ServiceFramework` 클래스를 상속받아서 `HelloWorldService` 클래스를 정의하였고, `SvcDoRun` 메서드에서 실제로 서비스가 실행되는 코드를 작성하였습니다. `SvcStop` 메서드에서는 서비스가 중지될 때 실행될 코드를 작성합니다.
+
