@@ -1100,22 +1100,22 @@ Group root = new Group(line);
 
 **moveTo, LineTo, HlineTo, VlineTo, ArcTo, QuadCurveTo, CubicCurveTo와 같은 다양한 경로 요소를** 포함하는 관찰 가능한 목록에 연결됩니다 .
 
-On instantiating, this class constructs a path based on the given path elements.
+인스턴스화할 때 이 클래스는 지정된 경로 요소를 기반으로 경로를 구성합니다.
 
-You can pass the path elements to this class while instantiating it as follows−
+다음과 같이 인스턴스화하는 동안 이 클래스에 경로 요소를 전달할 수 있습니다.
 
 ```java
 Path myshape = new Path(pathElement1, pathElement2, pathElement3);
 ```
 
-Or, you can get the observable list and add all the path elements using **addAll()** method as follows −
+또는 다음과 같이 addAll() 메서드를 사용하여 관찰 가능한 목록을 얻고 모든 경로 요소를 추가할 수 있습니다.
 
 ```java
 Path myshape = new Path(); 
 myshape.getElements().addAll(pathElement1, pathElement2, pathElement3); 
 ```
 
-You can also add elements individually using the add() method as −
+다음과 같이 add() 메서드를 사용하여 요소를 개별적으로 추가할 수도 있습니다.
 
 ```java
 Path myshape = new Path(); 
@@ -1124,9 +1124,9 @@ myshape.getElements().add(pathElement1);
 
 ### The Move to Path Element
 
-The Path Element **MoveTo** is used to move the current position of the path to a specified point. It is generally used to set the starting point of a shape drawn using the path elements.
+경로 요소 MoveTo는 경로의 현재 위치를 지정된 지점으로 이동하는 데 사용됩니다. 일반적으로 경로 요소를 사용하여 그리는 도형의 시작점을 설정하는 데 사용됩니다.
 
-It is represented by a class named **LineTo** of the package **javafx.scene.shape**. It has 2 properties of the double datatype namely −
+이는 javafx.scene.shape 패키지의 LineTo라는 클래스로 표현됩니다. 이중 데이터 유형의 두 가지 속성, 즉 −
 
 - **X** - 현재 위치에서 선을 그릴 점의 x 좌표.
 - **Y** - 현재 위치에서 선을 그릴 점의 y 좌표.
@@ -1253,21 +1253,21 @@ java ComplexShape
 
 ![2D 개체에 대한 작업](.\images\operations_on_2d_objects.jpg)
 
-In addition to the transformations (rotate, scale, translate, etc.), transitions (animations), you can also perform three operations on 2D objects namely – **Union, Subtraction** and **Intersection**.
+변환(회전, 크기 조정, 변환 등), 전환(애니메이션) 외에도 2D 개체에 합집합, 빼기 및 교차라는 세 가지 작업을 수행할 수 있습니다.
 
 | S.No |                   Operation & Description                    |
 | :--: | :----------------------------------------------------------: |
-|  1   | [Union Operation](https://www.tutorialspoint.com/javafx/2dshapes_union_operation.htm)This operation takes two or more shapes as inputs and returns the area occupied by them. |
-|  2   | [Intersection Operation](https://www.tutorialspoint.com/javafx/2dshapes_intersection_operation.htm)This operation takes two or more shapes as inputs and returns the intersection area between them. |
-|  3   | [Subtraction Operation](https://www.tutorialspoint.com/javafx/2dshapes_subtraction_operation.htm)This operation takes two or more shapes as an input. Then, it returns the area of the first shape excluding the area overlapped by the second one. |
+|  1   | Union Operation: 이 작업은 두 개 이상의 모양을 입력으로 사용하고 해당 모양이 차지하는 영역을 반환합니다. |
+|  2   | Intersection Operation: 이 작업은 두 개 이상의 모양을 입력으로 사용하고 이들 사이의 교차 영역을 반환합니다. |
+|  3   | [Subtraction Operation](https://www.tutorialspoint.com/javafx/2dshapes_subtraction_operation.htm)이 작업은 두 개 이상의 모양을 입력으로 사용합니다. 그런 다음 두 번째 도형과 겹치는 영역을 제외한 첫 번째 도형의 영역을 반환합니다. |
 
 # JavaFX - Text
 
-Just like various shapes, you can also create a text node in JavaFX. The text node is represented by the class named **Text**, which belongs to the package **javafx.scene.text**.
+다양한 모양과 마찬가지로 JavaFX에서도 텍스트 노드를 만들 수 있습니다. 텍스트 노드는 javafx.scene.text 패키지에 속하는 Text라는 클래스로 표시됩니다.
 
-This class contains several properties to create text in JavaFX and modify its appearance. This class also inherits the Shape class which belongs to the package **javafx.scene.shape**.
+이 클래스에는 JavaFX에서 텍스트를 만들고 모양을 수정하는 여러 속성이 포함되어 있습니다. 이 클래스는 javafx.scene.shape 패키지에 속하는 Shape 클래스도 상속합니다.
 
-Therefore, in addition to the properties of the text like font, alignment, line spacing, text, etc. It also inherits the basic shape node properties such as **strokeFill, stroke, strokeWidth, strokeType,** etc.
+따라서 글꼴, 정렬, 줄 간격, 텍스트 등과 같은 텍스트의 속성 외에도 strokeFill, stroke, strokeWidth, strokeType 등과 같은 기본 도형 노드 속성도 상속합니다.
 
 ## Creating a Text Node
 
@@ -1551,7 +1551,7 @@ text2.setUnderline(true);
 
 ### Example
 
-The following program is an example demonstrating how to apply decorations such as **underline** or **strike through** to a text. Save this code in a file with the name **DecorationsExample.java**.
+다음 프로그램은 텍스트에 밑줄이나 취소선과 같은 장식을 적용하는 방법을 보여주는 예제입니다. 이 코드를 DecorationsExample.java라는 이름으로 파일에 저장합니다.
 
 ```java
 import javafx.application.Application; 
@@ -1613,39 +1613,39 @@ public class DecorationsExample extends Application {
 }
 ```
 
-Compile and execute the saved Java file from the command prompt using the following commands.
+다음 명령을 사용하여 명령 프롬프트에서 저장된 Java 파일을 컴파일하고 실행합니다.
 
 ```bash
 javac DecorationsExample.java 
 java DecorationsExample
 ```
 
-On executing, the above program generates a JavaFX window as shown below −
+실행 시 위 프로그램은 아래와 같이 JavaFX 창을 생성합니다. −
 
 ![장식 예](.\images\decorations_example.jpg)
 
 # JavaFX - Effects
 
-An effect is any action that enhances the appearance of the graphics. In JavaFX, an effect is an algorithm that is applied on nodes to enhance their appearance visually. The effect property of the **Node** class is used to specify the effect.
+효과는 그래픽의 모양을 향상시키는 작업입니다. JavaFX에서 효과는 노드의 모양을 시각적으로 향상시키기 위해 노드에 적용되는 알고리즘입니다. Node 클래스의 효과 속성은 효과를 지정하는 데 사용됩니다.
 
-In JavaFX, you can set various effects to a node such as **bloom, blur** and **glow**. Each of these effects are represented by a class and all these classes are available in a package named **javafx.scene.effect**.
+JavaFX에서는 bloom, blur 및 glow와 같은 다양한 효과를 노드에 설정할 수 있습니다. 이러한 각 효과는 클래스로 표시되며 이러한 모든 클래스는 javafx.scene.effect라는 패키지에서 사용할 수 있습니다..
 
 ## Applying Effects to a Node
 
-You can apply an effect to a node using the **setEffect()** method. To this method, you need to pass the object of the effect.
+setEffect() 메서드를 사용하여 노드에 효과를 적용할 수 있습니다. 이 메서드에는 효과의 개체를 전달해야 합니다.
 
-To apply an effect to a node, you need to −
+노드에 효과를 적용하려면 다음을 수행해야 합니다. −
 
-- Create the node.
-- Instantiate the respective class of the effect that is needed to be applied.
-- Set the properties of the effect.
-- Apply the effect to the node using the **setEffect()** method.
+- 노드를 만듭니다.
+- 적용해야 하는 효과의 각 클래스를 인스턴스화합니다.
+- 효과의 속성을 설정합니다.
+- setEffect() 메서드를 사용하여 노드에 효과를 적용합니다.
 
 ### Creating the Nodes
 
-First of all, create the nodes in a JavaFX application by instantiating their respective classes.
+먼저 각각의 클래스를 인스턴스화하여 JavaFX 애플리케이션에서 노드를 생성합니다.
 
-For example, if you want to apply glow effect to an image in your application. Firstly, you need to create an image node by instantiating the Image class and set its view as shown below.
+예를 들어 애플리케이션의 이미지에 글로우 효과를 적용하려는 경우입니다. 먼저 Image 클래스를 인스턴스화하여 이미지 노드를 만들고 아래와 같이 뷰를 설정해야 합니다.
 
 ```java
 //Creating an image 
@@ -1666,11 +1666,11 @@ imageView.setFitWidth(400);
 imageView.setPreserveRatio(true);  
 ```
 
-### Instantiating the Respective Class
+### 해당 클래스 인스턴스화
 
-Instantiate the class representing the effect that is needed to be applied to the created node.
+생성된 노드에 적용해야 하는 효과를 나타내는 클래스를 인스턴스화합니다.
 
-For example − To apply the glow effect, you need to instantiate the **Glow** class as shown in the following code box −
+예 - 글로우 효과를 적용하려면 다음 코드 상자에 표시된 대로 글로우 클래스를 인스턴스화해야 합니다. −
 
 ```java
 Glow glow = new Glow();
