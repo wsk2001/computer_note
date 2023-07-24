@@ -1863,3 +1863,372 @@ dir VC /b /a-d | findstr /v /i ".def$" & dir /b /a-d | findstr /v /i ".def$"
 
 
 ![https://tistory1.daumcdn.net/tistory/4631271/skin/images/blank.png](.\images\fKIMgfokHGub1mDaAQVcq1-img.png)
+
+
+
+---
+
+## 7. Visual Studio 2019 를 이용한 예제.
+
+출처: https://stackoverflow.com/questions/70755464/tls-1-2-implementation-in-c-windows-application-using-openssl
+
+`Client`
+
+``` cpp
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#include <errno.h>
+#include <string.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <WS2tcpip.h>
+#include <string>
+#include <iostream>
+
+#pragma comment (lib, "ws2_32.lib")
+
+#define FAIL    -1
+
+//Added the LoadCertificates how in the server-side makes.    
+void LoadCertificates(SSL_CTX* ctx, char* CertFile, char* KeyFile)
+{
+    /* set the local certificate from CertFile */
+    if (SSL_CTX_use_certificate_file(ctx, CertFile, SSL_FILETYPE_PEM) <= 0)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    /* set the private key from KeyFile (may be the same as CertFile) */
+    if (SSL_CTX_use_PrivateKey_file(ctx, KeyFile, SSL_FILETYPE_PEM) <= 0)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    /* verify private key */
+    if (!SSL_CTX_check_private_key(ctx))
+    {
+        fprintf(stderr, "Private key does not match the public certificate\n");
+        abort();
+    }
+}
+
+int OpenConnection(const char* hostname, int port)
+{
+    int sd;
+    struct hostent* host;
+    struct sockaddr_in addr;
+    WSAData data;
+    WORD ver = MAKEWORD(2, 2);
+    int wsResult = WSAStartup(ver, &data);
+    if (wsResult != 0)
+    {
+        printf("winsock error");
+        return 0;
+    }
+
+    if ((host = gethostbyname(hostname)) == NULL)
+    {
+        perror(hostname);
+        abort();
+    }
+    sd = socket(PF_INET, SOCK_STREAM, 0);
+    ZeroMemory(&addr, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = *(long*)(host->h_addr);
+    if (connect(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0)
+    {
+        closesocket(sd);
+        perror(hostname);
+        abort();
+    }
+    return sd;
+}
+
+SSL_CTX* InitCTX(void)
+{
+    const SSL_METHOD* method = TLS_client_method(); /* Create new client-method instance */
+    SSL_CTX* ctx;
+
+    OpenSSL_add_all_algorithms();  /* Load cryptos, et.al. */
+    SSL_load_error_strings();   /* Bring in and register error messages */
+   // method = SSLv3_client_method();  /* Create new client-method instance */
+    ctx = SSL_CTX_new(method);   /* Create new context */
+    if (ctx == NULL)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    return ctx;
+}
+
+void ShowCerts(SSL* ssl)
+{
+    X509* cert;
+    char* line;
+
+    cert = SSL_get_peer_certificate(ssl); /* get the server's certificate */
+    if (cert != NULL)
+    {
+        printf("Server certificates:\n");
+        line = X509_NAME_oneline(X509_get_subject_name(cert), 0, 0);
+        printf("Subject: %s\n", line);
+        free(line);       /* free the malloc'ed string */
+        line = X509_NAME_oneline(X509_get_issuer_name(cert), 0, 0);
+        printf("Issuer: %s\n", line);
+        free(line);       /* free the malloc'ed string */
+        X509_free(cert);     /* free the malloc'ed certificate copy */
+    }
+    else
+        printf("No certificates.\n");
+}
+
+int main()
+{
+    SSL_CTX* ctx;
+    int server;
+    SSL* ssl;
+    char buf[1024];
+    int bytes;
+    char hostname[] = "127.0.0.1";
+    char portnum[] = "54000";
+    char CertFile[] = "C:/Users/cert/Documents/testing/ec_crt.pem";
+    char KeyFile[] = "C:/Users/cert/Documents/testing/private-key.pem";
+
+    SSL_library_init();
+
+    ctx = InitCTX();
+    LoadCertificates(ctx, CertFile, KeyFile);
+    
+    printf("clinet certificate loaded");
+    server = OpenConnection(hostname, atoi(portnum));
+    ssl = SSL_new(ctx);      /* create new SSL connection state */
+    SSL_set_fd(ssl, server);    /* attach the socket descriptor */
+    if (SSL_connect(ssl) == FAIL)   /* perform the connection */ {
+        printf("Connection failed");
+        ERR_print_errors_fp(stderr);
+    }
+    else
+    {
+        const char* msg = "Hello???";
+
+        printf("Connected with %s encryption\n", SSL_get_cipher(ssl));
+        ShowCerts(ssl);        /* get any certs */
+        SSL_write(ssl, msg, strlen(msg));   /* encrypt & send message */
+        bytes = SSL_read(ssl, buf, sizeof(buf)); /* get reply & decrypt */
+        buf[bytes] = 0;
+        printf("Received: \"%s\"\n", buf);
+        SSL_free(ssl);        /* release connection state */
+    }
+    closesocket(server);         /* close socket */
+    SSL_CTX_free(ctx);        /* release context */
+    return 0;
+}
+```
+
+
+
+
+
+`Server`
+
+``` cpp
+#include <errno.h>
+
+#include <malloc.h>
+#include <string.h>
+
+#include <sys/types.h>
+
+
+#include "openssl/ssl.h"
+#include "openssl/err.h"
+#include <WS2tcpip.h>
+#include <string>
+
+#pragma comment (lib, "ws2_32.lib")
+
+
+#define FAIL    -1
+
+int OpenListener(int port)
+{
+    int sd;
+    struct sockaddr_in addr;
+    WSAData data;
+    WORD ver = MAKEWORD(2, 2);
+    int wsResult = WSAStartup(ver, &data);
+    if (wsResult != 0)
+    {
+        printf("winsock error");
+        return 0;
+    }
+
+    sd = socket(PF_INET, SOCK_STREAM, 0);
+    ZeroMemory(&addr, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
+    if (bind(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0)
+    {
+        perror("can't bind port");
+        abort();
+    }
+    if (listen(sd, 10) != 0)
+    {
+        perror("Can't configure listening port");
+        abort();
+    }
+    listen(sd, SOMAXCONN);
+    return sd;
+}
+
+SSL_CTX* InitServerCTX(void)
+{
+    const SSL_METHOD* method = TLS_client_method(); /* Create new client-method instance */
+    SSL_CTX* ctx;
+
+    OpenSSL_add_all_algorithms();  /* load & register all cryptos, etc. */
+    SSL_load_error_strings();   /* load all error messages */
+    
+    ctx = SSL_CTX_new(method);   /* create new context from method */
+    if (ctx == NULL)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    return ctx;
+}
+
+void LoadCertificates(SSL_CTX* ctx, char* CertFile, char* KeyFile)
+{
+    //New lines 
+    if (SSL_CTX_load_verify_locations(ctx, CertFile, KeyFile) != 1)
+        ERR_print_errors_fp(stderr);
+
+    if (SSL_CTX_set_default_verify_paths(ctx) != 1)
+        ERR_print_errors_fp(stderr);
+    //End new lines
+
+    /* set the local certificate from CertFile */
+    if (SSL_CTX_use_certificate_file(ctx, CertFile, SSL_FILETYPE_PEM) <= 0)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    /* set the private key from KeyFile (may be the same as CertFile) */
+    if (SSL_CTX_use_PrivateKey_file(ctx, KeyFile, SSL_FILETYPE_PEM) <= 0)
+    {
+        ERR_print_errors_fp(stderr);
+        abort();
+    }
+    /* verify private key */
+    if (!SSL_CTX_check_private_key(ctx))
+    {
+        fprintf(stderr, "Private key does not match the public certificate\n");
+        abort();
+    }
+
+    //New lines - Force the client-side have a certificate
+    SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+    SSL_CTX_set_verify_depth(ctx, 4);
+    //End new lines
+}
+
+void ShowCerts(SSL* ssl)
+{
+    X509* cert;
+    char* line;
+
+    cert = SSL_get_peer_certificate(ssl); /* Get certificates (if available) */
+    if (cert != NULL)
+    {
+        printf("Server certificates:\n");
+        line = X509_NAME_oneline(X509_get_subject_name(cert), 0, 0);
+        printf("Subject: %s\n", line);
+        free(line);
+        line = X509_NAME_oneline(X509_get_issuer_name(cert), 0, 0);
+        printf("Issuer: %s\n", line);
+        free(line);
+        X509_free(cert);
+    }
+    else
+        printf("No certificates.\n");
+}
+
+void Servlet(SSL* ssl) /* Serve the connection -- threadable */
+{
+    char buf[1024];
+    char reply[1024];
+    int sd, bytes;
+    const char* HTMLecho = "<html><body><pre>%s</pre></body></html>\n\n";
+
+    if (SSL_accept(ssl) == FAIL)     /* do SSL-protocol accept */
+        ERR_print_errors_fp(stderr);
+    else
+    {
+        ShowCerts(ssl);        /* get any certificates */
+        bytes = SSL_read(ssl, buf, sizeof(buf)); /* get request */
+        if (bytes > 0)
+        {
+            buf[bytes] = 0;
+            printf("Client msg: \"%s\"\n", buf);
+           // sprintf(reply, HTMLecho, buf);   /* construct reply */
+            SSL_write(ssl, reply, strlen(reply)); /* send reply */
+        }
+        else
+            ERR_print_errors_fp(stderr);
+    }
+    sd = SSL_get_fd(ssl);       /* get socket connection */
+    SSL_free(ssl);         /* release SSL state */
+    closesocket(sd);          /* close connection */
+}
+
+int main()
+{
+    SSL_CTX* ctx;
+    int server;
+    char portnum[] = "54000";
+
+    char CertFile[] = "C:/Users/cert/Documents/testing/ec_crt.pem";
+    char KeyFile[] = "C:/Users/cert/Documents/testing/private-key.pem";
+
+    SSL_library_init();
+
+    ctx = InitServerCTX();        /* initialize SSL */
+    LoadCertificates(ctx, CertFile, KeyFile); /* load certs */
+    printf("Certificate loaded");
+    server = OpenListener(atoi(portnum));    /* create server socket */
+    while (1)
+    {
+        struct sockaddr_in addr;
+        socklen_t len = sizeof(addr);
+        SSL* ssl;
+
+        int client = accept(server, (struct sockaddr*)&addr, &len);  /* accept connection as usual */
+        //printf("Connection: %s:%d\n", inet_ntop(addr.sin_addr), ntohs(addr.sin_port));
+        printf("Connected");
+        ssl = SSL_new(ctx);              /* get new SSL state with context */
+        SSL_set_fd(ssl, client);      /* set connection socket to SSL state */
+        Servlet(ssl);         /* service connection */
+    }
+    closesocket(server);          /* close server socket */
+    SSL_CTX_free(ctx);         /* release context */
+}
+```
+
+'TLS 1.2 implementation in C++ Windows Application using OpenSSL'
+
+Winsocket을 사용하여 클라이언트와 서버를 만들고 Visual Studio 2019에서 OpenSSL을 사용하여 TLS 통신을 활성화하려고 합니다. 문제는 서버에 연결되고 서버가 클라이언트에 연결된 메시지를 인쇄하고 연결된 클라이언트 코드도 표시하지만 SSL_Connect 메서드에서는 실패하고 클라이언트 코드에 오류가 표시되지 않는다는 것입니다! 나는 또한 일반 TCP 소켓 서버를 만들고 연결 후 실패하는 것보다 이것에 연결하려고 시도합니다.
+
+
+
+<span style="color: red">**다음을 사용해야 할 수도 있습니다. **</span>
+
+``` cpp
+const SSL_METHOD* method = TLS_server_method();
+```
+
+<span style="color: red">**InitServerCtx() 에서 ?**</span>
+
+
+
