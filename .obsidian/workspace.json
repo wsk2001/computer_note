@@ -1,0 +1,154 @@
+{
+  "main": {
+    "id": "52a9588368460ba3",
+    "type": "split",
+    "children": [
+      {
+        "id": "a392138461b4d151",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "63bbd59006825cf9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Language/C/Visual Studio 자주쓰는 단축키.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "077837dd4f8e8ab4",
+    "type": "split",
+    "children": [
+      {
+        "id": "f9feb45334c2a6b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7e9360ffadd19b22",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7f6dc4107d605715",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b33519362190bd3b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c815d9bea9c0e580",
+    "type": "split",
+    "children": [
+      {
+        "id": "88aec59202a1c455",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e2feb52927db02a1",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Language/C/Visual Studio 자주쓰는 단축키.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "570ec86498b92103",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Language/C/Visual Studio 자주쓰는 단축키.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6efb1969a3f17bda",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "11e21da49c4bcd8e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Language/C/Visual Studio 자주쓰는 단축키.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:퀵 스위처 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 데일리 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false
+    }
+  },
+  "active": "63bbd59006825cf9",
+  "lastOpenFiles": [
+    "Etc/'보시 어워드 2021' 올해 최고의 오픈소스 소프트웨어 29선.md",
+    "Etc/소프트웨어 엔지니어가 새 팀에 합류할 때 물어봐야 할 20가지 질문.md"
+  ]
+}
