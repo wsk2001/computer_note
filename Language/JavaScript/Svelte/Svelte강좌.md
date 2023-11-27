@@ -230,7 +230,7 @@ import ReactDOM from 'react-dom';
 
 #### **## 클릭할 때마다 숫자가 증가하는 이벤트 제작, 자동으로 제곱 값을 구해주는 코드**
 
-```
+```svelte
 <script>
 	let count = 0;
     $: square = count * count;
