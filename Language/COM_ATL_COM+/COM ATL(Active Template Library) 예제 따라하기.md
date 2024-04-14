@@ -18,7 +18,7 @@ ATL의 첫번째 장점은 작고 빠르고 확정성을 갖는 COM 컴포넌트
 
 -----Server 만들기
 
-Microsoft Visual Studio 2008에서 실습 되었다. 컴퓨터에 모든 권한은 관리자 권환으로 되어 있어야 한다.![img](./images/115B3E454F9F90030A.png)
+Microsoft Visual Studio 2008에서 실습 되었다. **컴퓨터에 모든 권한은 관리자 권환**으로 되어 있어야 한다.![img](./images/115B3E454F9F90030A.png)
 
 새 프로젝트를 만들어 ATL 프로젝트를 생성한다. 아래와 같은 솔루션이 생성 된다면 정상적으로 프로젝트가 생성되었다.
 
@@ -114,7 +114,7 @@ int _tmain(int argc, _TCHAR* argv[])
  wscanf(L"%s", buffer);
  name = (wchar_t *)buffer;
 
- 
+
  //pIHello->sayHello(name, &message);
  pIHello->sayHello((unsigned short *)name, (unsigned short **)&message);
 
